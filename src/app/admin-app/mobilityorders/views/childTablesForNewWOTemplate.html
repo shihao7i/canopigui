@@ -18,33 +18,26 @@
                             <span class="sub-panel-header">New Task List</span>
                             <form class="form-inline" style="display: inline; padding-left: 5px;">
                                 <div class="form-group pull-right" style="margin-top: 3px; padding-right: 10px; margin-right: 85px;">
-                                    <div class="btn-group btn-group-sm">                                        
-                                        <button class="btn btn-success"
-                                            ng-click="mobilityorders.newTasklist.export()"><i class="fa fa-fw fa-file-excel-o"></i> Export
+                                        <button class="btn btn-success btn-sm btn-wide"
+                                            ng-click="newwotemplate.newTasklist.export()"><i class="fa fa-fw fa-file-excel-o"></i> Export
                                         </button>
-                                    </div>
-                                    <div class="btn-group btn-group-sm">
-                                        <button class='btn btn-orange '
-                                            ng-disabled="true" 
-                                            ng-click="mobilityorders.newTasklist.saveTasks()">
+                                        <button class='btn btn-orange btn-sm btn-wide'
+                                            ng-disabled="newwotemplate.gridApiNewTaskList.rowEdit.getDirtyRows().length < 1" 
+                                            ng-click="newwotemplate.newTasklist.saveTasks()">
                                             <i class="fa fa-floppy-o"></i> Save
                                         </button>
-                                        <button class="btn app-btn-dark"
-                                            ng-disabled="true"
-                                            ng-click="mobilityorders.newTasklist.cancel()">
+                                        <button class="btn btn-gray btn-sm btn-wide"
+                                            ng-disabled="newwotemplate.gridApiNewTaskList.rowEdit.getDirtyRows().length < 1" 
+                                            ng-click="newwotemplate.newTasklist.undo()">
                                             <i class="fa fa-undo"></i> Undo
                                         </button>
-                                    </div>
                                     <div class="btn-group btn-group-sm" dropdown>
-                                        <button type="button" ng-disabled="mobilityorders.isEditing" class="btn btn-primary dropdown-toggle" dropdown-toggle>
+                                        <button type="button" ng-disabled="newwotemplate.isEditing" class="btn btn-blue btn-wide dropdown-toggle" dropdown-toggle>
                                             <i class="fa fa-gears"></i> Actions <span class="caret"></span>
                                         </button>                                        
                                         <ul class="dropdown-menu" role="menu">
-                                            <li ng-click="mobilityorders.newTasklist.addTask()" data-toggle="modal" data-target="#addTaskModal"><a href="javascript:void(0)"><i class="fa fa-fw fa-plus-circle"></i> Add Task To Template</a></li>
-                                            <li ng-class="{disabled: !mobilityorders.selectedRowNewTaskList}" ng-click="mobilityorders.newTasklist.removeTask()"><a href="javascript:void(0)"><i class="fa fa-fw fa-minus-circle"></i> Remove Task From Template</a></li>
-                                            
-                                            <li ng-click="mobilityorders.newTasklist.recalcTaskSequence()"><a href="javascript:void(0)"><i class="fa fa-fw fa-sliders"></i> Recalculate Sequence</a></li>
-                                            
+                                            <li ng-click="newwotemplate.newTasklist.addTask()" data-toggle="modal" data-target="#addTaskModal"><a href="javascript:void(0)"><i class="fa fa-fw fa-plus-circle"></i> Add Task To Template</a></li>
+                                            <li ng-class="{disabled: !newwotemplate.selectedRowNewTaskList}" ng-click="newwotemplate.newTasklist.removeTask()"><a href="javascript:void(0)"><i class="fa fa-fw fa-minus-circle"></i> Remove Task From Template</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -54,16 +47,22 @@
                     
                     <div class="row">
                         <div class="col-md-11">
-                            <div  ui-grid="mobilityorders.gridOptionsNewTaskListTable" 
-                                  ui-grid-exporter ui-grid-cellNav ui-grid-edit ui-grid-row-edit ui-grid-selection 
-                                  ui-grid-resize-columns ui-grid-auto-resize class="mobilityordersTaskListTable"></div>
+                            <div  ui-grid="newwotemplate.gridOptionsNewTaskListTable" 
+                                  ui-grid-exporter 
+                                  ui-grid-cellNav 
+                                  ui-grid-edit 
+                                  ui-grid-row-edit 
+                                  ui-grid-selection 
+                                  ui-grid-resize-columns 
+                                  ui-grid-auto-resize 
+                                  class="newwotemplateTaskListTable"></div>
                         </div>
                         <div class="col-md-1">
                             <div class="btn-group-vertical" role="group" aria-label="Vertical button group" style="margin-top: 90px; text-align: center;">
                                 <p style="font-size: 14px; font-weight: bold">Modify Sequence</p>
                                 <div>
-                                    <button type="button" class="btn btn-default" ng-click="mobilityorders.newTasklist.moveSelectedUp()" ng-disabled="mobilityorders.firstElement"><i class="fa fa-arrow-up"></i></button>
-                                    <button type="button" class="btn btn-default" ng-click="mobilityorders.newTasklist.moveSelectedDown()" ng-disabled="mobilityorders.lastElement"><i class="fa fa-arrow-down"></i></button>
+                                    <button type="button" class="btn btn-default" ng-click="newwotemplate.newTasklist.moveSelectedUp()" ng-disabled="newwotemplate.firstNewElement"><i class="fa fa-arrow-up"></i></button>
+                                    <button type="button" class="btn btn-default" ng-click="newwotemplate.newTasklist.moveSelectedDown()" ng-disabled="newwotemplate.lastNewElement"><i class="fa fa-arrow-down"></i></button>
                                 </div>                             
                             </div>
                         </div>
@@ -75,30 +74,26 @@
                             <span class="sub-panel-header">Document URLs</span>
                             <form class="form-inline" style="display: inline; padding-left: 5px;">
                                 <div class="form-group pull-right" style="margin-top: 3px;">
-                                    <div class="btn-group btn-group-sm">                                        
-                                        <button class="btn btn-success"
-                                            ng-click="mobilityorders.newLinks.export()"><i class="fa fa-fw fa-file-excel-o"></i> Export
+                                        <button class="btn btn-success btn-sm btn-wide"
+                                            ng-click="newwotemplate.newLinks.export()"><i class="fa fa-fw fa-file-excel-o"></i> Export
                                         </button>
-                                    </div>
-                                    <div class="btn-group btn-group-sm">
-                                        <button class='btn btn-orange '
-                                            ng-disabled="true" 
-                                            ng-click="mobilityorders.newLinks.SaveLink()">
+                                        <button class='btn btn-orange btn-sm btn-wide'
+                                            ng-disabled="newwotemplate.gridApiNewLinks.rowEdit.getDirtyRows().length < 1"
+                                            ng-click="newwotemplate.newLinks.saveLink()">
                                             <i class="fa fa-floppy-o"></i> Save
                                         </button>
-                                        <button class="btn app-btn-dark"
-                                            ng-disabled="true"
-                                            ng-click="mobilityorders.newLinks.cencel()">
+                                        <button class="btn btn-gray btn-sm btn-wide"
+                                            ng-disabled="newwotemplate.gridApiNewLinks.rowEdit.getDirtyRows().length < 1"
+                                            ng-click="newwotemplate.newLinks.undo()">
                                             <i class="fa fa-undo"></i> Undo
                                         </button>
-                                    </div>
                                     <div class="btn-group btn-group-sm" dropdown>
-                                        <button type="button" ng-disabled="mobilityorders.isEditing" class="btn btn-primary dropdown-toggle" dropdown-toggle>
+                                        <button type="button" ng-disabled="newwotemplate.isEditing" class="btn btn-blue btn-wide dropdown-toggle" dropdown-toggle>
                                             <i class="fa fa-gears"></i> Actions <span class="caret"></span>
                                         </button>                                        
                                         <ul class="dropdown-menu" role="menu">
-                                            <li ng-click="mobilityorders.newLinks.addLink()"><a href="javascript:void(0)"><i class="fa fa-fw fa-plus-circle"></i> Add Link</a></li>
-                                            <li ng-click="mobilityorders.newLinks.removeLink()"><a href="javascript:void(0)"><i class="fa fa-fw fa-minus-circle"></i> Remove Link</a></li>
+                                            <li ng-click="newwotemplate.newLinks.addLink()"><a href="javascript:void(0)"><i class="fa fa-fw fa-plus-circle"></i> Add Link</a></li>
+                                            <li ng-click="newwotemplate.newLinks.removeLink()"><a href="javascript:void(0)"><i class="fa fa-fw fa-minus-circle"></i> Remove Link</a></li>
                                         </ul>    
                                     </div>
                                 </div>
@@ -108,8 +103,15 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                            <div  ui-grid="mobilityorders.gridOptionsNewLinksTable" 
-                                  ui-grid-exporter ui-grid-cellNav ui-grid-edit ui-grid-row-edit ui-grid-selection ui-grid-resize-columns ui-grid-auto-resize class="LinksTableUIGrid"></div>
+                            <div  ui-grid="newwotemplate.gridOptionsNewLinksTable" 
+                                  ui-grid-exporter 
+                                  ui-grid-cellNav 
+                                  ui-grid-edit 
+                                  ui-grid-row-edit 
+                                  ui-grid-selection 
+                                  ui-grid-resize-columns 
+                                  ui-grid-auto-resize 
+                                  class="LinksTableUIGrid"></div>
                         </div> 
                     </div>
                     
@@ -118,29 +120,25 @@
                             <span class="sub-panel-header">Dynamic Workorder Attributes</span>
                             <form class="form-inline" style="display: inline; padding-left: 5px;">
                                 <div class="form-group pull-right" style="margin-top: 3px;">
-                                    <div class="btn-group btn-group-sm">                                        
-                                        <button class="btn btn-success"
-                                            ng-click="mobilityorders.newUda.export()"><i class="fa fa-fw fa-file-excel-o"></i> Export
+                                        <button class="btn btn-success btn-sm btn-wide"
+                                            ng-click="newwotemplate.newUda.export()"><i class="fa fa-fw fa-file-excel-o"></i> Export
                                         </button>
-                                    </div>
-                                    <div class="btn-group btn-group-sm">
-                                        <button class='btn btn-orange '
-                                            ng-disabled="true" 
-                                            ng-click="mobilityorders.newUda.SaveUDA()">
+                                        <button class='btn btn-orange btn-sm btn-wide'
+                                            ng-disabled="newwotemplate.gridApiNewUDA.rowEdit.getDirtyRows().length < 1" 
+                                            ng-click="newwotemplate.newUda.saveUDA()">
                                             <i class="fa fa-floppy-o"></i> Save
                                         </button>
-                                        <button class="btn app-btn-dark"
-                                            ng-disabled="true"
-                                            ng-click="mobilityorders.newUda.cencel()">
+                                        <button class="btn btn-gray btn-sm btn-wide"
+                                            ng-disabled="newwotemplate.gridApiNewUDA.rowEdit.getDirtyRows().length < 1" 
+                                            ng-click="newwotemplate.newUda.undo()">
                                             <i class="fa fa-undo"></i> Undo
                                         </button>
-                                    </div>
                                     <div class="btn-group btn-group-sm" dropdown>
-                                        <button type="button" ng-disabled="mobilityorders.isEditing" class="btn btn-primary dropdown-toggle" dropdown-toggle>
+                                        <button type="button" ng-disabled="newwotemplate.isEditing" class="btn btn-blue btn-wide dropdown-toggle" dropdown-toggle>
                                             <i class="fa fa-gears"></i> Actions <span class="caret"></span>
                                         </button>                                        
                                         <ul class="dropdown-menu" role="menu">
-                                            <li ng-click="mobilityorders.newUda.addUDA()"><a href="javascript:void(0)"><i class="fa fa-fw fa-plus-circle"></i> Add UDA To Template</a></li>
+                                            <li ng-click="newwotemplate.newUda.addUDA()"><a href="javascript:void(0)"><i class="fa fa-fw fa-plus-circle"></i> Add UDA To Template</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -150,8 +148,15 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                            <div  ui-grid="mobilityorders.gridOptionsNewUDATable" 
-                                  ui-grid-exporter ui-grid-cellNav ui-grid-edit ui-grid-row-edit ui-grid-selection ui-grid-resize-columns ui-grid-auto-resize class="UDATableUIGrid"></div>
+                            <div  ui-grid="newwotemplate.gridOptionsNewUDATable" 
+                                  ui-grid-exporter 
+                                  ui-grid-cellNav 
+                                  ui-grid-edit 
+                                  ui-grid-row-edit 
+                                  ui-grid-selection 
+                                  ui-grid-resize-columns 
+                                  ui-grid-auto-resize 
+                                  class="UDATableUIGrid"></div>
                         </div> 
                     </div>
                
@@ -163,5 +168,5 @@
 </div>
 
 
-<div ng-include="'app/admin-app/mobilityorders/views/addTaskModal.html'">
+<div ng-include="'app/admin-app/mobilityorders/views/newWOAddTaskModal.html'">
 </div>	

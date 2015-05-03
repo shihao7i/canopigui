@@ -1,125 +1,91 @@
 <div class="row">
-    
+
     <div class="col-md-12 col-lg-12">
-        
+
         <div class="row">
             <div class="panel panel-default">
-              <div class="panel-body">
-                        <ol class="breadcrumb">
-                              <li><a href="javascript:void(0)"><i class="fa fa-home fa-lg"></i>&nbsp;&nbsp;&nbsp;Home</a></li>
-                              <li class="active">Task Search</li>
-                            </ol>
-                      </div>
+                <div class="panel-body">
+                    <ol class="breadcrumb">
+                        <li><a ui-sref="adminmaingui.dashboard"><i class="fa fa-home fa-lg"></i>&nbsp;&nbsp;&nbsp;Home</a></li>
+                        <li class="active">Task Search</li>
+                    </ol>
+                </div>
             </div>
         </div>
-        
+
         <div class="row">
             <accordion class="app-accordion">
                 <accordion-group is-open="tasks.searchAccordionOpen">
                     <accordion-heading>
                         <span class="app-accordion-header">Mobility Tasks</span>
-			<i class="pull-right glyphicon app-accordion-open-icon" ng-class="{'glyphicon-chevron-up': tasks.searchAccordionOpen, 'glyphicon-chevron-down': !tasks.searchAccordionOpen}"></i>
+                        <i class="pull-right glyphicon app-accordion-open-icon" ng-class="{'glyphicon-chevron-up': tasks.searchAccordionOpen, 'glyphicon-chevron-down': !tasks.searchAccordionOpen}"></i>
                     </accordion-heading>
-                    
+
                     <div style="border-bottom: solid; border-width: 1px; margin-bottom: 20px; color: #9C9C9C; margin-left: 15px; margin-right: 15px;"></div>
 
-             
+
                     <div class="row" style="padding-left: 15px; padding-right: 15px;">
 
-                        <!--
                         <div class="col-md-4">
                             <form>
                                 <div class="form-group">
-                                        <div class="canopi-input-title">Task Code:</div>
-                                        <div class="dropdown">
-                                                <select ng-model="tasks.taskCode" ng-options="t.name for t in ::tasks.taskCodeList"
-                                                    class="dropdown-select form-control"
-                                                        title="Please select" data-live-search="false">
-                                                </select>
-                                        </div>
-                                </div>
-
-                            </form>
-                        </div> 
-                        -->
-                        
-                        <div class="col-md-4">
-                            <form>
-                        	<div class="form-group">
                                     <div class="canopi-input-title">Task Code:</div>
                                     <div class="input-group">
                                         <input type="text" class="form-control" ng-model="tasks.taskCode" placeholder="Type and Search">
-                                          <span class="input-group-btn">
-                                            <button ng-click="tasks.taskCodeAndNameLookup()" class="btn btn-default canopi-btn-sharp-corners" type="button" data-toggle="modal" data-target="#taskCodeNameModal"><i class="fa fa-search"></i></button>                                          </span>
+                                        <span class="input-group-btn">
+                                            <button ng-click="tasks.taskCodeAndNameLookup()" class="btn btn-blue canopi-btn-sharp-corners" type="button" data-toggle="modal" data-target="#taskCodeNameModal"><i class="fa fa-search"></i></button>                                          </span>
                                     </div><!-- /input-group -->
                                 </div>
 
                             </form>
                         </div> 
-                        
-                        <!--
-                        <div class="col-md-4">
-                            <form>
-                                 <div class="form-group">
-                                        <div class="canopi-input-title">Task Name:</div>
-                                        <div class="dropdown">
-                                                <select ng-model="tasks.taskName" ng-options="t.name for t in ::tasks.taskNameList"
-                                                    class="dropdown-select form-control"
-                                                        title="Please select" data-live-search="false">
-                                                </select>
-                                        </div>
-                                </div>
 
-                            </form>
-                        </div>
-                        -->
-          
                         <div class="col-md-4">
                             <form>
-                        	<div class="form-group">
+                                <div class="form-group">
                                     <div class="canopi-input-title">Task Name:</div>
                                     <div class="input-group">
                                         <input type="text" class="form-control" ng-model="tasks.taskName" placeholder="Type and Search">
-                                          <span class="input-group-btn">
-                                            <button ng-click="tasks.taskCodeAndNameLookup()" class="btn btn-default canopi-btn-sharp-corners" type="button" data-toggle="modal" data-target="#taskCodeNameModal"><i class="fa fa-search"></i></button>                                          
-                                          </span>                                   
+                                        <span class="input-group-btn">
+                                            <button ng-click="tasks.taskCodeAndNameLookup()" class="btn btn-blue canopi-btn-sharp-corners" type="button" data-toggle="modal" data-target="#taskCodeNameModal"><i class="fa fa-search"></i></button>                                          
+                                        </span>                                   
                                     </div><!-- /input-group -->
                                 </div>
 
                             </form>
                         </div> 
-                        
+
                         <div class="col-md-4">
                             <form>
-                                 <div class="form-group">
-                                        <div class="canopi-input-title">Task Type:</div>
-                                        <div class="dropdown">
-                                                <select ng-model="tasks.taskType" ng-options="t.name for t in ::tasks.taskTypes"
-                                                    class="dropdown-select form-control"
-                                                        title="Please select" data-live-search="false">
-                                                </select>
-                                        </div>
+                                <div class="form-group">
+                                    <div class="canopi-input-title">Task Type:</div>
+                                    <div class="dropdown">
+                                        <select ng-model="tasks.taskType" ng-options="t.name for t in ::tasks.taskTypes"
+                                                class="dropdown-select form-control"
+                                                title="Please select" data-live-search="false">
+                                        </select>
+                                    </div>
                                 </div>
 
                             </form>
                         </div>
-                        
+
                         <div class="row" style="padding-left: 15px; padding-right: 15px; padding-top: 5px;">
                             <div class="col-md-12" style="text-align: right;">
-                                <button href='javascript:void(0);' class='btn canopi-btn-blue' ng-click="tasks.taskSearch()">Search</button>
-                                <button href='javascript:void(0);' class='btn canopi-btn-gray'  ng-click="tasks.clear()">Clear</button>
+                                <button href='javascript:void(0);' class='btn btn-blue btn-wide' ng-click="tasks.taskSearch()">Search</button>
+                                <button href='javascript:void(0);' class='btn btn-gray btn-wide'  ng-click="tasks.clear()">Clear</button>
                             </div>
                         </div>
                     </div>
                 </accordion-group>
             </accordion>
         </div>
-        
+
         <div ng-show="tasks.displayTaskResults" ng-include="'app/admin-app/tasks/views/taskResults.html'">
         </div>
-        
+
     </div>
-    
+
 </div>
 
 

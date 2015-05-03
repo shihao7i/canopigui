@@ -2,21 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/yw508r/Documents/NetBeansProjects/gui-canopi-js/src/components/services/admin-app/adminJsonService.js</file>
-            <file>file:/C:/Users/yw508r/Documents/NetBeansProjects/gui-canopi-js/src/app/admin-app/utility/views/activitySearch.html</file>
-            <file>file:/C:/Users/yw508r/Documents/NetBeansProjects/gui-canopi-js/src/app/admin-app/mobilityorders/controllers/mobilityOrdersController.js</file>
-            <file>file:/C:/Users/yw508r/Documents/NetBeansProjects/gui-canopi-js/src/app/admin-app/mock/tasks/response/tasklist.json</file>
-            <file>file:/C:/Users/yw508r/Documents/NetBeansProjects/gui-canopi-js/src/app/admin-app/mock/tasks/response/tasklist-column-defs.json</file>
-            <file>file:/C:/Users/yw508r/Documents/NetBeansProjects/gui-canopi-js/src/app/admin-app/mock/mobilityorders/response/order-search-response.json</file>
-            <file>file:/C:/Users/yw508r/Documents/NetBeansProjects/gui-canopi-js/src/app/admin-app/mock/tasks/response/task-search-response.json</file>
-            <file>file:/C:/Users/yw508r/Documents/NetBeansProjects/gui-canopi-js/src/app/admin-app/mock/utility/request/activity-search-request.json</file>
-            <file>file:/C:/Users/yw508r/Documents/NetBeansProjects/gui-canopi-js/src/app/admin-app/tasks/controllers/tasksController.js</file>
-            <file>file:/C:/Users/yw508r/Documents/NetBeansProjects/gui-canopi-js/src/app/admin-app/adminapp.js</file>
-            <file>file:/C:/Users/yw508r/Documents/NetBeansProjects/gui-canopi-js/src/app/admin-app/mock/utility/response/activity-search-response.json</file>
-            <file>file:/C:/Users/yw508r/Documents/NetBeansProjects/gui-canopi-js/src/app/admin-app/mock/mobilityorders/response/wo-template-column-defs.json</file>
-            <file>file:/C:/Users/yw508r/Documents/NetBeansProjects/gui-canopi-js/src/app/admin-app/mobilityorders/views/mobilityOrders.html</file>
-            <file>file:/C:/Users/yw508r/Documents/NetBeansProjects/gui-canopi-js/src/app/admin-app/mock/mobilityorders/request/order-search-request.json</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

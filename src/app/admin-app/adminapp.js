@@ -8,6 +8,7 @@ angular.module('admin.app', [
 
 
 
+
 angular.module('admin.app').config(['$stateProvider', '$urlRouterProvider', '$tooltipProvider', function ($stateProvider, $urlRouterProvider, $tooltipProvider) {
     // ui.bootstrap
     $tooltipProvider.options({
@@ -24,8 +25,8 @@ angular.module('admin.app').config(['$stateProvider', '$urlRouterProvider', '$to
             controller: 'AdminMainController',
             controllerAs: 'adminmain',
             resolve: {
-                serverInfo: ['AdminJsonService', function (AdminJsonService) {
-                    return AdminJsonService.getAdminGuiServerInfo();
+                serverInfo: ['CommonUtilJsonService', function (CommonUtilJsonService) {
+                    return CommonUtilJsonService.getServerInfo();
                 }]
             }
         })
@@ -51,6 +52,17 @@ angular.module('admin.app').config(['$stateProvider', '$urlRouterProvider', '$to
                             woTypes: results[1]
                         };
                     });
+                }]
+            }
+        })
+        .state('adminmaingui.newwotemplate', {
+            url: '/newwotemplate',
+            templateUrl: 'app/admin-app/mobilityorders/views/newWOTemplate.html',
+            controller: 'NewWOTemplateController',
+            controllerAs: 'newwotemplate',
+            resolve: {
+                poPicklist: ['AdminJsonService', function (AdminJsonService) {
+                    return AdminJsonService.getPOTypes();
                 }]
             }
         })

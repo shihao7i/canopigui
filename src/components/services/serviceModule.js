@@ -1,4 +1,4 @@
-angular.module('canopi.service', ['canopi.constants', 'admin.defaults'])
+angular.module('canopi.service', ['canopi.constants', 'canopi.defaults'])
             .config(['$httpProvider', function($httpProvider) {
                       $httpProvider.interceptors.push('HttpInterceptorService');
 

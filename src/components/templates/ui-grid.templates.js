@@ -61,8 +61,8 @@ angular.module('canopi.templates')
     '   <form name="inputForm">' +
     '       <select ng-class="\'colt\' + col.uid" ui-grid-edit-dropdown ng-model="MODEL_COL_FIELD" ng-options="field[editDropdownIdLabel] as field[editDropdownValueLabel] CUSTOM_FILTERS for field in editDropdownOptionsArray"></select>' +
     '   </form>' +
-    '</div>'
-)
+    '</div>')
+    
     .value('ui-grid/input',
     '<div>' +
     '   <form name="inputForm">' +
@@ -71,5 +71,13 @@ angular.module('canopi.templates')
     '           <input type="INPUT_TYPE" ng-class="\'colt\' + col.uid" ui-grid-editor class="form-control" placeholder="{{col.displayName}}" ng-model="MODEL_COL_FIELD">' +
     '       </div>' +
     '   </form>' +
-    '</div>'
-);
+    '</div>')
+    
+//    //Tooltip
+//            .value('ui-grid/tooltip',    
+//    "   <div ng-if='COL_FIELD.length > 10' class='ui-grid-cell-contents' tooltip='{{COL_FIELD CUSTOM_FILTERS}}'>{{COL_FIELD CUSTOM_FILTERS}}</div>" +
+//    "   <div ng-if='COL_FIELD.length <= 10' class='ui-grid-cell-contents'>{{COL_FIELD CUSTOM_FILTERS}}</div>")
+//    
+//    //Hyperlink
+//    .value('ui-grid/hyperlink',
+//    '<div class='ui-grid-cell-contents'><a href='http://{{COL_FIELD}}'>{{COL_FIELD}}</a></div>');

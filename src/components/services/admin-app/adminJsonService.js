@@ -15,21 +15,7 @@ angular.module('admin.service').service('AdminJsonService', ['$q', '$http', '$lo
 
     var baseUrl = '';
     
-    // =======================================================
-    // Restful service for Server Info display in About Dialog 
-    // =======================================================
-        
-    this.getAdminGuiServerInfo = function () {
-
-        baseUrl = contextRoot + 'app/admin-app/mock/adminmain/response/';
-        
-        var deferred = $q.defer();
-        $http.get(baseUrl + 'serverinfo.json').success(function (response) {
-            deferred.resolve(response);
-        });
-
-        return deferred.promise; 
-    };
+ 
 	
     // ===============================================
     // Restful services for Lookup & Pick Lists screen  
@@ -88,7 +74,7 @@ angular.module('admin.service').service('AdminJsonService', ['$q', '$http', '$lo
         baseUrl = contextRoot + 'app/admin-app/mock/mobilityorders/response/';
 
         var deferred = $q.defer();
-        $http.get(baseUrl + 'wo-template-column-defs.json').success(function (response) {
+        $http.get(baseUrl + 'wo-template-column-defs-response.json').success(function (response) {
              deferred.resolve(response);
         });
 
@@ -101,7 +87,7 @@ angular.module('admin.service').service('AdminJsonService', ['$q', '$http', '$lo
         baseUrl = contextRoot + 'app/admin-app/mock/mobilityorders/response/';
 
         var deferred = $q.defer();
-        $http.get(baseUrl + 'uda-column-defs.json').success(function (response) {
+        $http.get(baseUrl + 'uda-column-defs-response.json').success(function (response) {
              deferred.resolve(response);
         });
 
@@ -115,7 +101,7 @@ angular.module('admin.service').service('AdminJsonService', ['$q', '$http', '$lo
         baseUrl = contextRoot + 'app/admin-app/mock/mobilityorders/response/';
 
         var deferred = $q.defer();
-        $http.get(baseUrl + 'links-column-defs.json').success(function (response) {
+        $http.get(baseUrl + 'links-column-defs-response.json').success(function (response) {
              deferred.resolve(response);
         });
 
@@ -164,20 +150,6 @@ angular.module('admin.service').service('AdminJsonService', ['$q', '$http', '$lo
 
 
 
-    this.getWOSearchResults = function (woTypeList) {
-
-        baseUrl = contextRoot + 'app/admin-app/mock/mobilityorders/response/';
-        
-        var deferred = $q.defer();
-        $http.get(baseUrl + 'wo-search-response.json').success(function (response) {
-             deferred.resolve(response);
-        });
-
-        return deferred.promise; 
-    };
-
-
-
     this.getWOSearchResults = function (woType) {
 
         baseUrl = contextRoot + 'app/admin-app/mock/mobilityorders/response/';
@@ -191,47 +163,108 @@ angular.module('admin.service').service('AdminJsonService', ['$q', '$http', '$lo
     };
 
 
-
+    //make separate Restful calls to retrieve the data for child tables
+    //and pass the aggregate object back
     this.getWODetails = function (woType) {
 
-        baseUrl = contextRoot + 'app/admin-app/mock/mobilityorders/response/';
-        
         var deferred = $q.defer();
-        $http.get(baseUrl + 'wo-details-response.json').success(function (response) {
-            
-            var woDetails = response.data;
-            
-            var woDetails = 
-                    {
-                        tasklist: {},
-                        uda: {},
-                        links: {}
-                    };
-            
-            for (var i=0; i < response.data.length; i++) {
-                
-                switch (response.data[i].tableName) {
-                    case 'Task List': 
-                        woDetails.tasklist = response.data[i].tableRows;
-                        break;  
-                    case 'UDA': 
-                        woDetails.uda = response.data[i].tableRows;
-                        break;
-                    case 'Links': 
-                        woDetails.links = response.data[i].tableRows;
-                        break; 
-                }
- 
-            }
 
-            deferred.resolve(woDetails);
+        var woDetails = 
+            {
+                tasklist: {},
+                uda: {},
+                links: {}
+            };
+            
+            
+        var tasklist = this.getTaskListForWO(woType);
+        var uda = this.getUDAForWO(woType);
+        var links = this.getLinksForWO(woType);
+   
+        $q.all([tasklist, uda, links]).then(function(results){
+            woDetails.tasklist = results[0].tableRows;
+            woDetails.uda = results[1].tableRows;
+            woDetails.links = results[2].tableRows;
+
+            deferred.resolve(woDetails);    
+        });
+        
+        return deferred.promise; 
+    };
+    
+    
+    //make separate Restful calls to retrieve the column definitions for child tables
+    //and pass the aggregate object back
+    this.getColumnDefinitionsForWOChildTables = function () {
+
+        var deferred = $q.defer();
+
+        var woDetails = 
+            {
+                tasklist: {},
+                uda: {},
+                links: {}
+            };
+            
+            
+        var tasklist = this.getTaskListColumnDefs();
+        var uda = this.getUDAColumnDefs();
+        var links = this.getLinksColumnDefs();
+   
+        $q.all([tasklist, uda, links]).then(function(results){
+            woDetails.tasklist = results[0].tableRows;
+            woDetails.uda = results[1].tableRows;
+            woDetails.links = results[2].tableRows;
+
+            deferred.resolve(woDetails);    
+        });
+        
+        return deferred.promise; 
+    };
+    
+    
+    
+    this.getTaskListForWO = function (woType) {
+        
+        baseUrl = contextRoot + 'app/admin-app/mock/mobilityorders/response/';
+                
+        var deferred = $q.defer();
+        $http.get(baseUrl + 'tasklist-search-response.json').success(function (response) {
+             deferred.resolve(response);
         });
 
         return deferred.promise; 
-    };
-            
-            
-           
+    }
+    
+    
+    
+    this.getUDAForWO = function (woType) {
+        
+        baseUrl = contextRoot + 'app/admin-app/mock/mobilityorders/response/';
+        
+        var deferred = $q.defer();
+        $http.get(baseUrl + 'uda-search-response.json').success(function (response) {
+             deferred.resolve(response);
+        });
+
+        return deferred.promise; 
+    }
+    
+    
+    
+    this.getLinksForWO = function (woType) {
+        
+        baseUrl = contextRoot + 'app/admin-app/mock/mobilityorders/response/';
+        
+        var deferred = $q.defer();
+        $http.get(baseUrl + 'links-search-response.json').success(function (response) {
+             deferred.resolve(response);
+        });
+
+        return deferred.promise; 
+    }
+    
+
                                   
     // ===================================================================
     // Restful services for Tasks on Tasks and Workorder Templates screens                             
@@ -242,7 +275,7 @@ angular.module('admin.service').service('AdminJsonService', ['$q', '$http', '$lo
         baseUrl = contextRoot + 'app/admin-app/mock/tasks/response/';
 
         var deferred = $q.defer();
-        $http.get(baseUrl + 'tasklist-column-defs.json').success(function (response) {
+        $http.get(baseUrl + 'tasklist-column-defs-response.json').success(function (response) {
              deferred.resolve(response);
         });
 
@@ -269,17 +302,6 @@ angular.module('admin.service').service('AdminJsonService', ['$q', '$http', '$lo
     };
 
 
-    this.getSearchResults = function () {
-
-        baseUrl = contextRoot + 'app/admin-app/mock/tasks/response/';  
-
-        var deferred = $q.defer();
-        $http.get(baseUrl + 'results.json').success(function (response) {
-             deferred.resolve(response);
-        });
-
-        return deferred.promise; 
-    };
 
     this.getTasks = function (workorderType) {
 
@@ -329,11 +351,8 @@ angular.module('admin.service').service('AdminJsonService', ['$q', '$http', '$lo
         baseUrl = contextRoot + 'app/admin-app/mock/tasks/response/';  
         
         var deferred = $q.defer();
-//      Temporarily switching to tasklist.json until the new service is available as per iRise mockup
-//        $http.get(baseUrl + 'taskcodenamelist.json').success(function (response) {
-//             deferred.resolve(response);
-//        });
-        $http.get(baseUrl + 'taskcodenamelist.json').success(function (response) {
+
+        $http.get(baseUrl + 'task-code-name-lookup-response.json').success(function (response) {
              deferred.resolve(response);
         });
 

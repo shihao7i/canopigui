@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('admin.app').controller('RuleAdminController', 
-    ['$scope', '$log', '$filter', '$q', '$stateParams', '$templateCache', '$interval', 'uiGridExporterConstants', 'uiGridConstants', 'ruleCategories', 'AdminJsonService', 'ModalRowEdit', 'UiGridUtilService',
-    function ($scope, $log, $filter, $q, $stateParams, $templateCache, $interval, uiGridExporterConstants, uiGridConstants, ruleCategories, AdminJsonService, ModalRowEdit, UiGridUtilService) {
+    ['$scope', '$log', '$filter', '$q', '$stateParams', '$templateCache', '$interval', 'uiGridExporterConstants', 'uiGridConstants', 'ruleCategories', 'AdminJsonService', 'ModalRowEdit', 'UiGridUtilService', 'Dialog',
+    function ($scope, $log, $filter, $q, $stateParams, $templateCache, $interval, uiGridExporterConstants, uiGridConstants, ruleCategories, AdminJsonService, ModalRowEdit, UiGridUtilService, Dialog) {
         // Revert templateCache
         $templateCache.put('ui-grid/selectionRowHeader',
             "<div class=\"ui-grid-disable-selection\"><div class=\"ui-grid-cell-contents\"><ui-grid-selection-row-header-buttons></ui-grid-selection-row-header-buttons></div></div>"
@@ -60,19 +60,17 @@ angular.module('admin.app').controller('RuleAdminController',
         vm.state = {};  
 
         // Configure grid
-        vm.gridOptions = {
-            enableCellEditOnFocus:true,
-            enableSelectAll: false,
-//            enableHorizontalScrollbar: uiGridConstants.scrollbars.ALWAYS,
-            enableColumnMenus: false,
-            enableColumnResizing: true,
-            enableGridMenu:true,
-            multiSelect: false,
-            rowHeight: 45,
+        vm.gridOptions = UiGridUtilService.createGrid({
             exporterCsvFilename: vm.ruleCategory.value + '.csv',
-            exporterMenuPdf: false,
-            exporterMenuCsv: false,
-            saveScroll: true,
+            onRegisterApi: function (gridApi) {
+                vm.gridApi = gridApi;
+                // Register Events
+                gridApi.edit.on.beginCellEdit($scope, beginCellEdit);
+                gridApi.edit.on.afterCellEdit($scope, afterCellEdit); 
+                gridApi.selection.on.rowSelectionChanged($scope, rowSelectionChanged);
+                //saving inline edited rows
+                //gridApi.rowEdit.on.saveRow($scope, saveRow);
+            },
             gridMenuCustomItems: [
                 {
                   title: 'Hide Empty Columns',
@@ -84,23 +82,28 @@ angular.module('admin.app').controller('RuleAdminController',
                   title: 'Reset Columns',
                   action: function () {
                     vm.changeRuleCategory(); 
-                  }
+                  },
+                  order:210
                 }
-            ],
-            onRegisterApi: function (gridApi) {
-                vm.gridApi = gridApi;
-                // Register Events
-                gridApi.selection.on.rowSelectionChanged($scope, rowSelectionChanged);
-                //saving inline edited rows
-                //gridApi.rowEdit.on.saveRow($scope, saveRow);
-            }
-        };
-
+            ]
+        });
+        
+        function beginCellEdit(rowEntity) {
+            vm.gridApi.selection.clearSelectedRows();
+            vm.gridApi.selection.selectRow(rowEntity);
+            // Save row for undo
+            vm.undoRow = angular.copy(rowEntity);
+            vm.isEditing = true;
+        }
+            
+        function afterCellEdit(rowEntity) {
+            vm.isEditing = false;
+        }
 
         AdminJsonService.getRuleCategory(vm.ruleCategory.value).then(function (data) {
             vm.data = UiGridUtilService.extractTableCellValues(data.tableRows);
             vm.gridOptions.data = vm.data;
-            
+            vm.gridDataCopy = angular.copy(vm.gridOptions.data);
             var colDefs = UiGridUtilService.extractColumnDefs(data.tableRows);
             colDefs = UiGridUtilService.autoColWidth(colDefs, data.tableRows.rowMetaData);
 
@@ -109,15 +112,7 @@ angular.module('admin.app').controller('RuleAdminController',
             //vm.gridOptions.columnDefs[1].cellTemplate = templateWithTooltip;
             //$log.debug("problem");
             //vm.gridOptions.columnDefs[1].cellTemplate = '<span tooltip="{{row.entity.note}}" tooltip-append-to-body="true" tooltip-trigger:"focus">{{row.entity.status}}</span>';
-            vm.gridOptions.exporterCsvFilename = vm.ruleCategory.value + '.csv';
-            //$log.debug(vm.ruleCategory.value);
-            //HIDE ID COLUMN
-            for (var i = 0; i < vm.gridOptions.columnDefs.length; i++) {                      
-                if (vm.gridOptions.columnDefs[i].id === 'id') {
-                    vm.gridOptions.columnDefs[i].enableHiding = false;
-                    break;
-                }
-            }            
+            vm.gridOptions.exporterCsvFilename = vm.ruleCategory.value + '.csv';           
             vm.emptyColumns = UiGridUtilService.getEmptyColumns(data.tableRows);
                 
                 
@@ -198,21 +193,13 @@ angular.module('admin.app').controller('RuleAdminController',
     
                 vm.data = UiGridUtilService.extractTableCellValues(data.tableRows);
                 vm.gridOptions.data = vm.data;
-              
+                vm.gridDataCopy = angular.copy(vm.gridOptions.data);
                 var colDefs = UiGridUtilService.extractColumnDefs(data.tableRows);
                 colDefs = UiGridUtilService.autoColWidth(colDefs, data.tableRows.rowMetaData);
 
                 vm.gridOptions.columnDefs = colDefs;
-                vm.gridOptions.exporterCsvFilename = vm.ruleCategory.value + '.csv';//HIDE ID COLUMN
-                //HIDE ID COLUMN
-                for (var i = 0; i < vm.gridOptions.columnDefs.length; i++) {                      
-                    if (vm.gridOptions.columnDefs[i].id === 'id') {
-                        vm.gridOptions.columnDefs[i].enableHiding = false;
-                        break;
-                    }
-                }
-                
-                
+                vm.gridOptions.exporterCsvFilename = vm.ruleCategory.value + '.csv';
+            
             });
         };
 
@@ -265,15 +252,16 @@ angular.module('admin.app').controller('RuleAdminController',
             vm.gridApi.exporter.csvExport(vm.uiGridExporterConstants.ALL, vm.uiGridExporterConstants.ALL);
         };
         
-//        vm.saveState = function(){
-//            $log.debug("Clicked save");
-//            vm.state = vm.gridApi.saveState.save();
-//        };
-//        
-//        vm.restoreState= function(){
-//            $log.debug("Clicked cancel");
-//            vm.gridApi.saveState.restore( $scope, vm.state );
-//        };
+        vm.save = function(){
+            Dialog.confirm("Would you like to save your changes?").then(function () {
+                vm.gridApi.rowEdit.flushDirtyRows();
+            });
+        };
+        
+        
+        vm.undo = function(){
+            vm.gridOptions.data[vm.selectedIndex] = vm.gridDataCopy [vm.selectedIndex];;
+        };
         
         /**
          * Workaround to filter on all columns

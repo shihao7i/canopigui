@@ -15,7 +15,7 @@
             
             <div class="modal-footer">
                 <button type="button" class="btn btn-black" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-orange" ng-click="tasks.selectedTask()">Select</button>
+                <button type="button" class="btn btn-orange" ng-disabled="!tasks.selectedRowTaskCodeAndName" ng-click="tasks.selectedTaskCodeAndName()">Select</button>
             </div>
             
         </div><!-- /.modal-content -->

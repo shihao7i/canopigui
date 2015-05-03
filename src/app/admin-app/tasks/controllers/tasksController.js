@@ -1,6 +1,6 @@
 angular.module('admin.app').controller('TasksController', 
-                                       ['$scope', '$http', '$log', '$filter', '$templateCache', 'uiGridExporterConstants', 'taskTypes', 'AdminJsonService', 'UiGridUtilService',
-                                       function ($scope, $http, $log, $filter, $templateCache, uiGridExporterConstants, taskTypes, AdminJsonService, UiGridUtilService) {
+                                       ['$scope', '$http', '$log', '$filter', '$templateCache', 'uiGridExporterConstants', 'taskTypes', 'AdminJsonService', 'UiGridUtilService', 'MessagesService','Dialog',
+                                       function ($scope, $http, $log, $filter, $templateCache, uiGridExporterConstants, taskTypes, AdminJsonService, UiGridUtilService, MessagesService, Dialog) {
 	'use strict';
         //UiGridUtilService.loadTemplate('ui-grid/selectionRowHeader');
         //UiGridUtilService.loadTemplate('ui-grid/selectionRowHeaderButtonsCanopi');
@@ -47,58 +47,21 @@ angular.module('admin.app').controller('TasksController',
                 multiSelect: false,
                 enableSorting: false,
                 rowHeight: 45,
-                enableGridMenu: true
-//                onRegisterApi: function (gridApi) {
-//                    vm.gridApiAddTask = gridApi;
-//                    // Register Events
-//                    gridApi.selection.on.rowSelectionChanged($scope, rowSelectionChangedAddTask);
-//                }
+                enableGridMenu: true,
+                onRegisterApi: function (gridApi) {
+                    vm.gridApiAddTaskCodeAndName = gridApi;
+                    // Register Events
+                    gridApi.selection.on.rowSelectionChanged($scope, rowSelectionChangedAddTaskCodeAndName);
+                }
             };
             
-            vm.gridOptions = { 
-                enableCellEditOnFocus:true,
-                enableRowSelection: true,
-                enableGridMenu:true,
-                //enableRowHeaderSelection: false,
-                rowHeight: 45,
-                //enableHorizontalScrollbar: 0,
-                multiSelect: false,
-                exporterMenuPdf: false,
-                exporterMenuCsv: false,
-                gridMenuCustomItems: [
-                    {
-                      title: 'Hide Empty Columns',
-                      action: function () {
-                        vm.toggleEmptyColumns(); 
-                      }
-                    },
-                    {
-                      title: 'Reset Columns',
-                      action: function () {
-                        vm.taskSearch(); 
-                      }
-                    }
-                ],
+            vm.gridOptions = UiGridUtilService.createGrid({
                 onRegisterApi: function (gridApi) {
                     vm.gridApi = gridApi;
+                    gridApi.edit.on.beginCellEdit($scope, beginCellEdit);
+                    gridApi.edit.on.afterCellEdit($scope, afterCellEdit); 
                     gridApi.selection.on.rowSelectionChanged($scope,rowSelectionChanged);
-                }
-            };  
-            
-            vm.gridOptionsSubTasks = {
-                enableRowSelection: true,
-                enableCellEditOnFocus:true,
-                enableGridMenu:true,
-                //enableRowSelection: true,
-                //enableRowHeaderSelection: false,
-                enableHorizontalScrollbar: 0,
-                multiSelect: false,
-                rowHeight: 45,
-                //showGridFooter:true,
-                //enableFooterTotalSelected:true,
-                enableSorting:false,
-                exporterMenuPdf: false,
-                exporterMenuCsv: false,
+                },
                 gridMenuCustomItems: [
                     {
                       title: 'Hide Empty Columns',
@@ -110,46 +73,166 @@ angular.module('admin.app').controller('TasksController',
                       title: 'Reset Columns',
                       action: function () {
                         vm.taskSearch(); 
-                      }
+                      },
+                      order:210
                     }
-                ],
+                ]                
+            });
+            
+            //Previous
+//            vm.gridOptions = { 
+//                rowEditWaitInterval: -1, //disable autosave
+//                enableCellEditOnFocus:true,
+//                enableRowSelection: true,
+//                enableColumnMenus:false,
+//                enableGridMenu:true,
+//                //enableRowHeaderSelection: false,
+//                rowHeight: 45,
+//                //enableHorizontalScrollbar: 0,
+//                multiSelect: false,
+//                exporterMenuPdf: false,
+//                exporterMenuCsv: false,
+//                gridMenuCustomItems: [
+//                    {
+//                      title: 'Hide Empty Columns',
+//                      action: function () {
+//                        vm.toggleEmptyColumns(); 
+//                      }
+//                    },
+//                    {
+//                      title: 'Reset Columns',
+//                      action: function () {
+//                        vm.taskSearch(); 
+//                      },
+//                      order:210
+//                    }
+//                ],
+//                onRegisterApi: function (gridApi) {
+//                    vm.gridApi = gridApi;
+//                    gridApi.edit.on.beginCellEdit($scope, beginCellEdit);
+//                    gridApi.edit.on.afterCellEdit($scope, afterCellEdit); 
+//                    gridApi.selection.on.rowSelectionChanged($scope,rowSelectionChanged);
+//                }
+//            };  
+            
+            function beginCellEdit(rowEntity) {
+                vm.gridApi.selection.clearSelectedRows();
+                vm.gridApi.selection.selectRow(rowEntity);
+                
+                // Save row for undo
+                vm.undoRow = angular.copy(rowEntity);                
+                vm.isEditing = true;
+            }
+            
+            function afterCellEdit(rowEntity) {
+                vm.isEditing = false;
+            }
+            
+            vm.gridOptionsSubTasks = UiGridUtilService.createGrid({
                 onRegisterApi: function (gridApi) {
                     vm.gridApiSubTasks = gridApi;
+                    gridApi.edit.on.beginCellEdit($scope, beginCellEditSubTasks);
                     gridApi.selection.on.rowSelectionChanged($scope,rowSelectionChangedSubTask);
-                }
-    
-             }; 
+                },
+                gridMenuCustomItems: [
+                    {
+                      title: 'Hide Empty Columns',
+                      action: function () {
+                        vm.toggleEmptyColumns(); 
+                      }
+                    },
+                    {
+                      title: 'Reset Columns',
+                      action: function () {
+                        vm.taskSearch(); 
+                      },
+                      order:210
+                    }
+                ]
+            });
+//            vm.gridOptionsSubTasks = {
+//                rowEditWaitInterval: -1, //disable autosave
+//                enableRowSelection: true,
+//                enableCellEditOnFocus:true,
+//                enableColumnMenus:false,
+//                enableGridMenu:true,
+//                //enableRowSelection: true,
+//                //enableRowHeaderSelection: false,
+//                enableHorizontalScrollbar: 0,
+//                multiSelect: false,
+//                rowHeight: 45,
+//                //showGridFooter:true,
+//                //enableFooterTotalSelected:true,
+//                enableSorting:false,
+//                exporterMenuPdf: false,
+//                exporterMenuCsv: false,
+//                gridMenuCustomItems: [
+//                    {
+//                      title: 'Hide Empty Columns',
+//                      action: function () {
+//                        vm.toggleEmptyColumns(); 
+//                      }
+//                    },
+//                    {
+//                      title: 'Reset Columns',
+//                      action: function () {
+//                        vm.taskSearch(); 
+//                      },
+//                      order:210
+//                    }
+//                ],
+//                onRegisterApi: function (gridApi) {
+//                    vm.gridApiSubTasks = gridApi;
+//                    gridApi.edit.on.beginCellEdit($scope, beginCellEditSubTasks);
+//                    gridApi.selection.on.rowSelectionChanged($scope,rowSelectionChangedSubTask);
+//                }
+//    
+//             }; 
+            function beginCellEditSubTasks(rowEntity) {
+                vm.gridApiSubTasks.selection.clearSelectedRows();
+                vm.gridApiSubTasks.selection.selectRow(rowEntity);
+                
+                // Save row for undo
+                vm.undoRowSubTask = angular.copy(rowEntity);
+                vm.isEditingSubTasks = true;
+            }
         };
         
         function setupVMMethods() {
-            
+                                    
             vm.taskSearch = function () {
+                MessagesService.clearMessages();
+                var isFormValidated = false;
                 
-                // reset to false before making restful call to get search results
-                vm.displayTaskResults = false;
-                vm.displaySubtaskResults = false;
-   
-                AdminJsonService.getTasks().then(function(data) {
+                isFormValidated = ((_.isEmpty(vm.taskCode) && _.isEmpty(vm.taskName) && _.isEmpty(vm.taskType)) ? false : true);
+                
+//                if(!isFormValidated) {
+////                    MessagesService.addMessage('Please fill out at least one search criteria to continue_1', "error");
+////                    MessagesService.addMessage('Please fill out at least one search criteria to continue_2', "error");
+////                    MessagesService.addMessage('Please fill out at least one search criteria to continue_3', "error");
+//                    MessagesService.addMessage('Please fill out at least one search criteria to continue', "warning");
+//                    angular.element('.admin-app-container').css('margin-top', '150px');
+//                    console.log("height should change");
+//                } else {
+                    // reset to false before making restful call to get search results
+                    vm.displayTaskResults = false;
+                    vm.displaySubtaskResults = false;
 
-                    vm.displayTaskResults = true;
-                     
-                    vm.data = UiGridUtilService.extractTableCellValues(data.tableRows);
-                    vm.gridOptions.data = vm.data;
+                    AdminJsonService.getTasks().then(function(data) {
 
-                    var colDefs = UiGridUtilService.extractColumnDefs(data.tableRows);
-                    colDefs = UiGridUtilService.autoColWidth(colDefs, data.tableRows.rowMetaData);
+                        vm.displayTaskResults = true;
 
-                    vm.gridOptions.columnDefs = colDefs;
-                    vm.gridOptions.exporterCsvFilename = vm.taskType.name + 'tasks.csv';
-                    
-                    //HIDE ID COLUMN
-                    for (var i = 0; i < vm.gridOptions.columnDefs.length; i++) {                      
-                        if (vm.gridOptions.columnDefs[i].id === 'id') {
-                            vm.gridOptions.columnDefs[i].enableHiding = false;
-                            break;
-                        }
-                    }
-                });
+                        vm.data = UiGridUtilService.extractTableCellValues(data.tableRows);
+                        vm.gridOptions.data = vm.data;
+                        vm.gridDataCopy = angular.copy(vm.gridOptions.data);
+                        var colDefs = UiGridUtilService.extractColumnDefs(data.tableRows);
+                        colDefs = UiGridUtilService.autoColWidth(colDefs, data.tableRows.rowMetaData);
+
+                        vm.gridOptions.columnDefs = colDefs;
+                        vm.gridOptions.exporterCsvFilename = vm.taskType.name + 'tasks.csv';
+
+                    });
+//                }
                
             };
             
@@ -183,6 +266,13 @@ angular.module('admin.app').controller('TasksController',
                      oSearchArray.shift();
                      filter = (oSearchArray.length !== 0) ? oSearchArray.join(' ') : '';
                  }
+            };
+            
+            vm.selectedTaskCodeAndName = function () {
+                var selectedRow = vm.gridApiAddTaskCodeAndName.selection.getSelectedRows()[0];
+                $("#taskCodeNameModal").modal('hide');
+                vm.taskCode = selectedRow.taskCode;
+                vm.taskName = selectedRow.taskName; 
             };
             
             vm.taskCodeAndNameLookup = function() {
@@ -229,7 +319,13 @@ angular.module('admin.app').controller('TasksController',
                 
                
                saveTasks: function() {
-                   
+                    Dialog.confirm("Would you like to save your changes?").then(function () {
+                        vm.gridApi.rowEdit.flushDirtyRows();
+                    });
+               },
+               
+               undo:function(){                   
+                    vm.gridOptions.data[vm.selectedIndex] = vm.gridDataCopy[vm.selectedIndex];                
                },
                
                export: function() {
@@ -272,6 +368,17 @@ angular.module('admin.app').controller('TasksController',
                         
                     }
                 },
+                
+                saveTasks: function() {
+                    Dialog.confirm("Would you like to save your changes?").then(function () {
+                        vm.gridApiSubTasks.rowEdit.flushDirtyRows();
+                    });
+                },
+                
+                undo:function(){
+                    vm.gridOptionsSubTasks.data[vm.selectedIndexSubTask] = vm.gridDataSubTasksCopy[vm.selectedIndexSubTask];    
+                },
+                
                 export: function() {
                    vm.gridApiSubTasks.exporter.csvExport(vm.uiGridExporterConstants.ALL, vm.uiGridExporterConstants.ALL);
                 }
@@ -280,12 +387,18 @@ angular.module('admin.app').controller('TasksController',
         };
         
         function rowSelectionChanged(row) {
-            vm.selectedRow = row.isSelected ? row.entity : false;     
+            vm.selectedRow = row.isSelected ? row.entity : false;
+            vm.selectedIndex = vm.gridOptions.data.lastIndexOf(vm.selectedRow);
             displaySubtasks();
         }
         
         function rowSelectionChangedSubTask(row){
-            vm.selectedRowSubTask = row.isSelected ? row.entity : false;    
+            vm.selectedRowSubTask = row.isSelected ? row.entity : false; 
+            vm.selectedIndexSubTask = vm.gridOptionsSubTasks.data.lastIndexOf(vm.selectedRowSubTask);
+        }
+        
+        function rowSelectionChangedAddTaskCodeAndName(row) {
+            vm.selectedRowTaskCodeAndName = row.isSelected ? row.entity : false;
         }
         
         function displaySubtasks(){
@@ -298,20 +411,12 @@ angular.module('admin.app').controller('TasksController',
 
                 var myData = UiGridUtilService.extractTableCellValues(data.tableRows);
                 vm.gridOptionsSubTasks.data = myData;
-
+                vm.gridDataSubTasksCopy = angular.copy(vm.gridOptionsSubTasks.data);
                 var colDefs = UiGridUtilService.extractColumnDefs(data.tableRows);
                 colDefs = UiGridUtilService.autoColWidth(colDefs, data.tableRows.rowMetaData);
 
                 vm.gridOptionsSubTasks.columnDefs = colDefs;
-                vm.gridOptionsSubTasks.exporterCsvFilename = vm.taskType.name + 'subtasks.csv';
-                
-                //HIDE ID COLUMN
-                for (var i = 0; i < vm.gridOptionsSubTasks.columnDefs.length; i++) {                      
-                    if (vm.gridOptionsSubTasks.columnDefs[i].id === 'id') {
-                        vm.gridOptionsSubTasks.columnDefs[i].enableHiding = false;
-                        break;
-                    }
-                }
+                vm.gridOptionsSubTasks.exporterCsvFilename = vm.taskType.name + 'subtasks.csv';                
 
             });
             

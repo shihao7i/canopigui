@@ -6,8 +6,8 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <ol class="breadcrumb">
-                        <li><a href="javascript:void(0)"><i class="fa fa-home fa-lg"></i>&nbsp;&nbsp;&nbsp;Home</a></li>
-                        <li class="active">Workorder Templates</li>
+                        <li><a ui-sref="adminmaingui.dashboard"><i class="fa fa-home fa-lg"></i>&nbsp;&nbsp;&nbsp;Home</a></li>
+                        <li class="active">Workorder Template Details</li>
                     </ol>
                 </div>
             </div>
@@ -19,7 +19,7 @@
                 <accordion-group is-open="mobilityorders.searchAccordionOpen">
 
                     <accordion-heading>
-                        <span class="app-accordion-header">Mobility Order Search</span>
+                        <span class="app-accordion-header">Mobility Order Template Search</span>
                         <i class="pull-right glyphicon app-accordion-open-icon" ng-class="{'glyphicon-chevron-up': mobilityorders.searchAccordionOpen, 'glyphicon-chevron-down': !mobilityorders.searchAccordionOpen}"></i>
                     </accordion-heading>
 
@@ -67,11 +67,10 @@
                     </div>
 
                     <!-- Search/Clear Buttons -->
-                    <div class="row" style="padding-left: 15px; padding-right: 15px; padding-top: 5px;">
+                    <div class="row" style="padding-left: 15px; padding-right: 15px; padding-top: 15px;">
                         <div class="col-md-12" style="text-align: right;">
-                            <button href='#' class='btn canopi-btn-orange' ng-disabled="mobilityorders.addWoTemplateButtonDisabled" ng-click="mobilityorders.addWOTemplate()">Add WO Template</button>
-                            <button href='#' class='btn canopi-btn-blue'  ng-disabled="mobilityorders.searchButtonDisabled" ng-click="mobilityorders.orderSearch()">Search</button>
-                            <button href='#' class='btn canopi-btn-gray'  ng-disabled="mobilityorders.clearButtonDisabled" ng-click="mobilityorders.clear()">Clear</button>
+                            <button href='#' class='btn btn-blue btn-wide'  ng-disabled="mobilityorders.searchButtonDisabled" ng-click="mobilityorders.orderSearch()">Search</button>
+                            <button href='#' class='btn btn-gray btn-wide'  ng-disabled="mobilityorders.clearButtonDisabled" ng-click="mobilityorders.clear()">Clear</button>
                         </div>
                     </div>
 
@@ -79,38 +78,32 @@
             </accordion>
         </div> <!-- Mobility Search Forms/Selections -->
 
-        
-        <div ng-if="mobilityorders.displayNewWOTemplateTableFlag">
-            <div ng-include="'app/admin-app/mobilityorders/views/newWOTemplate.html'"></div>
-            <div ng-show="mobilityorders.displayChildTablesForNewWOTemplateFlag" ng-include="'app/admin-app/mobilityorders/views/childTablesForNewWOTemplate.html'">
-            </div>
-        </div>
-        
-        <div ng-if="!mobilityorders.displayNewWOTemplateTableFlag">
-            <!-- Mobility Search Results -->
-            <div class="row" ng-show="mobilityorders.displaySearchResultsTableFlag">
-                <accordion class="app-accordion">
-                    <accordion-group is-open="mobilityorders.searchResultsOpen">
+ 
+        <!-- Mobility Search Results -->
+        <div class="row" ng-show="mobilityorders.displaySearchResultsTableFlag">
+            <accordion class="app-accordion">
+                <accordion-group is-open="mobilityorders.searchResultsOpen">
 
-                        <accordion-heading>
-                            <span class="app-accordion-header">Order Result</span>
-                            <i class="pull-right glyphicon app-accordion-open-icon" ng-class="{'glyphicon-chevron-up': mobilityorders.searchResultsOpen, 'glyphicon-chevron-down': !mobilityorders.searchResultsOpen}"></i>
-                        </accordion-heading>
+                    <accordion-heading>
+                        <span class="app-accordion-header">Order Template Result</span>
+                        <i class="pull-right glyphicon app-accordion-open-icon" ng-class="{'glyphicon-chevron-up': mobilityorders.searchResultsOpen, 'glyphicon-chevron-down': !mobilityorders.searchResultsOpen}"></i>
+                    </accordion-heading>
 
-                        <!-- Container Header Underline -->
-                        <div style="border-bottom: solid; border-width: 1px; margin-bottom: 20px; color: #9C9C9C; margin-left: 15px; margin-right: 15px;"></div>
-                        <div style="margin-left: 15px; margin-right: 15px;" 
-                             cg-busy="{promise:mobilityorders.orderSearchPromiseTable, message:'Loading Your Data', templateUrl:'lib/angular-busy/custom-templates/mycustomtemplate.html'}" 
-                             ui-grid="mobilityorders.gridOptionsSearchResults" 
-                             ui-grid-selection ui-grid-resize-columns class="tasksSearchResultsUIGrid">                             
-                        </div> 
-                    </accordion-group>                           
-                </accordion>
-            </div> <!-- Mobility Search Results -->
+                    <!-- Container Header Underline -->
+                    <div style="border-bottom: solid; border-width: 1px; margin-bottom: 20px; color: #9C9C9C; margin-left: 15px; margin-right: 15px;"></div>
+                    <div style="margin-left: 15px; margin-right: 15px;" 
+                         cg-busy="{promise:mobilityorders.orderSearchPromiseTable, message:'Loading Your Data', templateUrl:'lib/angular-busy/custom-templates/mycustomtemplate.html'}" 
+                         ui-grid="mobilityorders.gridOptionsSearchResults" 
+                         ui-grid-selection ui-grid-resize-columns class="tasksSearchResultsUIGrid">                             
+                    </div> 
+                </accordion-group>                           
+            </accordion>
+        </div> <!-- Mobility Search Results -->
 
-            <div ng-show="mobilityorders.displayOrderDetailsFlag" ng-include="'app/admin-app/mobilityorders/views/mobilityOrderDetail.html'">
-            </div>
+        <div ng-show="mobilityorders.displayOrderDetailsFlag" ng-include="'app/admin-app/mobilityorders/views/mobilityOrderDetail.html'">
         </div>
     </div> <!-- col-md-12 -->
 
 </div> <!-- row -->
+
+

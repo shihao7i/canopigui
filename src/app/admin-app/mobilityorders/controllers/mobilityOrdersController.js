@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('admin.app').controller('MobilityOrdersController',
-    ['$scope', '$templateCache', 'uiGridExporterConstants', '$log', '$q', '$interval', 'orderPicklists', 'AdminJsonService', 'UiGridUtilService', 'MessagesService',
-        function ($scope, $templateCache, uiGridExporterConstants, $log, $q, $interval, orderPicklists, AdminJsonService, UiGridUtilService, MessagesService) {
+    ['$scope', '$templateCache', 'uiGridExporterConstants', '$log', '$q', '$interval', 'orderPicklists', 'AdminJsonService', 'UiGridUtilService', 'MessagesService', 'Dialog',
+        function ($scope, $templateCache, uiGridExporterConstants, $log, $q, $interval, orderPicklists, AdminJsonService, UiGridUtilService, MessagesService, Dialog) {
 
             // Revert templateCache
             $templateCache.put('ui-grid/selectionRowHeader',
@@ -17,9 +17,6 @@ angular.module('admin.app').controller('MobilityOrdersController',
             function init() {
 
                 initializeVMVariables();
-                
-                // For New WO Template
-                setupUiGridForNewWOTemplate();
 
                 // For Order Search
                 setupUiGridForSearchResults();
@@ -40,16 +37,12 @@ angular.module('admin.app').controller('MobilityOrdersController',
                 
                 vm.poTypeMultiselectPickList = orderPicklists.poTypes;
                 vm.woTypeMultiselectPickList = orderPicklists.woTypes;
-            
-                vm.displayNewWOTemplateTableFlag = false;
-                vm.displayChildTablesForNewWOTemplateFlag = false;
                 
                 vm.displaySearchResultsTableFlag = false;
                 vm.displayOrderDetailsFlag = false;
 
                 // this object will be populated in
                 // orderPicklists => { poTypes, woTypes }
-                vm.addWoTemplateButtonDisabled = true;
                 vm.searchButtonDisabled = true;
                 vm.clearButtonDisabled = true;
 
@@ -80,605 +73,14 @@ angular.module('admin.app').controller('MobilityOrdersController',
 
             }
 
-
-
-            function setupUiGridForNewWOTemplate() {
-                
-                vm.gridOptionsNewWOTemplateTable = {
-                    enableCellEditOnFocus: true,
-                    enableRowSelection: true,
-                    enableHorizontalScrollbar: 0,
-                    rowEditWaitInterval: -1,
-                    multiSelect: false,
-                    rowHeight: 45,
-                    enableSorting: false,
-                    enableGridMenu: true,
-                    enableHiding: false,
-                    exporterCsvFilename : 'newWOTemplate.csv',
-                    exporterMenuPdf: false,
-                    onRegisterApi: function (gridApi) {
-                        vm.gridApiNewWOTemplate = gridApi;
-                        // Register events
-                        gridApi.edit.on.beginCellEdit($scope, beginCellEdit);
-                        gridApi.edit.on.afterCellEdit($scope, afterCellEdit);
-           
-                        gridApi.rowEdit.on.saveRow($scope, saveRow);
-                        gridApi.selection.on.rowSelectionChanged($scope, rowSelectionChangedNewWOTemplate);
-                        //saving inline edited rows
-                        //gridApi.rowEdit.on.saveRow($scope, saveRow);
-                    }
-                };
-
-                // Handle grid events
-                function beginCellEdit(rowEntity) {
-                   // vm.gridApi.selection.clearSelectedRows();
-                   // vm.gridApi.selection.selectRow(rowEntity);
-
-                    // Save row for undo
-                    vm.undoRow = angular.copy(rowEntity);
-                    vm.isEditing = true;
-                }
-
-                function afterCellEdit(rowEntity) {
-                    vm.isEditing = false;
-                }
-
-                function rowSelectionChangedNewWOTemplate(row) {
-                    vm.selectedRowNewWOTemplate = row.isSelected ? row.entity : false;
-                    displayChildTablesForNewWOTemplate(row.entity.woType);
-                }
-                
-                
-                function displayChildTablesForNewWOTemplate(woType) {
-                    
-                    // set up the child tables for New WO Tempalte
-                    setupUiGridForNewTaskList(woType);
-                    setupUiGridForNewUDA(woType);
-                    setupUiGridForNewLinks(woType);
-                    
-                    // display new tables with empty data
-                    vm.displayNewTaskListTable();
-                    vm.displayNewUDATable();
-                    vm.displayNewLinksTable();
-
-                    // enable the display of the child tables
-                    vm.displayChildTablesForNewWOTemplateFlag = true;
-                }
-
-
-                function saveRow(rowEntity) {
-                     $log.debug("Saving row");
-                }
-
-                vm.displayNewWOTemplateTable = function() {
-    
-                    AdminJsonService.getWoTemplateColumnDefs().then(function (data) {
-      
-                        var tableData = data.tableRows;
-
-                        var colDefs = UiGridUtilService.extractColumnDefs(tableData);
-
-                        colDefs = UiGridUtilService.autoColWidth(colDefs, tableData.rowMetaData);
-
-                        vm.gridOptionsNewWOTemplateTable.columnDefs = colDefs;
-       
-                        vm.gridOptionsNewWOTemplateTable.data = UiGridUtilService.extractTableCellValues(tableData);
-
-                        vm.gridOptionsNewWOTemplateTable.exporterCsvFilename = 'newWOTemplate.csv';
-
-                        vm.displayNewWOTemplateTableFlag = true;
-                        
-                        //HIDE ID COLUMN
-                        for (var i = 0; i < vm.gridOptionsNewWOTemplateTable.columnDefs.length; i++) {                      
-                            if (vm.gridOptionsNewWOTemplateTable.columnDefs[i].id === 'id') {
-                                vm.gridOptionsNewWOTemplateTable.columnDefs[i].enableHiding = false;
-                                break;
-                            }
-                        }
-                    });
-                }
-
-
-                // TODO: define all the functions needed for New WO Template add/update operations
-                vm.newWOTemplate = {
-
-                    saveNewWOTemplate: function () {
-                        if (vm.selectedRowNewWOTemplate) {
-                            vm.selectedIndex = vm.gridOptionsNewWOTemplateTable.data.lastIndexOf(vm.selectedRowNewWOTemplate);
-                            vm.gridOptionsNewWOTemplateTable.data.splice(vm.selectedIndex + 1, 0, {});
-                        }
-                        else {
-                            var newItem = {};
-                            vm.gridOptionsNewWOTemplateTable.data.push(newItem);
-                       }
-                    },
-
-                    updatNewWOTemplate: function () {
-
-                    },
-
-                    cancel: function () {
-
-                    },
-                  
-        
-                    addNewWOTemplate: function () {
-                                            
-                        if (vm.selectedRowNewWOTemplate) {
-                            vm.selectedIndex = vm.gridOptionsNewWOTemplateTable.data.lastIndexOf(vm.selectedRowNewWOTemplate);
-                            vm.gridOptionsNewWOTemplateTable.data.splice(vm.selectedIndex + 1, 0, {});
-                            vm.gridApiNewWOTemplate.core.refreshRows().then(function () {
-                                vm.selectedIndex = vm.selectedIndex+1;
-                                vm.gridApiNewWOTemplate.core.scrollTo(vm.gridOptionsNewWOTemplateTable.data[vm.selectedIndex], vm.gridOptionsNewWOTemplateTable.columnDefs[0]);
-                                //Alternate to scrollTo - same behavior for now
-                                //vm.gridApi.cellNav.scrollToFocus( vm.gridOptions.data[vm.selectedIndex], vm.gridOptions.columnDefs[0]);                        
-                                vm.gridApiNewWOTemplate.selection.selectRow(vm.gridOptionsNewWOTemplateTable.data[vm.selectedIndex]); 
-                            }); 
-                        }
-                        else {
-                            vm.gridOptionsNewWOTemplateTable.data.push({"woType": "", "woDescription": ""});
-                            vm.gridApiNewWOTemplate.core.refreshRows().then(function () {
-                                var lastRowIndex = vm.gridOptionsNewWOTemplateTable.data.length-1;
-                                vm.gridApiNewWOTemplate.core.scrollTo(vm.gridOptionsNewWOTemplateTable.data[lastRowIndex], vm.gridOptionsNewWOTemplateTable.columnDefs[0]);
-                                //Alternate to scrollTo - same behavior for now
-                                //vm.gridApi.cellNav.scrollToFocus(vm.gridOptions.data[lastRowIndex], vm.gridOptions.columnDefs[0]);
-                                vm.gridApiNewWOTemplate.selection.selectRow(vm.gridOptionsNewWOTemplateTable.data[lastRowIndex]); 
-                            });
-                        }
-                    },
-                    
-                    removeNewWOTemplate: function () {
-                       vm.gridOptionsNewWOTemplateTable.data.splice(vm.gridOptionsNewWOTemplateTable.data.lastIndexOf(vm.selectedRowNewWOTemplate), 1);
-                    },
-                    
-                    export:function(){
-                        vm.gridApiNewWOTemplateexporter.csvExport(vm.uiGridExporterConstants.ALL, vm.uiGridExporterConstants.ALL);
-                    }
-                  
-                };
-            }
-
-      
-      
-      
-            function setupUiGridForNewTaskList(woType) {
-                
-                vm.gridOptionsNewTaskListTable = {
-                    enableCellEditOnFocus: true,
-                    enableRowSelection: true,
-                    //enableRowHeaderSelection: false,
-                    enableHorizontalScrollbar: 0,
-                    rowEditWaitInterval: -1,                    
-                    multiSelect: false,
-                    rowHeight: 45,
-                    enableSorting: false,
-                    enableGridMenu: true,
-                    enableHiding: false,
-                    data: [],
-                    exporterCsvFilename : 'newTaskList.csv',
-                    exporterMenuPdf: false,
-                    onRegisterApi: function (gridApi) {
-                        vm.gridApiNewTaskList = gridApi;
-                        gridApi.selection.on.rowSelectionChanged($scope, rowSelectionChangedNewTaskList);
-                        //saving inline edited rows
-                        //gridApi.rowEdit.on.saveRow($scope, saveRow);
-                    }
-                };
-
-                
-                
-                function rowSelectionChangedNewTaskList(row) {
-                    vm.selectedRowNewTaskList = row.entity;
-
-                }
-                
-                
-                vm.displayNewTaskListTable = function() {
-    
-                    AdminJsonService.getTaskListColumnDefs().then(function (data) {
-      
-                        var tableData = data.tableRows;
-
-                        vm.gridOptionsNewTaskListTable.data = UiGridUtilService.extractTableCellValues(tableData);
-
-                        var colDefs = UiGridUtilService.extractColumnDefs(tableData);
-
-                        colDefs = UiGridUtilService.autoColWidth(colDefs, tableData.rowMetaData);
-
-                        vm.gridOptionsNewTaskListTable.columnDefs = colDefs;
-     
-                        vm.gridOptionsNewTaskListTable.exporterCsvFilename = 'newTaskList.csv';
-                        
-                        //HIDE ID COLUMN
-                        for (var i = 0; i < vm.gridOptionsNewTaskListTable.columnDefs.length; i++) {                      
-                            if (vm.gridOptionsNewTaskListTable.columnDefs[i].id === 'id') {
-                                vm.gridOptionsNewTaskListTable.columnDefs[i].enableHiding = false;
-                                break;
-                            }
-                        }
-
-                    });
-                }
-                
-                
-                vm.newTasklist = {
-
-                    moveSelectedUp: function () {
-
-                        vm.selectedIndex = vm.gridOptionsNewTaskListTable.data.lastIndexOf(vm.selectedRowNewTaskList);
-                        if (vm.previousIndex > -1) {
-
-                            vm.previousIndex = vm.selectedIndex - 1;
-                            vm.nextIndex = vm.selectedIndex + 1;
-
-                            vm.previousRowData = vm.gridOptionsNewTaskListTable.data[vm.previousIndex];
-
-                            vm.nextRowData = vm.gridOptionsNewTaskListTable.data[vm.nextIndex];
-
-                            vm.gridOptionsNewTaskListTable.data[vm.previousIndex] = vm.gridOptionsNewTaskListTable.data[vm.selectedIndex];
-                            vm.gridOptionsNewTaskListTable.data[vm.selectedIndex] = vm.previousRowData;
-                            vm.selectedIndex = vm.selectedIndex - 1;
-
-                            vm.checkStart();
-                            vm.checkEnd();
-                        }
-
-                        else {
-
-                        }
-                        //vm.gridApiNewTaskList.cellNav.scrollToFocus(vm.selectedRow);
-
-                    },
-
-                    moveSelectedDown: function () {
-
-                        vm.selectedIndex = vm.gridOptionsTaskListTable.data.lastIndexOf(vm.selectedRowTaskList);
-
-                        if (vm.nextIndex !== vm.gridOptionsTaskListTable.data.length) {
-
-                            vm.previousIndex = vm.selectedIndex - 1;
-                            vm.nextIndex = vm.selectedIndex + 1;
-
-                            vm.previousRowData = vm.gridOptionsTaskListTable.data[vm.previousIndex];
-
-                            vm.nextRowData = vm.gridOptionsTaskListTable.data[vm.nextIndex];
-
-                            vm.gridOptionsTaskListTable.data[vm.nextIndex] = vm.gridOptionsTaskListTable.data[vm.selectedIndex];
-                            vm.gridOptionsTaskListTable.data[vm.selectedIndex] = vm.nextRowData;
-                            vm.selectedIndex = vm.selectedIndex + 1;
-
-                            vm.checkEnd();
-                            vm.checkStart();
-                        }
-                        else {
-                            //vm.nextIndex = vm.selectedIndex+1;
-                        }
-                        //vm.gridApiTaskList.cellNav.scrollToFocus(vm.selectedRow);
-                    },
-
-                    addTask: function () {
-                        MessagesService.clearMessages();
-                        
-                        AdminJsonService.getTasks(woType).then(function (data) {
-
-                            var tableData = data.tableRows;
-
-                            vm.gridOptionsAddTaskSelectTable.data = UiGridUtilService.extractTableCellValues(tableData);
-                            var colDefs = UiGridUtilService.extractColumnDefs(tableData);
-                            colDefs = UiGridUtilService.autoColWidth(colDefs, tableData.rowMetaData);
-                            vm.gridOptionsAddTaskSelectTable.columnDefs = colDefs;
-
-                        });
-                    },
-
-                    removeTask: function () {
-
-                        // Remove an item
-                        vm.gridOptionsNewTaskListTable.data.splice(vm.gridOptionsNewTaskListTable.data.lastIndexOf(vm.selectedRowNewTaskList), 1);
-
-                    },
-
-                    saveTasks: function () {
-
-                    },
-
-                    cancel: function () {
-
-                    },
-                    
-                    recalcTaskSequence: function () {
-                        
-                        // this is a new task list with the re-sequenced tasks
-                        var sequencedData = [];
-                        var sequenceNumber = 10; // start with 10 (incremented by 10)
-                       
-                        var rowData;
-                        
-                        for (var i=0; i < vm.gridOptionsNewTaskListTable.data.length; i++) {
-                            rowData = angular.copy(vm.gridOptionsNewTaskListTable.data[i]);
-                            if (rowData.taskParallelToPrevious === "YES") {
-                                rowData.taskSequence = sequenceNumber.toString();
-                            }
-                            else {
-                                // the sequence should start with 10 for the table
-                                if (i > 0) {
-                                    sequenceNumber += 10;
-                                }
-                                rowData.taskSequence = sequenceNumber.toString();
-                            }
-                            
-                            sequencedData.push(rowData);
-                        }
-                
-                        // update data with newly calculated task sequence numbers 
-                        vm.gridOptionsNewTaskListTable.data = sequencedData;
-                    },
-
-                    export: function () {
-                        vm.gridApiNewTaskList.exporter.csvExport(vm.uiGridExporterConstants.ALL, vm.uiGridExporterConstants.ALL);
-                    },
-                    
-                    addToNewTaskList: function() {
-                        MessagesService.clearMessages();
-                        var rowData;
-                        var selectedRow = vm.gridApiAddTask.selection.getSelectedRows()[0];
-                        var selectedRowExists = false;
-                        if(!(selectedRow.taskCode === 'PLAN')) {
-                            for (var i=0; i < vm.gridOptionsNewTaskListTable.data.length; i++) {
-                                rowData = angular.copy(vm.gridOptionsNewTaskListTable.data[i]);
-                                if (rowData.taskCode === selectedRow.taskCode) {
-                                    selectedRowExists = true;
-                                }
-                            }
-                        }
-                        if(!selectedRowExists) {
-                            vm.gridOptionsNewTaskListTable.data.push(vm.gridApiAddTask.selection.getSelectedRows()[0]);
-                            $("#addTaskModal").modal('hide');
-                        } else {
-                            MessagesService.addMessage('Task Code ['+ selectedRow.taskCode + '] is already added to list', "warning");
-                        }
-                    }
-                };
-            }
             
-            
-            
-            function setupUiGridForNewUDA(woType) {
-                
-                vm.gridOptionsNewUDATable = {
-                    enableCellEditOnFocus: true,
-                    enableRowSelection: true,
-                    //enableRowHeaderSelection: false,
-                    enableHorizontalScrollbar: 0,
-                    rowEditWaitInterval: -1,                    
-                    multiSelect: false,
-                    rowHeight: 45,
-                    enableSorting: false,
-                    data: "",
-                    enableGridMenu: true,
-                    enableHiding: false,
-                    exporterCsvFilename : 'newUDA.csv',
-                    exporterMenuPdf: false,
-                    onRegisterApi: function (gridApi) {
-                        vm.gridApiNewUDA = gridApi;
-                        gridApi.selection.on.rowSelectionChanged($scope, rowSelectionChangedNewUDA);
-                        //saving inline edited rows
-                        //gridApi.rowEdit.on.saveRow($scope, saveRow);
-                    }
-                };
-
-                
-                
-                function rowSelectionChangedNewUDA(row) {
-                    vm.selectedRowNewUDA = row.entity;
-
-                }
-                
-                
-                vm.displayNewUDATable = function() {
-    
-                    AdminJsonService.getUDAColumnDefs().then(function (data) {
-      
-                        var tableData = data.tableRows;
-
-                        vm.gridOptionsNewUDATable.data = UiGridUtilService.extractTableCellValues(tableData);
-
-                        var colDefs = UiGridUtilService.extractColumnDefs(tableData);
-
-                        colDefs = UiGridUtilService.autoColWidth(colDefs, tableData.rowMetaData);
-
-                        vm.gridOptionsNewUDATable.columnDefs = colDefs;
-     
-                        vm.gridOptionsNewUDATable.exporterCsvFilename = 'newUDA.csv';
-                        
-                        //HIDE ID COLUMN
-                        for (var i = 0; i < vm.gridOptionsNewUDATable.columnDefs.length; i++) {                      
-                            if (vm.gridOptionsNewUDATable.columnDefs[i].id === 'id') {
-                                vm.gridOptionsNewUDATable.columnDefs[i].enableHiding = false;
-                                break;
-                            }
-                        }
-
-                    });
-                }
-                
-                
-                vm.newUda = {
-
-                    saveUDA: function () {
-                        if (vm.selectedRowNewUDA) {
-                            vm.selectedIndex = vm.gridOptionsNewUDATable.data.lastIndexOf(vm.selectedRowNewUDA);
-                            vm.gridOptionsNewUDATable.data.splice(vm.selectedIndex + 1, 0, {});
-                        }
-                        else {
-                            vm.gridOptionsNewUDATable.data.push({"name": ""});
-                        }
-                    },
-
-                    updatUDA: function () {
-
-                    },
-
-                    cancel: function () {
-
-                    },
-
-                    addUDA: function () {
-                        if (vm.selectedRowNewUDA) {
-                            vm.selectedIndex = vm.gridOptionsNewUDATable.data.lastIndexOf(vm.selectedRowNewUDA);
-                            vm.gridOptionsNewUDATable.data.splice(vm.selectedIndex + 1, 0, {});
-                            vm.gridApiNewUDA.core.refreshRows().then(function () {
-                                vm.selectedIndex = vm.selectedIndex+1;
-                                vm.gridApiNewUDA.core.scrollTo(vm.gridOptionsNewUDATable.data[vm.selectedIndex], vm.gridOptionsNewUDATable.columnDefs[0]);
-                                //Alternate to scrollTo - same behavior for now
-                                //vm.gridApiNewUDA.cellNav.scrollToFocus( vm.gridOptions.data[vm.selectedIndex], vm.gridOptions.columnDefs[0]);                        
-                                vm.gridApiNewUDA.selection.selectRow(vm.gridOptionsNewUDATable.data[vm.selectedIndex]); 
-                            });
-                        }
-                        else {
-                            vm.gridOptionsNewUDATable.data.push({"name": ""});
-                            vm.gridApiNewUDA.core.refreshRows().then(function () {
-                                var lastRowIndex = vm.gridOptionsNewUDATable.data.length-1;
-                                vm.gridApiNewUDA.core.scrollTo(vm.gridOptionsNewUDATable.data[lastRowIndex], vm.gridOptionsNewUDATable.columnDefs[0]);
-                                //Alternate to scrollTo - same behavior for now
-                                //vm.gridApiNewUDA.cellNav.scrollToFocus(vm.gridOptionsNewUDATable.data[lastRowIndex], vm.gridOptionsNewUDATable.columnDefs[0]);
-                                vm.gridApiNewUDA.selection.selectRow(vm.gridOptionsNewUDATable.data[lastRowIndex]); 
-                            });
-                        }
-                    },
-                    export:function(){
-                        vm.gridApiNewUDA.exporter.csvExport(vm.uiGridExporterConstants.ALL, vm.uiGridExporterConstants.ALL);
-                    }
-                  
-                };
-            }
-            
-            
-            
-            
-            function setupUiGridForNewLinks(woType) {
-                
-                vm.gridOptionsNewLinksTable = {
-                    enableCellEditOnFocus: true,
-                    enableRowSelection: true,
-                    //enableRowHeaderSelection: false,
-                    enableHorizontalScrollbar: 0,
-                    rowEditWaitInterval: -1,                    
-                    multiSelect: false,
-                    rowHeight: 45,
-                    enableSorting: false,
-                    enableGridMenu: true,
-                    data: "",
-                    enableHiding: false,
-                    exporterCsvFilename : 'newLinks.csv',
-                    exporterMenuPdf: false,
-                    onRegisterApi: function (gridApi) {
-                        vm.gridApiNewUDA = gridApi;
-                        gridApi.selection.on.rowSelectionChanged($scope, rowSelectionChangedNewLinks);
-                        //saving inline edited rows
-                        //gridApi.rowEdit.on.saveRow($scope, saveRow);
-                    }
-                };
-
-                
-                
-                function rowSelectionChangedNewLinks(row) {
-                    vm.selectedRowNewLinks = row.entity;
-
-                }
-                
-                
-                vm.displayNewLinksTable = function() {
-    
-                    AdminJsonService.getLinksColumnDefs().then(function (data) {
-      
-                        var tableData = data.tableRows;
-
-                        vm.gridOptionsNewLinksTable.data = UiGridUtilService.extractTableCellValues(tableData);
-
-                        var colDefs = UiGridUtilService.extractColumnDefs(tableData);
-
-                        colDefs = UiGridUtilService.autoColWidth(colDefs, tableData.rowMetaData);
-
-                        vm.gridOptionsNewLinksTable.columnDefs = colDefs;
-     
-                        vm.gridOptionsNewLinksTable.exporterCsvFilename = 'newLinks.csv';
-                        
-                        //HIDE ID COLUMN
-                        for (var i = 0; i < vm.gridOptionsNewLinksTable.columnDefs.length; i++) {                      
-                            if (vm.gridOptionsNewLinksTable.columnDefs[i].id === 'id') {
-                                vm.gridOptionsNewLinksTable.columnDefs[i].enableHiding = false;
-                                break;
-                            }
-                        }
-
-                    });
-                }
-                
-                
-                vm.newLinks = {
-
-                    saveLink: function () {
-                        if (vm.selectedRowNewLinks) {
-                            vm.selectedIndex = vm.gridOptionsNewLinksTable.data.lastIndexOf(vm.selectedRowNewLinks);
-                            vm.gridOptionsNewLinksTable.data.splice(vm.selectedIndex + 1, 0, {});
-                        }
-                        else {
-                            vm.gridOptionsNewLinksTable.data.push({"name": "", "url": ""});
-                        }
-                    },
-
-                    updatLink: function () {
-
-                    },
-
-                    cancel: function () {
-
-                    },
-
-                    addLink: function () {
-                        if (vm.selectedRowLinks) {
-                            vm.selectedIndex = vm.gridOptionsNewLinksTable.data.lastIndexOf(vm.selectedRowNewLinks);
-                            vm.gridOptionsNewLinksTable.data.splice(vm.selectedIndex + 1, 0, {});
-//                            vm.gridApiNewLinks.core.refreshRows().then(function () {
-//                                vm.selectedIndex = vm.selectedIndex+1;
-//                                vm.gridApiNewLinks.core.scrollTo(vm.gridOptionsNewLinksTable.data[vm.selectedIndex], vm.gridOptionsNewLinksTable.columnDefs[0]);
-//                                //Alternate to scrollTo - same behavior for now
-//                                //vm.gridApiNewLinks.cellNav.scrollToFocus( vm.gridOptionsNewLinksTable.data[vm.selectedIndex], vm.gridOptionsNewLinksTable.columnDefs[0]);                        
-//                                vm.gridApiNewLinks.selection.selectRow(vm.gridOptionsNewLinksTable.data[vm.selectedIndex]); 
-//                            }); 
-                        }
-                        else {
-                            vm.gridOptionsNewLinksTable.data.push({"name": "", "url": ""});
-//                            vm.gridApiNewLinks.core.refreshRows().then(function () {
-//                                var lastRowIndex = vm.gridOptionsNewLinksTable.data.length-1;
-//                                vm.gridApiNewLinks.core.scrollTo(vm.gridOptionsNewLinksTable.data[lastRowIndex], vm.gridOptionsNewLinksTable.columnDefs[0]);
-//                                //Alternate to scrollTo - same behavior for now
-//                                //vm.gridApiNewLinks.cellNav.scrollToFocus(vm.gridOptionsNewLinksTable.data[lastRowIndex], vm.gridOptionsNewLinksTable.columnDefs[0]);
-//                                vm.gridApiNewLinks.selection.selectRow(vm.gridOptionsNewLinksTable.data[lastRowIndex]); 
-//                            });
-                        }
-                    },
-                    
-                    removeLink: function () {
-                        vm.gridOptionsNewLinksTable.data.splice(vm.gridOptionsNewLinksTable.data.lastIndexOf(vm.selectedRowNewLinks), 1);
-                    },
-                    
-                    export:function(){
-                        vm.gridApiNewLinks.exporter.csvExport(vm.uiGridExporterConstants.ALL, vm.uiGridExporterConstants.ALL);
-                    }
-                  
-                };
-            }
-                
-
-
             function setupUiGridForSearchResults() {
-
+                
                 vm.gridOptionsSearchResults = {
                     enableRowSelection: true,
                     enableRowHeaderSelection: false,
                     enableHorizontalScrollbar: 0,
+                    enableColumnMenus:false,
                     multiSelect: false,
                     rowHeight: 45,
                     onRegisterApi: function (gridApi) {
@@ -688,7 +90,6 @@ angular.module('admin.app').controller('MobilityOrdersController',
                     }
                 };
 
-
                 // Handle grid events for Top Table
                 function rowSelectionChangedSearchResults(row) {
                     vm.selectedRow = row.isSelected ? row.entity : false;
@@ -697,8 +98,6 @@ angular.module('admin.app').controller('MobilityOrdersController',
 
                     displayOrderDetail(vm.selectedRow.woType);
                 }
-
-
 
                 function displayOrderDetail(woType) {
                     
@@ -732,28 +131,12 @@ angular.module('admin.app').controller('MobilityOrdersController',
                     vm.displayOrderDetailsFlag = true;
 
                     vm.gridOptionsTaskListTable.data = UiGridUtilService.extractTableCellValues(tableData);
-
+                    vm.gridDataTaskListCopy = angular.copy(vm.gridOptionsTaskListTable.data);
                     var colDefs = UiGridUtilService.extractColumnDefs(tableData, {headerCellTemplate: 'ui-grid/uiGridHeaderCellSpecial', woType: woType});
 
                     colDefs = UiGridUtilService.autoColWidth(colDefs, tableData.rowMetaData);
 
-                    vm.gridOptionsTaskListTable.columnDefs = colDefs;
-
-                    //Make Task Code uneditable
-                    for (var i = 0; i < vm.gridOptionsTaskListTable.columnDefs.length; i++) {                      
-                        if (vm.gridOptionsTaskListTable.columnDefs[i].id === 'taskCode') {
-                            vm.gridOptionsTaskListTable.columnDefs[i].enableCellEdit = false;
-                            break;
-                        }
-                    }
-
-                    //HIDE ID COLUMN
-                    for (var i = 0; i < vm.gridOptionsTaskListTable.columnDefs.length; i++) {                      
-                        if (vm.gridOptionsTaskListTable.columnDefs[i].id === 'id') {
-                            vm.gridOptionsTaskListTable.columnDefs[i].enableHiding = false;
-                            break;
-                        }
-                    }
+                    vm.gridOptionsTaskListTable.columnDefs = colDefs;                    
 
                     vm.selectedWoType = vm.gridOptionsSelectedWO.data[0].woType;
                     vm.gridOptionsTaskListTable.exporterCsvFilename = vm.selectedWoType+'tasks.csv';
@@ -764,17 +147,11 @@ angular.module('admin.app').controller('MobilityOrdersController',
                 function populateDataForUDATable(woType, tableData) {
      
                     vm.gridOptionsUDATable.data = UiGridUtilService.extractTableCellValues(tableData);
+                    vm.gridDataUDACopy = angular.copy(vm.gridOptionsUDATable.data);
                     var colDefs = UiGridUtilService.extractColumnDefs(tableData);
                     colDefs = UiGridUtilService.autoColWidth(colDefs, tableData.rowMetaData);
                     vm.gridOptionsUDATable.columnDefs = colDefs;
 
-                    //HIDE ID COLUMN
-                    for (var i = 0; i < vm.gridOptionsUDATable.columnDefs.length; i++) {                      
-                        if (vm.gridOptionsUDATable.columnDefs[i].id === 'id') {
-                            vm.gridOptionsUDATable.columnDefs[i].enableHiding = false;
-                            break;
-                        }
-                    }
                 }
    
    
@@ -782,17 +159,11 @@ angular.module('admin.app').controller('MobilityOrdersController',
                 function populateDataForLinksTable(woType, tableData) {
                     
                     vm.gridOptionsLinksTable.data = UiGridUtilService.extractTableCellValues(tableData);
+                    vm.gridDataLinksCopy = angular.copy(vm.gridOptionsLinksTable.data);
                     var colDefs = UiGridUtilService.extractColumnDefs(tableData);
                     colDefs = UiGridUtilService.autoColWidth(colDefs, tableData.rowMetaData);
                     vm.gridOptionsLinksTable.columnDefs = colDefs;
-
-                    //HIDE ID COLUMN
-                    for (var i = 0; i < vm.gridOptionsLinksTable.columnDefs.length; i++) {                      
-                        if (vm.gridOptionsLinksTable.columnDefs[i].id === 'id') {
-                            vm.gridOptionsLinksTable.columnDefs[i].enableHiding = false;
-                            break;
-                        }
-                    }   
+                    
                 }
             }
 
@@ -800,32 +171,49 @@ angular.module('admin.app').controller('MobilityOrdersController',
             function setupUiGridForSelectedWO() {
 
                 vm.gridOptionsSelectedWO = {
+                    rowEditWaitInterval: -1, //disable autosave
                     enableCellEditOnFocus: true,
                     enableCellEdit: false,
                     enableRowSelection: true,
                     enableRowHeaderSelection: true,
                     enableHorizontalScrollbar: 0,
                     enableVerticalScrollbar: 0,
+                    enableColumnMenus:false,
                     multiSelect: false,
                     rowHeight: 45,
                     onRegisterApi: function (gridApi) {
                         vm.gridApiSelectedWO = gridApi;
                         // Register Events
+                        gridApi.edit.on.beginCellEdit($scope, beginCellEditSelectedWO);
                         //gridApi.selection.on.rowSelectionChanged($scope, rowSelectionChangedWO);
                     }
                 };
-
+                
+                function beginCellEditSelectedWO(rowEntity) {
+                    vm.gridApiSelectedWO.selection.clearSelectedRows();
+                    vm.gridApiSelectedWO.selection.selectRow(rowEntity);
+                    // Save row for undo
+                    vm.undoRowSelectedWO = angular.copy(rowEntity);
+                    vm.isEditingSelectedWO = true;
+                }
 
                 vm.buildColumnDefsAndDataForSelectedWO = function (row) {
                     // copy the columnDefs from search results table to Selected WO row
                     vm.gridOptionsSelectedWO.columnDefs = angular.copy(vm.gridOptionsSearchResults.columnDefs);
                     vm.gridOptionsSelectedWO.data = [row.entity];                    
-
+                    //NOT NECESSARY since undo is for 1 cell value but added for consistency
+                    vm.gridDataSelectedWOCopy = angular.copy(vm.gridOptionsSelectedWO.data);
                     // find WO Description field and set it to editable
                     for (var i = 0; i < vm.gridOptionsSelectedWO.columnDefs.length; i++) {                      
                         if (vm.gridOptionsSelectedWO.columnDefs[i].id === 'woDescription') {
-                            vm.gridOptionsSelectedWO.columnDefs[i].enableCellEdit = true;                            
+                            vm.gridOptionsSelectedWO.columnDefs[i].enableCellEdit = true;          
+                            
                             UiGridUtilService.makeEditable(vm.gridOptionsSelectedWO.columnDefs[i]);
+                            vm.gridOptionsSelectedWO.columnDefs[i].cellTemplate = "" +
+                            "<div>" +
+                            "   <div ng-if='COL_FIELD.length > 10' class='ui-grid-cell-contents' tooltip-placement='left' tooltip-append-to-body='false' tooltip='{{COL_FIELD CUSTOM_FILTERS}}'>{{COL_FIELD CUSTOM_FILTERS}}</div>" +
+                            "   <div ng-if='COL_FIELD.length <= 10' class='ui-grid-cell-contents'>{{COL_FIELD CUSTOM_FILTERS}}</div>" +
+                            "</div>";
                             break;
                         }
                     }
@@ -838,32 +226,37 @@ angular.module('admin.app').controller('MobilityOrdersController',
                     updateWO: function () {
 
                     },
-
-                    cancel: function () {
-
+                    save:function(){
+                        Dialog.confirm("Would you like to save your changes?").then(function () {
+                            vm.gridApiSelectedWO.rowEdit.flushDirtyRows();
+                        });
+                    },
+                    undo: function () {
+                        vm.gridOptionsSelectedWO.data[0] = vm.gridDataSelectedWOCopy[0];
                     }
+                 
                 };
 
             }
 
 
             function setupUiGridForTaskList() {
-
-                vm.gridOptionsTaskListTable = {
-                    enableCellEditOnFocus: true,
-                    enableRowSelection: true,
-                    rowHeight: 45,
-                    rowEditWaitInterval: -1,
-                    //enableRowHeaderSelection: false,
-                    //enableHorizontalScrollbar: 0,
-                    multiSelect: false,
-                    //showGridFooter:true,
-                    //enableFooterTotalSelected:true,
-                    enableSorting: false,
-                    //exporterCsvFilename: vm.selectedWoType + 'tasks.csv',
-                    exporterMenuPdf: false,
-                    exporterMenuCsv: false,
-                    enableGridMenu: true,
+                vm.gridOptionsTaskListTable = UiGridUtilService.createGrid({
+                    onRegisterApi: function (gridApi) {
+                        vm.gridApiTaskList = gridApi;
+                        
+                        gridApi.edit.on.beginCellEdit($scope, beginCellEditTaskList);                        
+                        gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef){
+                                if (colDef.id === 'taskParallelToPrevious') {
+                                    vm.tasklist.recalcTaskSequence();
+                                }
+                            
+                        });
+                        
+                        gridApi.selection.on.rowSelectionChanged($scope, rowSelectionChangedTaskList);
+                        //saving inline edited rows
+                        //gridApi.rowEdit.on.saveRow($scope, saveRow);
+                    },
                     gridMenuCustomItems: [
                         {
                             title: 'Hide Empty Columns',
@@ -875,16 +268,19 @@ angular.module('admin.app').controller('MobilityOrdersController',
                             title: 'Reset Columns',
                             action: function () {
                                 displayOrderDetail(vm.selectedRow.woType);
-                            }
+                            },
+                            order:210
                         }
-                    ],
-                    onRegisterApi: function (gridApi) {
-                        vm.gridApiTaskList = gridApi;
-                        gridApi.selection.on.rowSelectionChanged($scope, rowSelectionChangedTaskList);
-                        //saving inline edited rows
-                        //gridApi.rowEdit.on.saveRow($scope, saveRow);
-                    }
-                };
+                    ]
+                });
+                
+                function beginCellEditTaskList(rowEntity) {
+                    vm.gridApiTaskList.selection.clearSelectedRows();
+                    vm.gridApiTaskList.selection.selectRow(rowEntity);
+                    // Save row for undo
+                    vm.undoRowTaskList = angular.copy(rowEntity);
+                    vm.isEditingTaskList = true;
+                }
 
 
                 function rowSelectionChangedTaskList(row) {
@@ -893,9 +289,9 @@ angular.module('admin.app').controller('MobilityOrdersController',
 
                     vm.selectedRowTaskList = row.entity;
                     //vm.gridApiTaskList.cellNav.scrollToFocus(vm.selectedRow);
-                    $log.debug("scrolled");
+                    
 
-                    vm.selectedIndex = vm.gridOptionsTaskListTable.data.lastIndexOf(vm.selectedRowTaskList);
+                    vm.selectedIndexTaskList = vm.gridOptionsTaskListTable.data.lastIndexOf(vm.selectedRowTaskList);
                     vm.previousIndex = vm.selectedIndex - 1;
                     vm.nextIndex = vm.selectedIndex + 1;
                     //These checks happen once per selected row
@@ -945,8 +341,12 @@ angular.module('admin.app').controller('MobilityOrdersController',
                         else {
 
                         }
-                        //vm.gridApiTaskList.cellNav.scrollToFocus(vm.selectedRow);
-
+                        //vm.gridApiTaskList.cellNav.scrollToFocus(vm.selectedRow);                        
+                        vm.tasklist.recalcTaskSequence();
+                        vm.gridApiTaskList.core.refreshRows().then(function () {
+                            vm.gridApiTaskList.selection.selectRow(vm.gridOptionsTaskListTable.data[vm.selectedIndex]); 
+                        });
+                        
                     },
 
                     moveSelectedDown: function () {
@@ -972,7 +372,12 @@ angular.module('admin.app').controller('MobilityOrdersController',
                         else {
                             //vm.nextIndex = vm.selectedIndex+1;
                         }
-                        //vm.gridApiTaskList.cellNav.scrollToFocus(vm.selectedRow);
+                        //vm.gridApiTaskList.cellNav.scrollToFocus(vm.selectedRow);                        
+                        vm.tasklist.recalcTaskSequence();
+                        vm.gridApiTaskList.core.refreshRows().then(function () {
+                            vm.gridApiTaskList.selection.selectRow(vm.gridOptionsTaskListTable.data[vm.selectedIndex]); 
+                        });
+                        
                     },
 
                     addTask: function () {
@@ -991,21 +396,24 @@ angular.module('admin.app').controller('MobilityOrdersController',
                             vm.gridOptionsAddTaskSelectTable.columnDefs = colDefs;
           
                         });
+                        vm.tasklist.recalcTaskSequence();
                     },
 
                     removeTask: function () {
 
                         // Remove an item
                         vm.gridOptionsTaskListTable.data.splice(vm.gridOptionsTaskListTable.data.lastIndexOf(vm.selectedRowTaskList), 1);
-
+                        vm.tasklist.recalcTaskSequence();
                     },
 
                     saveTasks: function () {
-
+                        Dialog.confirm("Would you like to save your changes?").then(function () {
+                            vm.gridApiTaskList.rowEdit.flushDirtyRows();
+                        });
                     },
 
-                    cancel: function () {
-
+                    undo: function () {
+                        vm.gridOptionsTaskListTable.data[vm.selectedIndexTaskList] = vm.gridDataTaskListCopy[vm.selectedIndexTaskList];
                     },
                     
                     recalcTaskSequence: function () {
@@ -1055,7 +463,17 @@ angular.module('admin.app').controller('MobilityOrdersController',
                             }
                         }
                         if(!selectedRowExists) {
-                            vm.gridOptionsTaskListTable.data.push(vm.gridApiAddTask.selection.getSelectedRows()[0]);
+                            var selectedRowData = vm.gridApiAddTask.selection.getSelectedRows()[0];
+                            
+                            //Assigning additional/default values to the row before adding
+                            selectedRowData.taskParallelToPrevious = "NO";
+                         
+                            //Pusing the selected Row after adidng the additional default values.
+                            vm.gridOptionsTaskListTable.data.push(selectedRowData);
+                          
+                            // recalculate task sequence
+                            vm.tasklist.recalcTaskSequence();
+                            
                             $("#addTaskModal").modal('hide');
                         } else {
                             MessagesService.addMessage('Task Code ['+ selectedRow.taskCode + '] is already added to list', "warning");
@@ -1123,6 +541,7 @@ angular.module('admin.app').controller('MobilityOrdersController',
                     multiSelect: false,
                     enableSorting: false,
                     rowHeight: 45,
+                    enableColumnMenus:false,
                     enableGridMenu: true,
                     onRegisterApi: function (gridApi) {
                         vm.gridApiAddTask = gridApi;
@@ -1141,20 +560,15 @@ angular.module('admin.app').controller('MobilityOrdersController',
 
 
             function setupUiGridForUDA() {
-
-                vm.gridOptionsUDATable = {
-                    enableCellEditOnFocus: true,
-                    enableRowSelection: true,
-                    //enableRowHeaderSelection: false,
-                    enableHorizontalScrollbar: 0,
-                    multiSelect: false,
-                    rowHeight: 45,
-                    enableSorting: false,
-                    exporterMenuPdf: false,
-                    exporterMenuCsv: false,
-                    enableGridMenu: true,
-                    enableHiding: false,
+                vm.gridOptionsUDATable = UiGridUtilService.createGrid({
                     exporterCsvFilename : 'uda.csv',
+                    onRegisterApi: function (gridApi) {
+                        vm.gridApiUDA = gridApi;
+                        gridApi.edit.on.beginCellEdit($scope, beginCellEditUDA);
+                        gridApi.selection.on.rowSelectionChanged($scope, rowSelectionChangedUDA);
+                        //saving inline edited rows
+                        //gridApi.rowEdit.on.saveRow($scope, saveRow);
+                    },
                     gridMenuCustomItems: [
                         {
                             title: 'Hide Empty Columns',
@@ -1166,20 +580,25 @@ angular.module('admin.app').controller('MobilityOrdersController',
                             title: 'Reset Columns',
                             action: function () {
                                 displayOrderDetail(vm.selectedRow.woType);
-                            }
+                            },
+                            order:210
                         }                        
-                    ],
-                    onRegisterApi: function (gridApi) {
-                        vm.gridApiUDA = gridApi;
-                        gridApi.selection.on.rowSelectionChanged($scope, rowSelectionChangedUDA);
-                        //saving inline edited rows
-                        //gridApi.rowEdit.on.saveRow($scope, saveRow);
-                    }
-                };
+                    ]
+                    
+                });
+                
+                function beginCellEditUDA(rowEntity){
+                    vm.gridApiUDA.selection.clearSelectedRows();
+                    vm.gridApiUDA.selection.selectRow(rowEntity);
 
+                    // Save row for undo
+                    vm.undoRowUDA = angular.copy(rowEntity);
+                    vm.isEditingUDA = true;
+                }
 
                 function rowSelectionChangedUDA(row) {
                     vm.selectedRowUDA = row.entity;
+                    vm.selectedIndexUDA = vm.gridOptionsUDATable.data.lastIndexOf(vm.selectedRowUDA);
 
                 }
 
@@ -1188,22 +607,17 @@ angular.module('admin.app').controller('MobilityOrdersController',
                 vm.uda = {
 
                     saveUDA: function () {
-                        if (vm.selectedRowUDA) {
-                            vm.selectedIndex = vm.gridOptionsUDATable.data.lastIndexOf(vm.selectedRowUDA);
-                            vm.gridOptionsUDATable.data.splice(vm.selectedIndex + 1, 0, {});
-                        }
-                        else {
-                            var newItem = {};
-                            vm.gridOptionsUDATable.data.push(newItem);
-                        }
+                        Dialog.confirm("Would you like to save your changes?").then(function () {
+                            vm.gridApiUDA.rowEdit.flushDirtyRows();
+                        });
                     },
 
-                    updatUDA: function () {
+                    updateUDA: function () {
 
                     },
 
-                    cancel: function () {
-
+                    undo: function () {
+                        vm.gridOptionsUDATable.data[vm.selectedIndexUDA] =  vm.gridDataUDACopy[vm.selectedIndexUDA];
                     },
 
                     addUDA: function () {
@@ -1238,24 +652,15 @@ angular.module('admin.app').controller('MobilityOrdersController',
                 };
             }
             
-            
-            
-            
             function setupUiGridForLinks() {
-
-                vm.gridOptionsLinksTable = {
-                    enableCellEditOnFocus: true,
-                    enableRowSelection: true,
-                    //enableRowHeaderSelection: false,
-                    enableHorizontalScrollbar: 0,
-                    multiSelect: false,
-                    rowHeight: 45,
-                    enableSorting: false,
-                    exporterMenuPdf: false,
-                    exporterMenuCsv: false,
-                    enableGridMenu: true,
-                    enableHiding: false,
+                vm.gridOptionsLinksTable = UiGridUtilService.createGrid({
                     exporterCsvFilename : 'links.csv',
+                    onRegisterApi: function (gridApi) {
+                        vm.gridApiLinks = gridApi;
+                        gridApi.selection.on.rowSelectionChanged($scope, rowSelectionChangedLinks);
+                        //saving inline edited rows
+                        //gridApi.rowEdit.on.saveRow($scope, saveRow);
+                    },
                     gridMenuCustomItems: [
                         {
                             title: 'Hide Empty Columns',
@@ -1267,21 +672,15 @@ angular.module('admin.app').controller('MobilityOrdersController',
                             title: 'Reset Columns',
                             action: function () {
                                 displayOrderDetail(vm.selectedRow.woType);
-                            }
+                            },
+                            order:210
                         }                        
-                    ],
-                    onRegisterApi: function (gridApi) {
-                        vm.gridApiLinks = gridApi;
-                        gridApi.selection.on.rowSelectionChanged($scope, rowSelectionChangedLinks);
-                        //saving inline edited rows
-                        //gridApi.rowEdit.on.saveRow($scope, saveRow);
-                    }
-                };
-
+                    ]                    
+                });
 
                 function rowSelectionChangedLinks(row) {
                     vm.selectedRowLinks = row.entity;
-
+                    vm.selectedIndexLinks = vm.gridOptionsLinksTable.data.lastIndexOf(vm.selectedRowLinks);
                 }
 
 
@@ -1289,22 +688,17 @@ angular.module('admin.app').controller('MobilityOrdersController',
                 vm.links = {
 
                     saveLink: function () {
-                        if (vm.selectedRowLinks) {
-                            vm.selectedIndex = vm.gridOptionsLinksTable.data.lastIndexOf(vm.selectedRowLinks);
-                            vm.gridOptionsLinksTable.data.splice(vm.selectedIndex + 1, 0, {});
-                        }
-                        else {
-                            var newItem = {};
-                            vm.gridOptionsLinksTable.data.push(newItem);
-                        }
+                        Dialog.confirm("Would you like to save your changes?").then(function () {
+                            vm.gridApiLinks.rowEdit.flushDirtyRows();
+                        });
                     },
 
-                    updatLink: function () {
+                    updateLink: function () {
 
                     },
 
-                    cancel: function () {
-
+                    undo: function () {
+                        vm.gridOptionsLinksTable.data[vm.selectedIndexLinks] = vm.gridDataLinksCopy[vm.selectedIndexLinks]; 
                     },
 
                     addLink: function () {
@@ -1353,15 +747,7 @@ angular.module('admin.app').controller('MobilityOrdersController',
                     vm.woType = '';
                 };
                 
-                
-                vm.addWOTemplate = function() {
-                    setupUiGridForNewTaskList();
-                    setupUiGridForNewUDA();
-                    setupUiGridForNewLinks();
-                    vm.displayChildTablesForNewWOTemplateFlag = false;
-                    vm.displayNewWOTemplateTable();
-                };
-          
+      
 
                 vm.poTypeSelectionEvents = {
 
@@ -1369,11 +755,9 @@ angular.module('admin.app').controller('MobilityOrdersController',
 
                         if (item.id !== undefined || item === "") {
                             if (item.id !== "" && item.id !== undefined) {
-                                vm.addWoTemplateButtonDisabled = false;
                                 vm.searchButtonDisabled = false;
                                 vm.clearButtonDisabled = false;
                             } else {
-                                vm.addWoTemplateButtonDisabled = true;
                                 vm.searchButtonDisabled = true;
                                 vm.clearButtonDisabled = true;
                             }
@@ -1388,11 +772,9 @@ angular.module('admin.app').controller('MobilityOrdersController',
 
                         if (item.id !== undefined || item === "") {
                             if (item.id !== "" && item.id !== undefined) {
-                                vm.addWoTemplateButtonDisabled = true;
                                 vm.searchButtonDisabled = false;
                                 vm.clearButtonDisabled = false;
                             } else {
-                                vm.addWoTemplateButtonDisabled = false;
                                 vm.searchButtonDisabled = true;
                                 vm.clearButtonDisabled = true;
                             }
@@ -1403,9 +785,7 @@ angular.module('admin.app').controller('MobilityOrdersController',
 
 
                 vm.orderSearch = function () {
-
                     // reset to false before making restful call to get search results
-                    vm.displayNewWOTemplateTableFlag = false;
                     vm.displaySearchResultsTableFlag = false;
                     vm.displayOrderDetailsFlag = false;
 
@@ -1424,8 +804,14 @@ angular.module('admin.app').controller('MobilityOrdersController',
 
                             var tableData = data.tableRows;
                             vm.gridOptionsSearchResults.data = UiGridUtilService.extractTableCellValues(tableData);
-                            vm.gridOptionsSearchResults.columnDefs = UiGridUtilService.extractColumnDefs(tableData);                       
-
+                            vm.gridOptionsSearchResults.columnDefs = UiGridUtilService.extractColumnDefs(tableData);
+                            /**
+                             * Hack to workaround the blank table issue
+                             * @TODO Issue needs investigation
+                             */
+                            setTimeout(function () {
+                                $(window).trigger('resize');
+                            }, 0);  //500);
                         });
                     }
                     else {
@@ -1438,15 +824,15 @@ angular.module('admin.app').controller('MobilityOrdersController',
                             vm.gridOptionsSearchResults.data = UiGridUtilService.extractTableCellValues(tableData);
                             vm.gridOptionsSearchResults.columnDefs = UiGridUtilService.extractColumnDefs(tableData);                       
 
+                            setTimeout(function () {
+                                $(window).trigger('resize');
+                            }, 0);  //500);
                         });
                     }
                 };
                 
                 
-                vm.poTypeSelectionClickItemEvent = function (selectedItem) {  
-                    
-                    validateIfWOTemplateButtonShouldBeEnabled();   
-                    
+                vm.poTypeSelectionClickItemEvent = function (selectedItem) {   
                     if(vm.poTypeMultiselectPickListOutput.length > 0){
                         vm.searchButtonDisabled = false;
                         vm.clearButtonDisabled = false;
@@ -1457,27 +843,21 @@ angular.module('admin.app').controller('MobilityOrdersController',
                 };
 
                 vm.poTypeSelectionSelectNoneEvent = function () {  
-                    validateIfWOTemplateButtonShouldBeEnabled();
                     vm.searchButtonDisabled = true;
                     vm.clearButtonDisabled = true;          
                 };
 
                 vm.poTypeSelectionSelectAllEvent = function () { 
-                    validateIfWOTemplateButtonShouldBeEnabled();
                     vm.searchButtonDisabled = false;
                     vm.clearButtonDisabled = false;      
                 };
 
                 vm.poTypeSelectionResetEvent = function () {  
-                    validateIfWOTemplateButtonShouldBeEnabled();
                     vm.searchButtonDisabled = true;
                     vm.clearButtonDisabled = true;   
                 };
 
                 vm.woTypeSelectionClickItemEvent = function (selectedItem) { 
-                    
-                    validateIfWOTemplateButtonShouldBeEnabled();
-                    
                     if(vm.woTypeMultiselectPickListOutput.length > 0){
                         vm.searchButtonDisabled = false;
                         vm.clearButtonDisabled = false;
@@ -1488,33 +868,21 @@ angular.module('admin.app').controller('MobilityOrdersController',
                 };
 
                 vm.woTypeSelectionSelectNoneEvent = function () {  
-                    validateIfWOTemplateButtonShouldBeEnabled();
                     vm.searchButtonDisabled = true;
-                    vm.clearButtonDisabled = true;          
+                    vm.clearButtonDisabled = true;
                 };
 
                 vm.woTypeSelectionSelectAllEvent = function () {  
-                    validateIfWOTemplateButtonShouldBeEnabled();
                     vm.searchButtonDisabled = false;
                     vm.clearButtonDisabled = false;      
                 };
 
                 vm.woTypeSelectionResetEvent = function () {   
-                    validateIfWOTemplateButtonShouldBeEnabled();
                     vm.searchButtonDisabled = true;
                     vm.clearButtonDisabled = true;   
                 };
                 
-                
-                function validateIfWOTemplateButtonShouldBeEnabled() {
-                    if(vm.poTypeMultiselectPickListOutput.length === 1 &&
-                        vm.woTypeMultiselectPickListOutput.length === 0) {
-                        vm.addWoTemplateButtonDisabled = false;
-                    }
-                    else {
-                        vm.addWoTemplateButtonDisabled = true;
-                    }
-                }
+            
             };
 
         }]);

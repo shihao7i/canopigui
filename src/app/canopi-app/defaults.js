@@ -1,4 +1,4 @@
-angular.module('admin.defaults', [])
+angular.module('canopi.defaults', [])
     // ui-Grid
     .value('UiGridSettings', {
         enableRowSelection: true,
@@ -14,4 +14,3 @@ angular.module('admin.defaults', [])
         exporterMenuCsv: false
     })
     .value('UiGridColumnSettings', {});
-
