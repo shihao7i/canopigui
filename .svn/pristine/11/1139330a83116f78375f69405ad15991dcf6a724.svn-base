@@ -1,0 +1,108 @@
+angular.module('canopi.service').service('UiGridUtilService', ['$log', function ($log) {
+    'use strict';
+
+    // auto adjust column widths in ui-grid
+    // http://stackoverflow.com/questions/17174096/is-there-a-way-to-auto-adjust-widths-in-ng-grid
+
+    this.autoColWidth = function (colDefs, row) {
+
+        var totalChars = 0;
+
+        for (var i = 0; i < row.columnList.length; i++) {
+            totalChars += (new String(row.columnList[i].displayName)).length;
+        }
+
+        for (var i = 0; i < colDefs.length; i++) {
+            var numChars = (new String(colDefs[i].displayName)).length;
+            if (totalChars > 100) {
+                colDefs[i].width = ( (numChars / totalChars) * 200) + "%";
+            } else {
+                colDefs[i].width = ( (numChars / totalChars) * 100) + "%";
+            }
+        }
+
+        return colDefs;
+    };
+
+
+    // helper method to build ng-grid's columnDefs property based on meta data column attributes
+    this.extractColumnDefs = function (tableData) {
+        var columns = _.uniq(tableData.rowMetaData.columnList, 'id');
+
+        angular.forEach(columns, function (column) {
+            column.field = column.id;
+            column.cellTemplate = "" +
+            "   <div ng-if='COL_FIELD.length > 20' class='ui-grid-cell-contents' tooltip='{{COL_FIELD CUSTOM_FILTERS}}'>{{COL_FIELD CUSTOM_FILTERS}}</div>" +
+            "   <div ng-if='COL_FIELD.length <= 20' class='ui-grid-cell-contents'>{{COL_FIELD CUSTOM_FILTERS}}</div>";
+        });
+
+        return columns;
+    };
+    
+    this.extractColumnDefsWithDropdown = function (tableData){
+       var columns = _.uniq(tableData.rowMetaData.columnList, 'id');
+       var dropdownValues = _.uniq(tableData.rowMetaData.dropdowns, 'id');
+//       angular.forEach(dropdownValues, function(dropdownVal){
+//           $log.debug(dropdownVal.id);
+//           $log.debug(dropdownVal.values);  
+//       });
+       angular.forEach(columns, function(column){
+          //$log.debug(column);
+          column.field = column.id;
+          column.cellTemplate = "" +
+            "   <div ng-if='COL_FIELD.length > 20' class='ui-grid-cell-contents' tooltip-animation='false' tooltip='{{COL_FIELD CUSTOM_FILTERS}}'>{{COL_FIELD CUSTOM_FILTERS}}</div>" +
+            "   <div ng-if='COL_FIELD.length <= 20' class='ui-grid-cell-contents'>{{COL_FIELD CUSTOM_FILTERS}}</div>";
+          if(column.dropdown === true){
+              //$log.debug("yes it is a dropdown");
+              column.editableCellTemplate = 'ui-grid/dropdownEditor';
+              column.editDropdownValueLabel= column.id;
+              /*column.editDropdownOptionsArray= [
+                { id: 1, archive: 'YES' },
+                { id: 2, archive: 'NO' }
+              ];*/
+              column.editDropdownOptionsArray= tableData.rowMetaData.dropdownVals;
+          };
+       });
+       return columns;
+    };
+
+    // helper method to build ng-grid's data property based on meta data row values
+    this.extractTableCellValues = function (tableData) {
+        var localRowData = [];
+        var cellsInRow = [];
+
+        var totalCols = tableData.rowMetaData.columnList.length;
+        var totalRows = tableData.rowMetaData.rowValueList.length;
+
+        for (var i = 0; i < totalRows; i++) {
+
+            cellsInRow = tableData.rowMetaData.rowValueList[i].cellValues;
+
+            var obj = {};
+
+            for (var j = 0; j < totalCols; j++) {
+                obj[tableData.rowMetaData.columnList[j]['id']] = cellsInRow[j];
+            }
+
+            localRowData.push(obj);
+        }
+
+        return localRowData;
+    }
+    
+//    .filter('mapGender', function() {
+//        var genderHash = {
+//          1: 'YES',
+//          2: 'NO'
+//        };
+//
+//        return function(input) {
+//          if (!input){
+//            return '';
+//          } else {
+//            return genderHash[input];
+//          }
+//        };
+//    });
+}]);
+

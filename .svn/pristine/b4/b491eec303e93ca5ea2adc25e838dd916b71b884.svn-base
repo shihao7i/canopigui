@@ -1,0 +1,24 @@
+angular.module('admin.service').service('AdminLookupService', ['$q', '$http', '$log', 'mockDataFlag',
+    function ($q, $http, $log, mockDataFlag) {
+
+        'use strict';
+
+        var baseUrl = '/gui-canopi-js/src/app/admin-app/mock/lookupadmin/';
+
+
+        /**
+         * Gets the the lookuptypes
+         *
+         * @param lookupType
+         * @param options Optional parameters to configure the request
+         * @returns {*} Promise
+         */
+        this.getLookupType = function (lookupType, options) {
+            var deferred = $q.defer();
+            $http.get(baseUrl + lookupType + '.json').success(function (response) {
+                deferred.resolve(response);
+            });
+
+            return deferred.promise;
+        };
+    }]);

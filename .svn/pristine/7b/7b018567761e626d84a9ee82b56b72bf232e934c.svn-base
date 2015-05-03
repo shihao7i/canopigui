@@ -1,0 +1,97 @@
+angular.module('admin.app').controller('ActivitySearchController', 
+        [ '$scope', '$log', '$filter', 'activityTypes', 'AdminJsonService', 'UiGridUtilService',
+        function ($scope, $log, $filter, activityTypes, AdminJsonService, UiGridUtilService) {
+            
+	'use strict';
+	
+        var vm = this;
+        
+        $log.debug("activityTypes => " + angular.toJson(activityTypes));
+        
+        init();
+        
+        function init() {
+            
+  	    initializeVMVariables();
+ 	    setupVMMethods();
+            
+        };
+        
+        function  initializeVMVariables() {
+
+            // sort the rule category values in ascending order
+            vm.activityTypes = $filter('orderBy')(activityTypes, 'name');
+            vm.searchAccordionOpen = true;
+            
+            vm.openActivitiesFromDate = function($event) {
+              $event.preventDefault();
+              $event.stopPropagation();
+
+              vm.openedFromDate = true;   
+            };
+            
+            vm.openActivitiesToDate = function($event) {
+              $event.preventDefault();
+              $event.stopPropagation();
+
+              vm.openedToDate = true;
+            };
+        };
+        
+        function setupVMMethods() {
+          
+            vm.gridOptionsActivityResultsTable = {
+                enableRowSelection: true,
+                enableCellEditOnFocus:true,
+                enableGridMenu:true,
+                //enableRowSelection: true,
+                //enableRowHeaderSelection: false,
+                enableHorizontalScrollbar: 1,
+                multiSelect: false,
+                rowHeight: 45,
+                //showGridFooter:true,
+                //enableFooterTotalSelected:true,
+                enableSorting:false,
+                exporterMenuPdf: false,
+                exporterMenuCsv: false,
+                gridMenuCustomItems: [
+                    {
+                      title: 'Hide Empty Columns',
+                      action: function () {
+                        vm.toggleEmptyColumns(); 
+                      }
+                    },
+                    {
+                      title: 'Reset Columns',
+                      action: function () {
+                        vm.taskSearch(); 
+                      }
+                    }
+                ],    
+             }; 
+             
+             
+            vm.activitySearch = function () {
+                
+                vm.displayActivitesResults = true;
+                
+                AdminJsonService.getActivitySearchResults().then(function(data) {
+
+                    var myData = UiGridUtilService.extractTableCellValues(data.tableRows);
+                    vm.gridOptionsActivityResultsTable.data = myData;
+
+                    var colDefs = UiGridUtilService.extractColumnDefs(data.tableRows);
+                    colDefs = UiGridUtilService.autoColWidth(colDefs, data.tableRows.rowMetaData);
+
+                    vm.gridOptionsActivityResultsTable.columnDefs = colDefs;
+                    vm.gridOptionsActivityResultsTable.exporterCsvFilename = 'activities.csv';
+
+                });
+            };
+
+        };
+        
+        
+}]);
+
+

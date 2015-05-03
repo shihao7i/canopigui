@@ -1,0 +1,11 @@
+{
+    "attuid": "yw508r",
+    "action": "FILTER",
+    "key": {},
+    "data":[  
+      {  
+        "poType": ["ETTCS"],
+        "woType": []
+      }
+   ]
+}

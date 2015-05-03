@@ -1,0 +1,167 @@
+<!-- Testing -->
+<div class="row">
+	<div class="col-md-12 col-lg-12">
+		
+			<!-- BREADCRUMBS - We can setup with Angular $location -->
+			<div class="row">
+					<div class="panel panel-default">
+					  <div class="panel-body">
+						    <ol class="breadcrumb">
+							  <li><a href="#"><i class="fa fa-home fa-lg"></i>&nbsp;&nbsp;&nbsp;Home</a></li>
+							  <li><a href="#">Inventory</a></li>
+							  <li><a href="#">Search</a></li>
+							  <li class="active">Services</li>
+							</ol>
+						  </div>
+					</div>
+			</div>
+				
+			<div class="row">	
+	
+				<!-- TOP ACCORDIONG - SEARCH -->
+				<accordion class="canopi-accordion" close-others="oneAtATime"> 
+					<accordion-group is-open="accordionOpen.search"> 
+						<accordion-heading> 
+							<span  style="color: #ef6f00; font-size: 26px; font-family: Omnes-ATT-II-Light;">Search Criteria</span>
+							<i style="color: #ef6f00;" class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': accordionOpen.search, 'glyphicon-chevron-right': !accordionOpen.search}"></i>
+						</accordion-heading>
+		
+						<div style="border-bottom: solid; border-width: 1px; margin-bottom: 20px; color: #9C9C9C;"></div>
+		
+						<div class="row canopi-inputfields" style="padding-left: 20px; padding-right: 20px;">
+									
+								<div class="col-lg-4 col-md-4 col-sm-4">
+					
+									<div class="form-group">
+										<div class="canopi-input-title">Service Type:</div>
+										<div class="dropdown">
+											<select class="dropdown-select form-control ng-pristine ng-valid"
+												title="Please select" data-live-search="false">
+												<option></option>
+												<option></option>
+												<option></option>
+												<option></option>
+												<option></option>
+												<option></option>
+											</select>
+										</div>
+									</div>
+	
+									<div class="form-group canopi-right-inner-addon">
+										<div class="canopi-input-title">Customer Name:</div>
+										<i class="fa fa-search"></i>
+										<input type="text" ng-model="selected" typeahead="state for state in states | filter:$viewValue | limitTo:8" class="form-control" placeholder="Type and Search">
+									</div>
+	
+									<div class="form-group canopi-right-inner-addon">
+										<div class="canopi-input-title">Customer Code:</div>
+										<i class="fa fa-search"></i>
+										<input type="search" ng-model="selected2" typeahead="state for state in states2 | filter:$viewValue | limitTo:8" class="form-control" placeholder="Type and Search">
+									</div>
+					
+								</div>
+					
+					
+					
+								<div class="col-lg-4 col-md-4 col-sm-4">
+	
+	                                <div class="form-group">
+										<div class="canopi-input-title">Service ID:</div>
+										<input type="text" class="form-control" placeholder="">
+									</div>
+	
+	                                <div class="form-group canopi-right-inner-addon">
+										<div class="canopi-input-title">BAN:</div>
+										<i class="fa fa-search"></i>
+										<input type="text" ng-model="selected3" typeahead="state for state in states3 | filter:$viewValue | limitTo:8" class="form-control" placeholder="Type and Search">
+									</div>
+	
+	                                <div class="form-group">
+										<div class="canopi-input-title">Market Indicator:</div>
+										<div class="dropdown">
+											<select class="dropdown-select form-control ng-pristine ng-valid"
+												title="Please select" data-live-search="false">
+												<option></option>
+												<option></option>
+												<option></option>
+												<option></option>
+												<option></option>
+												<option></option>
+											</select>
+										</div>
+									</div>
+	
+								</div>
+	
+	                            <div class="col-lg-4 col-md-4 col-sm-4">
+	
+	                                <div class="form-group">
+										<div class="canopi-input-title">ACNA:</div>
+										<input type="text" class="form-control" placeholder="">
+									</div>
+	
+									<div class="form-group">
+										<div class="canopi-input-title">SVID:</div>
+										<input type="text" class="form-control" placeholder="">
+									</div>
+	
+									<div class="form-group">
+										<div class="canopi-input-title">Status:</div>
+										<div class="dropdown">
+											<select class="dropdown-select form-control ng-pristine ng-valid"
+												title="Please select" data-live-search="false">
+												<option></option>
+												<option></option>
+												<option></option>
+												<option></option>
+												<option></option>
+												<option></option>
+											</select>
+										</div>
+									</div>
+	
+								</div>
+	
+						</div>
+	
+	                    <!-- SEARCH AND CLEAR BUTTONS -->
+	                    <div class="row" style="padding-left: 20px; padding-right: 20px;">
+	                        <div class="col-md-12">
+	                            <button href='javascript:void(0);' class="btn canopi-btn-blue">Search</button>
+	                            <button href='javascript:void(0);' class="btn canopi-btn-gray">Clear</button>
+	                        </div>
+	                    </div>
+	
+				</accordion-group> 
+			</accordion>
+	
+	
+				<!-- BOTTOM ACCORDIONG - DATATABLE -->
+				<accordion class="canopi-accordion" close-others="oneAtATime"> 
+					<accordion-group is-open="accordionOpen.table"> 
+						
+						<accordion-heading> 
+							<span  style="color: #ef6f00; font-size: 26px; font-family: Omnes-ATT-II-Light;">Services Table</span>
+							<i  style="color: #ef6f00;" class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': accordionOpen.table, 'glyphicon-chevron-right': !accordionOpen.table}"></i>
+						</accordion-heading>
+					
+						<div style="border-bottom: solid; border-width: 1px; margin-bottom: 20px; color: #9C9C9C;"></div>
+					
+						<!-- DATATABLE -->
+						<div class="table-responsive col-lg-12 no-padding" style="padding-top: 10px;">
+							
+							<table class="table table-striped table-hover data-table"
+								   id="resultsTableUSRP" search-result-table="resultsUSRP"
+								table-data="resultsets['USRP'].resultData" add-pagination="true"
+								event-handler="gridEventHandler(eventId, data)">
+							</table>
+						
+						</div>
+					
+					</accordion-group> 
+				</accordion>
+				
+			</div>
+			
+	</div> <!--  End col -->
+</div> <!-- End row -->

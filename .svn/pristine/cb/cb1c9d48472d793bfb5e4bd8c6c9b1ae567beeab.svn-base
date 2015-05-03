@@ -1,0 +1,12 @@
+{   
+    "tableRows": 
+        {"rowMetaData":
+            { "columnList":[{"hyperlink":false,	"visible": false, "editable": false, "fieldType": "input", "fieldOptions": [], "fieldDefault": "", "id":"id", "displayName":"ID"},
+                            {"hyperlink":false,	"visible": true, "editable": true, "fieldType": "input", "fieldOptions": [], "fieldDefault": "", "id":"name", "displayName":"Name"},
+                            {"hyperlink":true,	"visible": true, "editable": true, "fieldType": "input", "fieldOptions": [], "fieldDefault": "", "id":"url", "displayName":"URL"}],
+
+              "rowValueList":[]
+            }
+        }
+}
+

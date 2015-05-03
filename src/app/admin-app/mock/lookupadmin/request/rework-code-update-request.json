@@ -1,0 +1,15 @@
+{  
+   "attuid":"pb154j",
+   "action": "UPDATE",
+   "key": {},
+   "data":[  
+      {  
+         "id":"1001",
+         "reworkTaskOperation": "RETURN TO PCO ATM FOR REWORK",
+         "reworkCode": "ATMPCO01",
+         "reworkCodeDescription": "ATMPCO01 - LOGICAL CROSS CONNECT ERROR",
+         "sla": "1",
+         "archive":"NO"
+      }
+   ]
+}

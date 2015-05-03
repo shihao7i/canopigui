@@ -1,0 +1,16 @@
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <div class="canopi-input-title">Task Code/Name</div>
+            <div class="input-group">
+                <input type="text" class="form-control ng-pristine ng-untouched ng-valid" placeholder="Type and Search">
+                  <span class="input-group-btn">
+                    <button class="btn btn-default canopi-btn-sharp-corners" type="button"><i class="fa fa-search"></i></button>
+                  </span>
+            </div><!-- /input-group -->
+        </div>
+    </div>
+</div>
+<div ui-grid="tasks.taskCodeAndNameLookupTable" ui-grid-auto-resize 
+     ui-grid-selection ui-grid-resize-columns class="addTaskSelectUIGrid">
+</div>    

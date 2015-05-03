@@ -1,0 +1,15 @@
+<div>
+    <div class="panel-heading sub-panel-heading">
+        <div class="sub-panel-title">
+            <span class="sub-panel-header">Subtasks for selected tasks</span>                                
+        </div>
+    </div>   
+</div>
+
+<div class="row">                        
+    <div class="col-md-12">
+        <div  ui-grid="tasks.gridOptionsSubTasks" 
+              ui-grid-cellNav ui-grid-edit ui-grid-resize-columns ui-grid-auto-resize class="subTasksGrid">
+        </div>
+    </div>                     
+</div>

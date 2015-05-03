@@ -1,0 +1,10 @@
+ [
+    {"name": "WO Description", "value": "wo-description-rule-response"},
+    {"name": "Task Description", "value": "task-description-rule-response"},
+    {"name": "Task Name", "value": "task-name-rule-response"},
+    {"name": "Task Queue", "value": "task-queue-rule-response"},
+    {"name": "Task Duration", "value": "task-duration-rule-response"},
+    {"name": "Task Escalation", "value": "task-escalation-rule-response"},
+    {"name": "Task Delegation", "value": "task-delegation-rule-response"},
+    {"name": "Task Visibility", "value": "task-visibility-rule-response"}
+]

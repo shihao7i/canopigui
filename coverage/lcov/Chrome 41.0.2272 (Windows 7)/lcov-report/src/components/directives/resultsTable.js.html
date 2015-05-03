@@ -1,0 +1,1885 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for ./src/components/directives/resultsTable.js</title>
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" href="../prettify.css">
+
+    <style>
+        body, html {
+            margin:0; padding: 0;
+        }
+        body {
+            font-family: Helvetica Neue, Helvetica,Arial;
+            font-size: 10pt;
+        }
+        div.header, div.footer {
+            background: #eee;
+            padding: 1em;
+        }
+        div.header {
+            z-index: 100;
+            position: fixed;
+            top: 0;
+            border-bottom: 1px solid #666;
+            width: 100%;
+        }
+        div.footer {
+            border-top: 1px solid #666;
+        }
+        div.body {
+            margin-top: 10em;
+        }
+        div.meta {
+            font-size: 90%;
+            text-align: center;
+        }
+        h1, h2, h3 {
+            font-weight: normal;
+        }
+        h1 {
+            font-size: 12pt;
+        }
+        h2 {
+            font-size: 10pt;
+        }
+        pre {
+            font-family: Consolas, Menlo, Monaco, monospace;
+            margin: 0;
+            padding: 0;
+            line-height: 14px;
+            font-size: 14px;
+            -moz-tab-size: 2;
+            -o-tab-size:  2;
+            tab-size: 2;
+        }
+
+        div.path { font-size: 110%; }
+        div.path a:link, div.path a:visited { color: #000; }
+        table.coverage { border-collapse: collapse; margin:0; padding: 0 }
+
+        table.coverage td {
+            margin: 0;
+            padding: 0;
+            color: #111;
+            vertical-align: top;
+        }
+        table.coverage td.line-count {
+            width: 50px;
+            text-align: right;
+            padding-right: 5px;
+        }
+        table.coverage td.line-coverage {
+            color: #777 !important;
+            text-align: right;
+            border-left: 1px solid #666;
+            border-right: 1px solid #666;
+        }
+
+        table.coverage td.text {
+        }
+
+        table.coverage td span.cline-any {
+            display: inline-block;
+            padding: 0 5px;
+            width: 40px;
+        }
+        table.coverage td span.cline-neutral {
+            background: #eee;
+        }
+        table.coverage td span.cline-yes {
+            background: #b5d592;
+            color: #999;
+        }
+        table.coverage td span.cline-no {
+            background: #fc8c84;
+        }
+
+        .cstat-yes { color: #111; }
+        .cstat-no { background: #fc8c84; color: #111; }
+        .fstat-no { background: #ffc520; color: #111 !important; }
+        .cbranch-no { background:  yellow !important; color: #111; }
+
+        .cstat-skip { background: #ddd; color: #111; }
+        .fstat-skip { background: #ddd; color: #111 !important; }
+        .cbranch-skip { background: #ddd !important; color: #111; }
+
+        .missing-if-branch {
+            display: inline-block;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: black;
+            color: yellow;
+        }
+
+        .skip-if-branch {
+            display: none;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: #ccc;
+            color: white;
+        }
+
+        .missing-if-branch .typ, .skip-if-branch .typ {
+            color: inherit !important;
+        }
+
+        .entity, .metric { font-weight: bold; }
+        .metric { display: inline-block; border: 1px solid #333; padding: 0.3em; background: white; }
+        .metric small { font-size: 80%; font-weight: normal; color: #666; }
+
+        div.coverage-summary table { border-collapse: collapse; margin: 3em; font-size: 110%; }
+        div.coverage-summary td, div.coverage-summary table  th { margin: 0; padding: 0.25em 1em; border-top: 1px solid #666; border-bottom: 1px solid #666; }
+        div.coverage-summary th { text-align: left; border: 1px solid #666; background: #eee; font-weight: normal; }
+        div.coverage-summary th.file { border-right: none !important; }
+        div.coverage-summary th.pic { border-left: none !important; text-align: right; }
+        div.coverage-summary th.pct { border-right: none !important; }
+        div.coverage-summary th.abs { border-left: none !important; text-align: right; }
+        div.coverage-summary td.pct { text-align: right; border-left: 1px solid #666; }
+        div.coverage-summary td.abs { text-align: right; font-size: 90%; color: #444; border-right: 1px solid #666; }
+        div.coverage-summary td.file { text-align: right; border-left: 1px solid #666; white-space: nowrap;  }
+        div.coverage-summary td.pic { min-width: 120px !important;  }
+        div.coverage-summary a:link { text-decoration: none; color: #000; }
+        div.coverage-summary a:visited { text-decoration: none; color: #333; }
+        div.coverage-summary a:hover { text-decoration: underline; }
+        div.coverage-summary tfoot td { border-top: 1px solid #666; }
+
+        div.coverage-summary .yui3-datatable-sort-indicator, div.coverage-summary .dummy-sort-indicator {
+            height: 10px;
+            width: 7px;
+            display: inline-block;
+            margin-left: 0.5em;
+        }
+        div.coverage-summary .yui3-datatable-sort-indicator {
+            background: url("https://yui-s.yahooapis.com/3.6.0/build/datatable-sort/assets/skins/sam/sort-arrow-sprite.png") no-repeat scroll 0 0 transparent;
+        }
+        div.coverage-summary .yui3-datatable-sorted .yui3-datatable-sort-indicator {
+            background-position: 0 -20px;
+        }
+        div.coverage-summary .yui3-datatable-sorted-desc .yui3-datatable-sort-indicator {
+            background-position: 0 -10px;
+        }
+
+        .high { background: #b5d592 !important; }
+        .medium { background: #ffe87c !important; }
+        .low { background: #fc8c84 !important; }
+
+        span.cover-fill, span.cover-empty {
+            display:inline-block;
+            border:1px solid #444;
+            background: white;
+            height: 12px;
+        }
+        span.cover-fill {
+            background: #ccc;
+            border-right: 1px solid #444;
+        }
+        span.cover-empty {
+            background: white;
+            border-left: none;
+        }
+        span.cover-full {
+            border-right: none !important;
+        }
+        pre.prettyprint {
+            border: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        .com { color: #999 !important; }
+        .ignore-none { color: #999; font-weight: normal; }
+
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1>Code coverage report for <span class="entity">./src/components/directives/resultsTable.js</span></h1>
+    <h2>
+        
+        Statements: <span class="metric">2.14% <small>(3 / 140)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Branches: <span class="metric">0% <small>(0 / 145)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Functions: <span class="metric">0% <small>(0 / 23)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Lines: <span class="metric">2.14% <small>(3 / 140)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../index.html">All files</a> &#187; <a href="index.html">./src/components/directives\</a> &#187; resultsTable.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522</td><td class="line-coverage"><span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">angular.module('canopi.directive').directive('searchResultTable', ['$window', '$filter', '$compile', '$location', '$timeout', '$log',
+<span class="fstat-no" title="function not covered" >                                                      function ($window, $filter, $compile, $location, $timeout, $log) {</span>
+	'use strict';
+&nbsp;
+<span class="cstat-no" title="statement not covered" >	return {</span>
+		restrict: 'E, A, C',
+&nbsp;
+		//Declare isolate scope so we can use multiple table controls in the same controller
+		//and we don't bear the danger of controller scope effecting anything here
+		scope: {
+			tableData: "=",			//Maps to the object in the controller scope holding rows, etc.
+            totalRecords: "=",
+            currentPage: "=",
+            currentRecords: "=",
+            partOfModal: "=",
+            onRowClick: "&amp;",
+            addFilter: "@addFilter",
+            addPagination: "@addPagination",
+            addExport: "@addExport",
+            addColumnShowHide: "@addColumnShowHide",
+			eventHandler: "&amp;"		//Maps to controller's eventHandler(eventId, data) method
+		},
+&nbsp;
+&nbsp;
+		link: <span class="fstat-no" title="function not covered" >function (scope, element, attrs, controller) {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >			var recalcLayout = <span class="fstat-no" title="function not covered" >function(id) {</span></span>
+&nbsp;
+				//If we've initialized a table, make sure to adjust the column headings
+				//since they live in a seperate div and sometimes don't redraw properly
+<span class="cstat-no" title="statement not covered" >				if ( $.fn.dataTable.fnIsDataTable(document.getElementById(id)) ) {</span>
+&nbsp;
+					//Redraw the tables columns since we've resized, but only on tables that are showing
+<span class="cstat-no" title="statement not covered" >					var dt = element.dataTable();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >					dt.fnAdjustColumnSizing();</span>
+//					}
+&nbsp;
+				}
+			};
+&nbsp;
+			//We need to bind to the window resize so we can tell the table's headers to recalculate
+			//Headers and table rows exist in different tables and don't stay in width sync, unfortunately.
+			//DataTables recommends compensating for this when resizes are needed by manually calculating widths.
+			//The problem ocurrs mainly when using sScrollX and sScrollXInner
+			//http://datatables.net/forums/discussion/13767/sscrollx-and-sscrollxinner-column-alignments/p1
+			//http://datatables.net/forums/discussion/comment/30608
+&nbsp;
+			//An alternative solution could be to recalcuate every time the table redraws
+			//http://datatables.net/forums/discussion/comment/10385
+&nbsp;
+<span class="cstat-no" title="statement not covered" >			angular.element($window).bind('resize', <span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >				recalcLayout(attrs.id);</span>
+			});
+&nbsp;
+&nbsp;
+			//Have to unbind from the resize event when this directive is destroyed
+<span class="cstat-no" title="statement not covered" >			scope.$on('$destroy', <span class="fstat-no" title="function not covered" >function() {</span></span>
+//				$log.debug("----------- Destroy on table attrs.id=" + attrs.id);
+<span class="cstat-no" title="statement not covered" >				angular.element($window).unbind('resize');</span>
+			});
+&nbsp;
+&nbsp;
+			//Setup an event that's fired when the controller thinks this table needs to re-layout it's columns
+<span class="cstat-no" title="statement not covered" >			scope.$on('layout', <span class="fstat-no" title="function not covered" >function() {</span></span>
+				// You might need this timeout to be sure its run after DOM render.
+//				$timeout(function () {
+<span class="cstat-no" title="statement not covered" >					recalcLayout(attrs.id);</span>
+//				}, 0, false);
+			});
+&nbsp;
+&nbsp;
+			//Setup local storage saving/loading methods so we can keep the state of our filter, columns, etc.
+			//We need to override this so we can store our state according to our 3 different table types
+			//Don't register these methods if we only want to store one set of parameters... i.e.  if we want
+			//the same set of filters and columns to apply to all table searches
+&nbsp;
+<span class="cstat-no" title="statement not covered" >			var getLocalStorageKey = <span class="fstat-no" title="function not covered" >function() {</span></span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >				return 'DataTables_' + $location.host() + '_' + attrs.id;</span>
+			};
+&nbsp;
+<span class="cstat-no" title="statement not covered" >			var saveState = <span class="fstat-no" title="function not covered" >function (oSettings, oData) {</span></span>
+&nbsp;
+				//Only try to store the state of the table if loadTrigger isn't zero - indicating a desire
+				//to kill the table
+&nbsp;
+//				console.debug("&lt;&lt;&lt; saveState() called, key=" + getLocalStorageKey() + (scope.tableData.loadTrigger == 0 ? ", NOT STORING!" : "") );
+&nbsp;
+<span class="cstat-no" title="statement not covered" >				if ( scope.tableData.loadTrigger &gt; 0  ) {</span>
+					//Store the actual table parms the table manages
+<span class="cstat-no" title="statement not covered" >					localStorage.setItem( getLocalStorageKey(), angular.toJson(oData) );</span>
+					//now try to store the last rendered column defs in case we need them upon next generation 
+					//across a different session when we get no rows or columns back from a search and we'll want to 
+					//do a decent guess at what the columns WOULD be had there been any row data
+<span class="cstat-no" title="statement not covered" >					if ( scope.lastColumnDefs != undefined )</span>
+<span class="cstat-no" title="statement not covered" >						localStorage.setItem( getLocalStorageKey() + "_COL", angular.toJson(scope.lastColumnDefs));</span>
+				}
+			};
+&nbsp;
+<span class="cstat-no" title="statement not covered" >			var loadState = <span class="fstat-no" title="function not covered" >function (oSettings) {</span></span>
+//				console.debug("&gt;&gt;&gt; loadState() called, key=" + getLocalStorageKey());
+<span class="cstat-no" title="statement not covered" >                var storedData = localStorage.getItem(getLocalStorageKey());</span>
+<span class="cstat-no" title="statement not covered" >				return angular.fromJson(localStorage.getItem(getLocalStorageKey()));</span>
+			};
+&nbsp;
+&nbsp;
+			//Called to load the last columns returned from a prior session... Can't do this in the loadState
+			//since that's called during the actual table construction and we need the column defs as a last resort
+			//before the table is constructed
+			//must return null if not found
+&nbsp;
+<span class="fstat-no" title="function not covered" >			function getStoredLastColumnDefs() {</span>
+//				console.debug("&gt;&gt;&gt; getStoredLastColumnDefs() called, key=" + getLocalStorageKey()+"_COL");
+<span class="cstat-no" title="statement not covered" >				var columns = localStorage.getItem(getLocalStorageKey()+"_COL");</span>
+<span class="cstat-no" title="statement not covered" >				return columns == null  ||  columns == "" ? null : angular.fromJson(columns);</span>
+			}
+&nbsp;
+&nbsp;
+			//Setup local storage parameters adjustement methods 
+			//To enable these callbacks for storage of extra info in each table... uncomment
+			//their function pointers in the initialization of the table
+&nbsp;
+<span class="cstat-no" title="statement not covered" >			var saveStateExtraParams = <span class="fstat-no" title="function not covered" >function (oSettings, oData) {</span></span>
+<span class="cstat-no" title="statement not covered" >				$log.debug("&lt;&lt;&lt; saveStateExtraParams() called");</span>
+			};
+&nbsp;
+<span class="cstat-no" title="statement not covered" >			var loadStateExtraParams = <span class="fstat-no" title="function not covered" >function(oSettings) {</span></span>
+<span class="cstat-no" title="statement not covered" >				$log.debug("&gt;&gt;&gt; loadStateExtraParams() called");</span>
+			}
+&nbsp;
+			//Setup a column mapping for rendering callbacks to our scope... we'll translate later
+			//to our controller's parent scope either through events or callbacks, etc.
+&nbsp;
+<span class="cstat-no" title="statement not covered" >			var renderDataLinks = {</span>
+					'orderId': <span class="fstat-no" title="function not covered" >function ( data, type, full ) {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >						return type !== 'display' ? data :</span>
+							('&lt;a id="tablelinks" ng-click="getDetailsResult(\'Orders\',\'' +  data + '\');"&gt;' + data + '&lt;/a&gt;');
+					}
+			};
+&nbsp;
+			//Had some trouble with $watch and $watchCollection on the array since it only does a shallow
+			//element check and couldn't handle going to empty... So we move to a trigger value
+			//which tells our table to regenerate and reload.
+			//Zero also tells us to reload... but destroy the table if it existed and don't regenerate
+			//Usually this is under an error condition where no table should be shown at all, not to be 
+			//confused with an empty record situation, where the table should still be shown
+&nbsp;
+<span class="cstat-no" title="statement not covered" >			if ( scope.tableData.loadTrigger === undefined )</span>
+<span class="cstat-no" title="statement not covered" >				scope.tableData.loadTrigger = 0;</span>
+&nbsp;
+			//This catches our tablelink callbacks and forwards to the controller's method
+<span class="cstat-no" title="statement not covered" >			scope.getDetailsResult = <span class="fstat-no" title="function not covered" >function(orderType, id)</span></span>
+			{
+<span class="cstat-no" title="statement not covered" >				scope.eventHandler({eventId: 'getDetails', data: {orderType: orderType, id: id}});</span>
+			};
+&nbsp;
+			//This catches our tablelink callbacks and forwards to the controller's method
+<span class="cstat-no" title="statement not covered" >			scope.externalLinkEvent = <span class="fstat-no" title="function not covered" >function(linkId, linkData)</span></span>
+			{
+				//TODO: If it's best to use this event to bubble to controller and have the controller fire off
+				//a new external link tab... pass whatever extra data is needed into this method (and subsequently include
+				//it in the event's data property) so a proper url can be constructed.
+<span class="cstat-no" title="statement not covered" >				scope.eventHandler({eventId: 'externalLink', data: {linkId: linkId, linkData: linkData}});</span>
+			};
+&nbsp;
+&nbsp;
+			//External API to redraw the table
+<span class="cstat-no" title="statement not covered" >			scope.reDraw = <span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >				if ( $.fn.dataTable.fnIsDataTable(document.getElementById(attrs.id)) ) {</span>
+<span class="cstat-no" title="statement not covered" >					element.dataTable().api().draw();</span>
+				} 
+			};
+&nbsp;
+&nbsp;
+			//External API to see if actual DataTable exists... could be with or without data
+<span class="cstat-no" title="statement not covered" >			scope.isTableExist = <span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >				return $.fn.dataTable.fnIsDataTable(document.getElementById(attrs.id));</span>
+			};
+&nbsp;
+&nbsp;
+			//Setup and API for the controller to call in our directive
+			//https://groups.google.com/forum/#!topic/angular/htKUVVNhi7A
+&nbsp;
+<span class="cstat-no" title="statement not covered" >			scope.tableData.API = {</span>
+					reDraw:			scope.reDraw,
+					isTableExist:	scope.isTableExist
+			};
+&nbsp;
+&nbsp;
+			//Setup the watch which gets kicked off to regenerate and/or delete the table
+<span class="cstat-no" title="statement not covered" >			scope.$watch("tableData.loadTrigger", <span class="fstat-no" title="function not covered" >function(newTriggerVal, oldTriggerVal) {</span></span>
+&nbsp;
+				//This watch is called once during init.. indicated by newVal and oldVal don't match AND the data is undefined 
+//				$log.debug("===========  $watch on loadTrigger hit: newTriggerVal=" + newTriggerVal + ", oldTriggerVal=" + oldTriggerVal + ", tableDefinition.length=" + (scope.tableData.tableDefinition === undefined ? "UNDEFINED" : scope.tableData.tableDefinition.length));
+//				if (newTriggerVal !== oldTriggerVal &amp;&amp; scope.tableData.tableDefinition !== undefined ) {
+&nbsp;
+<span class="cstat-no" title="statement not covered" >				if ( scope.tableData.tableDefinition !== undefined ) {</span>
+&nbsp;
+					//Setup some locals to seperate column from row data 
+<span class="cstat-no" title="statement not covered" >					var localColumnDefs = [];</span>
+<span class="cstat-no" title="statement not covered" >					var localRowData = [];</span>
+&nbsp;
+					//Extract the column headers
+					//MAD refactored for column data, need to account for when no column data exists because either an error
+					//occurred and we still need to run through the table setup (to eventually destroy and not recreate), or when
+					//no row data is returned - which will also not include column metadata
+<span class="cstat-no" title="statement not covered" >					var item = scope.tableData.tableDefinition.rowMetaData || { columnList: []};</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >					for(var n=0; n &lt; item.columnList.length; n++)</span>
+					{
+						//May need to insert spans into titles with extra padding that was removed from the th padding so DataTable
+						//can calculate column headers correctly.
+						//http://stackoverflow.com/questions/16054584/fixed-column-header-width-does-not-match-body-column-widths
+						//scope.localColumnDefs.push({"sTitle": "&lt;span&gt;" + item.columnList[n].displayName + "&lt;/span&gt;"});
+&nbsp;
+<span class="cstat-no" title="statement not covered" >						var columnOptions = {</span>
+								//Need to override this value (it's "" in the library) so that null will work as data
+								"sDefaultContent": "",
+								"sTitle": item.columnList[n].displayName,
+								"mDataProp": item.columnList[n].id, 
+								"aTargets": [n], 
+								"mData": item.columnList[n].id
+						};
+						//$log.debug("colums "+ item.columnList[n].id);
+						//Only define this if there should be a rendering callback for hyperlinks
+//						if( renderDataLinks[item.columnList[n].id] !== undefined ) {
+//							columnOptions["mRender"] = renderDataLinks[item.columnList[n].id];
+//						}
+&nbsp;
+<span class="cstat-no" title="statement not covered" >						localColumnDefs.push(columnOptions);</span>
+					}
+&nbsp;
+&nbsp;
+&nbsp;
+					//Extract the column data
+					//Must account for case where no rows are returned, which may include an error
+					//If it's defined, it'll have all of the proper fields in it
+&nbsp;
+<span class="cstat-no" title="statement not covered" >					if ( scope.tableData.tableDefinition.rowValueList != undefined ) {</span>
+<span class="cstat-no" title="statement not covered" >						for (var i=0; i &lt; scope.tableData.tableDefinition.rowValueList.length; i++) {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >							var rowValue = scope.tableData.tableDefinition.rowValueList[i];</span>
+<span class="cstat-no" title="statement not covered" >							var obj = {};</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >							for(var n=0; n &lt; rowValue.cellValues.length; n++) {</span>
+								// create Id and value pair for each column
+<span class="cstat-no" title="statement not covered" >								obj[scope.tableData.tableDefinition.rowMetaData.columnList[n].id] = rowValue.cellValues[n];   </span>
+&nbsp;
+							}	
+&nbsp;
+<span class="cstat-no" title="statement not covered" >							localRowData.push(obj);   </span>
+						}
+					}
+&nbsp;
+					//We've just finished extracting localColumnDefs (column data only) from localRowData (row data only)
+					//Either both will be an empty array or neither will be an empty array
+					//Proceed to prepare the table for construction
+&nbsp;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >					var dataTable = null;</span>
+<span class="cstat-no" title="statement not covered" >					var isExistingTable = scope.isTableExist();</span>
+&nbsp;
+					//First see if we have an existing table so we can decide if we need to kill it... 
+<span class="cstat-no" title="statement not covered" >					if ( isExistingTable  &amp;&amp; (localColumnDefs.length &gt; 0  || newTriggerVal == 0) ) {</span>
+&nbsp;
+						//If a table already exists and we have columns... then we should kill it
+						//If a table already exists but there is no key... then the controller wants to kill the table and not regenerate
+						//TODO: Here we could compare the new columns to old ones and NOT kill the table if they're the same
+&nbsp;
+<span class="cstat-no" title="statement not covered" >						element.dataTable().fnClearTable();</span>
+<span class="cstat-no" title="statement not covered" >						element.dataTable().fnDestroy();</span>
+<span class="cstat-no" title="statement not covered" >						$("#"+attrs.id).empty();</span>
+					} 
+&nbsp;
+					//If the controller doesn't want to regenerate a table... get out
+<span class="cstat-no" title="statement not covered" >					if ( newTriggerVal &gt; 0 ) {</span>
+&nbsp;
+						//if our columns are empty it means there are no rows either... so load up the last set of columns if we had
+						//any just so the table will display "no data" with a set of columns
+&nbsp;
+<span class="cstat-no" title="statement not covered" >						if( localColumnDefs.length == 0 ) {</span>
+							//No current columns so load some old ones if any, and if none of the last search's,
+							//see if we can get some from a prior session (stored), and if not, make up some bogus ones
+<span class="cstat-no" title="statement not covered" >							localColumnDefs = scope.lastColumnDefs;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                            if ( localColumnDefs == undefined ) {</span>
+<span class="cstat-no" title="statement not covered" >                                localColumnDefs = getStoredLastColumnDefs();</span>
+                            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                            if ( localColumnDefs == undefined || localColumnDefs == null ) {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                                localColumnDefs = [</span>
+                                    {
+                                        "sTitle": "Data",
+                                        "mData": "id",
+                                        "mDataProp": "id",
+                                        "sDefaultContent": "",
+                                        "aTargets": [0]
+                                    }
+                                ];
+                            }
+&nbsp;
+							//See if we can get back the existing table
+<span class="cstat-no" title="statement not covered" >							if ( isExistingTable ) {</span>
+<span class="cstat-no" title="statement not covered" >                                dataTable = element.dataTable();</span>
+                            }
+						}
+&nbsp;
+						//If we aren't using the old table... build it
+                        // l - show entries (10, 20, etc)
+                        // f - filter
+                        // p - pagination
+                        // i = table info
+                        // T - export
+<span class="cstat-no" title="statement not covered" >						if ( dataTable == null ) {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                            var sDomString = "";</span>
+<span class="cstat-no" title="statement not covered" >                            var includePagination = false;</span>
+<span class="cstat-no" title="statement not covered" >                            var paginationHeight = false;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                            if(scope.addFilter === "true" &amp;&amp; (scope.addPagination === "false" || scope.addPagination === undefined) &amp;&amp; (scope.addExport === "false" || scope.addExport === undefined)  &amp;&amp;  (scope.addColumnShowHide === "false" || scope.addColumnShowHide === undefined) ) {</span>
+<span class="cstat-no" title="statement not covered" >                                sDomString = "&lt;'row'&lt;'col-md-12'f&gt;&gt;t&lt;'row'&lt;'col-xs-12 col-md-4'i&gt;&lt;'col-xs-12 col-md-8'&gt;&gt;";</span>
+<span class="cstat-no" title="statement not covered" >                                includePagination = false;</span>
+<span class="cstat-no" title="statement not covered" >                                paginationHeight = "250px";</span>
+                            }
+                            else <span class="cstat-no" title="statement not covered" >if(scope.addFilter === "true" &amp;&amp; scope.addPagination === "true" &amp;&amp; (scope.addExport === "false" || scope.addExport === undefined) &amp;&amp; (scope.addColumnShowHide === "false" || scope.addColumnShowHide === undefined) ){</span>
+<span class="cstat-no" title="statement not covered" >                                sDomString = "&lt;'row'&lt;'col-md-12'f&gt;&gt;t&lt;'row'&lt;'col-xs-12 col-md-4'i&gt;&lt;'col-xs-12 col-md-8'&gt;&gt;";</span>
+                            }
+                            else <span class="cstat-no" title="statement not covered" >if(scope.addFilter === "true" &amp;&amp; (scope.addPagination === "false" || scope.addPagination === undefined ) &amp;&amp; scope.addExport === "true" &amp;&amp; (scope.addColumnShowHide === "false" || scope.addColumnShowHide === undefined)){</span>
+<span class="cstat-no" title="statement not covered" >                                sDomString = "&lt;'row'&lt;'col-md-12'f&gt;&gt;t&lt;'row'&lt;'col-xs-12 col-md-4'i&gt;&lt;'col-xs-12 col-md-8'T&gt;&gt;";</span>
+<span class="cstat-no" title="statement not covered" >                                includePagination = false;</span>
+<span class="cstat-no" title="statement not covered" >                                paginationHeight = "250px";</span>
+                            }
+                            else <span class="cstat-no" title="statement not covered" >if(scope.addFilter === "true" &amp;&amp; (scope.addPagination === "false" || scope.addPagination === undefined) &amp;&amp; (scope.addExport === "false" || scope.addExport === undefined) &amp;&amp; scope.addColumnShowHide === "true"){</span>
+<span class="cstat-no" title="statement not covered" >                                sDomString = "&lt;'row'&lt;'col-md-12'Cf&gt;&gt;t&lt;'row'&lt;'col-xs-12 col-md-4'i&gt;&lt;'col-xs-12 col-md-8'&gt;&gt;";</span>
+<span class="cstat-no" title="statement not covered" >                                includePagination = false;</span>
+<span class="cstat-no" title="statement not covered" >                                paginationHeight = "250px";</span>
+                            }
+                            else <span class="cstat-no" title="statement not covered" >if((scope.addFilter === "false" || scope.addFilter === undefined) &amp;&amp; scope.addPagination === "true" &amp;&amp; (scope.addExport === "false" || scope.addExport === undefined) &amp;&amp; (scope.addColumnShowHide === "false" || scope.addColumnShowHide === undefined)){</span>
+<span class="cstat-no" title="statement not covered" >                                sDomString = "&lt;'row'&lt;'col-md-12'&gt;&gt;t&lt;'row'&lt;'col-xs-12 col-md-4'i&gt;&lt;'col-xs-12 col-md-8'&gt;&gt;";</span>
+                            }
+                            else <span class="cstat-no" title="statement not covered" >if((scope.addFilter === "false" || scope.addFilter === undefined) &amp;&amp; scope.addPagination === "true" &amp;&amp; scope.addExport === "true" &amp;&amp; (scope.addColumnShowHide === "false" || scope.addColumnShowHide === undefined)){</span>
+<span class="cstat-no" title="statement not covered" >                                sDomString = "&lt;'row'&lt;'col-md-12'&gt;&gt;t&lt;'row'&lt;'col-xs-12 col-md-4'i&gt;&lt;'col-xs-12 col-md-8'T&gt;&gt;";</span>
+                            }
+                            else <span class="cstat-no" title="statement not covered" >if((scope.addFilter === "false" || scope.addFilter === undefined) &amp;&amp; scope.addPagination === "true" &amp;&amp; (scope.addExport === "false" || scope.addExport === undefined) &amp;&amp; scope.addColumnShowHide === "true"){</span>
+<span class="cstat-no" title="statement not covered" >                                sDomString = "&lt;'row'&lt;'col-md-12'C&gt;&gt;t&lt;'row'&lt;'col-xs-12 col-md-4'i&gt;&lt;'col-xs-12 col-md-8'&gt;&gt;";</span>
+                            }
+                            else <span class="cstat-no" title="statement not covered" >if((scope.addFilter === "false"|| scope.addFilter === undefined) &amp;&amp; (scope.addPagination === "false" || scope.addPagination === undefined) &amp;&amp; scope.addExport === "true" &amp;&amp; (scope.addColumnShowHide === "false" || scope.addColumnShowHide === undefined)){</span>
+<span class="cstat-no" title="statement not covered" >                                sDomString = "&lt;'row'&lt;'col-md-12'&gt;&gt;t&lt;'row'&lt;'col-xs-12 col-md-4'i&gt;&lt;'col-xs-12 col-md-8'T&gt;&gt;";</span>
+<span class="cstat-no" title="statement not covered" >                                includePagination = false;</span>
+<span class="cstat-no" title="statement not covered" >                                paginationHeight = "250px";</span>
+                            }
+                            else <span class="cstat-no" title="statement not covered" >if((scope.addFilter === "false"|| scope.addFilter === undefined) &amp;&amp; (scope.addPagination === "false" || scope.addPagination === undefined) &amp;&amp; scope.addExport === "true" &amp;&amp; scope.addColumnShowHide === "true"){</span>
+<span class="cstat-no" title="statement not covered" >                                sDomString = "&lt;'row'&lt;'col-md-12'C&gt;&gt;t&lt;'row'&lt;'col-xs-12 col-md-4'i&gt;&lt;'col-xs-12 col-md-8'T&gt;&gt;";</span>
+<span class="cstat-no" title="statement not covered" >                                includePagination = false;</span>
+<span class="cstat-no" title="statement not covered" >                                paginationHeight = "250px";</span>
+                            }
+                            else <span class="cstat-no" title="statement not covered" >if((scope.addFilter === "false"|| scope.addFilter === undefined) &amp;&amp; (scope.addPagination === "false" || scope.addPagination === undefined) &amp;&amp; (scope.addExport === "false" || scope.addExport === undefined) &amp;&amp; scope.addColumnShowHide === "true"){</span>
+<span class="cstat-no" title="statement not covered" >                                sDomString = "&lt;'row'&lt;'col-md-12'C&gt;&gt;t&lt;'row'&lt;'col-xs-12 col-md-4'i&gt;&lt;'col-xs-12 col-md-8'&gt;&gt;";</span>
+<span class="cstat-no" title="statement not covered" >                                includePagination = false;</span>
+<span class="cstat-no" title="statement not covered" >                                paginationHeight = "250px";</span>
+                            }
+                            else <span class="cstat-no" title="statement not covered" >if((scope.addFilter === "false"|| scope.addFilter === undefined) &amp;&amp; (scope.addPagination === "false" || scope.addPagination === undefined) &amp;&amp; (scope.addExport === "false" || scope.addExport === undefined) &amp;&amp; (scope.addColumnShowHide === "false" || scope.addColumnShowHide === undefined)){</span>
+<span class="cstat-no" title="statement not covered" >                                sDomString = "&lt;'row'&lt;'col-md-12'&gt;&gt;t&lt;'row'&lt;'col-xs-12 col-md-4'i&gt;&lt;'col-xs-12 col-md-8'&gt;&gt;";</span>
+<span class="cstat-no" title="statement not covered" >                                includePagination = false;</span>
+<span class="cstat-no" title="statement not covered" >                                paginationHeight = "250px";</span>
+                            }
+                            else {
+<span class="cstat-no" title="statement not covered" >                                sDomString = "t&lt;'row'&lt;'col-xs-12 col-md-4'i&gt;&lt;'col-xs-12 col-md-8'&gt;&gt;";</span>
+                            }
+&nbsp;
+&nbsp;
+                            
+<span class="cstat-no" title="statement not covered" >							dataTable = element.dataTable(getTableCreateOptions(localColumnDefs, sDomString, includePagination, paginationHeight));</span>
+&nbsp;
+&nbsp;
+							 
+//                            $('#poResultsTable tbody td').click( function () {
+//                                // Get the position of the current data from the node
+//                                var aPos = oTable.fnGetPosition( this );
+//                                 
+//                                // Get the data array for this row
+//                                var aData = oTable.fnGetData( aPos[0] );
+//                                 
+//                                // Update the data array and return the value
+//                                aData[ aPos[1] ] = 'clicked';
+//                                this.innerHTML = 'clicked';
+//                              } );
+                            
+							//New table is created... add classes to the search field so bootstrap
+							//	does it's thing.. Should be fixed in newer 1.10 DT/BS
+//							var field = dataTable.closest('.dataTables_wrapper').find('div[id$=_filter] input');
+//							field.addClass('form-control');
+//
+//							// LENGTH - Inline-Form control
+//							field = dataTable.closest('.dataTables_wrapper').find('div[id$=_length] select');
+//							field.addClass('form-control');
+						}
+&nbsp;
+						//Now store the old columns... Do it before loading rows in case it kicks off a table store
+<span class="cstat-no" title="statement not covered" >						scope.lastColumnDefs = localColumnDefs;</span>
+&nbsp;
+						//One way or another we have a table with columns in it... Now load the data.  It might be empty.
+<span class="cstat-no" title="statement not covered" >						if ( localRowData == undefined || localRowData.length == 0 ) {</span>
+<span class="cstat-no" title="statement not covered" >                            recalcLayout(attrs.id);</span>
+<span class="cstat-no" title="statement not covered" >                            dataTable.fnClearTable();</span>
+                        }
+						else {
+<span class="cstat-no" title="statement not covered" >                            dataTable.fnAddData(localRowData);</span>
+                        }
+&nbsp;
+					}	//regeneration conditional (newTriggerVal &gt; 0)
+&nbsp;
+&nbsp;
+				}
+&nbsp;
+			});  // watch on tableDefinition...
+&nbsp;
+			
+			
+			
+			//Create options for construction of the table... The only variable at this point is the 
+			//column definitions
+&nbsp;
+<span class="fstat-no" title="function not covered" >			function getTableCreateOptions(columns, type, includePagination, paginationHeight) {</span>
+<span class="cstat-no" title="statement not covered" >				return {</span>
+&nbsp;
+					sDom: type,
+//					sPaginationType: "bootstrap",				//Normal numbers pagination... no need to have it be bootstrap
+					oLanguage: {
+						"sSearch": 'Filter Results:',
+						"sEmptyTable": 'No records found matching the search criteria'
+					},
+					oTableTools: {
+						"aButtons": [{
+							"sExtends": "xls",
+							"sButtonText": "Export",
+							"mColumns": "visible"
+						}],
+						"sSwfPath": "assets/images/copy_csv_xls_pdf.swf"
+					},
+                    fnInitComplete: <span class="fstat-no" title="function not covered" >function(oSettings, json) {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                        var dt = element.dataTable();</span>
+<span class="cstat-no" title="statement not covered" >                        dt.fnAdjustColumnSizing();</span>
+&nbsp;
+                    },
+                    fnInfoCallback: <span class="fstat-no" title="function not covered" >function ( oSettings, iStart, iEnd, iMax, iTotal, sPre ) {</span>
+                        
+<span class="cstat-no" title="statement not covered" >                    	var displayItemsReturned = "";</span>
+<span class="cstat-no" title="statement not covered" >                        var currentPage = scope.currentPage;</span>
+                        
+                        //The the initial DataTable
+<span class="cstat-no" title="statement not covered" >                        if(currentPage === undefined) {</span>
+<span class="cstat-no" title="statement not covered" >                        	currentPage = 1;</span>
+                        }
+                        
+<span class="cstat-no" title="statement not covered" >                        var currentRecords = scope.currentRecords;</span>
+<span class="cstat-no" title="statement not covered" >                        var start = ((currentPage * 100) - 100) + 1; </span>
+<span class="cstat-no" title="statement not covered" >                        var end = currentPage * 100;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                        if(currentRecords !== 100) {</span>
+<span class="cstat-no" title="statement not covered" >                        	end = ((currentPage * 100) - 100) + currentRecords;</span>
+                        }
+                    
+                        //Check if DataTable is part of a modal
+<span class="cstat-no" title="statement not covered" >                        if(scope.partOfModal === true) {</span>
+							 
+<span class="cstat-no" title="statement not covered" >                        	var oTable = element.dataTable();</span>
+							 
+<span class="cstat-no" title="statement not covered" >							 oTable.$('tr').click( <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >								    var data = oTable.fnGetData( this );</span>
+								    
+<span class="cstat-no" title="statement not covered" >								    scope.onRowClick({"rowData": data});</span>
+&nbsp;
+							 } );
+                                  
+                        }
+             
+<span class="cstat-no" title="statement not covered" >                        return 'Displaying ' + start + " to " + end + ' of ' + scope.totalRecords + ' records';</span>
+                        
+//                        return 'Displaying ' + scope.totalRecords + ' records';
+&nbsp;
+                    },
+//                    fnRowCallback: function( nRow, aData, iDisplayIndex ) {
+//                        /* Append the grade to the default row class name */
+//                        alert('hello');
+//                    },
+					aoColumnDefs: columns,
+					bRetrieve: true,
+					bDestroy: true,
+                    bPaginate: false,
+					//This method is called everytime DataTables adds a row to the table
+					fnCreatedRow: <span class="fstat-no" title="function not covered" >function( nRow, aData, iDataIndex ) {</span>
+						//We need to compile the newly added row in case HTML with angular attributes was injected
+						//into the TD's or they won't work
+<span class="cstat-no" title="statement not covered" >						$compile(nRow)(scope);</span>
+					},
+					sScrollX: "100%",
+                    iDisplayLength: 100,
+					// Save filters, pagination, length and columns in a cookie
+//					paging: true,					//bPaginate: true,    Changed to 'paging' when we went to 1.10
+&nbsp;
+					//These parameters enable state saving in local storage and register
+					//callbacks so we can modify where they're stored since we have 3 tables
+					bStateSave: true,
+					//If we only want ONE set of parameters stored (columns, sorting filters, etc)
+					//for each of our table types, then elminiate the 2 specialized callbacks below
+					fnStateSave: saveState,
+					fnStateLoad: loadState
+&nbsp;
+				};
+			};
+&nbsp;
+		} 	//link method
+&nbsp;
+	};
+}]);
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sat Apr 11 2015 22:14:19 GMT-0400 (Eastern Daylight Time)</div>
+</div>
+
+<script src="../prettify.js"></script>
+
+<script src="https://yui-s.yahooapis.com/3.6.0/build/yui/yui-min.js"></script>
+<script>
+
+    YUI().use('datatable', function (Y) {
+
+        var formatters = {
+          pct: function (o) {
+              o.className += o.record.get('classes')[o.column.key];
+              try {
+                  return o.value.toFixed(2) + '%';
+              } catch (ex) { return o.value + '%'; }
+          },
+          html: function (o) {
+              o.className += o.record.get('classes')[o.column.key];
+              return o.record.get(o.column.key + '_html');
+          }
+        },
+          defaultFormatter = function (o) {
+              o.className += o.record.get('classes')[o.column.key];
+              return o.value;
+          };
+
+        function getColumns(theadNode) {
+            var colNodes = theadNode.all('tr th'),
+                cols = [],
+                col;
+            colNodes.each(function (colNode) {
+                col = {
+                    key: colNode.getAttribute('data-col'),
+                    label: colNode.get('innerHTML') || ' ',
+                    sortable: !colNode.getAttribute('data-nosort'),
+                    className: colNode.getAttribute('class'),
+                    type: colNode.getAttribute('data-type'),
+                    allowHTML: colNode.getAttribute('data-html') === 'true' || colNode.getAttribute('data-fmt') === 'html'
+                };
+                col.formatter = formatters[colNode.getAttribute('data-fmt')] || defaultFormatter;
+                cols.push(col);
+            });
+            return cols;
+        }
+
+        function getRowData(trNode, cols) {
+            var tdNodes = trNode.all('td'),
+                    i,
+                    row = { classes: {} },
+                    node,
+                    name;
+            for (i = 0; i < cols.length; i += 1) {
+                name = cols[i].key;
+                node = tdNodes.item(i);
+                row[name] = node.getAttribute('data-value') || node.get('innerHTML');
+                row[name + '_html'] = node.get('innerHTML');
+                row.classes[name] = node.getAttribute('class');
+                //Y.log('Name: ' + name + '; Value: ' + row[name]);
+                if (cols[i].type === 'number') { row[name] = row[name] * 1; }
+            }
+            //Y.log(row);
+            return row;
+        }
+
+        function getData(tbodyNode, cols) {
+            var data = [];
+            tbodyNode.all('tr').each(function (trNode) {
+                data.push(getRowData(trNode, cols));
+            });
+            return data;
+        }
+
+        function replaceTable(node) {
+            if (!node) { return; }
+            var cols = getColumns(node.one('thead')),
+                data = getData(node.one('tbody'), cols),
+                table,
+                parent = node.get('parentNode');
+
+            table = new Y.DataTable({
+                columns: cols,
+                data: data,
+                sortBy: 'file'
+            });
+            parent.set('innerHTML', '');
+            table.render(parent);
+        }
+
+        Y.on('domready', function () {
+            replaceTable(Y.one('div.coverage-summary table'));
+            if (typeof prettyPrint === 'function') {
+                prettyPrint();
+            }
+        });
+    });
+</script>
+</body>
+</html>

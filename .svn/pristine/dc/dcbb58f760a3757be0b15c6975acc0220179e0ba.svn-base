@@ -1,0 +1,133 @@
+angular.module('admin.app').controller('MobilityOrdersController', ['$scope', '$http', '$log', 'TaskSearchService',
+                                       function ($scope, $http, $log, TaskSearchService) {
+	'use strict';
+        
+        var vm = this;
+        vm.gridOptionsSearchResults = {};
+        vm.gridOptionsTaskListTable = {};
+        
+        init();
+        
+        function init() {
+            
+  	    initializeVMVariables();
+ 	    setupVMMethods();
+            
+        };
+        
+        function  initializeVMVariables() {
+
+        };
+        
+        // help method to build ui-grid's columnDefs property based on meta data column attributes
+        function extractColumnDefs(tableData) {
+            
+            var uniqueColumns = _.uniq(tableData.rowMetaData.columnList, 'id'),
+                
+            // map meta data column defs to the column defs ng-grid expects
+            columnDefMap = {
+                id: 'name',
+                displayName: 'displayName'
+            };
+
+            var columnDefs = uniqueColumns.map(function (id) {
+                var t = {};
+                for (var key in columnDefMap) {
+                    t[columnDefMap[key]] = id[key];
+                };
+                return t;
+            });
+            
+            return columnDefs;
+        };
+        
+                // help method to build ng-grid's data property based on meta data row values
+        function extractTableCellValues(tableData) {
+            
+            var localRowData = [];
+            var cellsInRow = [];
+            
+            var totalCols = tableData.rowMetaData.columnList.length;
+            var totalRows = tableData.rowMetaData.rowValueList.length;
+            
+            for (var i=0; i < totalRows; i++) {
+                
+                cellsInRow = tableData.rowMetaData.rowValueList[i].cellValues;
+                
+                var obj = {};
+                
+                for (var j=0; j < totalCols; j++) {
+                    obj[tableData.rowMetaData.columnList[j]['id']] = cellsInRow[j];
+                }
+                
+                localRowData.push(obj);
+            }
+
+            return localRowData;
+        };
+        
+        function setupVMMethods() {
+                
+            vm.refresh = function () {
+ 
+                TaskSearchService.getSearchResults().then(function(data) {
+
+                    var tableData = data.tableRows;  
+
+                    vm.gridOptionsSearchResults.data = extractTableCellValues(tableData);
+                    vm.gridOptionsSearchResults.columnDefs = extractColumnDefs(tableData);
+
+//                    $log.debug(angular.toJson(vm.myColumnDefs));
+//                    $log.debug(angular.toJson(vm.myData));
+
+                });
+                
+                TaskSearchService.getTasks().then(function(data) {
+
+                    var tableData = data.tableRows;  
+
+                    vm.gridOptionsTaskListTable.data = extractTableCellValues(tableData);
+                    vm.gridOptionsTaskListTable.columnDefs = extractColumnDefs(tableData);
+
+//                    $log.debug(angular.toJson(vm.gridOptionsTaskListTable.myColumnDefs));
+//                    $log.debug(angular.toJson(vm.gridOptionsTaskListTable.myData));
+
+                });
+            };
+            
+            // fetch data 
+            vm.refresh();
+            
+
+
+            vm.gridOptionsSearchResults = { 
+                enableRowSelection: true,
+                enableRowHeaderSelection: false,
+                enableHorizontalScrollbar: 0,
+                multiSelect: false
+            };  
+            
+            vm.gridOptionsTaskListTable = { 
+                enableRowSelection: true,
+                enableRowHeaderSelection: false,
+                enableHorizontalScrollbar: 0,
+                multiSelect: false
+            };  
+                
+//            vm.gridOptionsTaskListTable.onRegisterApi = function(gridApi){
+//                //set gridApi on scope
+//                vm.gridApi = gridApi;
+//                gridApi.selection.on.rowSelectionChanged($scope,function(row){
+//                  var msg = 'row selected ' + row;
+//                  $log.log(msg);
+//                });
+//
+//                gridApi.selection.on.rowSelectionChangedBatch($scope,function(rows){
+//                  var msg = 'rows changed ' + rows.length;
+//                  $log.log(msg);
+//                });
+//            };
+        };
+          
+   
+}]);

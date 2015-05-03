@@ -1,0 +1,136 @@
+angular.module('admin.app').controller('TasksController', 
+                                       ['$scope', '$http', '$log', '$filter', '$templateCache', 'taskTypes', 'TaskSearchService', 'UiGridUtilService',
+                                       function ($scope, $http, $log, $filter, $templateCache, taskTypes, TaskSearchService, UiGridUtilService) {
+	'use strict';
+        UiGridUtilService.loadTemplate('ui-grid/selectionRowHeader');
+        UiGridUtilService.loadTemplate('ui-grid/selectionRowHeaderButtonsCanopi');
+        
+        var vm = this;
+        
+        init();
+        
+        function init() {
+            
+  	    initializeVMVariables();
+ 	    setupVMMethods();
+            
+        };
+        
+        function  initializeVMVariables() {
+
+            // sort the lookup type values in ascending order
+            vm.taskTypes = $filter('orderBy')(taskTypes, 'name');
+            
+            vm.displayTaskResults = false;
+            vm.displaySubtaskResults = false;
+
+            vm.searchAccordionOpen = true;
+        
+            vm.gridOptions = { 
+                enableRowSelection: true,
+                enableRowHeaderSelection: false,
+                rowHeight: 45,
+                //enableHorizontalScrollbar: 0,
+                multiSelect: false,
+                onRegisterApi: function (gridApi) {
+                    vm.gridApi = gridApi;
+                    gridApi.selection.on.rowSelectionChanged($scope,rowSelectionChanged);
+                }
+            };  
+            
+
+            
+            vm.gridOptionsSubTasks = {
+                enableCellEditOnFocus:true,
+                //enableRowSelection: true,
+                //enableRowHeaderSelection: false,
+                enableHorizontalScrollbar: 0,
+                multiSelect: false,
+                rowHeight: 45,
+                //showGridFooter:true,
+                //enableFooterTotalSelected:true,
+                enableSorting:false
+    //            columnDefs: [
+    //                { field: 'description' },
+    //                { field: 'archive', editableCellTemplate: 'ui-grid/dropdownEditor', editDropdownValueLabel: 'archive', editDropdownOptionsArray: [
+    //                    { id: 1, archive: 'NO' },
+    //                    { id: 2, archive: 'YES' }
+    //                  ] 
+    //                }
+    //            ],
+    //            data:[
+    //                {"description":"Example text", "archive":"NO"},
+    //                {"description":"Example text", "archive":"YES"}
+    //            ]
+             }; 
+  
+        };
+        
+        
+        function rowSelectionChanged(row) {
+            //vm.selectedRow = row.isSelected ? row.entity : false;        
+            
+            displaySubtasks();
+        }
+
+        function setupVMMethods() {
+            
+            vm.taskSearch = function () {
+   
+                TaskSearchService.getTasks().then(function(data) {
+
+                    vm.displayTaskResults = true;
+                     
+                    vm.data = UiGridUtilService.extractTableCellValues(data.tableRows);
+                    vm.gridOptions.data = vm.data;
+
+                    var colDefs = UiGridUtilService.extractColumnDefs(data.tableRows);
+                    colDefs = UiGridUtilService.autoColWidth(colDefs, data.tableRows.rowMetaData);
+
+                    vm.gridOptions.columnDefs = colDefs;
+
+                });
+               
+            };
+
+            /**
+              * Workaround to filter on all columns
+              * @todo Remove this when ui-grid provides it natively
+              */
+            vm.refreshData = function (filter) {
+                 vm.gridOptions.data = vm.data;
+                 while (filter) {
+                     var oSearchArray = filter.split(' ');
+                     vm.gridOptions.data = $filter('filter')(vm.gridOptions.data, oSearchArray[0], undefined);
+                     oSearchArray.shift();
+                     filter = (oSearchArray.length !== 0) ? oSearchArray.join(' ') : '';
+                 }
+            };
+        };
+        
+        
+        
+        function displaySubtasks(){
+            
+            vm.displaySubtaskResults = true;
+            
+            TaskSearchService.getSubTasks().then(function(data) {
+
+                vm.displaySubtaskResults = true;
+
+                var myData = UiGridUtilService.extractTableCellValues(data.tableRows);
+                vm.gridOptionsSubTasks.data = myData;
+
+                var colDefs = UiGridUtilService.extractColumnDefs(data.tableRows);
+                colDefs = UiGridUtilService.autoColWidth(colDefs, data.tableRows.rowMetaData);
+
+                vm.gridOptionsSubTasks.columnDefs = colDefs;
+
+            });
+            
+        }  
+            
+            
+     
+
+}]);

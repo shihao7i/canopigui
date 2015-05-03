@@ -1,0 +1,1323 @@
+<div class="row">
+	<div class="col-md-12 col-lg-12">
+	    <!-- BREADCRUMBS - We can setup with Angular $location -->
+		<div class="row">
+			<div class="panel panel-default">
+				<div class="panel-body">
+				    <ol class="breadcrumb">
+					  <li><a href="#"><i class="fa fa-home fa-lg"></i>&nbsp;&nbsp;&nbsp;Home</a></li>
+					  <li class="active">New INL CNL LAG PO</li>
+					</ol>
+				</div>
+			</div>
+		</div> 
+		<!-- End Breadcrumbs -->
+		<!-- Start of Panel -->
+		<div class="row">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<span style="color: #ef6f00; font-size: 26px; font-family: Omnes-ATT-II-Light;">New Project Order</span>
+					<div style="border-bottom: solid; border-width: 1px; margin-bottom: 20px; color: #9C9C9C;"></div>
+					
+					<!-- FORMS -->
+					<div class="row canopi-inputfields"  style="padding-left: 20px; padding-right: 20px;">
+						<div class="col-lg-4 col-md-4 col-sm-12">
+							<!-- Checkbox Directive -->
+							<div checkbox id="ortOrder" value="ORT Order" state="isChecked"></div>
+						</div>
+					</div>
+					
+					<div class="row canopi-inputfields"  style="padding-left: 20px; padding-right: 20px;">
+						<div class="col-lg-4 col-md-4 col-sm-12">
+							<div class="form-group">
+								<div class="canopi-input-title">Device CLLI A:</div>
+                                 <div class="input-group">
+                                     <input type="text" class="form-control" ng-model="newINLCNLLAGPO.deviceCLLIA" placeholder="Type and Search">
+                                       <span class="input-group-btn">
+                                         <button class="btn btn-default canopi-btn-sharp-corners" type="button"><i class="fa fa-search"></i></button>
+                                       </span>
+                                 </div><!-- /input-group -->
+							</div>
+							<div class="form-group">
+								<div class="canopi-input-title">Device Type A:</div>
+								<input type="text" class="form-control" ng-model="newINLCNLLAGPO.deviceTypeA" placeholder="" disabled>
+							</div>
+							<div class="form-group required">
+								<div class="canopi-input-title">Device Name A:</div>
+								<input type="text" class="form-control" ng-model="newINLCNLLAGPO.deviceNameA" placeholder="" disabled>
+							</div>
+							<div class="form-group required">
+								<div class="canopi-input-title">PTNII Name A:</div>
+								<input type="text" class="form-control" ng-model="newINLCNLLAGPO.ptniiNameA" placeholder="" disabled>
+							</div>
+							<div class="form-group required">
+								<div class="canopi-input-title">LAG ID A:</div>
+								<input type="text" class="form-control" ng-model="newINLCNLLAGPO.lagIDA" placeholder="" disabled>
+							</div>
+						</div><!-- End col -->
+						<div class="col-lg-4 col-md-4 col-sm-12">							
+							<div class="form-group">
+								<div class="canopi-input-title">Device CLLI Z:</div>
+                                 <div class="input-group">
+                                     <input type="text" class="form-control" ng-model="newINLCNLLAGPO.deviceCLLIZ" placeholder="Type and Search">
+                                       <span class="input-group-btn">
+                                         <button class="btn btn-default canopi-btn-sharp-corners" type="button"><i class="fa fa-search"></i></button>
+                                       </span>
+                                 </div><!-- /input-group -->
+							</div>
+							<div class="form-group">
+								<div class="canopi-input-title">Device Type Z:</div>
+								<input type="text" class="form-control" ng-model="newINLCNLLAGPO.deviceTypeZ" placeholder="" disabled>
+							</div>
+							<div class="form-group required">
+								<div class="canopi-input-title">Device Name Z:</div>
+								<input type="text" class="form-control" ng-model="newINLCNLLAGPO.deviceNameZ" placeholder="" disabled>
+							</div>
+							<div class="form-group required">
+								<div class="canopi-input-title">PTNII Name Z:</div>
+								<input type="text" class="form-control" ng-model="newINLCNLLAGPO.ptniiNameZ" placeholder="" disabled>
+							</div>
+							<div class="form-group required">
+								<div class="canopi-input-title">LAG ID Z:</div>
+								<input type="text" class="form-control" ng-model="newINLCNLLAGPO.lagIDZ" placeholder="" disabled>
+							</div>
+						</div><!-- End col -->
+						<div class="col-lg-4 col-md-4 col-sm-12">
+							<div class="form-group required">
+                                <div class="canopi-input-title">Due Date:</div>
+                                
+                                <p class="input-group">
+                                  <input type="text" class="form-control"
+                                         datepicker-popup="{{format}}" ng-model="newINLCNLLAGPO.dueDate"
+                                         is-open="datepickers.dueDatepicker" min-date="minDate"
+                                         max-date="'2015-12-25'"
+                                         datepicker-options="dateOptions"
+                                         date-disabled="disabled(date, mode)"
+                                         ng-required="true" close-text="Close"/>
+	                                <span class="input-group-btn">
+	                                  <button type="button" class="btn btn-default canopi-btn-sharp-corners" ng-click="open($event, 'dueDatepicker')"><i
+	                                          class="fa fa-calendar"></i></button>
+	                                </span>
+                              	</p>
+                            </div>
+                            <div class="form-group required">
+								<div class="canopi-input-title">Facility Type:</div>
+								<div class="dropdown">
+									<select ng-model="newINLCNLLAGPO.facilityType" class="dropdown-select form-control ng-pristine ng-valid"
+										title="Please select" data-live-search="false">
+										<option>GEIN</option>
+										<option></option>
+										<option></option>
+										<option></option>
+										<option></option>
+										<option></option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group required">
+								<div class="canopi-input-title">Collector Circuits:</div>
+								<div class="dropdown">
+									<select ng-model="newINLCNLLAGPO.collectorCircuit" class="dropdown-select form-control ng-pristine ng-valid"
+										title="Please select" data-live-search="false" disabled>
+										<option>No</option>
+										<option></option>
+										<option></option>
+										<option></option>
+										<option></option>
+										<option></option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group required">
+								<div class="canopi-input-title">Number of INL's</div>
+								<div class="dropdown">
+									<select ng-model="newINLCNLLAGPO.numberINL" class="dropdown-select form-control ng-pristine ng-valid"
+										title="Please select" data-live-search="false">
+										<option>1</option>
+										<option></option>
+										<option></option>
+										<option></option>
+										<option></option>
+										<option></option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div> <!-- End form -->
+										
+					<!-- Using Angular UI-->
+					<div class="row">
+						<tabset class="canopi-tabset" justified="false"> 
+							<tab heading="Links 1-8">
+								
+								<br>
+								
+								<div class="btn-group" dropdown is-open="status.isopen">
+						            <button type="button" class="btn btn-primary dropdown-toggle">
+						              Link 1 <span class="caret"></span>
+						            </button>
+						            <ul class="dropdown-menu" role="menu">
+						              <li><a href="#">Link 2</a></li>
+						              <li><a href="#">Link 3</a></li>
+						              <li><a href="#">Link 4</a></li>
+						              <li><a href="#">Link 5</a></li>
+						              <li><a href="#">Link 6</a></li>
+						              <li><a href="#">Link 7</a></li>
+						              <li><a href="#">Link 8</a></li>
+						             </ul>
+						        </div>						
+								
+								
+								<div class="row">
+									<div class="col-lg-4 col-md-4 col-sm-12">
+										
+										<div class="form-group">
+											<div class="canopi-input-title">Port A:</div>
+			                                 <div class="input-group">
+			                                     <input type="text" class="form-control" ng-model="newINLCNLLAGPO.portALink1" placeholder="Type and Search">
+			                                       <span class="input-group-btn">
+			                                         <button class="btn btn-default canopi-btn-sharp-corners" type="button"><i class="fa fa-search"></i></button>
+			                                       </span>
+			                                 </div><!-- /input-group -->
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Port Z:</div>
+			                                 <div class="input-group">
+			                                     <input type="text" class="form-control" ng-model="newINLCNLLAGPO.portZLink1" placeholder="Type and Search">
+			                                       <span class="input-group-btn">
+			                                         <button class="btn btn-default canopi-btn-sharp-corners" type="button"><i class="fa fa-search"></i></button>
+			                                       </span>
+			                                 </div><!-- /input-group -->
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-4 col-sm-4">
+										<div class="form-group canopi-right-inner-addon">
+											<div class="canopi-input-title">Bank A:</div>
+											<div class="dropdown">
+												<select ng-model="newINLCNLLAGPO.bankALink1" class="dropdown-select form-control ng-pristine ng-valid"
+													title="Please select" data-live-search="false">
+													<option></option>
+													<option></option>
+													<option></option>
+													<option></option>
+													<option></option>
+													<option></option>
+												</select>
+											</div>
+										</div>
+										<div class="form-group canopi-right-inner-addon">
+											<div class="canopi-input-title">Bank Z:</div>
+											<div class="dropdown">
+												<select ng-model="newINLCNLLAGPO.bankZLink1" class="dropdown-select form-control ng-pristine ng-valid"
+													title="Please select" data-live-search="false">
+													<option></option>
+													<option></option>
+													<option></option>
+													<option></option>
+													<option></option>
+													<option></option>
+												</select>
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-4 col-sm-4">
+									
+										<div class="form-group">
+											<div class="canopi-input-title">Transceiver A:</div>
+			                                 <div class="input-group">
+			                                     <input type="text" class="form-control" ng-model="newINLCNLLAGPO.transceiverALink1" placeholder="Type and Search">
+			                                       <span class="input-group-btn">
+			                                         <button class="btn btn-default canopi-btn-sharp-corners" type="button"><i class="fa fa-search"></i></button>
+			                                       </span>
+			                                 </div><!-- /input-group -->
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Transceiver Z:</div>
+			                                 <div class="input-group">
+			                                     <input type="text" class="form-control" ng-model="newINLCNLLAGPO.transceiverZLink1" placeholder="Type and Search">
+			                                       <span class="input-group-btn">
+			                                         <button class="btn btn-default canopi-btn-sharp-corners" type="button"><i class="fa fa-search"></i></button>
+			                                       </span>
+			                                 </div><!-- /input-group -->
+										</div>
+									</div>
+									
+									<br>
+									
+									<div class="row canopi-inputfields"  style="padding-left: 20px; padding-right: 20px;">
+										<p style="size:24px; color: #444444;"><b>TIRKS Information</b></p>
+									</div>
+														
+									<div class="col-lg-4 col-md-4 col-sm-12">
+										
+										<div class="form-group">
+											<div class="canopi-input-title">AT A:</div>
+											<input type="text" class="form-control" ng-model="newINLCNLLAGPO.ATALink1" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Reserve Project:</div>
+											<input type="text" class="form-control" ng-model="newINLCNLLAGPO.reserveProjectLink1" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">System Prefix:</div>
+											<input type="text" class="form-control" ng-model="newINLCNLLAGPO.systemPrefixLink1" placeholder="" disabled>
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">System Suffix:</div>
+											<input type="text" class="form-control" ng-model="newINLCNLLAGPO.systemSuffixLink1" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">PDAC:</div>
+											<input type="text" class="form-control" ng-model="newINLCNLLAGPO.pdacLink1" placeholder="">
+										</div>
+										<div class="form-group required">
+											<div class="canopi-input-title">Sub Path:</div>
+											<input type="text" class="form-control" ng-model="newINLCNLLAGPO.subPathLink1" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Coordination No.1:</div>
+											<input type="text" class="form-control" ng-model="newINLCNLLAGPO.coordinationNo1Link1" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Coordination No.2:</div>
+											<input type="text" class="form-control" ng-model="newINLCNLLAGPO.coordinationNo2Link1" placeholder="">
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-4 col-sm-12">
+										<div class="form-group">
+											<div class="canopi-input-title">AT Z:</div>
+											<input type="text" class="form-control" ng-model="newINLCNLLAGPO.ATZLink1" placeholder="">
+										</div>
+										<div class="form-group required">
+											<div class="canopi-input-title">User:</div>
+											<input type="text" class="form-control" ng-model="newINLCNLLAGPO.userLink1" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Division Revenue Group:</div>
+											<input type="text" class="form-control" ng-model="newINLCNLLAGPO.divisionRevenueGroupLink1" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Division Revenue Type:</div>
+											<input type="text" class="form-control" ng-model="newINLCNLLAGPO.divisionRevenueTypeLink1" placeholder="">
+										</div>
+										<div class="form-group required">
+											<div class="canopi-input-title">Work Group:</div>
+											<input type="text" class="form-control" ng-model="newINLCNLLAGPO.workGroupLink1" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">DV</div>
+											<input type="text" class="form-control" ng-model="newINLCNLLAGPO.dvLink1" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">FMT:</div>
+											<input type="text" class="form-control" ng-model="newINLCNLLAGPO.fmtLink1" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">TIRKS Notes:</div>
+											<button class="btn canopi-btn-orange"><span>Display/Update</span></button>
+										</div>
+									</div>
+				                </div>							      						   
+							</tab>
+							<tab heading="Links 9-16">
+								
+								<!-- <div class="btn-group" dropdown is-open="status.isopen">
+						            <button type="button" class="btn btn-primary dropdown-toggle">
+						              Link 9 <span class="caret"></span>
+						            </button>
+						            <ul class="dropdown-menu" role="menu">
+						              <li><a href="#">Link 10</a></li>
+						              <li><a href="#">Link 11</a></li>
+						              <li><a href="#">Link 12</a></li>
+						              <li><a href="#">Link 13</a></li>
+						              <li><a href="#">Link 14</a></li>
+						              <li><a href="#">Link 15</a></li>
+						              <li><a href="#">Link 16</a></li>
+						             </ul>
+						        </div>	 -->	
+								
+								<br>
+								
+								<div class="row">
+									<div class="col-lg-4 col-md-4 col-sm-12">
+										
+										<div class="form-group">
+											<div class="canopi-input-title">Port A:</div>
+			                                 <div class="input-group">
+			                                     <input type="text" class="form-control" placeholder="Type and Search">
+			                                       <span class="input-group-btn">
+			                                         <button class="btn btn-default canopi-btn-sharp-corners" type="button"><i class="fa fa-search"></i></button>
+			                                       </span>
+			                                 </div><!-- /input-group -->
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Port Z:</div>
+			                                 <div class="input-group">
+			                                     <input type="text" class="form-control" placeholder="Type and Search">
+			                                       <span class="input-group-btn">
+			                                         <button class="btn btn-default canopi-btn-sharp-corners" type="button"><i class="fa fa-search"></i></button>
+			                                       </span>
+			                                 </div><!-- /input-group -->
+										</div>	
+									</div>
+									<div class="col-lg-4 col-md-4 col-sm-4">
+										<div class="form-group canopi-right-inner-addon">
+											<div class="canopi-input-title">Bank A:</div>
+											<div class="dropdown">
+												<select class="dropdown-select form-control ng-pristine ng-valid"
+													title="Please select" data-live-search="false">
+													<option></option>
+													<option></option>
+													<option></option>
+													<option></option>
+													<option></option>
+													<option></option>
+												</select>
+											</div>
+										</div>
+										<div class="form-group canopi-right-inner-addon">
+											<div class="canopi-input-title">Bank Z:</div>
+											<div class="dropdown">
+												<select class="dropdown-select form-control ng-pristine ng-valid"
+													title="Please select" data-live-search="false">
+													<option></option>
+													<option></option>
+													<option></option>
+													<option></option>
+													<option></option>
+													<option></option>
+												</select>
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-4 col-sm-4">
+										<div class="form-group">
+											<div class="canopi-input-title">Transceiver A:</div>
+			                                 <div class="input-group">
+			                                     <input type="text" class="form-control" placeholder="Type and Search">
+			                                       <span class="input-group-btn">
+			                                         <button class="btn btn-default canopi-btn-sharp-corners" type="button"><i class="fa fa-search"></i></button>
+			                                       </span>
+			                                 </div><!-- /input-group -->
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Transceiver Z:</div>
+			                                 <div class="input-group">
+			                                     <input type="text" class="form-control" placeholder="Type and Search">
+			                                       <span class="input-group-btn">
+			                                         <button class="btn btn-default canopi-btn-sharp-corners" type="button"><i class="fa fa-search"></i></button>
+			                                       </span>
+			                                 </div><!-- /input-group -->
+										</div>
+									</div>
+									<h3>TIRKS Information</h3>
+									<div class="col-lg-4 col-md-4 col-sm-12">
+										<div class="form-group">
+											<div class="canopi-input-title">AT A:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Reserve Project:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">System Prefix:</div>
+											<input type="text" class="form-control" placeholder="" disabled>
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">System Suffix:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">PDAC:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group required">
+											<div class="canopi-input-title">Sub Path:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Coordination No.1:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Coordination No.2:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-4 col-sm-12">
+										<div class="form-group">
+											<div class="canopi-input-title">AT Z:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group required">
+											<div class="canopi-input-title">User:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Division Revenue Group:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Division Revenue Type:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group required">
+											<div class="canopi-input-title">Work Group:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">DV</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">FMT:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">TIRKS Notes:</div>
+											<button class="btn canopi-btn-orange"><span>Display/Update</span></button>
+										</div>
+									</div>
+				                </div>						
+								 
+							</tab>
+							<tab heading="Links 17-24">
+								
+								<!-- <div class="btn-group" dropdown is-open="status.isopen">
+						            <button type="button" class="btn btn-primary dropdown-toggle">
+						              Link 17 <span class="caret"></span>
+						            </button>
+						            <ul class="dropdown-menu" role="menu">
+						              <li><a href="#">Link 18</a></li>
+						              <li><a href="#">Link 19</a></li>
+						              <li><a href="#">Link 20</a></li>
+						              <li><a href="#">Link 21</a></li>
+						              <li><a href="#">Link 22</a></li>
+						              <li><a href="#">Link 23</a></li>
+						              <li><a href="#">Link 24</a></li>
+						             </ul>
+						        </div> -->		
+								
+								<br>
+								
+								<div class="row">
+									<div class="col-lg-4 col-md-4 col-sm-12">
+										<div class="form-group">
+											<div class="canopi-input-title">Port A:</div>
+			                                 <div class="input-group">
+			                                     <input type="text" class="form-control" placeholder="Type and Search">
+			                                       <span class="input-group-btn">
+			                                         <button class="btn btn-default canopi-btn-sharp-corners" type="button"><i class="fa fa-search"></i></button>
+			                                       </span>
+			                                 </div><!-- /input-group -->
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Port Z:</div>
+			                                 <div class="input-group">
+			                                     <input type="text" class="form-control" placeholder="Type and Search">
+			                                       <span class="input-group-btn">
+			                                         <button class="btn btn-default canopi-btn-sharp-corners" type="button"><i class="fa fa-search"></i></button>
+			                                       </span>
+			                                 </div><!-- /input-group -->
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-4 col-sm-4">
+										<div class="form-group canopi-right-inner-addon">
+											<div class="canopi-input-title">Bank A:</div>
+											<div class="dropdown">
+												<select class="dropdown-select form-control ng-pristine ng-valid"
+													title="Please select" data-live-search="false">
+													<option></option>
+													<option></option>
+													<option></option>
+													<option></option>
+													<option></option>
+													<option></option>
+												</select>
+											</div>
+										</div>
+										<div class="form-group canopi-right-inner-addon">
+											<div class="canopi-input-title">Bank Z:</div>
+											<div class="dropdown">
+												<select class="dropdown-select form-control ng-pristine ng-valid"
+													title="Please select" data-live-search="false">
+													<option></option>
+													<option></option>
+													<option></option>
+													<option></option>
+													<option></option>
+													<option></option>
+												</select>
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-4 col-sm-4">
+										
+										<div class="form-group">
+											<div class="canopi-input-title">Transceiver A:</div>
+			                                 <div class="input-group">
+			                                     <input type="text" class="form-control" placeholder="Type and Search">
+			                                       <span class="input-group-btn">
+			                                         <button class="btn btn-default canopi-btn-sharp-corners" type="button"><i class="fa fa-search"></i></button>
+			                                       </span>
+			                                 </div><!-- /input-group -->
+										</div>										
+										<div class="form-group">
+											<div class="canopi-input-title">Transceiver Z:</div>
+			                                 <div class="input-group">
+			                                     <input type="text" class="form-control" placeholder="Type and Search">
+			                                       <span class="input-group-btn">
+			                                         <button class="btn btn-default canopi-btn-sharp-corners" type="button"><i class="fa fa-search"></i></button>
+			                                       </span>
+			                                 </div><!-- /input-group -->
+										</div>
+									</div>
+									<h3>TIRKS Information</h3>
+									<div class="col-lg-4 col-md-4 col-sm-12">
+										<div class="form-group">
+											<div class="canopi-input-title">AT A:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Reserve Project:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">System Prefix:</div>
+											<input type="text" class="form-control" placeholder="" disabled>
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">System Suffix:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">PDAC:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group required">
+											<div class="canopi-input-title">Sub Path:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Coordination No.1:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Coordination No.2:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-4 col-sm-12">
+										<div class="form-group">
+											<div class="canopi-input-title">AT Z:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group required">
+											<div class="canopi-input-title">User:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Division Revenue Group:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Division Revenue Type:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group required">
+											<div class="canopi-input-title">Work Group:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">DV</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">FMT:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">TIRKS Notes:</div>
+											<button class="btn canopi-btn-orange"><span>Display/Update</span></button>
+										</div>
+									</div>
+				                </div>	
+							
+							
+							
+							</tab>
+							<tab heading="Links 25-32">
+								
+								<br>
+								
+								<div class="row">
+									<div class="col-lg-4 col-md-4 col-sm-12">
+										<div class="form-group canopi-right-inner-addon">
+											<div class="canopi-input-title">Port A:</div>
+											<i class="fa fa-search"></i>
+											<input type="text" class="form-control" placeholder="Type and Search">
+										</div>
+										<div class="form-group canopi-right-inner-addon">
+											<div class="canopi-input-title">Port Z:</div>
+											<i class="fa fa-search"></i>
+											<input type="text" class="form-control" placeholder="Type and Search">
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-4 col-sm-4">
+										<div class="form-group canopi-right-inner-addon">
+											<div class="canopi-input-title">Bank A:</div>
+											<div class="dropdown">
+												<select class="dropdown-select form-control ng-pristine ng-valid"
+													title="Please select" data-live-search="false">
+													<option></option>
+													<option></option>
+													<option></option>
+													<option></option>
+													<option></option>
+													<option></option>
+												</select>
+											</div>
+										</div>
+										<div class="form-group canopi-right-inner-addon">
+											<div class="canopi-input-title">Bank Z:</div>
+											<div class="dropdown">
+												<select class="dropdown-select form-control ng-pristine ng-valid"
+													title="Please select" data-live-search="false">
+													<option></option>
+													<option></option>
+													<option></option>
+													<option></option>
+													<option></option>
+													<option></option>
+												</select>
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-4 col-sm-4">
+										<div class="form-group canopi-right-inner-addon">
+											<div class="canopi-input-title">Transceiver A:</div>
+											<i class="fa fa-search"></i>
+											<input type="text" class="form-control" placeholder="Type and Search">
+										</div>
+										<div class="form-group canopi-right-inner-addon">
+											<div class="canopi-input-title">Transceiver Z:</div>
+											<i class="fa fa-search"></i>
+											<input type="text" class="form-control" placeholder="Type and Search">
+										</div>
+									</div>
+									<h3>TIRKS Information</h3>
+									<div class="col-lg-4 col-md-4 col-sm-12">
+										<div class="form-group">
+											<div class="canopi-input-title">AT A:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Reserve Project:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">System Prefix:</div>
+											<input type="text" class="form-control" placeholder="" disabled>
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">System Suffix:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">PDAC:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group required">
+											<div class="canopi-input-title">Sub Path:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Coordination No.1:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Coordination No.2:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-4 col-sm-12">
+										<div class="form-group">
+											<div class="canopi-input-title">AT Z:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group required">
+											<div class="canopi-input-title">User:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Division Revenue Group:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Division Revenue Type:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group required">
+											<div class="canopi-input-title">Work Group:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">DV</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">FMT:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">TIRKS Notes:</div>
+											<button class="btn canopi-btn-orange"><span>Display/Update</span></button>
+										</div>
+									</div>
+				                </div>
+							
+							
+							</tab>
+							<tab heading="Links 33-40">
+								
+								<br>
+								
+								<div class="row">
+									<div class="col-lg-4 col-md-4 col-sm-12">
+										<div class="form-group canopi-right-inner-addon">
+											<div class="canopi-input-title">Port A:</div>
+											<i class="fa fa-search"></i>
+											<input type="text" class="form-control" placeholder="Type and Search">
+										</div>
+										<div class="form-group canopi-right-inner-addon">
+											<div class="canopi-input-title">Port Z:</div>
+											<i class="fa fa-search"></i>
+											<input type="text" class="form-control" placeholder="Type and Search">
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-4 col-sm-4">
+										<div class="form-group canopi-right-inner-addon">
+											<div class="canopi-input-title">Bank A:</div>
+											<div class="dropdown">
+												<select class="dropdown-select form-control ng-pristine ng-valid"
+													title="Please select" data-live-search="false">
+													<option></option>
+													<option></option>
+													<option></option>
+													<option></option>
+													<option></option>
+													<option></option>
+												</select>
+											</div>
+										</div>
+										<div class="form-group canopi-right-inner-addon">
+											<div class="canopi-input-title">Bank Z:</div>
+											<div class="dropdown">
+												<select class="dropdown-select form-control ng-pristine ng-valid"
+													title="Please select" data-live-search="false">
+													<option></option>
+													<option></option>
+													<option></option>
+													<option></option>
+													<option></option>
+													<option></option>
+												</select>
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-4 col-sm-4">
+										<div class="form-group canopi-right-inner-addon">
+											<div class="canopi-input-title">Transceiver A:</div>
+											<i class="fa fa-search"></i>
+											<input type="text" class="form-control" placeholder="Type and Search">
+										</div>
+										<div class="form-group canopi-right-inner-addon">
+											<div class="canopi-input-title">Transceiver Z:</div>
+											<i class="fa fa-search"></i>
+											<input type="text" class="form-control" placeholder="Type and Search">
+										</div>
+									</div>
+									<h3>TIRKS Information</h3>
+									<div class="col-lg-4 col-md-4 col-sm-12">
+										<div class="form-group">
+											<div class="canopi-input-title">AT A:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Reserve Project:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">System Prefix:</div>
+											<input type="text" class="form-control" placeholder="" disabled>
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">System Suffix:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">PDAC:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group required">
+											<div class="canopi-input-title">Sub Path:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Coordination No.1:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Coordination No.2:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-4 col-sm-12">
+										<div class="form-group">
+											<div class="canopi-input-title">AT Z:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group required">
+											<div class="canopi-input-title">User:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Division Revenue Group:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Division Revenue Type:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group required">
+											<div class="canopi-input-title">Work Group:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">DV</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">FMT:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">TIRKS Notes:</div>
+											<button class="btn canopi-btn-orange"><span>Display/Update</span></button>
+										</div>
+									</div>
+				                </div>					
+							
+							
+							</tab>
+							<tab heading="Links 41-48">
+								
+								<br>
+								
+								<div class="row">
+									<div class="col-lg-4 col-md-4 col-sm-12">
+										<div class="form-group canopi-right-inner-addon">
+											<div class="canopi-input-title">Port A:</div>
+											<i class="fa fa-search"></i>
+											<input type="text" class="form-control" placeholder="Type and Search">
+										</div>
+										<div class="form-group canopi-right-inner-addon">
+											<div class="canopi-input-title">Port Z:</div>
+											<i class="fa fa-search"></i>
+											<input type="text" class="form-control" placeholder="Type and Search">
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-4 col-sm-4">
+										<div class="form-group canopi-right-inner-addon">
+											<div class="canopi-input-title">Bank A:</div>
+											<div class="dropdown">
+												<select class="dropdown-select form-control ng-pristine ng-valid"
+													title="Please select" data-live-search="false">
+													<option></option>
+													<option></option>
+													<option></option>
+													<option></option>
+													<option></option>
+													<option></option>
+												</select>
+											</div>
+										</div>
+										<div class="form-group canopi-right-inner-addon">
+											<div class="canopi-input-title">Bank Z:</div>
+											<div class="dropdown">
+												<select class="dropdown-select form-control ng-pristine ng-valid"
+													title="Please select" data-live-search="false">
+													<option></option>
+													<option></option>
+													<option></option>
+													<option></option>
+													<option></option>
+													<option></option>
+												</select>
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-4 col-sm-4">
+										<div class="form-group canopi-right-inner-addon">
+											<div class="canopi-input-title">Transceiver A:</div>
+											<i class="fa fa-search"></i>
+											<input type="text" class="form-control" placeholder="Type and Search">
+										</div>
+										<div class="form-group canopi-right-inner-addon">
+											<div class="canopi-input-title">Transceiver Z:</div>
+											<i class="fa fa-search"></i>
+											<input type="text" class="form-control" placeholder="Type and Search">
+										</div>
+									</div>
+									<h3>TIRKS Information</h3>
+									<div class="col-lg-4 col-md-4 col-sm-12">
+										<div class="form-group">
+											<div class="canopi-input-title">AT A:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Reserve Project:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">System Prefix:</div>
+											<input type="text" class="form-control" placeholder="" disabled>
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">System Suffix:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">PDAC:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group required">
+											<div class="canopi-input-title">Sub Path:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Coordination No.1:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Coordination No.2:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-4 col-sm-12">
+										<div class="form-group">
+											<div class="canopi-input-title">AT Z:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group required">
+											<div class="canopi-input-title">User:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Division Revenue Group:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Division Revenue Type:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group required">
+											<div class="canopi-input-title">Work Group:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">DV</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">FMT:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">TIRKS Notes:</div>
+											<button class="btn canopi-btn-orange"><span>Display/Update</span></button>
+										</div>
+									</div>
+				                </div>		
+							
+							
+							</tab>
+							<tab heading="Links 49-56">
+								
+								<br>
+								
+								<div class="row">
+									<div class="col-lg-4 col-md-4 col-sm-12">
+										<div class="form-group canopi-right-inner-addon">
+											<div class="canopi-input-title">Port A:</div>
+											<i class="fa fa-search"></i>
+											<input type="text" class="form-control" placeholder="Type and Search">
+										</div>
+										<div class="form-group canopi-right-inner-addon">
+											<div class="canopi-input-title">Port Z:</div>
+											<i class="fa fa-search"></i>
+											<input type="text" class="form-control" placeholder="Type and Search">
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-4 col-sm-4">
+										<div class="form-group canopi-right-inner-addon">
+											<div class="canopi-input-title">Bank A:</div>
+											<div class="dropdown">
+												<select class="dropdown-select form-control ng-pristine ng-valid"
+													title="Please select" data-live-search="false">
+													<option></option>
+													<option></option>
+													<option></option>
+													<option></option>
+													<option></option>
+													<option></option>
+												</select>
+											</div>
+										</div>
+										<div class="form-group canopi-right-inner-addon">
+											<div class="canopi-input-title">Bank Z:</div>
+											<div class="dropdown">
+												<select class="dropdown-select form-control ng-pristine ng-valid"
+													title="Please select" data-live-search="false">
+													<option></option>
+													<option></option>
+													<option></option>
+													<option></option>
+													<option></option>
+													<option></option>
+												</select>
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-4 col-sm-4">
+										<div class="form-group canopi-right-inner-addon">
+											<div class="canopi-input-title">Transceiver A:</div>
+											<i class="fa fa-search"></i>
+											<input type="text" class="form-control" placeholder="Type and Search">
+										</div>
+										<div class="form-group canopi-right-inner-addon">
+											<div class="canopi-input-title">Transceiver Z:</div>
+											<i class="fa fa-search"></i>
+											<input type="text" class="form-control" placeholder="Type and Search">
+										</div>
+									</div>
+									<h3>TIRKS Information</h3>
+									<div class="col-lg-4 col-md-4 col-sm-12">
+										<div class="form-group">
+											<div class="canopi-input-title">AT A:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Reserve Project:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">System Prefix:</div>
+											<input type="text" class="form-control" placeholder="" disabled>
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">System Suffix:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">PDAC:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group required">
+											<div class="canopi-input-title">Sub Path:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Coordination No.1:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Coordination No.2:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-4 col-sm-12">
+										<div class="form-group">
+											<div class="canopi-input-title">AT Z:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group required">
+											<div class="canopi-input-title">User:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Division Revenue Group:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Division Revenue Type:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group required">
+											<div class="canopi-input-title">Work Group:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">DV</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">FMT:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">TIRKS Notes:</div>
+											<button class="btn canopi-btn-orange"><span>Display/Update</span></button>
+										</div>
+									</div>
+				                </div>						
+							
+							</tab>
+							<tab heading="Links 57-64">
+								
+								<br>
+								
+								<div class="row">
+										<div class="col-lg-4 col-md-4 col-sm-12">
+											<div class="form-group canopi-right-inner-addon">
+												<div class="canopi-input-title">Port A:</div>
+												<i class="fa fa-search"></i>
+												<input type="text" class="form-control" placeholder="Type and Search">
+											</div>
+											<div class="form-group canopi-right-inner-addon">
+												<div class="canopi-input-title">Port Z:</div>
+												<i class="fa fa-search"></i>
+												<input type="text" class="form-control" placeholder="Type and Search">
+											</div>
+										</div>
+										<div class="col-lg-4 col-md-4 col-sm-4">
+											<div class="form-group canopi-right-inner-addon">
+												<div class="canopi-input-title">Bank A:</div>
+												<div class="dropdown">
+													<select class="dropdown-select form-control ng-pristine ng-valid"
+														title="Please select" data-live-search="false">
+														<option></option>
+														<option></option>
+														<option></option>
+														<option></option>
+														<option></option>
+														<option></option>
+													</select>
+												</div>
+											</div>
+											<div class="form-group canopi-right-inner-addon">
+												<div class="canopi-input-title">Bank Z:</div>
+												<div class="dropdown">
+													<select class="dropdown-select form-control ng-pristine ng-valid"
+														title="Please select" data-live-search="false">
+														<option></option>
+														<option></option>
+														<option></option>
+														<option></option>
+														<option></option>
+														<option></option>
+													</select>
+												</div>
+											</div>
+										</div>
+										<div class="col-lg-4 col-md-4 col-sm-4">
+											<div class="form-group canopi-right-inner-addon">
+												<div class="canopi-input-title">Transceiver A:</div>
+												<i class="fa fa-search"></i>
+												<input type="text" class="form-control" placeholder="Type and Search">
+											</div>
+											<div class="form-group canopi-right-inner-addon">
+												<div class="canopi-input-title">Transceiver Z:</div>
+												<i class="fa fa-search"></i>
+												<input type="text" class="form-control" placeholder="Type and Search">
+											</div>
+										</div>
+										<h3>TIRKS Information</h3>
+										<div class="col-lg-4 col-md-4 col-sm-12">
+											<div class="form-group">
+												<div class="canopi-input-title">AT A:</div>
+												<input type="text" class="form-control" placeholder="">
+											</div>
+											<div class="form-group">
+												<div class="canopi-input-title">Reserve Project:</div>
+												<input type="text" class="form-control" placeholder="">
+											</div>
+											<div class="form-group">
+												<div class="canopi-input-title">System Prefix:</div>
+												<input type="text" class="form-control" placeholder="" disabled>
+											</div>
+											<div class="form-group">
+												<div class="canopi-input-title">System Suffix:</div>
+												<input type="text" class="form-control" placeholder="">
+											</div>
+											<div class="form-group">
+												<div class="canopi-input-title">PDAC:</div>
+												<input type="text" class="form-control" placeholder="">
+											</div>
+											<div class="form-group required">
+												<div class="canopi-input-title">Sub Path:</div>
+												<input type="text" class="form-control" placeholder="">
+											</div>
+											<div class="form-group">
+												<div class="canopi-input-title">Coordination No.1:</div>
+												<input type="text" class="form-control" placeholder="">
+											</div>
+											<div class="form-group">
+												<div class="canopi-input-title">Coordination No.2:</div>
+												<input type="text" class="form-control" placeholder="">
+											</div>
+										</div>
+										<div class="col-lg-4 col-md-4 col-sm-12">
+											<div class="form-group">
+												<div class="canopi-input-title">AT Z:</div>
+												<input type="text" class="form-control" placeholder="">
+											</div>
+											<div class="form-group required">
+												<div class="canopi-input-title">User:</div>
+												<input type="text" class="form-control" placeholder="">
+											</div>
+											<div class="form-group">
+												<div class="canopi-input-title">Division Revenue Group:</div>
+												<input type="text" class="form-control" placeholder="">
+											</div>
+											<div class="form-group">
+												<div class="canopi-input-title">Division Revenue Type:</div>
+												<input type="text" class="form-control" placeholder="">
+											</div>
+											<div class="form-group required">
+												<div class="canopi-input-title">Work Group:</div>
+												<input type="text" class="form-control" placeholder="">
+											</div>
+											<div class="form-group">
+												<div class="canopi-input-title">DV</div>
+												<input type="text" class="form-control" placeholder="">
+											</div>
+											<div class="form-group">
+												<div class="canopi-input-title">FMT:</div>
+												<input type="text" class="form-control" placeholder="">
+											</div>
+											<div class="form-group">
+												<div class="canopi-input-title">TIRKS Notes:</div>
+												<button class="btn canopi-btn-orange"><span>Display/Update</span></button>
+											</div>
+										</div>
+					                </div>	<!-- end row -->				
+							
+							
+							</tab>
+						</tabset>
+					</div>
+								
+					
+					<div class="row" style="padding-left: 20px; padding-right: 20px;">
+						<div class="col-md-12">
+							<button class="btn canopi-btn-orange"><span>Submit</span></button>
+							<button class="btn canopi-btn-gray" ng-click="clear()"><span>Clear</span></button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

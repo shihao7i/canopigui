@@ -1,0 +1,141 @@
+'use strict';
+angular.module('admin.app').controller('LookupAdminController',
+    ['$scope', '$log', '$filter', '$templateCache', 'uiGridExporterConstants', 'uiGridConstants', 'lookupTypes', 'AdminJsonService', 'UiGridUtilService', 'ModalRowEdit', 'Dialog',
+        function ($scope, $log, $filter, $templateCache, uiGridExporterConstants, uiGridConstants, lookupTypes, AdminJsonService, UiGridUtilService, ModalRowEdit, Dialog) {
+        var vm = this;
+
+        //UiGridUtilService.loadTemplate('ui-grid/selectionRowHeader');
+        //UiGridUtilService.loadTemplate('ui-grid/selectionRowHeaderButtonsCanopi');
+        
+        // Revert to default setting
+        $templateCache.put('ui-grid/uiGridHeaderCell',
+             "<div ng-class=\"{ 'sortable': sortable }\"><!-- <div class=\"ui-grid-vertical-bar\">&nbsp;</div> --><div class=\"ui-grid-cell-contents\" col-index=\"renderIndex\"><span>{{ col.displayName CUSTOM_FILTERS }}</span> <span ui-grid-visible=\"col.sort.direction\" ng-class=\"{ 'ui-grid-icon-up-dir': col.sort.direction == asc, 'ui-grid-icon-down-dir': col.sort.direction == desc, 'ui-grid-icon-blank': !col.sort.direction }\">&nbsp;</span></div><div class=\"ui-grid-column-menu-button\" ng-if=\"grid.options.enableColumnMenus && !col.isRowHeader  && col.colDef.enableColumnMenu !== false\" ng-click=\"toggleMenu($event)\" ng-class=\"{'ui-grid-column-menu-button-last-col': isLastCol}\"><i class=\"ui-grid-icon-angle-down\">&nbsp;</i></div><div ng-if=\"filterable\" class=\"ui-grid-filter-container\" ng-repeat=\"colFilter in col.filters\"><div ng-if=\"colFilter.type !== 'select'\"><input type=\"text\" class=\"ui-grid-filter-input\" ng-model=\"colFilter.term\" ng-attr-placeholder=\"{{colFilter.placeholder || ''}}\"><div class=\"ui-grid-filter-button\" ng-click=\"colFilter.term = null\"><i class=\"ui-grid-icon-cancel\" ng-show=\"!!colFilter.term\">&nbsp;</i><!-- use !! because angular interprets 'f' as false --></div></div><div ng-if=\"colFilter.type === 'select'\"><select class=\"ui-grid-filter-select\" ng-model=\"colFilter.term\" ng-attr-placeholder=\"{{colFilter.placeholder || ''}}\" ng-options=\"option.value as option.label for option in colFilter.selectOptions\"></select><div class=\"ui-grid-filter-button-select\" ng-click=\"colFilter.term = null\"><i class=\"ui-grid-icon-cancel\" ng-show=\"!!colFilter.term\">&nbsp;</i><!-- use !! because angular interprets 'f' as false --></div></div></div></div>"
+         );
+
+        // By default the accordion is open
+        vm.searchAccordionOpen = true;
+
+        // sort the lookup type values in ascending order
+        vm.lookupTypes = $filter('orderBy')(lookupTypes, 'name');
+        vm.uiGridExporterConstants = uiGridExporterConstants;
+
+        // Load default values
+        vm.lookupType = vm.lookupTypes[2];
+        vm.mySlections = [];
+
+        // Configure grid
+        vm.gridOptions = {
+            enableRowSelection: true,
+            rowHeight: 45,
+            enableSelectAll: false,
+            enableHorizontalScrollbar: uiGridConstants.NEVER,
+            enableColumnMenus: false,
+            enableGridMenu: true,
+            enableCellEditOnFocus: true,
+            multiSelect: false,
+            exporterCsvFilename: vm.lookupType.value + '.csv',
+            exporterMenuPdf: false,
+            exporterMenuCsv: false,
+            gridMenuCustomItems: [
+                {
+                  title: 'Hide Empty Columns',
+                  action: function () {
+                    vm.gridOptions.columnDefs[1].visible=false;
+                    vm.gridApi.core.refresh();
+                  }
+                },
+                {
+                  title: 'Reset Columns',
+                  action: function () {
+                    vm.changeLookupType();
+                  }
+                }
+            ],
+            onRegisterApi: function (gridApi) {
+                vm.gridApi = gridApi;
+                // Register Events
+                gridApi.edit.on.beginCellEdit($scope, function(rowEntity){
+                    // Disable save timer
+                    //uiGridRowEditService.cancelTimer(vm.gridApi.grid, vm.gridApi.grid.getRow(rowEntity));
+                    // Check If there are unsaved rows
+                    var dirtyRows = vm.gridApi.rowEdit.getDirtyRows();
+                    if (dirtyRows.length != 0 && dirtyRows[0].entity !== rowEntity){
+                        console.log("Must prevent default");
+                        return false;
+                    }else{
+                        vm.gridApi.selection.selectRow(rowEntity);
+                    }
+                });
+                gridApi.selection.on.rowSelectionChanged($scope, rowSelectionChanged);
+                gridApi.rowEdit.on.saveRow($scope, rowSave);
+            }
+        };
+
+        AdminJsonService.getLookupType(vm.lookupType.value).then(function (data) {
+            vm.data = UiGridUtilService.extractTableCellValues(data.tableRows);
+            vm.gridOptions.data = vm.data;
+            vm.gridOptions.columnDefs = UiGridUtilService.extractColumnDefs(data.tableRows);
+        });
+
+        // Handle grid events
+        function rowSelectionChanged(row) {
+            vm.selectedRow = row.isSelected ? row.entity : false;
+        }
+
+        function rowSave(rowEntity) {
+            debugger;
+        }
+
+            vm.scrollToLast = function () {
+                //vm.gridApi
+                debugger;
+            };
+        vm.changeLookupType = function () {
+            AdminJsonService.getLookupType(vm.lookupType.value).then(function (data) {
+                vm.data = UiGridUtilService.extractTableCellValues(data.tableRows);
+                vm.gridOptions.data = vm.data;
+                vm.gridOptions.columnDefs = UiGridUtilService.extractColumnDefs(data.tableRows);
+                vm.gridOptions.exporterCsvFilename = vm.lookupType.value + '.csv';
+            });
+        };
+
+        /**
+         * Add or Edit an item
+         * @param {Object} item Optional item if this is an edit operation
+         */
+        vm.addItem = function (item) {
+//            ModalRowEdit.open(vm.gridOptions.columnDefs, item).then(function (newItem) {
+//                vm.gridOptions.data.push(newItem);
+//            });
+            if(vm.selectedRow){
+                vm.selectedIndex = vm.gridOptions.data.lastIndexOf(vm.selectedRow);
+                vm.gridOptions.data.splice(vm.selectedIndex+1, 0, {});
+            }
+            else{
+               var newItem = {};
+                vm.gridOptions.data.push(newItem);
+            }
+        };
+
+        vm.remove = function (item) {
+            // Remove an item
+        };
+
+        vm.export = function () {
+            vm.gridApi.exporter.csvExport(vm.uiGridExporterConstants.ALL, vm.uiGridExporterConstants.ALL);
+        };
+
+        /**
+         * Workaround to filter on all columns
+         * @todo Remove this when ui-grid provides it natively
+         */
+        vm.refreshData = function (filter) {
+            vm.gridOptions.data = vm.data;
+            while (filter) {
+                var oSearchArray = filter.split(' ');
+                vm.gridOptions.data = $filter('filter')(vm.gridOptions.data, oSearchArray[0], undefined);
+                oSearchArray.shift();
+                filter = (oSearchArray.length !== 0) ? oSearchArray.join(' ') : '';
+            }
+        };
+    }]);

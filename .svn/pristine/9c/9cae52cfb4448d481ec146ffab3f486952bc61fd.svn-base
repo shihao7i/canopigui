@@ -1,0 +1,139 @@
+angular.module('admin.app').controller('TasksController', 
+                                       ['$scope', '$http', '$log', '$filter', 'taskTypes', 'TaskSearchService', 'UiGridUtilService',
+                                       function ($scope, $http, $log, $filter, taskTypes, TaskSearchService, UiGridUtilService) {
+	'use strict';
+        
+        var vm = this;
+        
+        init();
+        
+        function init() {
+            
+  	    initializeVMVariables();
+ 	    setupVMMethods();
+            
+        };
+        
+        function  initializeVMVariables() {
+
+            // sort the lookup type values in ascending order
+            vm.taskTypes = $filter('orderBy')(taskTypes, 'name');
+            
+            vm.displayTaskResults = true;
+        
+            vm.gridOptions = { 
+                enableRowSelection: true,
+                enableRowHeaderSelection: false,
+                enableHorizontalScrollbar: 0,
+                multiSelect: false
+            };  
+
+            vm.searchAccordionOpen = true;
+
+        };
+        
+
+        function setupVMMethods() {
+            
+            vm.taskSearch = function () {
+    
+                TaskSearchService.getTasks().then(function(data) {
+   
+                    vm.displayTaskResults = true;
+
+                    vm.data = extractTableCellValues(data.tableRows);
+                    vm.gridOptions.data = vm.data;
+
+                    var colDefs = extractColumnDefs(data.tableRows);
+                    colDefs = UiGridUtilService.autoColWidth(colDefs, data.tableRows.rowMetaData);
+
+                    vm.gridOptions.columnDefs = colDefs;
+
+                });
+               
+        };
+
+                
+//            vm.gridOptionsTaskListTable.onRegisterApi = function(gridApi){
+//                //set gridApi on scope
+//                vm.gridApi = gridApi;
+//                
+//                gridApi.selection.on.rowSelectionChanged($scope,function(row){
+//                  var msg = 'row selected ' + row;
+//                  $log.log(msg);                  
+//                });
+//
+//                gridApi.selection.on.rowSelectionChangedBatch($scope,function(rows){
+//                  var msg = 'rows changed ' + rows.length;
+//                  $log.log(msg);
+//                });              
+//                
+//            };
+
+
+            /**
+              * Workaround to filter on all columns
+              * @todo Remove this when ui-grid provides it natively
+              */
+            vm.refreshData = function (filter) {
+                 vm.gridOptions.data = vm.data;
+                 while (filter) {
+                     var oSearchArray = filter.split(' ');
+                     vm.gridOptions.data = $filter('filter')(vm.gridOptions.data, oSearchArray[0], undefined);
+                     oSearchArray.shift();
+                     filter = (oSearchArray.length !== 0) ? oSearchArray.join(' ') : '';
+                 }
+            };
+        };
+
+
+        // helper method to build ui-grid's columnDefs property based on meta data column attributes
+        function extractColumnDefs(tableData) {
+            
+            var uniqueColumns = _.uniq(tableData.rowMetaData.columnList, 'id'),
+                
+            // map meta data column defs to the column defs ng-grid expects
+            columnDefMap = {
+                id: 'name',
+                displayName: 'displayName'
+            };
+
+            var columnDefs = uniqueColumns.map(function (id) {
+                var t = {};
+                for (var key in columnDefMap) {
+                    t[columnDefMap[key]] = id[key];
+                };
+                return t;
+            });
+            
+            return columnDefs;
+        };
+        
+        
+        // helper method to build ng-grid's data property based on meta data row values
+        function extractTableCellValues(tableData) {
+            
+            var localRowData = [];
+            var cellsInRow = [];
+            
+            var totalCols = tableData.rowMetaData.columnList.length;
+            var totalRows = tableData.rowMetaData.rowValueList.length;
+            
+            for (var i=0; i < totalRows; i++) {
+                
+                cellsInRow = tableData.rowMetaData.rowValueList[i].cellValues;
+                
+                var obj = {};
+                
+                for (var j=0; j < totalCols; j++) {
+                    obj[tableData.rowMetaData.columnList[j]['id']] = cellsInRow[j];
+                }
+                
+                localRowData.push(obj);
+            }
+
+            return localRowData;
+        };
+        
+
+}]);

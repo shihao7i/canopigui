@@ -1,0 +1,56 @@
+angular.module('admin.app', [ 'ngRoute', 'ngResource', 'ui.bootstrap', 'ngGrid',
+                              'ui.router', 'ngCookies', 'admin.service', 'ui.grid'
+               ]);
+                  
+
+
+angular.module('admin.app').config(['$stateProvider', '$urlRouterProvider',  function($stateProvider, $urlRouterProvider) {
+	
+	  //$urlRouterProvider.otherwise('adminguidashboard');
+	  //$urlRouterProvider.otherwise('/');
+          
+	  $stateProvider
+            .state('adminmaingui', {
+              abstract: true,
+	      url: '/adminmain',
+	      templateUrl: 'app/admin-app/adminmain.html'
+	    })
+	    .state('adminmaingui.dashboard', {
+	      url: '/dashboard',
+	      templateUrl: 'app/admin-app/dashboard/views/adminDashboard.html',
+	      controller : 'AdminDashboardController',
+              controllerAs: 'dashboard',
+	      data:{
+	    	  pageKey: 'DASHBOARD'
+	      }
+	   
+	    })
+            .state('adminmaingui.tasks', {
+	      url: '/tasks',
+	      templateUrl: 'app/admin-app/tasks/views/tasks.html',
+	      controller : 'TasksController',
+              controllerAs: 'tasks',
+	      data:{
+	    	  pageKey: 'MOBILITYORDERSEARCH'
+	      }
+            })
+	    .state('adminmaingui.lookupadmin', {
+	      url: '/lookupadmin',
+	      templateUrl: 'app/admin-app/lookupadmin/views/lookupAdmin.html',
+	      controller : 'LookupAdminController',
+              controllerAs: 'lookupadmin',
+	      data:{
+	    	  pageKey: 'LOOKUPADMIN'
+	      }
+	    });
+	   
+	}]);
+    
+    
+
+
+angular.module('admin.app').run([function () {
+
+    console.log("Admin App Runs!");
+		
+}]);

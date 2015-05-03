@@ -1,0 +1,448 @@
+'use strict';
+
+angular.module('admin.app').controller('MobilityOrdersController', 
+                            ['$scope', '$templateCache', '$log', '$q', '$interval', 'orderPicklists', 'AdminJsonService', 'UiGridUtilService',
+                            function ($scope, $templateCache, $log, $q, $interval, orderPicklists, AdminJsonService, UiGridUtilService) {
+       
+        // Revert templateCache
+        $templateCache.put('ui-grid/selectionRowHeader',
+            "<div class=\"ui-grid-disable-selection\"><div class=\"ui-grid-cell-contents\"><ui-grid-selection-row-header-buttons></ui-grid-selection-row-header-buttons></div></div>"
+          );
+        var vm = this;
+
+        init();
+        
+        function init() {
+    
+  	    initializeVMVariables();
+ 	    setupVMMethods();
+            
+        };
+        
+        function initializeVMVariables() {
+
+            vm.poTypeCurrentSelection = []; 
+            vm.woTypeCurrentSelection = [];             
+            vm.poTypeSettings = {displayProp: 'name', idProp: 'name', scrollable: true, scrollableHeight: 220, buttonClasses: 'btn btn-default dropdown-toggle app-customdropdown'};
+            vm.woTypeSettings = {displayProp: 'name', idProp: 'name', scrollable: true, scrollableHeight: 220, buttonClasses: 'btn btn-default dropdown-toggle app-customdropdown'};
+
+            vm.displayTable = false;
+            vm.displayOrderDetails = false;
+            
+            // this object will be populated in 
+            // orderPicklists => { poTypes, woTypes }
+            vm.searchButtonDisabled = true;
+            vm.clearButtonDisabled = true;
+            
+            vm.searchAccordionOpen = true;
+            vm.searchResultsOpen = true;
+            vm.orderPicklists = orderPicklists;
+            vm.poType = orderPicklists.poTypes;
+            vm.woType = orderPicklists.woTypes;
+            
+            //TOP TABLE 1
+            vm.gridOptionsSearchResults = {};
+            //MIDDLE TABLE 2 
+            vm.gridOptionsTaskListTable = {};
+            //BOTTOM TABLE 3
+            vm.gridOptionsUDATable = {};
+            
+            vm.isLoading = true;
+            
+            //Mobility Search DateTables setup
+            vm.tableData = {
+                loadTrigger: 0,
+                tableDefinition:{}
+            };
+            
+        };
+        
+    
+        
+        function setupVMMethods() {
+            
+            //WORKS - must enable multiselect for multiple
+            //http://plnkr.co/edit/PHeHVC6CGidJLNSC57ft?p=preview
+            vm.deleteSelected = function(){
+                                
+                angular.forEach(vm.gridApiTaskList.selection.getSelectedRows(), function (data, index) {
+
+                    vm.gridOptionsTaskListTable.data.splice(vm.gridOptionsTaskListTable.data.lastIndexOf(data), 1);
+                  
+                });
+            }; 
+            
+            vm.poTypeSelectionEvents = {
+                  
+              onItemSelect: function(item) {
+                
+                if(item.id !== undefined || item === "") {
+                    if(item.id !== "" && item.id !== undefined)  {
+                        vm.searchButtonDisabled = false;
+                        vm.clearButtonDisabled = false;
+                    } else {
+                        vm.searchButtonDisabled = true;
+                        vm.clearButtonDisabled = true;
+                    }
+                }
+              }
+              
+            }; 
+            
+            vm.woTypeSelectionEvents = {
+                  
+              onItemSelect: function(item) {
+                
+                if(item.id !== undefined || item === "") {
+                    if(item.id !== "" && item.id !== undefined)  {
+                        vm.searchButtonDisabled = false;
+                        vm.clearButtonDisabled = false;
+                    } else {
+                        vm.searchButtonDisabled = true;
+                        vm.clearButtonDisabled = true;
+                    }
+                }
+              }
+              
+            }; 
+            
+            //http://stackoverflow.com/questions/26316331/scroll-to-selection-in-angular-ui-grid-not-ng-grid has an alternate approach to cellNav
+            //https://github.com/angular-ui/ng-grid/issues/2128
+            //https://github.com/angular-ui/ng-grid/issues/2788
+            
+            vm.moveSelectedUp = function(){
+                
+                vm.selectedIndex = vm.gridOptionsTaskListTable.data.lastIndexOf(vm.selectedRow);
+                if(vm.previousIndex > -1){
+
+                    vm.previousIndex = vm.selectedIndex - 1;
+                    vm.nextIndex = vm.selectedIndex+1;
+
+                    vm.previousRowData = vm.gridOptionsTaskListTable.data[vm.previousIndex];
+
+                    vm.nextRowData = vm.gridOptionsTaskListTable.data[vm.nextIndex];
+
+                    vm.gridOptionsTaskListTable.data[vm.previousIndex] = vm.gridOptionsTaskListTable.data[vm.selectedIndex];
+                    vm.gridOptionsTaskListTable.data[vm.selectedIndex] = vm.previousRowData;
+                    vm.selectedIndex = vm.selectedIndex-1;
+
+                    vm.checkStart();
+                    vm.checkEnd();
+                }
+
+                else{
+
+                }                
+                vm.gridApiTaskList.cellNav.scrollTo(vm.selectedRow);
+                
+            };
+            vm.checkStart = function(){
+                vm.previousIndex = vm.selectedIndex-1;
+                if(vm.previousIndex <0){
+                    vm.firstElement=true;
+                }
+                else{
+                    vm.firstElement=false;
+                }
+            }
+            vm.checkEnd = function(){
+                vm.nextIndex = vm.selectedIndex+1;
+                if(vm.nextIndex === vm.gridOptionsTaskListTable.data.length){
+                    vm.lastElement = true;
+                }
+                else{
+                    vm.lastElement=false;
+                }
+            };
+            
+            vm.moveSelectedDown = function(){
+                
+                vm.selectedIndex = vm.gridOptionsTaskListTable.data.lastIndexOf(vm.selectedRow);
+
+                if(vm.nextIndex !== vm.gridOptionsTaskListTable.data.length){
+
+                    vm.previousIndex = vm.selectedIndex - 1;
+                    vm.nextIndex = vm.selectedIndex+1;
+
+                    vm.previousRowData = vm.gridOptionsTaskListTable.data[vm.previousIndex];
+
+                    vm.nextRowData = vm.gridOptionsTaskListTable.data[vm.nextIndex];
+
+                    vm.gridOptionsTaskListTable.data[vm.nextIndex] =vm.gridOptionsTaskListTable.data[vm.selectedIndex];
+                    vm.gridOptionsTaskListTable.data[vm.selectedIndex] = vm.nextRowData;
+                    vm.selectedIndex = vm.selectedIndex+1;
+
+
+                    vm.checkEnd();
+                    vm.checkStart();
+                }
+                else{
+                    //vm.nextIndex = vm.selectedIndex+1;
+                }                   
+                vm.gridApiTaskList.cellNav.scrollTo(vm.selectedRow);
+            };
+            
+                       
+            vm.insertCopyAtLocation = function(){
+                vm.newRowIndex = vm.selectedIndex+1;
+                var dataCopy = angular.copy(vm.gridOptionsTaskListTable.data);                
+                dataCopy.splice(vm.newRowIndex, 0, { taskName: '', taskSequence: '', taskDescription:'', tasksDuration:'', tasksEscalation:'' });
+                dataCopy[vm.newRowIndex] = vm.gridOptionsTaskListTable.data[vm.selectedIndex];
+                vm.gridOptionsTaskListTable.data = dataCopy;
+                
+            };           
+            
+            
+            vm.orderSearch = function () {
+
+                var currentPOPicklist = vm.poTypeCurrentSelection;   
+                var currentWOPicklist = vm.woTypeCurrentSelection;             
+                var ordersearchresultpath = "";
+                
+                // If any of the WO type picklist values is selected, then only show one row of the WO data
+                if (currentWOPicklist.length === 0) {
+                    // default to show mock data for ETTC PO and related WO types only
+                   ordersearchresultpath = "posearchresults-ettcs";                 
+                } else {
+                    // default to show mock data for ETTCNewCabinet WO type only
+                    ordersearchresultpath = "wosearchresults-ettcsnewcabinet";
+                }  
+
+                
+                vm.orderSearchPromiseTable = AdminJsonService.getPOSearchResults(ordersearchresultpath).then(function(data) {
+                     
+                    vm.displayTable = true;
+
+                    processSearchResult(data);
+                    var tableData = data.tableRows;  
+                    vm.gridOptionsSearchResults.data = UiGridUtilService.extractTableCellValues(tableData);
+                    vm.gridOptionsSearchResults.columnDefs = UiGridUtilService.extractColumnDefs(tableData);
+
+                });
+                
+                
+            };
+            
+         
+            vm.clear = function() {
+                vm.poType = '';
+                vm.woType = '';
+            };
+            
+            vm.gridOptionsSearchResults = { 
+                enableRowSelection: true,
+                enableRowHeaderSelection: false,
+                enableHorizontalScrollbar: 0,
+                multiSelect: false,
+                rowHeight: 45,
+                onRegisterApi: function (gridApi) {
+                    vm.gridApi = gridApi;
+                    // Register Events
+                    gridApi.selection.on.rowSelectionChanged($scope, rowSelectionChanged);
+                }
+            }; 
+            
+            vm.gridOptionsAddTaskSelectTable = { 
+                enableRowSelection: true,
+                multiSelect: false,
+                enableSorting:false,
+                rowHeight: 45,
+                enableGridMenu:true,
+                onRegisterApi: function (gridApi) {
+                    vm.gridApi = gridApi;
+                    // Register Events
+                    gridApi.selection.on.rowSelectionChanged($scope, rowSelectionChanged);
+                }
+            }; 
+            
+            // Handle grid events for Top Table
+            function rowSelectionChanged(row) {
+                vm.selectedRow = row.isSelected ? row.entity : false;
+                displayOrderDetail();
+            }
+        
+            
+            vm.gridOptionsTaskListTable = { 
+                enableRowSelection: true,
+                rowHeight: 45,
+                //enableRowHeaderSelection: false,
+                //enableHorizontalScrollbar: 0,
+                multiSelect: false,
+                //showGridFooter:true,
+                //enableFooterTotalSelected:true,
+                enableSorting:false,
+                enableGridMenu:true,
+                gridMenuCustomItems: [
+                    {
+                      title: 'Hide Empty Columns',
+                      action: function () {
+                        vm.toggleEmptyColumns(); 
+                      }
+                    },
+                    {
+                      title: 'Reset Columns',
+                      action: function () {
+                        displayOrderDetail(); 
+                      }
+                    }
+                ],
+                onRegisterApi: function (gridApi) {
+                    vm.gridApiTaskList = gridApi;
+                    gridApi.selection.on.rowSelectionChanged($scope,rowSelectionChangedTaskList);
+                    //saving inline edited rows
+                    gridApi.rowEdit.on.saveRow($scope, saveRow);
+                }
+            };
+            
+            
+            // TODO: define all the functions needed for Task List operations
+            vm.tasklist = {
+                
+               addTask: function() {
+                               
+                    AdminJsonService.getTaskCodeNameList().then(function(data) {
+
+                        var tableData = data.tableRows;  
+
+                        vm.gridOptionsAddTaskSelectTable.data = UiGridUtilService.extractTableCellValues(tableData);
+                        var colDefs = UiGridUtilService.extractColumnDefs(tableData);
+                        colDefs = UiGridUtilService.autoColWidth(colDefs, tableData.rowMetaData);
+                        vm.gridOptionsAddTaskSelectTable.columnDefs = colDefs;
+
+                    });
+               },
+               
+               removeTask: function() {
+                   
+               },
+               
+               saveTasks: function() {
+                   
+               },
+               
+               export: function() {
+                   
+               }
+                
+            };
+            
+                
+            
+            vm.gridOptionsUDATable = { 
+                enableCellEditOnFocus:true,
+                enableRowSelection: true,
+                //enableRowHeaderSelection: false,
+                enableHorizontalScrollbar: 0,
+                multiSelect: false,
+                rowHeight: 45,                
+                enableSorting:false,
+                onRegisterApi: function (gridApi) {
+                    vm.gridApi = gridApi;
+                    gridApi.selection.on.rowSelectionChanged($scope,rowSelectionChangedUDA);
+                    //saving inline edited rows
+                    //gridApi.rowEdit.on.saveRow($scope, saveRow);
+                }
+            };
+            
+            vm.editTaskUDA={
+                
+            }
+            vm.addTaskUDA= function(){
+                vm.gridOptionsUDATable.data.unshift({});
+            };
+        };
+                 
+        function displayOrderDetail() {
+
+            // use only mock data for ETTCSNewCabinet only for now
+            var workorderType = "ettcsnewcabinet";
+            
+            AdminJsonService.getTasks(workorderType).then(function(data) {
+          
+                vm.displayOrderDetails = true;       
+
+                var tableData = data.tableRows;  
+
+                vm.gridOptionsTaskListTable.data = UiGridUtilService.extractTableCellValues(tableData);
+                var colDefs = UiGridUtilService.extractColumnDefs(tableData);
+                colDefs = UiGridUtilService.autoColWidth(colDefs, tableData.rowMetaData);
+                vm.gridOptionsTaskListTable.columnDefs = colDefs;
+
+            });
+            
+            
+            AdminJsonService.getUserDefinedAttributes().then(function(data) {
+
+                var tableData = data.tableRows;  
+
+                vm.gridOptionsUDATable.data = UiGridUtilService.extractTableCellValues(tableData);
+                var colDefs = UiGridUtilService.extractColumnDefs(tableData);
+                colDefs = UiGridUtilService.autoColWidth(colDefs, tableData.rowMetaData);
+                vm.gridOptionsUDATable.columnDefs = colDefs;
+
+            });
+
+        };
+
+
+        function processSearchResult(responseData) {
+
+            vm.tableData.tableDefinition = responseData.tableRows;
+
+            ++vm.tableData.loadTrigger;			//fires off table generation upon digest
+
+        }
+        
+        
+        function rowSelectionChangedTaskList(row) {
+                var msg = 'row selected ' + row.isSelected;
+                $log.log(msg);
+
+                vm.selectedRow = row.entity;
+                vm.gridApiTaskList.cellNav.scrollTo(vm.selectedRow);
+                $log.debug("scrolled");
+                
+                vm.selectedIndex = vm.gridOptionsTaskListTable.data.lastIndexOf(vm.selectedRow);
+                vm.previousIndex = vm.selectedIndex - 1;
+                vm.nextIndex = vm.selectedIndex + 1;
+                //These checks happen once per selected row
+                //Is the selected row already the last Element? Then disable the down button
+                //Is the selected row the first element in the list? Then disable the up button
+                if(vm.nextIndex === (vm.gridOptionsTaskListTable.data.length)){
+                    vm.lastElement = true;
+                    vm.firstElement=false;
+                }
+                else{
+                    vm.lastElement = false;
+                }
+
+                if(vm.previousIndex < 0){
+                    vm.firstElement = true;
+                    vm.lastElement = false;
+                }
+                else{
+                    vm.firstElement=false;
+                }        
+        };
+        
+        function rowSelectionChangedUDA(row){
+            var msg = 'row selected ' + row.isSelected;
+            $log.log(msg);
+            vm.selectedRowUDA = row.entity;
+        }
+        function saveRow(rowEntity) {
+                // create a fake promise - normally you'd use the promise returned by $http or $resource
+                var deferred = $q.defer();
+                vm.gridApiTaskList.rowEdit.setSavePromise( rowEntity, deferred.promise );
+                // fake a delay of 3 seconds whilst the save occurs, return error if gender is "male"
+                $interval( function() {
+                    if (rowEntity.gender === 'male' ){
+                        deferred.reject();
+                    } else {
+                        deferred.resolve();
+                    }
+                }, 3000, 1);
+        }; 
+          
+       
+}]);

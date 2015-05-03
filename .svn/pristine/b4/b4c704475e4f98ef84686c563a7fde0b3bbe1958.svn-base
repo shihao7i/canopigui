@@ -1,0 +1,7 @@
+<div class="container-fluid">
+<div class="row">
+  <div>
+    <p>Are you sure you want delete the ATTUID {{userInfoData.attUid}}</p>
+  </div> 
+</div>
+</div>

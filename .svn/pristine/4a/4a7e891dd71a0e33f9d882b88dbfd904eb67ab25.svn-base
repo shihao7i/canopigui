@@ -1,0 +1,50 @@
+{   
+    "key": "WO Description",
+    "tableRows": 
+        {"rowMetaData":
+            { "columnList":[{"hyperlink":false,	"visible": false, "editable": false, "fieldType": "input", "fieldOptions": [], "fieldDefault": "", "id":"id", "displayName":"ID"},
+                            {"hyperlink":false, "visible": true, "editable": true, "fieldType": "input", "fieldOptions": [], "fieldDefault": "", "id":"woDescription", "displayName":"WO Description"},
+                            {"hyperlink":false, "visible": true, "editable": true, "fieldType": "input", "fieldOptions": [], "fieldDefault": "", "id":"orderType", "displayName":"Order Type"},
+                            {"hyperlink":false, "visible": true, "editable": true, "fieldType": "input", "fieldOptions": [], "fieldDefault": "", "id":"carrier", "displayName":"Carrier"},
+                            {"hyperlink":false, "visible": true, "editable": true, "fieldType": "dropdown", "fieldOptions": [{"value": "YES", "label": "YES"}, {"value": "NO", "label": "NO"}], "fieldDefault": "", "id":"isTelcoPartner", "displayName":"Is Telco Partner"},
+                            {"hyperlink":false, "visible": true, "editable": true, "fieldType": "dropdown", "fieldOptions": [{"value": "IN_FRANCHISE", "label": "IN_FRANCHISE"}, {"value": "OUT_OF_FRANCHISE", "label": "OUT_OF_FRANCHISE"}], "fieldDefault": "", "id":"franchiseIndicator", "displayName":"Franchise Indictor"},
+                            {"hyperlink":false, "visible": true, "editable": true, "fieldType": "input", "fieldOptions": [], "fieldDefault": "", "id":"deviceVebdor", "displayName":"Device Vendor"},
+                            {"hyperlink":false, "visible": true, "editable": true, "fieldType": "dropdown", "fieldOptions": [{"value": "YES", "label": "YES"}, {"value": "NO", "label": "NO"}], "fieldDefault": "", "id":"firstCabinet", "displayName":"First Cabinet"},
+                            {"hyperlink":false, "visible": true, "editable": true, "fieldType": "dropdown", "fieldOptions": [{"value": "YES", "label": "YES"}, {"value": "NO", "label": "NO"}], "fieldDefault": "", "id":"nodeb1OnAir", "displayName":"NODEB1 on Air"},
+                            {"hyperlink":false, "visible": true, "editable": true, "fieldType": "input", "fieldOptions": [], "fieldDefault": "", "id":"trafficType", "displayName":"Traffic Type"},
+                            {"hyperlink":false, "visible": true, "editable": true, "fieldType": "input", "fieldOptions": [], "fieldDefault": "", "id":"cabinetType", "displayName":"Cabinet Type"},
+                            {"hyperlink":false, "visible": true, "editable": true, "fieldType": "dropdown", "fieldOptions": [{"value": "YES", "label": "YES"}, {"value": "NO", "label": "NO"}], "fieldDefault": "", "id":"isOew", "displayName":"Is OEW"},                      
+                            {"hyperlink":false, "visible": true, "editable": true, "fieldType": "dropdown", "fieldOptions": [{"value": "YES", "label": "YES"}, {"value": "NO", "label": "NO"}], "fieldDefault": "", "id":"isSharedUni", "displayName":"Is Shared UNI"},                    
+                            {"hyperlink":false, "visible": true, "editable": true, "fieldType": "dropdown", "fieldOptions": [{"value": "YES", "label": "YES"}, {"value": "NO", "label": "NO"}], "fieldDefault": "", "id":"isTargetNsb", "displayName":"Is Target NSB"}],                            
+
+              "rowValueList":[{"cellValues":["1001", "ADD ETTC MTSO LGX" , "AddEttcsMtsoCollectorCircuit", "", "", "", "", "", "", "", "", "", "", ""]},
+                              {"cellValues":["1002", "CM RESEARCH" , "CMResearchDisable", "", "", "", "", "", "", "", "", "", "", ""]},
+                              {"cellValues":["1003", "CORE GDI RESEARCH GRANITE" , "CoreGDIResearchGranite", "", "", "", "", "", "", "", "", "", "", ""]},
+                              {"cellValues":["1004", "ADD ETTC DIRECT CONNECT SIAD-MSN" , "DirectConnectSiadMsn", "", "", "", "", "", "", "", "", "", "", ""]},
+                              {"cellValues":["1005", "DISCO REHOME EOS OC3" , "DiscoEthernetOverSonetForRehome", "", "", "", "", "", "", "", "", "", "", ""]},
+                              {"cellValues":["1006", "ADD NODEB 1 ETTC CELL SITE & EVC (IN FRANCHISE) [All Regions]" , "ETTCSMigration", "", "NO", "IN_FRANCHISE", "", "YES", "", "", "", "", "", ""]},
+                              {"cellValues":["1007", "ADD SUBSEQUENT NODEB ETTC CELL SITE & EVC (IN FRANCHISE) [All Regions]" , "ETTCSMigration", "", "", "IN_FRANCHISE", "", "YES", "", "", "", "", "", ""]},
+                              
+                              {"cellValues":["1008", "ADD NODEB 1 ETTC CELL SITE & EVC VERIZON [All Regions]" , "ETTCSMigration", "VERIZON", "", "", "", "YES", "", "", "", "", "", ""]},
+                              {"cellValues":["1009", "ADD NODEB 1 ETTC CELL SITE & EVC VERIZON ALU [All Regions]" , "ETTCSMigration", "VERIZON", "", "", "ALU", "YES", "", "", "", "", "", ""]},
+                              {"cellValues":["1010", "ADD NODEB 1 ETTC CELL SITE & EVC (OUT OF FRANCHISE) [All Regions]" , "ETTCSMigration", "", "NO", "OUT_OF_FRANCHISE", "", "YES", "", "", "", "", "", ""]},
+                              {"cellValues":["1011", "ADD SUBSEQUENT NODEB ETTC CELL SITE & EVC (OOF) [All Regions]" , "ETTCSMigration", "", "", "OUT_OF_FRANCHISE", "", "YES", "", "", "", "", "", ""]},
+       
+                              {"cellValues":["1012", "ADD NODEB 1 ETTC CELL SITE & EVC LNS [All Regions]" , "ETTCSMigration", "LNS", "", "", "", "YES", "", "", "", "", ""]},
+                              {"cellValues":["1013", "ADD NODEB 1 ETTC CELL SITE & EVC LNS ALU [All Regions]" , "ETTCSMigration", "LNS", "", "", "", "ALU", "YES", "", "", "", "", ""]},
+                              {"cellValues":["1014", "ADD ETTC MULTI NODE B SINGLE SIAD BROWNFIELD [All Regions]" , "ETTCSMigration", "", "", "", "", "", "YES", "IP", "NODEB3", "", "", ""]},
+                              {"cellValues":["1015", "ADD ETTC MULTI NODE B SINGLE SIAD ALU BROWNFIELD [All Regions]" , "ETTCSMigration", "", "", "", "ALU", "", "YES", "IP", "NODEB3", "", "", ""]}                             
+  
+                            ]
+            }
+        },
+
+    "returnStaus": "Success",
+    "returnMessage": "",
+    "returnCode": "0",
+    "pageInfo" : {
+        "totalRecords" : "15",
+        "currentPage": "0",
+        "itemsPerPage": "100"
+    }
+}

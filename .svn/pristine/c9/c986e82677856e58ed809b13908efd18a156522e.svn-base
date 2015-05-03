@@ -1,0 +1,213 @@
+<!doctype html>
+
+<html xmlns:ng="http://angularjs.org" class="ng-app:canopi.app" id="ng-app" ng-app="main.app" ng-strict-di>
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Canopi</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <link rel="stylesheet" href="assets/styles/bootstrap.css" />
+        <link rel="stylesheet" href="assets/styles/jquery-ui.css" />
+        <link rel="stylesheet" href="assets/styles/font-awesome.css" />
+        <link rel="stylesheet" href="assets/styles/fullcalendar.css" />
+        <link rel='stylesheet' href='assets/styles/glyphicons.css'>
+        <link rel="stylesheet" href="assets/styles/angular-csp.css">
+        <link rel="stylesheet" href="assets/styles/abn_tree.css">
+
+        <!--  ColVis is always needed if we include Column Visibility -->
+        <link rel="stylesheet" href="assets/styles/dataTables.colVis.css" />
+        <!--  Always need TableTools styling even though datatables has some in there too -->
+        <link rel="stylesheet" href="assets/styles/dataTables.tableTools.css" />
+        <link rel="stylesheet" href="assets/styles/dataTables.bootstrap.css" />
+
+        <!-- ngGrid -->
+        <link rel="stylesheet" href="assets/styles/ng-grid.css" />
+
+        <link rel="stylesheet" href="assets/styles/ui-grid.css" />
+
+        <!-- Angular Busy -->
+        <link rel="stylesheet" href="assets/styles/angular-busy.css" />
+        
+        <link rel="stylesheet" href="assets/styles/att-gui.css" />
+        <link rel="stylesheet" href="assets/styles/canopi.css" />
+        <link rel="stylesheet" href="assets/styles/admin.css" />
+        <link rel="stylesheet" href="assets/styles/app.css" />
+
+        <script src="lib/modernizr/modernizr.js"></script>
+
+
+
+    </head>
+
+    <body>
+
+        <div ui-view></div>
+
+      
+        <!-- Vendor Libs -->
+        <script src="lib/jquery/jquery.js"></script>
+        <script src="lib/jquery-ui/jquery-ui.js"></script>
+        <script src="lib/angular/angular.js"></script>
+        <script src="lib/angular-animate/angular-animate.js"></script>
+        <script src="lib/angular-ui-router/angular-ui-router.js"></script>
+        <script src="lib/angular-route/angular-route.js"></script>
+        <script src="lib/angular-resource/angular-resource.js"></script>
+        <script src="lib/angular-sanitize/angular-sanitize.js"></script>
+        <script src="lib/angular-cookies/angular-cookies.js"></script>
+        <script src="lib/angular-loader/angular-loader.js"></script>
+        <script src="lib/angular-touch/angular-touch.js"></script>
+        <script src="lib/lodash/lodash.min.js"></script>
+        <script src="lib/i18next/i18next.js"></script>
+        <script src="lib/ng-i18next/ng-i18next.js"></script>
+        
+        <!--<script src="lib/jquery-ui-custom/jquery-ui.custom.js"></script>-->
+        <script src="lib/jquery-cookie/jquery.cookie.js"></script>
+        <script src="lib/jquery-validate/jquery.validate.js"></script>
+        <script src="lib/spin/spin.js"></script>
+        <script src="lib/angular-spinner/angular-spinner.js"></script>
+
+        <script src="lib/angular-ui-utils/ui-utils.js"></script>
+
+        <!-- UI Grid -->
+        <script src="lib/angular-ui-grid/ui-grid.js"></script>
+
+        <!-- ngGrid Libs-->
+        <script src="lib/angular-ui-ng-grid/ng-grid-csv-export.js"></script>
+        <script src="lib/angular-ui-ng-grid/ng-grid.js"></script>
+        
+        <!-- DataTables JS Libs-->
+        <script src="lib/datatables/jquery.dataTables.js"></script>
+        <script src="lib/datatables/dataTables.colVis.js"></script>
+        <script src="lib/datatables/dataTables.tableTools.js"></script>
+        <script src="lib/datatables/jquery.dataTables.editable.js"></script>
+        <script src="lib/datatables/jquery.jeditable.js"></script>
+        <script src="lib/datatables/dataTables.bootstrap.js"></script>
+
+        <script src="lib/atmosphere/atmosphere.js"></script>
+        <script src="lib/atmosphere/jquery-atmosphere.js"></script>
+        
+        <!-- Angular Busy -->
+        <script src="lib/angular-busy/angular-busy.js"></script>
+        
+        <!-- UI Libs -->
+        <script src="lib/bootstrap/bootstrap.js"></script>
+        <!-- <script src="lib/bootstrap-datepicker/bootstrap-datepicker.js"></script> ->
+        <!-- <script src="lib/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script> -->
+        <script src="lib/angular-ui-bootstrap/ui-bootstrap-tpls.js"></script>
+
+        <!--  MaxMedia Libs -->
+        <script src="lib/maxmedia/module.js"></script>
+
+        <!-- JSPlumb lib -->
+        <script src="lib/jquery-jsplumb/jquery.jsPlumb-1.4.1-all-min.js"></script>
+
+        <!-- Nav Tree lib -->
+        <script src="lib/abntree/abn_tree_directive.js"></script>
+
+        <!-- Main App libs -->
+        <script src="app/app.js"></script>
+ 
+
+        <!-- Canopi App libs -->
+        <script src="app/canopi-app/canopiapp.js"></script>
+
+        <!-- Services -->
+        <script src="components/services/serviceModule.js"></script>
+        <script src="components/services/cacheService.js"></script>
+        <script src="components/services/commonUtilJsonService.js"></script>
+        <script src="components/services/uamJsonService.js"></script>
+        <script src="components/services/orderSearchJsonService.js"></script>
+        <script src="components/services/lookupSearchJsonService.js"></script>
+        <script src="components/services/inventoryJsonService.js"></script>
+        <script src="components/services/chartUtilService.js"></script>
+        <script src="components/services/helperUtilService.js"></script>
+        <script src="components/services/messagesService.js"></script>
+        <script src="components/services/httpInterceptorService.js"></script>
+
+        <!-- Directives -->
+        <script src="components/directives/directiveModule.js"></script>
+        <script src="components/directives/treeView.js"></script>
+        <script src="components/directives/draggable.js"></script>
+        <script src="components/directives/bootstrapDatepicker.js"></script>
+        <script src="components/directives/modalDialog.js"></script>
+        <script src="components/directives/alertMessages.js"></script>
+        <script src="components/directives/userMessage.js"></script>        
+        <script src="components/directives/multiselectDropdown.js"></script>
+        <script src="components/directives/multiSelectDropdownAngular.js"></script>
+        <script src="components/directives/groupAssignment.js"></script>
+        <script src="components/directives/maxmedia/maxmediaModule.js"></script>
+        <script src="components/directives/maxmedia/activityIndicator.js"></script>
+        <script src="components/directives/maxmedia/treeTable.js"></script>
+        <script src="components/directives/maxmedia/checkbox.js"></script>
+        <script src="components/directives/maxmedia/checkboxGroup.js"></script>
+        <script src="components/directives/maxmedia/radiobuttonGroup.js"></script>
+        <script src="components/directives/maxmedia/editField.js"></script>
+        <script src="components/directives/maxmedia/simpleGroupAssignment.js"></script>
+        <script src="components/directives/maxmedia/autoFillTextField.js"></script>
+        <script src="components/directives/maxmedia/notificationPopover.js"></script>
+        <script src="components/directives/maxmedia/dialogBoxWithOptionalLaunchButton.js"></script>
+
+        <!-- Directives for DataTables -->
+        <script src="components/directives/resultsTable.js"></script>
+
+        <!-- Filters -->
+        <script src="components/filters/filterModule.js"></script>
+        <script src="components/filters/partition.js"></script>
+	<script src="components/filters/isObjectEmpty.js"></script>
+        
+
+        <!-- Controllers -->
+        <script src="app/canopi-app/dashboard/controllers/dashboardController.js"></script>
+        <script src="app/canopi-app/about/controllers/aboutController.js"></script>
+        <script src="app/canopi-app/admin/controllers/adminController.js"></script>
+        <script src="app/canopi-app/admin/controllers/manageGroupsAdminController.js"></script>
+        <script src="app/canopi-app/admin/controllers/manageUsersAdminController.js"></script>
+        <script src="app/canopi-app/telco/network/controllers/equipmentSearchController.js"></script>
+        <script src="app/canopi-app/telco/network/controllers/equipmentModifyController.js"></script>
+        <script src="app/canopi-app/telco/network/controllers/deviceDetailsController.js"></script>
+        <script src="app/canopi-app/telco/network/controllers/topologyViewController.js"></script>
+        <script src="app/canopi-app/telco/network/controllers/networkDiscoveryController.js"></script>
+        <script src="app/canopi-app/telco/network/controllers/build/equipmentBuildController.js"></script>
+        <script src="app/canopi-app/telco/network/controllers/build/equipmentReviewController.js"></script>
+        <script src="app/canopi-app/telco/inventory/controllers/serviceSearchController.js"></script>
+        <script src="app/canopi-app/telco/orders/controllers/search/projectOrderSearchController.js"></script>
+        <script src="app/canopi-app/telco/orders/controllers/search/technicalOrderSearchController.js"></script>
+        <script src="app/canopi-app/telco/orders/controllers/search/relatedOrdersSearchController.js"></script>
+        <script src="app/canopi-app/telco/orders/controllers/uniPO/newUniPOController.js"></script>
+        <script src="app/canopi-app/telco/orders/controllers/uniPO/changeUniPOController.js"></script>
+        <script src="app/canopi-app/telco/orders/controllers/uniPO/disconnectUniPOController.js"></script>
+        <script src="app/canopi-app/telco/orders/controllers/uniASEBBPO/newUniASEBBPOController.js"></script>
+        <script src="app/canopi-app/telco/orders/controllers/uniASEBBPO/changeUniASEBBPOController.js"></script>
+        <script src="app/canopi-app/telco/orders/controllers/uniASEBBPO/disconnectUniASEBBPOController.js"></script>
+        <script src="app/canopi-app/telco/orders/controllers/multiPointEVCPO/newMultiPointEVCPOController.js"></script>
+        <script src="app/canopi-app/telco/orders/controllers/multiPointEVCPO/disconnectMultiPointEVCPOController.js"></script>
+        <script src="app/canopi-app/telco/orders/controllers/multiPointEVCPO/changeMultiPointEVCPOController.js"></script>
+        <script src="app/canopi-app/telco/orders/controllers/inlCNLLAGPO/newInlCNLLAGPOController.js"></script>
+        <script src="app/canopi-app/telco/orders/controllers/inlCNLLAGPO/disconnectInlCNLPOController.js"></script>
+        <script src="app/canopi-app/telco/orders/controllers/inlCNLLAGPO/disconnectLagPOController.js"></script>
+        <script src="app/canopi-app/telco/orders/controllers/inlCNLLAGPO/newAafCNLPOController.js"></script>
+        <script src="app/canopi-app/telco/orders/controllers/inlCNLLAGPO/changeLagPOController.js"></script>
+        <script src="app/canopi-app/telco/orders/controllers/p2pEVCPO/newP2PEVCPOController.js"></script>
+        <script src="app/canopi-app/telco/orders/controllers/p2pEVCPO/disconnectP2PEVCPOController.js"></script>
+        <script src="app/canopi-app/telco/orders/controllers/p2pEVCPO/changeP2PEVCPOController.js"></script>
+        <script src="app/canopi-app/telco/orders/controllers/deviceSwap/newDeviceSwapController.js"></script>
+
+        <!-- Admin GUI App libs -->
+        
+        <script src="components/services/admin-app/adminServiceModule.js"></script>
+        <script src="components/services/admin-app/adminLookupService.js"></script>
+        <script src="components/services/admin-app/taskSearchService.js"></script>
+
+        <script src="app/admin-app/adminapp.js"></script>
+        <script src="app/admin-app/dashboard/controllers/adminDashboardController.js"></script>
+        <script src="app/admin-app/tasks/controllers/tasksController.js"></script>
+        <script src="app/admin-app/lookupadmin/controllers/lookupAdminController.js"></script>
+
+    </body>
+
+</html>
+

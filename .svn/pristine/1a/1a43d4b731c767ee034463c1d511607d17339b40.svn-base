@@ -1,0 +1,34 @@
+angular.module('admin.service').service('RuleCategoryLookupService', ['$q', '$http', '$log', 'AdminGuiConstants',
+    function ($q, $http, $log, AdminGuiConstants) {
+
+    'use strict';
+
+    var contextRoot = "";
+ 
+    // running E2E test from Eclipe
+    if (AdminGuiConstants.END_TO_END_REST_CALL) {
+        contextRoot = '/canopigui/';
+    }
+    else { // running from NetBeans
+        contextRoot = '/gui-canopi-js/src/';
+    }
+
+    var baseUrl = contextRoot + 'app/admin-app/mock/ruleadmin/';    
+    
+
+    /**
+     * Gets the the rule categories
+     *
+     * @param categoryType
+     * @param options Optional parameters to configure the request
+     * @returns {*} Promise
+     */
+    this.getRuleCategory = function (categoryType, options) {
+        var deferred = $q.defer();
+        $http.get(baseUrl + categoryType + '.json').success(function (response) {
+            deferred.resolve(response);
+        });
+
+        return deferred.promise;
+    };
+}]);

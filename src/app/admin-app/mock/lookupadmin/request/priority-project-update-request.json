@@ -1,0 +1,13 @@
+{  
+   "attuid":"pb154j",
+   "action": "UPDATE",
+   "key": {},
+   "data":[  
+      {  
+         "id":"1001",
+         "priorityNumber": "1",
+         "priorityDescription": "Escalation",
+         "archive":"NO"
+      }
+   ]
+}

@@ -1,0 +1,334 @@
+<div class="row">
+
+	<div class="col-md-12 col-lg-12">
+	
+		<!-- BREADCRUM - We can setup this with Angular $location  -->
+		<!-- BREADCRUMBS - We can setup with Angular $location -->
+		<div class="row">
+				<div class="panel panel-default">
+				  <div class="panel-body">
+					    <ol class="breadcrumb">
+						  <li><a href="#"><i class="fa fa-home fa-lg"></i>&nbsp;&nbsp;&nbsp;Home</a></li>
+						  <li><a href="#">Network</a></li>
+						  <li><a href="#">Equipment Search</a></li>
+						  <li class="active">Telco</li>
+						</ol>
+					  </div>
+				</div>
+		</div>
+			
+		<div class="row">	
+				
+				<!-- TOP ACCORDIONG - SEARCH -->
+				<accordion class="canopi-accordion" close-others="oneAtATime"> 
+					<accordion-group is-open="accordionOpen.search"> 
+						
+						<accordion-heading> 
+							<span  style="color: #ef6f00; font-size: 26px; font-family: Omnes-ATT-II-Light;">Search Criteria</span> <i style="color: #ef6f00;" class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': accordionOpen.search, 'glyphicon-chevron-right': !accordionOpen.search}"></i>
+						</accordion-heading>
+					
+						<div style="border-bottom: solid; border-width: 1px; margin-bottom: 20px; color: #9C9C9C;"></div>
+						<div class="row">
+							<div class="col-lg-12 col-md-12 col-sm-12">
+								<div ng-if="validationMessage != ''">
+									<div user-message message="{{validationMessage}}" type="error"></div>
+								</div>
+							</div>
+						</div>
+						<!-- FORMS -->
+						<div class="row canopi-inputfields" style="padding-left: 20px; padding-right: 20px;">
+						
+								<div class="col-lg-4 col-md-4 col-sm-4">
+									<div class="form-group">
+										<div class="canopi-input-title">Device Type:</div>
+										<div class="dropdown">		
+											<select class="dropdown-select form-control ng-pristine ng-valid" title="Please select" ng-change="updateSubTypeAndRoleList()"
+											ng-model="equipmentSearch.deviceType" ng-options="deviceType for deviceType in deviceTypeList">
+												<option style="display:none" value=""></option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="canopi-input-title">Sub Type:</div>
+										<div class="dropdown">
+											<select ng-disabled="subTypeList | isObjectEmpty" class="dropdown-select form-control ng-pristine ng-valid" 
+												title="Please select" ng-change="showHideUVerseBanField()"
+												ng-model="equipmentSearch.subType" ng-options="subType for subType in subTypeList">
+												<option style="display:none" value=""></option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="canopi-input-title">Status:</div>
+										<div class="dropdown">
+											<select class="dropdown-select form-control ng-pristine ng-valid" title="Please select"
+												ng-model="equipmentSearch.status" ng-options="status for status in statusList">
+												<option style="display:none" value=""></option>
+											</select>
+										</div>
+									</div>
+									<div ng-hide="roleList | isObjectEmpty">
+										<div class="form-group">
+											<div class="canopi-input-title">Role:</div>
+											<div class="dropdown">
+												<select class="dropdown-select form-control ng-pristine ng-valid" title="Please select"
+													ng-model="equipmentSearch.role" ng-options="role for role in roleList">
+													<option style="display:none" value=""></option>
+												</select>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="col-lg-4 col-md-4 col-sm-4">
+									<div class="form-group">
+										<div class="canopi-input-title">Location/CLLI:</div>
+										<input type="text" class="form-control" ng-model="equipmentSearch.locationClli" placeholder="">
+									</div>
+									<div class="clearfix"></div>
+									<div class="form-group">
+										<div class="canopi-input-title">Cluster Type:</div>
+										<div class="dropdown">
+											<select class="dropdown-select form-control ng-pristine ng-valid" title="Please select"
+												ng-model="equipmentSearch.clusterType" ng-options="clusterType.name for clusterType in clusterTypeList">
+												<option style="display:none" value=""></option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="canopi-input-title">Cluster:</div>
+										<input type="text" class="form-control" ng-model="equipmentSearch.cluster" placeholder="">
+									</div>
+									<div class="clearfix"></div>
+									<div class="form-group">
+										<div class="canopi-input-title">Region Domain:</div>
+										<div class="dropdown">
+											<select class="dropdown-select form-control ng-pristine ng-valid" title="Please select"
+												ng-model="equipmentSearch.regionDomain" ng-options="regionDomain.name for regionDomain in regionDomainList">
+												<option style="display:none" value=""></option>
+											</select>
+										</div>
+									</div>
+								</div>
+
+								<div class="col-lg-4 col-md-4 col-sm-4">
+									<div class="form-group">
+										<div class="canopi-input-title">LATA:</div>
+										<div class="dropdown">
+											<select class="dropdown-select form-control ng-pristine ng-valid" title="Please select"
+												ng-model="equipmentSearch.lata" ng-options="lata.name for lata in lataList">
+												<option style="display:none" value=""></option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="canopi-input-title">PTNII Name:</div>
+										<input type="text" class="form-control" ng-model="equipmentSearch.ptniiName" placeholder="">
+									</div>
+									<div class="form-group">
+										<div class="canopi-input-title">IP Address:</div>
+										<input type="text" class="form-control" ng-model="equipmentSearch.ipAddress" placeholder="">
+									</div>
+									<div ng-if="uverseBanIsEnabled">
+										<div class="form-group">
+											<div class="canopi-input-title">UVerse Ban:</div>
+											<input type="text" class="form-control" ng-model="equipmentSearch.uverseBan" placeholder="">
+										</div>
+									</div>
+									
+								</div>
+
+						</div> <!-- row - FORMS -->
+				
+						<div class="row"  style="padding-left: 20px; padding-right: 20px;">
+                            <div class="col-md-12">
+                                <button href='javascript:void(0);' class='btn canopi-btn-blue' ng-click="equipmentSearch()">Search</button>
+                                <button href='javascript:void(0);' class='btn canopi-btn-gray'  ng-click="clear()">Clear</button>
+                            </div>
+						</div>
+				
+					</accordion-group> 
+				</accordion>
+	
+				<!-- BOTTOM ACCORDIONG - DEVICES -->
+				<accordion class="canopi-accordion" close-others="oneAtATime"> 
+					<accordion-group is-open="accordionOpen.table"> 
+						
+						<accordion-heading> 
+							<span  style="color: #ef6f00; font-size: 26px; font-family: Omnes-ATT-II-Light;">Devices</span> <i  style="color: #ef6f00;" class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': accordionOpen.table, 'glyphicon-chevron-right': !accordionOpen.table}"></i>
+						</accordion-heading>
+				
+						<div style="border-bottom: solid; border-width: 1px; margin-bottom: 20px; color: #9C9C9C;"></div>
+						
+						<div activity-indicator="isLoading"></div>
+						<div ng-if="!isLoading">
+						
+						<div ng-if="errMsg != ''">
+							<div user-message message="{{errMsg}}" type="error"></div>
+						</div>
+						
+						<div class="row">
+							
+							<div class="col-lg-5 col-md-5 col-sm-6" style="padding-left: 15px;">
+								<div class="panel panel-default">
+									<div class="canopi-panel-heading"><b>Devices</b></div>
+
+										<div class="list-group" style="height: 350px; overflow-y: auto;">
+											<a ng-repeat="device in devices" ng-click="updateDeviceInfo(device)" class="list-group-item" ng-class="{active:deviceSelected==device}" >{{device.clli}}</a>
+										</div>
+										
+								</div>
+							</div>
+
+
+							<div class="col-lg-7 col-md-7 col-sm-6 canopi-no-left-padding">
+																
+								<div class="panel panel-default">
+									<div class="canopi-panel-heading"><b>Device Information</b></div>
+									<div class="panel-body">
+								<div class="row canopi-equipmentSearch-devices-information">
+									
+									<div class="col-lg-3 col-md-4 col-sm-5 col-xs-5">
+										<div class="row canopi-padding-sm text-right canopi-text">Device</div>
+										<div class="row canopi-padding-sm text-right canopi-text">Type</div>
+										<div class="row canopi-padding-sm text-right canopi-text">Sub Type</div>
+										<div class="row canopi-padding-sm text-right canopi-text">Status</div>
+										<div class="row canopi-padding-sm text-right canopi-text">Associated CLLI</div>	
+										<div class="row canopi-padding-sm text-right canopi-text">IPAG Cluster</div>										
+										<div class="row canopi-padding-sm text-right canopi-text">Homing Cluster</div>										
+										<div class="row canopi-padding-sm text-right canopi-text">PTNII Name</div>										
+										<div class="row canopi-padding-sm text-right canopi-text">Region Domain</div>																													
+									</div>
+									
+									<div class="col-lg-9 col-md-8 col-sm-7 col-xs-7">
+										<div class="row canopi-padding-sm">{{deviceSelected.clli}}</div>
+										<div class="row canopi-padding-sm">{{deviceSelected.type}}</div>
+										<div class="row canopi-padding-sm">{{deviceSelected.subType}}</div>
+										<div class="row canopi-padding-sm">{{deviceSelected.status}}</div>
+										<div class="row canopi-padding-sm">{{deviceSelected.associatedClli}}</div>	
+										<div class="row canopi-padding-sm">{{deviceSelected.cluster}}</div>										
+										<div class="row canopi-padding-sm">{{deviceSelected.homingCluster}}</div>										
+										<div class="row canopi-padding-sm">{{deviceSelected.ptniiName}}</div>										
+										<div class="row canopi-padding-sm">{{deviceSelected.domainIndicator}}</div>	
+									</div>	
+								
+								</div>
+								
+								
+								<div class="row">
+									<div class="col-lg-12 col-md-12">
+										<div>Select a device at left and click below to modify that device</div>									
+									</div>
+								</div>
+								
+								<div class="row">
+									<div class="col-lg-12 col-md-12">
+										<button href='javascript:void(0);' class='btn btn-blue btn-flexible' ui-sref="equipmentModify" style="margin-right: 5px;">Modify</button>
+										<button href='javascript:void(0);' class='btn btn-blue btn-flexible' ui-sref="deviceDetails" style="margin-right: 5px;">View Detail</button>
+										<button href='javascript:void(0);' class='btn btn-blue btn-flexible' ui-sref="networkDiscovery" ng-class="{disabled:deviceSelected.supportDiscovery!='true'}" style="margin-right: 5px;">Netowrk Discovery</button>
+										<button href='javascript:void(0);' class='btn btn-blue btn-flexible' ng-class="{disabled:deviceSelected.supportLSLagCLFI!='true'}" style="margin-right: 5px;">LS LAG CLFI</button>
+										<button href='javascript:void(0);' class='btn btn-blue btn-flexible' ui-sref="topologyView" ng-class="{disabled:deviceSelected.supportTopology!='true'}">Topology</button>
+									</div>
+								</div>
+							
+							 </div> <!-- panel body -->
+							</div> <!-- panel -->
+								
+							</div> <!-- column -->
+			
+						</div> <!-- row -->
+						</div>
+				
+					</accordion-group> 
+				</accordion>
+				
+				<!-- BOTTOM ACCORDIONG - DEVICES -->
+				<!--accordion class="canopi-accordion" close-others="oneAtATime"> 
+					<accordion-group is-open="accordionOpen.table"> 
+						
+						<accordion-heading> 
+							<span  style="color: #ef6f00; font-size: 26px; font-family: Omnes-ATT-II-Light;">Devices</span> <i  style="color: #ef6f00;" class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': accordionOpen.table, 'glyphicon-chevron-right': !accordionOpen.table}"></i>
+						</accordion-heading>
+				
+						<div style="border-bottom: solid; border-width: 1px; margin-bottom: 20px; color: #9C9C9C;"></div>
+				
+						<div class="row">
+							
+							<div class="col-lg-5 col-md-5 col-sm-6" style="padding-left: 15px;">
+								<div class="panel panel-default">
+									<div class="canopi-panel-heading"><b>Devices</b></div>
+
+										<div class="list-group" style="height: 350px; overflow-y: auto;">
+											<a ng-repeat="tempDevice in tempDevices" ng-click="$parent.selected = device" class="list-group-item" ng-class="{active:selected==tempDevice}">{{tempDevice.name}}</a>
+										</div>
+
+								</div>
+							</div>
+
+
+							<div class="col-lg-7 col-md-7 col-sm-6 canopi-no-left-padding">
+																
+								<div class="panel panel-default">
+									<div class="canopi-panel-heading"><b>Device Information</b></div>
+									<div class="panel-body">
+								<div class="row canopi-equipmentSearch-devices-information">
+									
+									<div class="col-lg-3 col-md-4 col-sm-5 col-xs-5">
+										<div class="row canopi-padding-sm text-right canopi-text">Device</div>
+										<div class="row canopi-padding-sm text-right canopi-text">Type</div>
+										<div class="row canopi-padding-sm text-right canopi-text">Sub Type</div>
+										<div class="row canopi-padding-sm text-right canopi-text">Status</div>
+										<div class="row canopi-padding-sm text-right canopi-text">Associated CLLI</div>	
+										<div class="row canopi-padding-sm text-right canopi-text">IPAG Cluster</div>										
+										<div class="row canopi-padding-sm text-right canopi-text">Homing Cluster</div>										
+										<div class="row canopi-padding-sm text-right canopi-text">PTNII Name</div>										
+										<div class="row canopi-padding-sm text-right canopi-text">Region Domain</div>																													
+									</div>
+									
+									<div class="col-lg-9 col-md-8 col-sm-7 col-xs-7">
+										<div class="row canopi-padding-sm">{{selected.name}}</div>
+										<div class="row canopi-padding-sm">{{selected.type}}</div>
+										<div class="row canopi-padding-sm">{{selected.subType}}</div>
+										<div class="row canopi-padding-sm">{{selected.status}}</div>
+										<div class="row canopi-padding-sm">{{selected.associatedClli}}</div>	
+										<div class="row canopi-padding-sm">{{selected.ipagCluster}}</div>										
+										<div class="row canopi-padding-sm">{{selected.homingCluster}}</div>										
+										<div class="row canopi-padding-sm">{{selected.ptniiName}}</div>										
+										<div class="row canopi-padding-sm">{{selected.regionDomain}}</div>	
+									</div>	
+								
+								</div>
+								
+								
+								<div class="row">
+									<div class="col-lg-12 col-md-12">
+										<div>Select a device at left and click below to modify that device</div>									
+									</div>
+								</div>
+								
+								<div class="row">
+									<div class="col-lg-12 col-md-12">
+										<button href='javascript:void(0);' class='btn btn-blue btn-flexible' ui-sref="equipmentModify" ng-class="{disabled:selected.modify!=true}" style="margin-right: 5px;">Modify</button>
+										<button href='javascript:void(0);' class='btn btn-blue btn-flexible' ui-sref="deviceDetails" ng-class="{disabled:selected.viewDetail!=true}" style="margin-right: 5px;">View Detail</button>
+										<button href='javascript:void(0);' class='btn btn-blue btn-flexible' ui-sref="networkDiscovery" ng-class="{disabled:selected.networkDiscovery!=true}" style="margin-right: 5px;">Netowrk Discovery</button>
+										<button href='javascript:void(0);' class='btn btn-blue btn-flexible' ng-class="{disabled:selected.lsLagClli!=true}" style="margin-right: 5px;">LS LAG CLFI</button>
+										<button href='javascript:void(0);' class='btn btn-blue btn-flexible' ui-sref="topologyView" ng-class="{disabled:selected.topologyView!=true}">Topology</button>
+									</div>
+								</div>
+							
+							 </div> <!-- panel body -- >
+							</div> <!-- panel -- >
+								
+							</div> <!-- column -- >
+			
+						</div> <!-- row -- >
+				
+					</accordion-group> 
+				</accordion-->
+				
+		</div> <!-- row -->
+
+	</div> <!-- column -->
+
+</div> <!-- row -->
+

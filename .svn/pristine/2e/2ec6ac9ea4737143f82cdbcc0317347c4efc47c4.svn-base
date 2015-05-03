@@ -1,0 +1,116 @@
+angular.module('admin.app', [
+    'ngRoute', 'ngResource', 'ui.bootstrap', 'ngGrid',
+    'ui.router', 'ngCookies',
+    'ui.grid', 'ui.grid.selection', 'ui.grid.autoResize', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui.grid.cellNav', 'ui.grid.resizeColumns', 'ui.grid.exporter',
+    'admin.service',  'maxmedia.directive', 'cgBusy', 'canopi.directive', 'ui.grid.resizeColumns'
+]);
+
+
+// define all the constants used by Admin GUI here
+angular.module('admin.app').constant('AdminGuiConstants',{
+    'GUI_RELEASE_NUMBER': 'R1507',
+    'MOCK_DATA_FLAG': true
+});
+
+
+angular.module('admin.app').config(['$stateProvider', '$urlRouterProvider', '$tooltipProvider', function ($stateProvider, $urlRouterProvider, $tooltipProvider) {
+    // ui.bootstrap
+    $tooltipProvider.options({
+        appendToBody: true
+    });
+    //$urlRouterProvider.otherwise('adminguidashboard');
+    //$urlRouterProvider.otherwise('/');
+
+    $stateProvider
+        .state('adminmaingui', {
+            abstract: true,
+            url: '/adminmain',
+            templateUrl: 'app/admin-app/adminmain.html',
+            controller: 'AdminMainController',
+            controllerAs: 'adminmain',
+            resolve: {
+                serverInfo: ['AdminCommonUtilJsonService', function (AdminCommonUtilJsonService) {
+                    return AdminCommonUtilJsonService.getAdminGuiServerInfo();
+                }]
+            }
+        })
+        .state('adminmaingui.dashboard', {
+            url: '/dashboard',
+            templateUrl: 'app/admin-app/dashboard/views/adminDashboard.html',
+            controller: 'AdminDashboardController',
+            controllerAs: 'dashboard'
+        })
+        .state('adminmaingui.mobilityorders', {
+            url: '/mobilityorders',
+            templateUrl: 'app/admin-app/mobilityorders/views/mobilityOrders.html',
+            controller: 'MobilityOrdersController',
+            controllerAs: 'mobilityorders',
+            resolve: {
+                orderPicklists: ['$q', 'OrderSearchService', function ($q, OrderSearchService) {
+                    var  poTypes = OrderSearchService.getPOTypes();
+                    var  woTypes = OrderSearchService.getWOTypes();
+                    
+                    return $q.all([poTypes, woTypes]).then(function(results){
+                        return {
+                            poTypes: results[0],
+                            woTypes: results[1]
+                        };
+                    });
+                }]
+            }
+        })
+        .state('adminmaingui.tasks', {
+            url: '/tasks',
+            templateUrl: 'app/admin-app/tasks/views/taskSearch.html',
+            controller: 'TasksController',
+            controllerAs: 'tasks',
+            resolve: {
+                taskTypes: ['TaskSearchService', function (TaskSearchService) {
+                    return TaskSearchService.getTaskType('tasktypepicklist');
+                }]
+            }
+        })
+        .state('adminmaingui.lookupadmin', {
+            url: '/lookupadmin',
+            templateUrl: 'app/admin-app/lookupadmin/views/lookupAdmin.html',
+            controller: 'LookupAdminController',
+            controllerAs: 'lookupadmin',
+            resolve: {
+                lookupTypes: ['AdminLookupService', function (AdminLookupService) {
+                    return AdminLookupService.getLookupType('lookuptypepicklist');
+                }]
+            }
+        })
+        .state('adminmaingui.ruleadmin', {
+            url: '/ruleadmin',
+            templateUrl: 'app/admin-app/ruleadmin/views/ruleAdmin.html',
+            controller: 'RuleAdminController',
+            controllerAs: 'ruleadmin',
+            resolve: {
+                ruleCategories: ['RuleCategoryLookupService', function (RuleCategoryLookupService) {
+                    return RuleCategoryLookupService.getRuleCategory('rulecategorypicklist');
+                }]
+            }
+         });
+
+
+}]);
+
+
+angular.module('admin.app').run([function () {
+
+    console.log("Admin App Runs!");
+
+}]);
+
+//Global options
+//angular.module('admin.app').value('uiGridOptions', {
+//    enableSelectAll: false,
+//    enableHorizontalScrollbar: uiGridConstants.NEVER,
+//    enableColumnMenus: false,
+//    enableGridMenu: true,
+//    multiSelect: false,
+//    exporterMenuPdf: false,
+//    exporterMenuCsv: false,
+//    selectionRowHeaderWidth: '105',
+//});

@@ -1,0 +1,73 @@
+angular.module('admin.service').service('OrderSearchService', ['$q', '$http', '$log', 'AdminGuiConstants', 
+                              function ($q, $http,$log, AdminGuiConstants) {
+	
+    'use strict';
+    
+    var contextRoot = "";
+ 
+    // running E2E test from Eclipe
+    if (AdminGuiConstants.END_TO_END_REST_CALL) {
+        contextRoot = '/canopigui/';
+    }
+    else { // running from NetBeans
+        contextRoot = '/gui-canopi-js/src/';
+    }
+
+    var baseUrl = contextRoot + 'app/admin-app/mock/mobilityorders/';
+    
+    
+    this.getPOTypes = function () {
+
+            var deferred = $q.defer();
+            $http.get(baseUrl + 'potypepicklist.json').success(function (response) {
+                 deferred.resolve(response);
+            });
+       
+            return deferred.promise; 
+	};
+        
+	
+	
+    this.getWOTypes = function () {
+
+        var deferred = $q.defer();
+        $http.get(baseUrl + 'wotypepicklist.json').success(function (response) {
+             deferred.resolve(response);
+        });
+   
+        return deferred.promise; 
+	};
+        
+	
+	this.getPOSearchResults = function (poType) {
+
+            var deferred = $q.defer();
+            $http.get(baseUrl + poType + '.json').success(function (response) {
+                 deferred.resolve(response);
+            });
+       
+            return deferred.promise; 
+	};
+        
+ 	this.getWOSearchResults = function () {
+
+            var deferred = $q.defer();
+            $http.get(baseUrl + 'wosearchresults.json').success(function (response) {
+                 deferred.resolve(response);
+            });
+       
+            return deferred.promise; 
+	};
+        
+        
+        this.getUserDefinedAttributes = function () {
+
+            var deferred = $q.defer();
+            $http.get(baseUrl + 'uda.json').success(function (response) {
+                 deferred.resolve(response);
+            });
+       
+            return deferred.promise; 
+	};
+
+}]);

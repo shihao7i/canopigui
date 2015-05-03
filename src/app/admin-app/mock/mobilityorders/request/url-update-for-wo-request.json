@@ -1,0 +1,11 @@
+{  
+   "attuid":"pb154j",
+   "action": "UPDATE",
+   "data":[  
+      {  
+         "id":"1001",
+         "name":"GOOGLE",
+         "url":"www.google.com"
+      }
+   ]
+}

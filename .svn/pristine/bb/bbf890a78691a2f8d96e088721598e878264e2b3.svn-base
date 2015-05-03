@@ -1,0 +1,32 @@
+{   "parentType": "",
+    "parentValue": "",
+    "lookupType": "Task",
+    "tableRows": 
+        {"rowMetaData":
+            { "columnList":[{"hyperlink":false,	"id":"taskName", "displayName":"Task Name"},
+                            {"hyperlink":false,	"id":"taskSequence", "displayName":"Task Sequence"},
+                            {"hyperlink":false,	"id":"taskDescription", "displayName":"Task Description"},
+                            {"hyperlink":false,	"id":"tasksDuration", "displayName":"Task Duration"},
+                            {"hyperlink":false,	"id":"taskEscalation", "displayName":"Tasks Escalation"}],
+
+              "rowValueList":[{"cellValues":["217", "ETTCSimple", "In Progress", "11665", "R4B"]},
+                              {"cellValues":["218", "ETTCSimple", "In Progress", "11665", "R4B"]},
+                              {"cellValues":["219", "ETTCSimple", "In Progress", "11665", "R4B"]},
+                              {"cellValues":["220", "ETTCSimple", "In Progress", "11665", "R4B"]},
+                              {"cellValues":["221", "ETTCSimple", "In Progress", "11665", "R4B"]},
+                              {"cellValues":["222", "ETTCSimple", "In Progress", "11665", "R4B"]},                            
+                              {"cellValues":["223", "ETTCSimple", "In Progress", "11665", "R4B"]},
+                              {"cellValues":["224", "ETTCSimple", "In Progress", "11665", "R4B"]}]}
+        },
+    "returnStaus": "Success",
+    "returnMessage": "",
+    "returnCode": "0",
+    "pageInfo" : {
+        "totalRecords" : "15",
+        "currentPage": "0",
+        "itemsPerPage": "100"
+    }
+}
+
+
+

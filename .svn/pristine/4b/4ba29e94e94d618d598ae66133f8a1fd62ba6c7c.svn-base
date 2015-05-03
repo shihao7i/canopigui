@@ -1,0 +1,59 @@
+
+<div class="panel-heading sub-panel-heading" style="padding-top: 20px;">
+    <div class="sub-panel-title">
+        <span class="sub-panel-header">Subtasks for selected tasks</span>
+        <form class="form-inline" style="display: inline; padding-left: 5px;">
+            <div class="form-group pull-right" style="margin-top: 3px;">
+                <div class="btn-group btn-group-sm">                                        
+                    <button class="btn btn-success"
+                        ng-click="tasks.subTask.export()"><i class="fa fa-fw fa-file-excel-o"></i> Export
+                    </button>
+                </div>
+                <div class="btn-group btn-group-sm">
+                    <button class='btn btn-orange '
+                        ng-disabled="true" 
+                        ng-click="tasks.tasklist.saveTasks()">
+                        <i class="fa fa-floppy-o"></i> Save
+                    </button>
+                    <button class="btn app-btn-dark"
+                        ng-disabled="true"
+                        ng-click="tasks.tasklist.cancel()">
+                        <i class="fa fa-undo"></i> Undo
+                    </button>
+                </div>
+                <div class="btn-group btn-group-sm" dropdown>
+                    <button type="button" ng-disabled="tasks.isEditing" class="btn btn-primary dropdown-toggle" dropdown-toggle>
+                        <i class="fa fa-gears"></i> Actions <span class="caret"></span>
+                    </button>                                        
+                    <ul class="dropdown-menu" role="menu">
+                        <li ng-click="tasks.tasklist.addTask()"><a href="#"><i class="fa fa-fw fa-plus-circle"></i> Add</a></li>
+                        <li ng-class="{disabled: !lookupadmin.selectedRow}"><a href="#"><i class="fa fa-fw fa-long-arrow-down"></i> Add Item Below</a></li>
+                        <li ng-click="tasks.tasklist.recalcTaskSequence()"><a href="#"><i class="fa fa-fw fa-clipboard"></i> Copy/Add</a></li>
+                    </ul>
+                </div>
+                
+<!--                <button class="btn btn-success pull-right btn-sm" href="#" style="float: right; margin-left: 5px;" ng-click="tasks.subTask.export()">
+                    <i class="fa fa-file-excel-o fa-lg"></i>Export
+                </button>
+                <button class="btn btn btn-info btn-sm" ng-click="ruleadmin.insertCopyAtLocation()" style="float: right; margin-left: 5px;">Copy/Add</button>                                
+                <button class="btn btn-blue btn-sm" ng-click="tasks.subTask.addItem()" style="float: right;">Add</button>
+                <button class="btn btn app-btn-dark btn-sm" ng-disabled="true" style="float: right; margin-left: 5px; margin-right: 5px;" ng-click="ruleadmin.saveState()">Cancel</button>
+                <button class="btn btn btn-orange btn-sm" ng-disabled="true" style="float: right;" ng-click="ruleadmin.saveState()">Save</button>
+            -->
+            </div>
+        </form>
+    </div>
+</div>  
+<div class="row">                        
+    <div class="col-md-12">
+        <div  ui-grid="tasks.gridOptionsSubTasks" 
+              ui-grid-exporter
+              ui-grid-cellNav 
+              ui-grid-edit 
+              ui-grid-selection 
+              ui-grid-resize-columns 
+              ui-grid-auto-resize 
+              class="subTasksGrid">
+        </div>
+    </div>                     
+</div>

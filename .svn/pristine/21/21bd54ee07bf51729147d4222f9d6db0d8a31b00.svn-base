@@ -1,0 +1,32 @@
+{   "parentType": "",
+    "parentValue": "",
+    "lookupType": "Task",
+    "tableRows": 
+        {"rowMetaData":
+            { "columnList":[{"hyperlink":false,	"id":"taskName", "displayName":"Task Name"},
+                            {"hyperlink":false,	"id":"taskSequence", "displayName":"Task Sequence"},
+                            {"hyperlink":false,	"id":"taskDescription", "displayName":"Task Description"},
+                            {"hyperlink":false,	"id":"tasksDuration", "displayName":"Task Duration"},
+                            {"hyperlink":false,	"id":"taskEscalation", "displayName":"Tasks Escalation"}],
+
+              "rowValueList":[{"cellValues":["Design Change Detected (aka: SUPP)", "217", "A Design Change request is received for the Work Order", "1", "YELLOW"]},
+                              {"cellValues":["Staging Failure", "218", "If the STG automation fails, STG-FAIL exception task is generated which will provide a specific error message and error code that indicates the particular error encountered", "1", "RED"]},
+                              {"cellValues":["WorkOrder Validation Failure", "219", "If the WOVAL automation fails, WOVAL-FAIL exception task is generated which will provide a specific error message and error code that indicates the particular error encountered", "1", "RED"]},
+                              {"cellValues":["RAN Initiate Work Order Build Path", "220", "Create Bearer Paths and EVC paths for ETTCS in Granite. CPDO Design Engineer will create SIAD Equipment at the Cell Site and initiate the Network Element Add process for the SIAD device", "1", "RED"]},
+                              {"cellValues":["Hold WO Cancel", "221", "This task is generated in WO Cancel flow after all the remaining tasks in the WO are Cancelled. The intention is for this task is to allow the user to insert tasks to undo activities that have been done in the WO", "1", "RED"]},
+                              {"cellValues":["Create Association Fail", "222", "System is not able to create association between work order with HDx task(s) and corresponding RLSx task(s) on the releasing work order", "1", "RED"]},                            
+                              {"cellValues":["Change EVEALT Data", "223", "Change Alternate EVC ASR Data Entry", "1", "RED"]},
+                              {"cellValues":["Change UNI-DATA", "224", "Change UNI ASR Data Entry", "1", "RED"]}]}
+        },
+    "returnStaus": "Success",
+    "returnMessage": "",
+    "returnCode": "0",
+    "pageInfo" : {
+        "totalRecords" : "8",
+        "currentPage": "0",
+        "itemsPerPage": "100"
+    }
+}
+
+
+

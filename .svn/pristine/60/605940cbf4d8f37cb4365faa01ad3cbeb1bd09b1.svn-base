@@ -1,0 +1,136 @@
+angular.module('admin.app').controller('LookupAdminController', ['$log', 'AdminLookupService',
+                                       function ($log, AdminLookupService) {
+	'use strict';
+        
+        var vm = this;
+        var ngGridColumnDefs;
+        
+        init();
+        
+        function init() {
+            
+  	    initializeVMVariables();
+ 	    setupVMMethods();
+            
+        }
+   
+        
+        function  initializeVMVariables() {
+            
+            vm.lookupTypeList = [
+                {name: 'Jeopardy Code'},
+                {name: 'Rework Code'},                
+                {name: 'Carrier Name'},                
+                {name: 'Backhual Product'},
+                {name: 'Special Application'}                 
+            ];
+            
+            vm.mySelections = [];
+        }
+        
+        // help method to build ng-grid's columnDefs property based on meta data column attributes
+        function extractColumnDefs(tableData) {
+            
+            var uniqueColumns = _.uniq(tableData.rowMetaData.columnList, 'id'),
+                
+            // map meta data column defs to the column defs ng-grid expects
+            columnDefMap = {
+                id: 'field',
+                displayName: 'displayName'
+            };
+
+            var columnDefs = uniqueColumns.map(function (id) {
+                var t = {};
+                for (var key in columnDefMap) {
+                    t[columnDefMap[key]] = id[key];
+                };
+                return t;
+            });
+            
+            return columnDefs;
+        }
+        
+        
+        // help method to build ng-grid's data property based on meta data row values
+        function extractTableCellValues(tableData) {
+            
+            var localRowData = [];
+            var cellsInRow = [];
+            
+            var totalCols = tableData.rowMetaData.columnList.length;
+            var totalRows = tableData.rowMetaData.rowValueList.length;
+            
+            for (var i=0; i < totalRows; i++) {
+                
+                cellsInRow = tableData.rowMetaData.rowValueList[i].cellValues;
+                
+                var obj = {};
+                
+                for (var j=0; j < totalCols; j++) {
+                    obj[tableData.rowMetaData.columnList[j]['id']] = cellsInRow[j];
+                }
+                
+                localRowData.push(obj);
+            }
+
+            return localRowData;
+        }
+        
+        
+        
+        function setupVMMethods() {
+            
+            vm.mySelections = [];
+    
+            vm.refresh = function () {
+ 
+                AdminLookupService.getJeopardyCodes().then(function(data) {
+
+                    var tableData = data.tableRows;  
+
+                    ngGridColumnDefs = extractColumnDefs(tableData);
+                    vm.myData = extractTableCellValues(tableData);
+
+                    //$log.debug(angular.toJson(ngGridColumnDefs));
+                });
+            }
+            
+            // fetch data 
+            vm.refresh();
+    
+            vm.gridOptions = { 
+                data: 'lookupadmin.myData',  // ControllerAs convention : http://stackoverflow.com/questions/25210910/ng-grid-with-controller-as-syntax
+                showFilter: true,
+                showColumnMenu: true,
+                enableCellSelection: true,
+                enableCellEdit: true,   
+                showSelectionCheckbox: true,
+                selectWithCheckboxOnly: true,
+                selectedItems: vm.mySelections,
+                showFooter: false,
+                columnDefs: ngGridColumnDefs
+            };
+    
+            vm.addItem = function() {
+              // scroll items to top and add one row to the bottom
+              var grid = vm.gridOptions.ngGrid;
+              grid.$viewport.scrollTop((vm.myData.length-1) * grid.config.rowHeight);
+       
+              vm.myData.push({});
+            };
+            
+    
+           vm.remove = function () {
+              _.each(vm.mySelections, function (item) {
+                //Real remove (i.e from datastore)
+                  vm.myData = _.filter(vm.myData, function(element){ return element.jeopardyCode != item.jeopardyCode;});
+                });
+                vm.mySelections.splice(0, vm.mySelections.length);
+            };  
+          }
+
+}]);
+
+
+
+

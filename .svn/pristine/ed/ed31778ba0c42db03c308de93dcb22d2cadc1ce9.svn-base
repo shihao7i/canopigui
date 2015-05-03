@@ -1,0 +1,53 @@
+angular.module('canopi.app').controller('DeviceDetailsController', ['$scope', '$location', '$rootScope', '$state', 'Cache', '$filter','$http',
+                                       function ($scope, $location, $rootScope, $state, Cache, $filter, $http) {
+	'use strict';
+	
+    init();
+ 
+    
+    function init() {
+ 			
+       setupScopeValuesAndMethods();
+       
+      
+    
+    }  
+        
+    
+    function setupScopeValuesAndMethods() {
+    	
+    	$scope.accordionOpen = {
+    			search: true,
+			    details: true,
+			    table: true
+    	};
+    
+        $scope.name = "DeviceDetails";
+        
+        $scope.ipAddressesData = {};
+        $scope.cardsOrPortsData = {};
+        
+		$http.get('app/mock/telco/network/ipAddressesResponse.json')
+			.then(function(res){
+				$scope.ipAddressesResponseData = res.data;
+				processResponseResult($scope.ipAddressesData, $scope.ipAddressesResponseData);
+		});
+		
+		$http.get('app/mock/telco/network/cardsOrPortsResponse.json')
+			.then(function(res){
+				$scope.cardsOrPortsResponseData = res.data;
+				processResponseResult($scope.cardsOrPortsData, $scope.cardsOrPortsResponseData);
+		});
+        
+	}
+    
+    function processResponseResult(resultData, responseData) {
+		resultData.tableDefinition={};
+		resultData.loadTrigger = 0;
+		resultData.tableDefinition=responseData.tableRows;
+		resultData.loadTrigger++;
+
+    }
+
+    
+}]);

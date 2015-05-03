@@ -1,0 +1,449 @@
+<div class="row">
+
+	<div class="col-lg-12 col-md-12 col-sm-12">
+		
+		<!-- BREADCRUMBS - We can setup with Angular $location -->
+		<div class="row">
+				<div class="panel panel-default">
+				  <div class="panel-body">
+					    <ol class="breadcrumb">
+						  <li><a href="#"><i class="fa fa-home fa-lg"></i>&nbsp;&nbsp;&nbsp;Home</a></li>
+						  <li class="active">Technical Order Search</li>
+						</ol>
+					  </div>
+				</div>
+		</div>
+		
+
+		<!-- TABSET -->
+		<div class="row">
+
+					<!-- TOP ACCORDION - SEARCH -->
+					<accordion class="canopi-accordion" close-others="oneAtATime"> 
+						<accordion-group is-open="accordionOpen.search"> 
+							<accordion-heading> 
+								<span  style="color: #ef6f00; font-size: 26px; font-family: Omnes-ATT-II-Light;">Search Criteria</span>
+								<i style="color: #ef6f00;" class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': accordionOpen.search, 'glyphicon-chevron-right': !accordionOpen.search}"></i>
+							</accordion-heading>					
+							
+							<div style="border-bottom: solid; border-width: 1px; margin-bottom: 20px; color: #9C9C9C;"></div>
+							
+							<!-- FORMS -->
+							<div class="row canopi-inputfields" style="padding-left: 20px; padding-right: 20px;">				
+								
+									<div class="col-lg-4 col-md-4 col-sm-12">
+										<div class="form-group">
+											<div class="canopi-input-title">Technical Order ID:</div>
+											<input type="text" class="form-control" ng-model="toSearch.technicalOrderId" placeholder="">
+										</div>				
+														
+										<div class="form-group">
+											<div class="canopi-input-title">Service ID:</div>
+											<input type="text" class="form-control" ng-model="toSearch.serviceId" placeholder="">
+										</div>				
+														
+										<div class="form-group">
+											<div class="canopi-input-title">Service Order Number:</div>
+											<input type="text" class="form-control" ng-model="toSearch.serviceOrderNumber" placeholder="">
+										</div>												
+														
+														
+										<div class="form-group">
+											<div class="canopi-input-title">Order Type:</div>
+											<div class="dropdown">
+												<select ng-model="toSearch.orderType" ng-options="t.name for t in toOrderTypeList"
+												    class="dropdown-select form-control"
+													title="Please select" data-live-search="false">
+												</select>
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<div class="canopi-input-title">Order Action:</div>
+											<div class="dropdown">
+                                                <select ng-model="toSearch.orderAction" ng-options="t.name for t in toOrderActionList"
+												    class="dropdown-select form-control"
+													title="Please select" data-live-search="false">
+												</select>
+											</div>
+										</div>						
+								
+									    <div class="form-group">
+											<div class="canopi-input-title">Order Status:</div>
+											<div class="dropdown">
+                                                <select ng-model="toSearch.orderStatus" ng-options="t.name for t in toOrderStatusList"
+												    class="dropdown-select form-control"
+													title="Please select" data-live-search="false">
+												</select>
+											</div>
+										</div>											
+										
+						                <div class="form-group">
+											<div class="canopi-input-title">Provisioning Status</div>
+											<div class="dropdown">
+												<select ng-model="toSearch.provisioningStatus"  ng-options="t.name for t in toProvisioningStatusList"
+												    class="dropdown-select form-control"
+													title="Please select" data-live-search="false">
+												</select>
+	     									</div>
+										</div>
+											
+										
+										<div class="form-group">
+											<div class="canopi-input-title">DS1 USO#</div>
+											<input type="text" class="form-control" ng-model="toSearch.dslUsoNum" placeholder="" >
+										</div>
+										
+										<div class="form-group">
+											<div class="canopi-input-title">Telco Circuit ID</div>
+											<input type="text" class="form-control" ng-model="toSearch.telcoCircuitId" placeholder="">
+										</div>
+															
+										<div class="form-group">
+											<div class="canopi-input-title">NTE CLLI</div>
+											<input type="text" class="form-control" ng-model="toSearch.nteClli" placeholder="">
+										</div>												
+										
+										<div class="form-group">
+											<div class="canopi-input-title">Customer Circuit Reference</div>
+											<input type="text" class="form-control" ng-model="toSearch.customerCircuitReference" placeholder="">
+										</div>	
+									</div>		
+											
+									<div class="col-lg-4 col-md-4 col-sm-12">
+										<div class="form-group">
+											<div class="canopi-input-title">Project Order ID:</div>
+											<input type="text" class="form-control" ng-model="toSearch.projectOrderId" placeholder="">
+										</div>
+										
+										<div class="form-group">
+											<div class="canopi-input-title">Current Step:</div>
+											<input type="text" class="form-control" ng-model="toSearch.currentStep" placeholder="">
+										</div>
+										
+										<div class="form-group">
+											<div class="canopi-input-title">Customer Name:</div>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" ng-model="toSearch.customerName" placeholder="Type and Search">
+                                                  <span class="input-group-btn">
+                                                    <button class="btn btn-default canopi-btn-sharp-corners" type="button"><i class="fa fa-search"></i></button>
+                                                  </span>
+                                            </div><!-- /input-group -->
+										</div>
+										
+										<div class="form-group">
+											<div class="canopi-input-title">Customer Code:</div>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" ng-model="toSearch.customerCode" placeholder="Type and Search">
+                                                  <span class="input-group-btn">
+                                                    <button class="btn btn-default canopi-btn-sharp-corners" type="button"><i class="fa fa-search"></i></button>
+                                                  </span>
+                                            </div><!-- /input-group -->
+										</div>				
+										
+									    <div class="form-group">
+											<div class="canopi-input-title"> SVID:</div>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" ng-model="toSearch.svid" placeholder="Type and Search">
+                                                  <span class="input-group-btn">
+                                                    <button class="btn btn-default canopi-btn-sharp-corners" type="button"><i class="fa fa-search"></i></button>
+                                                  </span>
+                                            </div><!-- /input-group -->
+										</div>				
+										
+										<div class="form-group">
+											<div class="canopi-input-title">BAN:</div>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" ng-model="toSearch.ban" placeholder="Type and Search">
+                                                  <span class="input-group-btn">
+                                                    <button class="btn btn-default canopi-btn-sharp-corners" type="button"><i class="fa fa-search"></i></button>
+                                                  </span>
+                                            </div><!-- /input-group -->
+										</div>				
+								
+										<div class="form-group">
+											<div class="canopi-input-title">ACNA:</div>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" ng-model="toSearch.acna" placeholder="Type and Search">
+                                                  <span class="input-group-btn">
+                                                    <button class="btn btn-default canopi-btn-sharp-corners" type="button"><i class="fa fa-search"></i></button>
+                                                  </span>
+                                            </div><!-- /input-group -->
+										</div>				
+										
+			
+										<div class="form-group">
+											<div class="canopi-input-title">TIRKS CLO#</div>
+											<input type="text" class="form-control" ng-model="toSearch.tirksCloNum" placeholder="">
+										</div>				
+										
+										<div class="form-group">
+											<div class="canopi-input-title">Customer Ckt ID</div>
+											<input type="text" class="form-control" ng-model="toSearch.customerCktId" placeholder="">
+										</div>
+										
+										<div class="form-group">
+											<div class="canopi-input-title">LAG Name</div>
+											<input type="text" class="form-control" ng-model="toSearch.lagName" placeholder="">
+										</div>					
+										
+									</div>
+									 							
+									<div class="col-lg-4 col-md-4 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                                 <div class="form-group">
+	                                                 <div class="canopi-input-title">Due Date Start:</div>
+	                                                 <p class="input-group">
+	                                                     <input type="text" class="form-control"
+	                                                            datepicker-popup="{{format}}" ng-model="toSearch.dueStartDate"
+	                                                            is-open="datepickers.dueStartDateDatepicker" min-date="minDate"
+	                                                            max-date="'2015-12-25'"
+	                                                            datepicker-options="dateOptions"
+	                                                            date-disabled="disabled(date, mode)"
+	                                                            ng-required="true" close-text="Close"/>
+	                                                   <span class="input-group-btn">
+	                                                     <button type="button" class="btn btn-default canopi-btn-sharp-corners" ng-click="open($event, 'dueStartDateDatepicker')"><i
+	                                                             class="fa fa-calendar"></i></button>
+	                                                   </span>
+	                                                 </p>
+                                            	</div>
+                                            </div>
+                                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                                    <div class="form-group">
+                                                        <div class="canopi-input-title">Due Date End:</div>
+                                                        <p class="input-group">
+                                                            <input type="text" class="form-control"
+                                                                   datepicker-popup="{{format}}" ng-model="toSearch.dueEndDate"
+                                                                   is-open="datepickers.dueEndDateDatepicker" min-date="minDate"
+                                                                   max-date="'2015-12-25'"
+                                                                   datepicker-options="dateOptions"
+                                                                   date-disabled="disabled(date, mode)"
+                                                                   ng-required="true" close-text="Close"/>
+                                                          <span class="input-group-btn">
+                                                            <button type="button" class="btn btn-default canopi-btn-sharp-cornerss" ng-click="open($event, 'dueEndDateDatepicker')"><i
+                                                                    class="fa fa-calendar"></i></button>
+                                                          </span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                                <div class="form-group">
+                                                     <div class="canopi-input-title">Created on Start:</div>
+                                                     <p class="input-group">
+                                                         <input type="text" class="form-control"
+                                                                datepicker-popup="{{format}}" ng-model="toSearch.createdStartDate"
+                                                                is-open="datepickers.createdStartDateDatepicker" min-date="minDate"
+                                                                max-date="'2015-12-25'"
+                                                                datepicker-options="dateOptions"
+                                                                date-disabled="disabled(date, mode)"
+                                                                ng-required="true" close-text="Close"/>
+                                                       <span class="input-group-btn">
+                                                         <button type="button" class="btn btn-default canopi-btn-sharp-corners" ng-click="open($event, 'createdStartDateDatepicker')"><i
+                                                                 class="fa fa-calendar"></i></button>
+                                                       </span>
+                                                     </p>
+                                                 </div>
+                                            </div> 
+                                             <div class="col-md-6 col-sm-6 col-xs-6">
+	                                            <div class="form-group">
+	                                                <div class="canopi-input-title">Created on End:</div>
+	                                                <p class="input-group">
+	                                                    <input type="text" class="form-control"
+	                                                           datepicker-popup="{{format}}" ng-model="toSearch.createdEndDate"
+	                                                           is-open="datepickers.createdEndDateDatepicker" min-date="minDate"
+	                                                           max-date="'2015-12-25'"
+	                                                           datepicker-options="dateOptions"
+	                                                           date-disabled="disabled(date, mode)"
+	                                                           ng-required="true" close-text="Close"/>
+	                                                  <span class="input-group-btn">
+	                                                    <button type="button" class="btn btn-default canopi-btn-sharp-corners" ng-click="open($event, 'createdEndDateDatepicker')"><i
+	                                                            class="fa fa-calendar"></i></button>
+	                                                  </span>
+	                                                </p>
+	                                            </div>
+	                                    	</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                                <div class="form-group">
+                                                    <div class="canopi-input-title">Last Updated Start:</div>
+                                                    <p class="input-group">
+                                                        <input type="text" class="form-control"
+                                                               datepicker-popup="{{format}}" ng-model="toSearch.lastUpdatedStartDate"
+                                                               is-open="datepickers.lastUpdatedStartDateDatepicker" min-date="minDate"
+                                                               max-date="'2015-12-25'"
+                                                               datepicker-options="dateOptions"
+                                                               date-disabled="disabled(date, mode)"
+                                                               ng-required="true" close-text="Close"/>
+                                                          <span class="input-group-btn">
+                                                            <button type="button" class="btn btn-default canopi-btn-sharp-corners" ng-click="open($event, 'lastUpdatedStartDateDatepicker')"><i
+                                                                    class="fa fa-calendar"></i></button>
+                                                          </span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                                <div class="form-group">
+                                                    <div class="canopi-input-title">Last Updated End:</div>
+                                                    <p class="input-group">
+                                                        <input type="text" class="form-control"
+                                                               datepicker-popup="{{format}}" ng-model="toSearch.lastUpdatedEndDate"
+                                                               is-open="datepickers.lastUpdatedEndDateDatepicker" min-date="minDate"
+                                                               max-date="'2015-12-25'"
+                                                               datepicker-options="dateOptions"
+                                                               date-disabled="disabled(date, mode)"
+                                                               ng-required="true" close-text="Close"/>
+                                                          <span class="input-group-btn">
+                                                            <button type="button" class="btn btn-default canopi-btn-sharp-corners" ng-click="open($event, 'lastUpdatedEndDateDatepicker')"><i
+                                                                    class="fa fa-calendar"></i></button>
+                                                          </span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+										
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-6 col-xs-6">                                            	
+                                            	<div class="form-group">
+                                                    <div class="canopi-input-title">Prov. Status Date Start:</div>
+                                                    <p class="input-group">
+                                                        <input type="text" class="form-control"
+                                                               datepicker-popup="{{format}}" ng-model="toSearch.provStatusStartDate"
+                                                               is-open="datepickers.provStatusStartDateDatepicker" min-date="minDate"
+                                                               max-date="'2015-12-25'"
+                                                               datepicker-options="dateOptions"
+                                                               date-disabled="disabled(date, mode)"
+                                                               ng-required="true" close-text="Close"/>
+                                                          <span class="input-group-btn">
+                                                            <button type="button" class="btn btn-default canopi-btn-sharp-corners" ng-click="open($event, 'provStatusStartDateDatepicker')"><i
+                                                                    class="fa fa-calendar"></i></button>
+                                                          </span>
+                                                    </p>
+                                                </div>                                   
+                                            </div>
+                                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                                <div class="form-group">
+                                                    <div class="canopi-input-title">Last Updated End:</div>
+                                                    <p class="input-group">
+                                                        <input type="text" class="form-control"
+                                                               datepicker-popup="{{format}}" ng-model="toSearch.provStatusEndDate"
+                                                               is-open="datepickers.provStatusEndDateDatepicker" min-date="minDate"
+                                                               max-date="'2015-12-25'"
+                                                               datepicker-options="dateOptions"
+                                                               date-disabled="disabled(date, mode)"
+                                                               ng-required="true" close-text="Close"/>
+                                                          <span class="input-group-btn">
+                                                            <button type="button" class="btn btn-default canopi-btn-sharp-corners" ng-click="open($event, 'provStatusEndDateDatepicker')"><i
+                                                                    class="fa fa-calendar"></i></button>
+                                                          </span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group">
+											<div class="canopi-input-title">Created By:</div>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" ng-model="toSearch.createdBy" placeholder="Type and Search">
+                                                  <span class="input-group-btn">
+                                                    <button class="btn btn-default canopi-btn-sharp-corners" type="button"><i class="fa fa-search"></i></button>
+                                                  </span>
+                                            </div><!-- /input-group -->
+										</div>
+										
+										<div class="form-group">
+											<div class="canopi-input-title">Last Updated By:</div>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" ng-model="toSearch.lastUpdatedBy" placeholder="Type and Search">
+                                                  <span class="input-group-btn">
+                                                    <button class="btn btn-default canopi-btn-sharp-corners" type="button"><i class="fa fa-search"></i></button>
+                                                  </span>
+                                            </div><!-- /input-group -->
+										</div>
+
+										<div class="form-group">
+											<div class="canopi-input-title">RTP Indicator:</div>
+											<div class="dropdown">
+												<select ng-model="toSearch.rtpIndicator" ng-options="t.name for t in toRTPIndicatorList"
+												    class="dropdown-select form-control"
+													title="Please select" data-live-search="false">
+												</select>
+											</div>
+										</div>
+								
+										<div class="form-group">
+											<div class="canopi-input-title">DS1 ASR#</div>
+											<input type="text" class="form-control" ng-model="toSearch.dslAsrNum" placeholder="">
+										</div>
+										
+										<div class="form-group">
+											<div class="canopi-input-title">LAG ID</div>
+											<input type="text" class="form-control" ng-model="toSearch.lagId" placeholder="">
+										</div>
+										
+										<div class="form-group">
+											<div class="canopi-input-title">Complex MACD:</div>
+											<div class="dropdown">
+												<select ng-model="toSearch.complexMacd" ng-options="t.name for t in toComplexMACDList"
+												    class="dropdown-select form-control"
+													title="Please select" data-live-search="false">
+												</select>
+											</div>
+										</div>
+										
+										
+										<div class="form-group">
+											<div class="canopi-input-title">UNI Circuit ID:</div>
+											<input type="text" class="form-control" ng-model="toSearch.uniCircuitId" placeholder="">
+										</div>
+														
+									</div>	 			
+								
+							</div> <!-- End row forms -->
+	
+						    <!-- SEARCH AND CLEAR BUTTONS -->
+                            <div class="row" style="padding-left: 20px; padding-right: 20px;">
+								<div class="col-md-12">
+									<button class="btn canopi-btn-orange" ng-disabled="picklistNotReady" ng-click="toSearch()"><span>Search</span></button>
+									<button class="btn canopi-btn-gray" ng-disabled="picklistNotReady" ng-click="clear()"><span>Clear</span></button>
+								</div>
+							</div>								
+											
+						</accordion-group> 
+					</accordion> <!-- End Top Accordion -->
+					
+					<!-- BOTTOM ACCORDION - DATATABLE -->
+					<accordion class="canopi-accordion" close-others="oneAtATime"> 
+						<accordion-group is-open="accordionOpen.table">					
+							<accordion-heading> 
+								<span  style="color: #ef6f00; font-size: 26px; font-family: Omnes-ATT-II-Light;">Technical Orders Table</span>
+								<i  style="color: #ef6f00;" class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': accordionOpen.table, 'glyphicon-chevron-right': !accordionOpen.table}"></i>
+						
+							</accordion-heading>				
+							
+							<div style="border-bottom: solid; border-width: 1px; margin-bottom: 20px; color: #9C9C9C;"></div>
+							
+													
+							<div activity-indicator="isLoading"></div>
+							
+							<!-- DATATABLE -->
+							
+							<div class="table-responsive col-lg-12 no-padding" style="padding-top: 10px;">						
+								<table class="table table-striped table-hover data-table"
+									   id="poResultsTable" search-result-table
+									table-data="tableData" add-pagination="false" total-records="tableRecords" current-page="transclude.currentPage" current-records="currenRecordsReturned" part-of-modal="false"
+									event-handler="gridEventHandler(eventId, data)">
+								</table>	
+								<pagination ng-show="enablePagination" style="float: right; margin-top: -30px;" total-items="totalItems" ng-model="transclude.currentPage" ng-change="pageChanged()"  max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages"></pagination>
+							</div>
+
+    						
+						</accordion-group> 
+					</accordion> <!-- End Bottom Accordion -->	
+					
+							</div> <!-- End of row -->
+	</div> <!-- End of column -->
+</div> <!-- End of row -->

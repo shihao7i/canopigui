@@ -1,0 +1,27 @@
+{   
+    "key": "Special Applicaiton",
+    "tableRows": 
+        {"rowMetaData":
+            { "columnList":[{"hyperlink":false,	"editable": true, "fieldType": "input", "fieldOptions": [], "fieldDefault": "", "id":"applicationName", "displayName":"Application Name"},
+                            {"hyperlink":false,	"editable": true, "fieldType": "dropdown", "fieldOptions": [{"value": "YES", "label": "YES"}, {"value": "NO", "label": "NO"}], "fieldDefault": "NO", "id":"archive", "displayName":"Archive"}],
+
+              "rowValueList":[{"cellValues":["COW", "NO"]},
+                              {"cellValues":["COLT", "NO"]},
+                              {"cellValues":["DAS", "NO"]},
+                              {"cellValues":["SPECIAL_EVENT", "NO"]}
+                            ]
+            }
+        },
+
+    "returnStaus": "Success",
+    "returnMessage": "",
+    "returnCode": "0",
+    "pageInfo" : {
+        "totalRecords" : "4",
+        "currentPage": "0",
+        "itemsPerPage": "100"
+    }
+}
+
+
+

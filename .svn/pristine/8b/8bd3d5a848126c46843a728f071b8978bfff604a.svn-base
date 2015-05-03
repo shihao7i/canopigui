@@ -1,0 +1,22 @@
+{"tableRows": 
+	{"rowMetaData":
+		{ "columnList":[{"hyperlink":false,	"id":"cardName",			"displayName":"Card Name"},
+						{"hyperlink":false,	"id":"parentCardName",		"displayName":"Parent Card Name"},
+						{"hyperlink":false,	"id":"port",				"displayName":"Port"},
+						{"hyperlink":false,	"id":"portStatus",			"displayName":"Port Status"},
+						{"hyperlink":false,	"id":"portRole",			"displayName":"Port Role"},
+						{"hyperlink":false,	"id":"assigned",			"displayName":"Assigned"},
+						{"hyperlink":false,	"id":"siteType",			"displayName":"Site Type"},
+						{"hyperlink":false,	"id":"diversityIndicator",	"displayName":"Diversity Indicator"},
+						{"hyperlink":false,	"id":"cnlType",				"displayName":"CNL Type"},
+						{"hyperlink":false,	"id":"facilityType",		"displayName":"Facility Type"},
+						{"hyperlink":false,	"id":"serviceReservation",	"displayName":"Service Reservation"}] },
+		
+		"rowValueList":[{"cellValues":["AT_SFP_SM-A.1","SM2GE_SM-A","1","In Service","","","","","","",""]},
+						{"cellValues":["AT_SFP_SM-A.2","SM2GE_SM-A","2","In Service","","","","","","",""]},
+						{"cellValues":["AT_SFP_SM-B.1","SM2GE_SM-B","1","In Service","","","","","","",""]},
+						{"cellValues":["AT_SFP_SM-B.2","SM2GE_SM-B","2","In Service","","","","","","",""]}]},
+		"errorStaus": "Success",
+		"errorMessage": "",
+		"errorCode": "0"
+}

@@ -1,0 +1,43 @@
+'use strict';
+
+angular.module('canopi.directive').directive('uiGridSelectionRowHeaderButtonsCanopi', ['$templateCache', 'uiGridSelectionService',
+    function ($templateCache, uiGridSelectionService) {
+        return {
+            replace: true,
+            restrict: 'E',
+            template: $templateCache.get('ui-grid/selectionRowHeaderButtonsCanopi'),
+            scope: true,
+            require: '^uiGrid',
+            link: function ($scope, $elm, $attrs, uiGridCtrl) {
+                var self = uiGridCtrl.grid;
+                $scope.selectButtonClick = function (row, evt) {
+                    if (evt.shiftKey) {
+                        uiGridSelectionService.shiftSelect(self, row, evt, self.options.multiSelect);
+                    }
+                    else if (evt.ctrlKey || evt.metaKey) {
+                        uiGridSelectionService.toggleRowSelection(self, row, evt, self.options.multiSelect, self.options.noUnselect);
+                    }
+                    else {
+                        uiGridSelectionService.toggleRowSelection(self, row, evt, (self.options.multiSelect && !self.options.modifierKeysToMultiSelect), self.options.noUnselect);
+                    }
+                };
+
+                $scope.edit = function (row, event) {
+                    $scope.isEditing = true;
+                    uiGridSelectionService.toggleRowSelection(self, row, event, self.options.multiSelect);
+                };
+
+                $scope.remove = function (row, event) {
+                    console.log("remove item");
+                };
+
+                $scope.save = function (row, event) {
+
+                };
+
+                $scope.cancel = function (row, event) {
+                    $scope.isEditing = false;
+                }
+            }
+        };
+    }]);

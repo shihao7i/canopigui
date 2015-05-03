@@ -1,0 +1,18 @@
+{   
+    "tableName": "Task Queue",
+    "tableRows": 
+        {"rowMetaData":
+            { "columnList":[{"hyperlink":false,	"visible": false, "editable": false, "fieldType": "input", "fieldOptions": [], "fieldDefault": "", "id":"id", "displayName":"ID"},
+                            {"hyperlink":false,	"visible": true, "editable": true, "fieldType": "input", "fieldOptions": [], "fieldDefault": "", "id":"queueName", "displayName":"Queue Name"},
+                            {"hyperlink":false,	"visible": true, "editable": true, "fieldType": "input", "fieldOptions": [], "fieldDefault": "", "id":"description", "displayName":"Description"}],                            
+
+              "rowValueList":[{"cellValues":["1001", "QUEUE 1", ""]},
+                              {"cellValues":["1002", "QUEUE 2", ""]}
+                             ]
+            }
+        },
+
+    "returnStaus": "Success",
+    "returnMessage": "",
+    "returnCode": "0"
+}

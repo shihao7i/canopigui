@@ -1,0 +1,101 @@
+angular.module('admin.app').controller('LookupAdminController', ['$http',
+                                       function ($http) {
+	'use strict';
+        
+        var vm = this;
+        var ngGridColumnDefs;
+        
+        init();
+        
+        function init() {
+            
+  	    initializeVMVariables();
+ 	 //   setupVMMethods();
+            
+        }
+   
+        
+        function  initializeVMVariables() {
+            
+            vm.lookupTypeList = [
+                {name: 'Jeopardy Code'},
+                {name: 'Rework Code'},                
+                {name: 'Carrier Name'},                
+                {name: 'Backhual Product'},
+                {name: 'Special Application'}                 
+            ];
+            
+            vm.mySelections = [];
+        }
+        
+        
+        function setupVMMethods() {
+            
+            vm.mySelections = [];
+    
+            vm.refresh = function () {
+              
+              // TODO: this will be moved to service ...
+              $http.get('/src/app/admin-app/mock/lookupadmin/jeopardycodes.jon').success(function(data){
+                var tableData = data.tableRows;  
+           
+                var uniqueColumns = _.uniq(tableData.rowMetaData.columnList, 'id'),
+                
+                // map meta data column defs to the column defs ng-grid expects
+                columnDefMap = {
+                    id: 'field',
+                    displayName: 'displayName'
+                };
+
+                ngGridColumnDefs = uniqueColumns.map(function (id) {
+                    var t = {};
+                    for (var key in columnDefMap) {
+                        t[columnDefMap[key]] = id[key];
+                    };
+                    return t;
+                });
+
+                var cellValuesLit = _.pluck(tableData.rowMetaData.rowValueList, 'cellValues');
+  
+                //TODO: filter data in cellValues ...
+                // 
+                vm.myData = cellValuesLit;
+
+              });
+            };
+    
+            // fetch data 
+            vm.refresh();
+    
+            vm.gridOptions = { 
+                data: 'lookupadmin.tableData',  // ControllerAs convention : http://stackoverflow.com/questions/25210910/ng-grid-with-controller-as-syntax
+                showFilter: true,
+                showColumnMenu: true,
+                enableCellSelection: true,
+                enableCellEdit: true,   
+                showSelectionCheckbox: true,
+                selectWithCheckboxOnly: true,
+                selectedItems: vm.mySelections,
+                showFooter: true,
+                columnDefs: ngGridColumnDefs
+            };
+    
+            vm.addItem = function() {
+              vm.myData.push({});
+            };
+            
+    
+           vm.remove = function () {
+              _.each(vm.mySelections, function (item) {
+                //Real remove (i.e from datastore)
+                  vm.myData = _.filter(vm.myData, function(element){ return element.name != item.name;});
+                });
+                vm.mySelections.splice(0, vm.mySelections.length);
+            };  
+          }
+
+}]);
+
+
+
+

@@ -1,0 +1,24 @@
+{   
+    "key": "Links",
+    "tableRows": 
+        {"rowMetaData":
+            { "columnList":[{"hyperlink":false,	"visible": false, "editable": false, "fieldType": "input", "fieldOptions": [], "fieldDefault": "", "id":"id", "displayName":"ID"},
+                            {"hyperlink":false,	"visible": true, "editable": true, "fieldType": "input", "fieldOptions": [], "fieldDefault": "", "id":"name", "displayName":"Name"},
+                            {"hyperlink":true,	"visible": true, "editable": true, "fieldType": "input", "fieldOptions": [], "fieldDefault": "", "id":"url", "displayName":"URL"}],
+
+              "rowValueList":[{"cellValues":["1001", "Google", "www.google.com"]},
+                              {"cellValues":["1002", "AT&T", "www.att.com"]}]
+            }
+        },
+    "returnStaus": "Success",
+    "returnMessage": "",
+    "returnCode": "0",
+    "pageInfo" : {
+        "totalRecords" : "2",
+        "currentPage": "0",
+        "itemsPerPage": "100"
+    }
+}
+
+
+

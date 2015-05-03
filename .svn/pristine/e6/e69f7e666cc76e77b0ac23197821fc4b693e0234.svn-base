@@ -1,0 +1,49 @@
+{   
+    "tableName": "Task Delegation",
+    "tableRows": 
+        {"rowMetaData":
+            { "columnList":[{"hyperlink":false,	"visible": false, "editable": false, "fieldType": "input", "fieldOptions": [], "fieldDefault": "", "id":"id", "displayName":"ID"},
+                            {"hyperlink":false,	"visible": true, "editable": true, "fieldType": "input", "fieldOptions": [], "fieldDefault": "", "id":"delegatedApplication", "displayName":"Delegated Application"},
+                            {"hyperlink":false,	"visible": true, "editable": true, "fieldType": "input", "fieldOptions": [], "fieldDefault": "", "id":"orderType", "displayName":"Order Type"},
+                            {"hyperlink":false,	"visible": true, "editable": true, "fieldType": "input", "fieldOptions": [], "fieldDefault": "", "id":"siadVendor", "displayName":"SIAD Vendor"},
+                            {"hyperlink":false,	"visible": true, "editable": true, "fieldType": "input", "fieldOptions": [], "fieldDefault": "",  "id":"siadModel", "displayName":"SIAD Model"},                   
+                            {"hyperlink":false,	"visible": true, "editable": true, "fieldType": "input", "fieldOptions": [], "fieldDefault": "",  "id":"taskCode", "displayName":"Task Code"}],                            
+
+              "rowValueList":[{"cellValues":["1001", "ACAT" , "ALL", "ALL", "ALL", "RWK-EMUX CPDO ORD"]},
+                              {"cellValues":["1002", "ACAT" , "ALL", "ALL", "ALL", "PRE_BL"]},
+                              {"cellValues":["1003", "ACAT" , "DirectConnectSiadMsn", "ALL", "ALL", "ALM"]},
+                              {"cellValues":["1004", "ACAT" , "ETTCSMigration", "ALL", "ALL", "ALM"]},
+                              {"cellValues":["1005", "ACAT" , "ETTCSNewSiteBuild", "ALL", "ALL", "ALM"]},
+                              {"cellValues":["1006", "ACAT" , "Emux1Emux2LnsNewLagInitialGigE", "ALL", "ALL", "ALM"]},
+                              {"cellValues":["1007", "ACAT" , "EmuxSiadLnsMultiCabInitial", "ALL", "ALL", "ALM"]},
+                              {"cellValues":["1008", "ACAT" , "EmuxSiadSingleCabLns", "ALL", "ALL", "ALM"]},                             
+                              
+                              {"cellValues":["1009", "ACAT" , "EoMWMprSiadMigration", "ALL", "ALL", "ALM"]},
+                              {"cellValues":["1010", "ACAT" , "EoSONETCellSite", "ALL", "ALL", "ALM"]},
+                              {"cellValues":["1011", "ACAT" , "EthernetOnNetNearFranchisePrefPath", "ALL", "ALL", "ALM"]},
+                              {"cellValues":["1012", "ACAT" , "EttcOc3CellSiteR4D", "ALL", "ALL", "ALM"]},
+                              {"cellValues":["1013", "ACAT" , "EttcsCdnbNew", "ALL", "ALL", "ALM"]},
+                              {"cellValues":["1014", "ACAT" , "EttcsEmuxWithLocalPrivateLine", "ALL", "ALL", "ALM"]},  
+                              
+                              {"cellValues":["1015", "ACAT" , "MLPPPMigrationUMTS", "ALL", "ALL", "ALM"]},
+                              {"cellValues":["1016", "ACAT" , "MLPPPNewCabinetAddLTE", "ALL", "ALL", "ALM"]},
+                              {"cellValues":["1017", "ACAT" , "MLPPPNewCabinetUMTS", "ALL", "ALL", "ALM"]},
+                              {"cellValues":["1018", "ACAT" , "MsnEmux2Lns", "ALL", "ALL", "ALM"]},
+                              {"cellValues":["1019", "ACAT" , "NsbEmuxSiadLns", "ALL", "ALL", "ALM"]},
+                              {"cellValues":["1020", "ACAT" , "NsbEmuxSiadLnsMultiCab", "ALL", "ALL", "ALM"]},                               
+                              {"cellValues":["1021", "ACAT" , "DirectConnectSiadMsn", "ALL", "ALL", "CCD"]},
+                              
+                              {"cellValues":["1022", "ACAT" , "ETTCSMigration", "ALL", "ALL", "CCD"]},
+                              {"cellValues":["1023", "ACAT" , "ETTCSNewSiteBuild", "ALL", "ALL", "CCD"]},
+                              {"cellValues":["1024", "ACAT" , "Emux1Emux2LnsChangeLagAdditionalGigE", "ALL", "ALL", "CCD"]},
+                              {"cellValues":["1025", "ACAT" , "Emux1Emux2LnsNewLagInitialGigE", "ALL", "ALL", "CCD"]},                               
+                              {"cellValues":["1026", "ACAT" , "EmuxSiadLnsMultiCabInitial", "ALL", "ALL", "CCD"]}                   
+                              
+                            ]
+            }
+        },
+
+    "returnStaus": "Success",
+    "returnMessage": "",
+    "returnCode": "0"
+}

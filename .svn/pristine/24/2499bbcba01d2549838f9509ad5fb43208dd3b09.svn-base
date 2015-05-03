@@ -1,0 +1,35 @@
+{   
+    "key": "Carrier Name",
+    "tableRows": 
+        {"rowMetaData":
+            { "columnList":[{"hyperlink":false,	"editable": true, "fieldType": "input", "fieldOptions": [], "fieldDefault": "", "id":"edpCarrier", "displayName":"EDP Carrier Name"},
+                            {"hyperlink":false,	"editable": true, "fieldType": "input", "fieldOptions": [], "fieldDefault": "", "id":"canopiCarrierName", "displayName":"CANOPI Carrier Name"},
+                            {"hyperlink":false,	"editable": true, "fieldType": "input", "fieldOptions": [], "fieldDefault": "", "id":"graniteCarrierName", "displayName":"GRANITE Carrier Name"},
+                            {"hyperlink":false,	"editable": true, "fieldType": "input", "fieldOptions": [], "fieldDefault": "", "id":"vfoCarrierName", "displayName":"VFO Carrier Name"},
+                            {"hyperlink":false,	"editable": true, "fieldType": "dropdown", "fieldOptions": [{"value": "YES", "label": "YES"}, {"value": "NO", "label": "NO"}], "fieldDefault": "NO", "id":"archive", "displayName":"Archive"}],
+                        
+              "rowValueList":[{"cellValues":["Carrier Deferred (Late Date)", "", "", "", "NO"]},
+                              {"cellValues":["Carrier Deferred (Not Confirmed)", "", "", "", "NO"]},
+                              {"cellValues":["Centenial Ethernet", "CENTENNIAL", "CENTENNIAL", "CENTENNIAL", "NO"]},
+                              {"cellValues":["CENTRAL TEL CO FL", "No Equivalent Found", "", "", "NO"]},
+                              {"cellValues":["Central Tel Co of NC", "No Equivalent Found", "", "", "NO"]},
+                              {"cellValues":["CenturyLink", "No Equivalent Found", "CENTURYLINK", "", "NO"]},
+                              {"cellValues":["CenturyLink (Legacy Q) Ethernet", "QWEST", "QWEST", "", "NO"]},
+                              {"cellValues":["CenturyLink Meet Point", "CENTURYLINK", "CENTURYLINK", "CENTURYLINK", "NO"]},
+                              {"cellValues":["Charter Ethernet", "CHARTER COMMUNICATIONS", "CHARTER COMMUNICATIONS", "", "NO"]},
+                              {"cellValues":["Cincinnati Bell", "CHILLICOTHE TELEPHONE", "CHILLICOTHE TELEPHONE", "", "NO"]},
+                              {"cellValues":["CO/MTSO", "CINCINNATI BELL", "CINCINNATI BELL", "", "NO"]},
+                              {"cellValues":["Comcast Ethernet", "", "", "", "NO"]}
+                            ]
+            }
+        },
+
+    "returnStaus": "Success",
+    "returnMessage": "",
+    "returnCode": "0",
+    "pageInfo" : {
+        "totalRecords" : "12",
+        "currentPage": "0",
+        "itemsPerPage": "100"
+    }
+}

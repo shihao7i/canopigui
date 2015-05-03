@@ -1,0 +1,68 @@
+'use strict';
+
+describe('Testing uamJsonService', function(){
+    
+    var _httpService, _httpBackend, _http,promise;
+    var baseUrl = '/canopigui/rest/uam/';
+    var successData = {};
+    var responseData = {};
+    var successCallback;
+    var errorCallback;
+    
+    beforeEach(module('canopi.service'));  
+    
+
+    //mock Application to allow us to inject our own dependencies
+    beforeEach(inject(function ($injector, $http, $httpBackend) {
+        _http = $http;
+        _httpBackend = $httpBackend;
+        _httpService = $injector.get('UamJsonService');
+        successCallback = jasmine.createSpy('success');
+        errorCallback = jasmine.createSpy('error');
+        spyOn(_http, 'get').andCallThrough();
+        responseData = {
+            attUid:     'pb154j',
+            firstName:  'PAUL',		
+            lastName:   'BERESUITA',
+            email:      'pb154j@att.com',	
+            tn:         '404-986-1111'
+        };
+        successData = {
+            attUid:     'pb154j',
+            firstName:  'PAUL',		
+            lastName:   'BERESUITA',
+            email:      'pb154j@att.com',	
+            tn:         '404-986-1111'
+        };
+    }));
+    
+    // makes sure all expected requests are made by the time the test ends
+    afterEach(function () {
+        _httpBackend.verifyNoOutstandingExpectation();
+        _httpBackend.verifyNoOutstandingRequest();
+    });
+    
+    // tests start here
+    // Testing the success getUser('pb154j'); function
+    it('should make an ajax call to /canopigui/rest/common/user/get/', function () {        
+        _httpBackend.expectGET(baseUrl + 'user/get/vp881w').respond(200, successData);
+        promise = _httpService.getUser('vp881w');
+        promise.then(successCallback, errorCallback);
+        _httpBackend.flush();
+        expect(successCallback).toHaveBeenCalledWith(successData);
+        expect(errorCallback).not.toHaveBeenCalled();
+    });
+    
+    // Testing the success getAllUserNames(); function
+    it('should make an ajax call to /canopigui/rest/common/allUserNames/get/', function () {        
+        _httpBackend.expectGET(baseUrl + 'allUserNames/get').respond(200, successData);
+        promise = _httpService.getAllUserNames();
+        promise.then(successCallback, errorCallback);
+        _httpBackend.flush();
+        expect(successCallback).toHaveBeenCalledWith(successData);
+        expect(errorCallback).not.toHaveBeenCalled();
+    });
+    
+    
+
+});

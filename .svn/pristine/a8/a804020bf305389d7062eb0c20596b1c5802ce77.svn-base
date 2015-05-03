@@ -1,0 +1,35 @@
+{  
+    "key": "Rework Code",
+    "tableRows": 
+        {"rowMetaData":
+            { "columnList":[{"hyperlink":false,	"dropdown": false, "id":"reworkTaskOperation", "displayName":"Rework Task Details/Task Operation"},
+                            {"hyperlink":false,	"dropdown": false, "id":"reworkCode", "displayName":"Rework Code"},
+                            {"hyperlink":false,	"dropdown": false, "id":"reworkDescription", "displayName":"Rework Description"},
+                            {"hyperlink":false,	"dropdown": true, "id":"sla", "displayName":"SLA"}],
+
+
+              "rowValueList":[{"cellValues":["RETURN TO PCO ATM FOR REWORK", "ATMPCO01", "ATMPCO01 - LOGICAL CROSS CONNECT ERROR", "1"]},
+                              {"cellValues":["RETURN TO PCO ATM FOR REWORK", "ATMPCO02", "ATMPCO02 - CTS TICKET/DISPATCH NEEDED", "1"]},
+                              {"cellValues":["RETURN TO C&E FOR REWORK", "ASC01", "ASC01 - SYSTEM ISSUES - EXACT", "1"]},
+                              {"cellValues":["RETURN TO C&E FOR REWORK", "ASC03", "ASC03 - INCOR RWK - TELCO SYSTEM FLOW ISSUE", "1"]},
+                              {"cellValues":["RETURN TO C&E FOR REWORK", "ASC04", "ASC04 - TELCO DLR NOT RECEIVED", "1"]},
+                              {"cellValues":["RETURN TO C&E FOR REWORK", "CE0101", "CE0101-PING TEST FAILED TO SIAD", "1"]},
+                              {"cellValues":["RETURN TO C&E FOR REWORK", "CE0102", "CE0102-PHYSICAL ISSUES BETWEEN SIAD AND NTE", "1"]},
+                              {"cellValues":["RETURN TO C&E FOR REWORK", "CE0103", "CE0103-DISPATCH TO CELL SITE TO RELOAD SIAD CONFIG", "1"]},
+                              {"cellValues":["RETURN TO C&E FOR REWORK", "CE0103", "CE0103-DISPATCH TO CELL SITE FOR TROUBLESHOOT SIAD", "1"]},
+                              {"cellValues":["RETURN TO C&E FOR REWORK", "CE0105", "CE0105-SIAD ON BACKORDER", "1"]}
+                             ]
+            }
+        },
+    "returnStaus": "Success",
+    "returnMessage": "",
+    "returnCode": "0",
+    "pageInfo" : {
+        "totalRecords" : "10",
+        "currentPage": "0",
+        "itemsPerPage": "100"
+    }
+}
+
+
+

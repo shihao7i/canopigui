@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<testsuites>
+  <testsuite name="Chrome 41.0.2272 (Windows 7)" package="" timestamp="2015-04-12T02:14:18" id="0" hostname="OSDHP5CB32205FG">
+    <properties>
+      <property name="browser.fullName" value="Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36"/>
+    </properties>
+  </testsuite>
+  <testsuite name="Chrome 41.0.2272 (Windows 7)" package="" timestamp="2015-04-12T02:14:19" id="0" hostname="OSDHP5CB32205FG" tests="99" errors="0" failures="0" time="0.579">
+    <properties>
+      <property name="browser.fullName" value="Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36"/>
+    </properties>
+    <testcase name="should make an ajax call to /canopigui/rest/common/user/get/" time="0.039" classname="Chrome 41.0.2272 (Windows 7).Testing CommonUtilJsonService"/>
+    <testcase name="should make an ajax call to /canopigui/rest/common/user/get/" time="0.003" classname="Chrome 41.0.2272 (Windows 7).Testing CommonUtilJsonService"/>
+    <testcase name="tests get failure to make an ajax call to /canopigui/rest/common/user/get/" time="0.004" classname="Chrome 41.0.2272 (Windows 7).Testing CommonUtilJsonService"/>
+    <testcase name="should make an ajax call to /canopigui/rest/common/serverInfo/get" time="0.003" classname="Chrome 41.0.2272 (Windows 7).Testing CommonUtilJsonService"/>
+    <testcase name="should make an ajax call to /canopigui/rest/common/picklists/get" time="0.002" classname="Chrome 41.0.2272 (Windows 7).Testing CommonUtilJsonService"/>
+    <testcase name="should check if the string is empty or not" time="0.002" classname="Chrome 41.0.2272 (Windows 7).Testing HelperUtilService"/>
+    <testcase name="should check for format date string (month and day with single-digits)" time="0.001" classname="Chrome 41.0.2272 (Windows 7).Testing HelperUtilService"/>
+    <testcase name="should check for format date string (month and day with double-digits)" time="0.001" classname="Chrome 41.0.2272 (Windows 7).Testing HelperUtilService"/>
+    <testcase name="should check for format end date string (month and day with single-digits)" time="0.001" classname="Chrome 41.0.2272 (Windows 7).Testing HelperUtilService"/>
+    <testcase name="should check for format end date string (month and day with double-digits)" time="0.001" classname="Chrome 41.0.2272 (Windows 7).Testing HelperUtilService"/>
+    <testcase name="should return the correct object for different message type" time="0.002" classname="Chrome 41.0.2272 (Windows 7).Testing HelperUtilService"/>
+    <testcase name="should set the tableDefinition with tableRows data returned from the meta data" time="0.001" classname="Chrome 41.0.2272 (Windows 7).Testing HelperUtilService"/>
+    <testcase name="should be able to get a list of messages" time="0.001" classname="Chrome 41.0.2272 (Windows 7).Testing MessagesService"/>
+    <testcase name="should be able to add a new message" time="0.002" classname="Chrome 41.0.2272 (Windows 7).Testing MessagesService"/>
+    <testcase name="should be able to remove a message" time="0.001" classname="Chrome 41.0.2272 (Windows 7).Testing MessagesService"/>
+    <testcase name="should be able to clear all messages" time="0.001" classname="Chrome 41.0.2272 (Windows 7).Testing MessagesService"/>
+    <testcase name="should make an ajax call to /canopigui/rest/orderSearch/poSearch" time="0.003" classname="Chrome 41.0.2272 (Windows 7).Testing OrderSearchJsonService"/>
+    <testcase name="should make an ajax call to /canopigui/rest/orderSearch/toSearch" time="0.002" classname="Chrome 41.0.2272 (Windows 7).Testing OrderSearchJsonService"/>
+    <testcase name="should make an ajax call to /canopigui/rest/orderSearch/relatedPoSearch" time="0.002" classname="Chrome 41.0.2272 (Windows 7).Testing OrderSearchJsonService"/>
+    <testcase name="should make an ajax call to /canopigui/rest/orderSearch/relatedToSearch" time="0.002" classname="Chrome 41.0.2272 (Windows 7).Testing OrderSearchJsonService"/>
+    <testcase name="should make an ajax call to /canopigui/rest/orderSearch/searchROByDeviceClli" time="0.002" classname="Chrome 41.0.2272 (Windows 7).Testing OrderSearchJsonService"/>
+    <testcase name="should make an ajax call to /canopigui/rest/uam/user/get/" time="0.004" classname="Chrome 41.0.2272 (Windows 7).Testing uamJsonService"/>
+    <testcase name="should make an ajax call to /canopigui/rest/uam/allUserNames/get/" time="0.002" classname="Chrome 41.0.2272 (Windows 7).Testing uamJsonService"/>
+    <testcase name="should make an ajax call to /canopigui/rest/uam/user/add" time="0.003" classname="Chrome 41.0.2272 (Windows 7).Testing uamJsonService"/>
+    <testcase name="should make an ajax call to /canopigui/rest/uam/user/delete" time="0.002" classname="Chrome 41.0.2272 (Windows 7).Testing uamJsonService"/>
+    <testcase name="should make an ajax call to /canopigui/rest/uam/permissions/get/[workgroup]" time="0.002" classname="Chrome 41.0.2272 (Windows 7).Testing uamJsonService"/>
+    <testcase name="should make an ajax call to /canopigui/rest/uam/workGroup/add" time="0.002" classname="Chrome 41.0.2272 (Windows 7).Testing uamJsonService"/>
+    <testcase name="should make an ajax call to /canopigui/rest/uam/workGroups/get" time="0.002" classname="Chrome 41.0.2272 (Windows 7).Testing uamJsonService"/>
+    <testcase name="should make an ajax call to /canopigui/rest/uam/permissions/get" time="0.002" classname="Chrome 41.0.2272 (Windows 7).Testing uamJsonService"/>
+    <testcase name="should make an ajax call to /canopigui/rest/uam/usersInWorkGroup/get[workgroup_id]" time="0.003" classname="Chrome 41.0.2272 (Windows 7).Testing uamJsonService"/>
+    <testcase name="should make an ajax call to /canopigui/rest/uam/users/get" time="0.002" classname="Chrome 41.0.2272 (Windows 7).Testing uamJsonService"/>
+    <testcase name="should make an ajax call to /canopigui/rest/uam/userInfo/get/[attuid]" time="0.003" classname="Chrome 41.0.2272 (Windows 7).Testing uamJsonService"/>
+    <testcase name="should make an ajax call to /canopigui/rest/uam/workGroup/delete" time="0.008" classname="Chrome 41.0.2272 (Windows 7).Testing uamJsonService"/>
+    <testcase name="should make an ajax call to /canopigui/rest/uam/groupMember/add" time="0.003" classname="Chrome 41.0.2272 (Windows 7).Testing uamJsonService"/>
+    <testcase name="should make an ajax call to /canopigui/rest/uam/groupMember/delete" time="0.002" classname="Chrome 41.0.2272 (Windows 7).Testing uamJsonService"/>
+    <testcase name="should make an ajax call to /canopigui/rest/uam/permission/add" time="0.002" classname="Chrome 41.0.2272 (Windows 7).Testing uamJsonService"/>
+    <testcase name="should make an ajax call to /canopigui/rest/uam/permission/delete" time="0.002" classname="Chrome 41.0.2272 (Windows 7).Testing uamJsonService"/>
+    <testcase name="should make an ajax call to /canopigui/rest/uam/workGroup/update" time="0.003" classname="Chrome 41.0.2272 (Windows 7).Testing uamJsonService"/>
+    <testcase name="should make an ajax call to /canopigui/rest/uam/permissionInGroup/add" time="0.002" classname="Chrome 41.0.2272 (Windows 7).Testing uamJsonService"/>
+    <testcase name="should make an ajax call to /canopigui/rest/uam/permissionInGroup/delete" time="0.002" classname="Chrome 41.0.2272 (Windows 7).Testing uamJsonService"/>
+    <testcase name="should make an ajax call to /canopigui/rest/uam/permissionsFromUser/get" time="0.002" classname="Chrome 41.0.2272 (Windows 7).Testing uamJsonService"/>
+    <testcase name="should make an ajax call to /canopigui/rest/uam/uamHistory/get" time="0.002" classname="Chrome 41.0.2272 (Windows 7).Testing uamJsonService"/>
+    <testcase name="should make an ajax call to /canopigui/rest/uam/permissions/get" time="0.003" classname="Chrome 41.0.2272 (Windows 7).Testing uamJsonService"/>
+    <testcase name="should make an ajax call to /canopigui/rest/uam/permissionForUser/add" time="0.002" classname="Chrome 41.0.2272 (Windows 7).Testing uamJsonService"/>
+    <testcase name="should make an ajax call to /canopigui/rest/uam/uamUsers/get/" time="0.002" classname="Chrome 41.0.2272 (Windows 7).Testing uamJsonService"/>
+    <testcase name="should make an ajax call to /canopigui/rest/uam/permissionForUser/delete" time="0.002" classname="Chrome 41.0.2272 (Windows 7).Testing uamJsonService"/>
+    <testcase name="should make an ajax call to /canopigui/rest/uam/acnaPermissions/add/[attuid]" time="0.002" classname="Chrome 41.0.2272 (Windows 7).Testing uamJsonService"/>
+    <testcase name="should make an ajax call to /canopigui/rest/uam/acnaPermissions/delete" time="0.003" classname="Chrome 41.0.2272 (Windows 7).Testing uamJsonService"/>
+    <testcase name="has a isObjectEmpty filter" time="0.001" classname="Chrome 41.0.2272 (Windows 7).Testing isObjectEmpty"/>
+    <testcase name="should return true if object is null or empty / should return false if not null or empty" time="0.001" classname="Chrome 41.0.2272 (Windows 7).Testing isObjectEmpty"/>
+    <testcase name="should have a partition filter" time="0.001" classname="Chrome 41.0.2272 (Windows 7).Testing partition"/>
+    <testcase name="should partition data" time="0.001" classname="Chrome 41.0.2272 (Windows 7).Testing partition"/>
+    <testcase name="should test visibility of alertMessages and response to change in number of messages" time="0.03" classname="Chrome 41.0.2272 (Windows 7).Testing Directive: alertMessages"/>
+    <testcase name="should verify message and button click to hide independent alert messages" time="0.009" classname="Chrome 41.0.2272 (Windows 7).Testing Directive: alertMessages"/>
+    <testcase name="Should update the date with the passed in date from ngModel" time="0.005" classname="Chrome 41.0.2272 (Windows 7).Testing Directive: bootstrapDatepicker"/>
+    <testcase name="Should throw an error if ng-model not present" time="0.003" classname="Chrome 41.0.2272 (Windows 7).Testing Directive: bootstrapDatepicker"/>
+    <testcase name="Should have draggable mouse down" time="0.003" classname="Chrome 41.0.2272 (Windows 7).Testing Directive: draggable"/>
+    <testcase name="Should have activityIndicator with true value" time="0.004" classname="Chrome 41.0.2272 (Windows 7).Testing Maxmedia activityIndicator directive"/>
+    <testcase name="Should have activityIndicator with true value and message passed" time="0.003" classname="Chrome 41.0.2272 (Windows 7).Testing Maxmedia activityIndicator directive"/>
+    <testcase name="Should have source value populated" time="0.025" classname="Chrome 41.0.2272 (Windows 7).Testing Maxmedia autoFillTextField directive"/>
+    <testcase name="Should have all the checkboxes unchecked with the initialized values" time="0.007" classname="Chrome 41.0.2272 (Windows 7).Testing Maxmedia checkboxGroup directive"/>
+    <testcase name="Should have first checkbox state toggled twice - first checked and then unchecked" time="0.006" classname="Chrome 41.0.2272 (Windows 7).Testing Maxmedia checkboxGroup directive"/>
+    <testcase name="Should have checkbox with state equal to true(checked) and active class" time="0.005" classname="Chrome 41.0.2272 (Windows 7).Testing Maxmedia checkbox directive"/>
+    <testcase name="Should have checkbox with state equal to false(unchecked) and active class not present" time="0.006" classname="Chrome 41.0.2272 (Windows 7).Testing Maxmedia checkbox directive"/>
+    <testcase name="Should have checkbox with state equal to true(checked) when clicking checkbox from deactive state" time="0.005" classname="Chrome 41.0.2272 (Windows 7).Testing Maxmedia checkbox directive"/>
+    <testcase name="Should have checkbox with state equal to false(unchecked) when clicking checkbox from active state" time="0.004" classname="Chrome 41.0.2272 (Windows 7).Testing Maxmedia checkbox directive"/>
+    <testcase name="Should only show the Dialog Box - the launch button is created outside the directive" time="0.007" classname="Chrome 41.0.2272 (Windows 7).Testing Maxmedia dialogBoxWithOptionalLaunchButton directive"/>
+    <testcase name="Should display correct label name which matches the one passed from directive attribute" time="0.006" classname="Chrome 41.0.2272 (Windows 7).Testing Maxmedia editField directive"/>
+    <testcase name="Should hide help-block when isValid has true value, is null or undefined" time="0.006" classname="Chrome 41.0.2272 (Windows 7).Testing Maxmedia editField directive"/>
+    <testcase name="Should have match isValid value (parent scope vs isolate scope)" time="0.017" classname="Chrome 41.0.2272 (Windows 7).Testing Maxmedia editField directive"/>
+    <testcase name="Should show required=&quot;required&quot; attribute in DOM" time="0.005" classname="Chrome 41.0.2272 (Windows 7).Testing Maxmedia editField directive"/>
+    <testcase name="Should show editable=&quot;false&quot; attribute in DOM" time="0.005" classname="Chrome 41.0.2272 (Windows 7).Testing Maxmedia editField directive"/>
+    <testcase name="Should return validated object from callback function" time="0.006" classname="Chrome 41.0.2272 (Windows 7).Testing Maxmedia editField directive"/>
+    <testcase name="Should have invoked popover function" time="0.005" classname="Chrome 41.0.2272 (Windows 7).Testing Maxmedia notificationPopover directive"/>
+    <testcase name="Should have all radio buttons unselected" time="0.005" classname="Chrome 41.0.2272 (Windows 7).Testing Maxmedia radioButtonGroup directive"/>
+    <testcase name="Should have first radio buttons selected" time="0.006" classname="Chrome 41.0.2272 (Windows 7).Testing Maxmedia radioButtonGroup directive"/>
+    <testcase name="Should have second radio buttons selected" time="0.005" classname="Chrome 41.0.2272 (Windows 7).Testing Maxmedia radioButtonGroup directive"/>
+    <testcase name="Should have third radio buttons selected" time="0.005" classname="Chrome 41.0.2272 (Windows 7).Testing Maxmedia radioButtonGroup directive"/>
+    <testcase name="Should move selected items between panels when using custom callbacks" time="0.015" classname="Chrome 41.0.2272 (Windows 7).Testing Maxmedia simpleGroupAssignment directive"/>
+    <testcase name="Should move selected items between panels" time="0.013" classname="Chrome 41.0.2272 (Windows 7).Testing Maxmedia simpleGroupAssignment directive"/>
+    <testcase name="Should toggle active/inactive state while clicking on the reset button" time="0.016" classname="Chrome 41.0.2272 (Windows 7).Testing Maxmedia treeTable directive"/>
+    <testcase name="Should toggle active/inactive state while clicking on the tree table nav button" time="0.016" classname="Chrome 41.0.2272 (Windows 7).Testing Maxmedia treeTable directive"/>
+    <testcase name="Should display a modal dialog" time="0.005" classname="Chrome 41.0.2272 (Windows 7).Testing Directive: modalDialog"/>
+    <testcase name="should initialize the directive" time="0.024" classname="Chrome 41.0.2272 (Windows 7).Testing Directive: ngDropdownMultiselect"/>
+    <testcase name="should enable extraSettings" time="0.012" classname="Chrome 41.0.2272 (Windows 7).Testing Directive: ngDropdownMultiselect"/>
+    <testcase name="should react to user click selection" time="0.01" classname="Chrome 41.0.2272 (Windows 7).Testing Directive: ngDropdownMultiselect"/>
+    <testcase name="Should display a use rmessage" time="0.005" classname="Chrome 41.0.2272 (Windows 7).Testing Directive: userMessage"/>
+    <testcase name="should set $rootScope.attUd with id stored in localStorage" time="0.01" classname="Chrome 41.0.2272 (Windows 7).Testing localStorage with value set"/>
+    <testcase name="It should transition to dashboard state on initial load" time="0.007" classname="Chrome 41.0.2272 (Windows 7).Testing App Run with no localStorage value set"/>
+    <testcase name="should allow me to test the run() block" time="0.007" classname="Chrome 41.0.2272 (Windows 7).Testing App Run with no localStorage value set"/>
+    <testcase name="should show name &quot;Dashboard&quot;" time="0.009" classname="Chrome 41.0.2272 (Windows 7).Testing DashboardController"/>
+    <testcase name="should make getServerInfo call" time="0.009" classname="Chrome 41.0.2272 (Windows 7).Testing AboutController"/>
+    <testcase name="should have the correct initial state" time="0.016" classname="Chrome 41.0.2272 (Windows 7).Testing ProjectOrderSearchController"/>
+    <testcase name="should set datepickers to empty first" time="0.008" classname="Chrome 41.0.2272 (Windows 7).Testing ProjectOrderSearchController"/>
+    <testcase name="should clear all search fields initally" time="0.009" classname="Chrome 41.0.2272 (Windows 7).Testing ProjectOrderSearchController"/>
+    <testcase name="should run grid event handler" time="0.008" classname="Chrome 41.0.2272 (Windows 7).Testing ProjectOrderSearchController"/>
+    <testcase name="should call poSearch" time="0.009" classname="Chrome 41.0.2272 (Windows 7).Testing ProjectOrderSearchController"/>
+    <testcase name="should run clear method" time="0.02" classname="Chrome 41.0.2272 (Windows 7).Testing ProjectOrderSearchController"/>
+    <testcase name="should run open method" time="0.008" classname="Chrome 41.0.2272 (Windows 7).Testing ProjectOrderSearchController"/>
+    <testcase name="Should call mousemove" time="0.001" classname="Chrome 41.0.2272 (Windows 7).Setting up the template"/>
+    <system-out><![CDATA[Chrome 41.0.2272 (Windows 7) LOG: 'ProjectOrderSearch'
+,Chrome 41.0.2272 (Windows 7) LOG: NaN
+,Chrome 41.0.2272 (Windows 7) LOG: Object{returnStatus: 'Success', returnCode: null, returnMessage: 'SUCCESS', pageInfo: Object{totalRecords: '64764', currentPage: '0', itemsPerPage: '100'}, serviceOrderList: [Object{techOrderIndicator: ..., attUserId: ..., projectOrderId: ..., projectOrderType: ..., bpelProcessId: ..., orderActivity: ..., orderRegion: ..., domainIndicator: ..., projectDueDate: ..., desiredDueDate: ..., projectCustomerName: ..., projectCCNA: ..., projectBAN: ..., projectACNA: ..., projectServiceId: ..., projectExternalOrderId: ..., projectOrderAction: ..., projectDecompositionMode: ..., projectOrderVersion: ..., projectOrderPass: ..., projectOrderStatus: ..., projectCurrentStep: ..., projectLastUpdated: ..., projectCreatedOn: ..., projectCreatedBy: ..., projectLastUpdatedBy: ..., projectCustomerCode: ..., projectCustomerCKTID: ..., projectCustomerSVID: ..., projectPon: ..., projectUSO: ..., projectCommittedDueDate: ..., projectProductType: ..., projectSuppNo: ..., sourceSystem: ..., techOrderId: ..., techVersion: ..., techProvisioningStatus: ..., techProvisioningStatusDateFrom: ..., techScOrderId: ..., techTirksClo: ..., optId: ..., reserveProject: ..., diversityIndicator: ..., techRubyTicketNbr: ..., techRubyErrorMsg: ..., techParentOrderType: ..., techSuppNo: ..., techProjectOriginalSuppNo: ..., techOrderPonrFlag: ..., flowIndicator: ..., ortIndicator: ..., ponrFlag: ..., rtpIndicator: ..., moveOrderType: ..., changeOrderType: ..., createdInRelease: ..., pivotOrderAction: ..., asrItemId: ..., rollbackStatus: ..., rollbackMessage: ..., supportCancel: ..., supportSupp: ..., supportGenerateTechOrder: ..., supportRollback: ..., supportEvcRegress: ..., requestingRollback: ..., serviceType: ..., complexMacdIndicator: ..., bulkMoveIndicator: ..., bulkMoveId: ..., customerCircuitReference: ..., tirksCacCode: ..., uVerseBan: ..., graniteWOID: ...}], tableRows: Object{rowMetaData: Object{columnList: ...}, rowValueList: [...]}}
+
+]]></system-out>
+    <system-err/>
+  </testsuite>
+</testsuites>

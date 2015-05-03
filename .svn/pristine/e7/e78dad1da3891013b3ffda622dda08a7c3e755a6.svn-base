@@ -1,0 +1,528 @@
+<div class="row">
+	<div class="col-md-12 col-lg-12">
+	    <!-- BREADCRUMBS - We can setup with Angular $location -->
+		<div class="row">
+			<div class="panel panel-default">
+				<div class="panel-body">
+				    <ol class="breadcrumb">
+					  <li><a href="#"><i class="fa fa-home fa-lg"></i>&nbsp;&nbsp;&nbsp;Home</a></li>
+					  <li class="active">New AAF CNL PO</li>
+					</ol>
+				</div>
+			</div>
+		</div> 
+		<!-- End Breadcrumbs -->
+		<!-- Start of Panel -->
+		<div class="row">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<span style="color: #ef6f00; font-size: 26px; font-family: Omnes-ATT-II-Light;">New Project Order</span>
+					<div style="border-bottom: solid; border-width: 1px; margin-bottom: 20px; color: #9C9C9C;"></div>
+					
+					<!-- FORMS -->
+					<div class="row canopi-inputfields"  style="padding-left: 20px; padding-right: 20px;">
+						<div class="col-lg-4 col-md-4 col-sm-12">
+							<!-- Checkbox Directive -->
+							<div checkbox id="ortOrder" value="ORT Order" state="isChecked"></div>
+						</div>
+					</div>
+					
+					<div class="row canopi-inputfields"  style="padding-left: 20px; padding-right: 20px;">
+						<div class="col-lg-4 col-md-4 col-sm-12">
+							<div class="form-group">
+								<div class="canopi-input-title">NTE CLLI:</div>
+                                 <div class="input-group">
+                                     <input type="text" class="form-control" ng-model="newAAFCNLPO.nteCLLI"  placeholder="Type and Search">
+                                       <span class="input-group-btn">
+                                         <button class="btn btn-default canopi-btn-sharp-corners" type="button"><i class="fa fa-search"></i></button>
+                                       </span>
+                                 </div><!-- /input-group -->
+							</div>
+							<div class="form-group">
+								<div class="canopi-input-title">Device Type:</div>
+								<input type="text" class="form-control" ng-model="newAAFCNLPO.deviceType" placeholder="" disabled>
+							</div>
+							<div class="form-group">
+								<div class="canopi-input-title">Device Name:</div>
+								<input type="text" class="form-control" ng-model="newAAFCNLPO.deviceName" placeholder="" disabled>
+							</div>
+							<div class="form-group">
+								<div class="canopi-input-title">Customer Code:</div>
+                                 <div class="input-group">
+                                     <input type="text" class="form-control" ng-model="newAAFCNLPO.customerCode"  placeholder="Type and Search">
+                                       <span class="input-group-btn">
+                                         <button class="btn btn-default canopi-btn-sharp-corners" type="button"><i class="fa fa-search"></i></button>
+                                       </span>
+                                 </div><!-- /input-group -->
+							</div>
+							<div class="form-group">
+								<div class="canopi-input-title">Customer Name:</div>
+                                 <div class="input-group">
+                                     <input type="text" class="form-control" ng-model="newAAFCNLPO.customerName"  placeholder="Type and Search">
+                                       <span class="input-group-btn">
+                                         <button class="btn btn-default canopi-btn-sharp-corners" type="button"><i class="fa fa-search"></i></button>
+                                       </span>
+                                 </div><!-- /input-group -->
+							</div>
+							<div class="form-group">
+								<div class="canopi-input-title">ACNA:</div>
+                                 <div class="input-group">
+                                     <input type="text" class="form-control" ng-model="newAAFCNLPO.acna"  placeholder="Type and Search">
+                                       <span class="input-group-btn">
+                                         <button class="btn btn-default canopi-btn-sharp-corners" type="button"><i class="fa fa-search"></i></button>
+                                       </span>
+                                 </div><!-- /input-group -->
+							</div>
+							<div class="form-group required">
+								<div class="canopi-input-title">Product Type:</div>
+								<div class="dropdown">
+									<select ng-model="newAAFCNLPO.productType" class="dropdown-select form-control ng-pristine ng-valid"
+										title="Please select" data-live-search="false">
+										<option>OEM-AC</option>
+										<option>OEM</option>
+										<option></option>
+										<option></option>
+										<option></option>
+										<option></option>
+									</select>
+								</div>
+							</div>
+						</div> <!-- end col -->
+						<div class="col-lg-4 col-md-4 col-sm-12">
+							<div class="form-group">
+								<div class="canopi-input-title">Device 1 CLLI:</div>
+                                 <div class="input-group">
+                                     <input type="text" class="form-control" ng-model="newAAFCNLPO.device1CLLI"  placeholder="Type and Search">
+                                       <span class="input-group-btn">
+                                         <button class="btn btn-default canopi-btn-sharp-corners" type="button"><i class="fa fa-search"></i></button>
+                                       </span>
+                                 </div><!-- /input-group -->
+							</div>
+							<div class="form-group">
+								<div class="canopi-input-title">Device Type:</div>
+								<input type="text" class="form-control" ng-model="newAAFCNLPO.device1Type" placeholder="" disabled>
+							</div>
+							<div class="form-group">
+								<div class="canopi-input-title">Device Name:</div>
+								<input type="text" class="form-control" ng-model="newAAFCNLPO.device1Name" placeholder="" disabled>
+							</div>
+							<div class="form-group">
+								<div class="canopi-input-title">SVID:</div>
+                                 <div class="input-group">
+                                     <input type="text" class="form-control" ng-model="newAAFCNLPO.svid"  placeholder="Type and Search">
+                                       <span class="input-group-btn">
+                                         <button class="btn btn-default canopi-btn-sharp-corners" type="button"><i class="fa fa-search"></i></button>
+                                       </span>
+                                 </div><!-- /input-group -->
+							</div>
+							<div class="form-group">
+								<div class="canopi-input-title">BAN:</div>
+                                 <div class="input-group">
+                                     <input type="text" class="form-control" ng-model="newAAFCNLPO.ban"  placeholder="Type and Search">
+                                       <span class="input-group-btn">
+                                         <button class="btn btn-default canopi-btn-sharp-corners" type="button"><i class="fa fa-search"></i></button>
+                                       </span>
+                                 </div><!-- /input-group -->
+							</div>
+							<div class="form-group required">
+								<div class="canopi-input-title">CCNA:</div>
+								<input type="text" class="form-control" ng-model="newAAFCNLPO.ccna" placeholder="">                          
+							</div>
+							<div class="form-group">
+								<div class="canopi-input-title">OptID:</div>
+								<input type="text" class="form-control" ng-model="newAAFCNLPO.optID" placeholder="" disabled>
+							</div>
+						</div> <!-- end col -->
+						<div class="col-lg-4 col-md-4 col-sm-12">
+							<div class="form-group">
+								<div class="canopi-input-title">Device 2 CLLI:</div>
+								<div class="input-group">
+									<input type="text" class="form-control" ng-model="newAAFCNLPO.device2CLLI"  placeholder="Type and Search">
+	                                       <span class="input-group-btn">
+	                                         <button class="btn btn-default canopi-btn-sharp-corners" type="button"><i class="fa fa-search"></i></button>
+	                                       </span>
+	                            </div><!-- /input-group -->
+							</div>
+							<div class="form-group">
+								<div class="canopi-input-title">Device Type:</div>
+								<input type="text" class="form-control" ng-model="newAAFCNLPO.device2Type" placeholder="" disabled>
+							</div>
+							<div class="form-group required">
+								<div class="canopi-input-title">Device Name:</div>
+								<input type="text" class="form-control" ng-model="newAAFCNLPO.device2Name" placeholder="" disabled>
+							</div>
+							<div class="form-group required">
+                                <div class="canopi-input-title">Due Date:</div>                                
+                                <p class="input-group">
+	                                <input type="text" class="form-control"
+	                                       datepicker-popup="{{format}}" ng-model="newAAFCNLPO.dueDate"
+	                                       is-open="datepickers.dueDatepicker" min-date="minDate"
+	                                       max-date="'2015-12-25'"
+	                                       datepicker-options="dateOptions"
+	                                       date-disabled="disabled(date, mode)"
+	                                       ng-required="true" close-text="Close"/>
+	                              <span class="input-group-btn">
+	                                <button type="button" class="btn btn-default canopi-btn-sharp-corners" ng-click="open($event, 'dueDatepicker')"><i
+	                                        class="fa fa-calendar"></i></button>
+	                              </span>
+	                            </p>
+	                        </div>
+                            <div class="form-group required">
+								<div class="canopi-input-title">Facility Type:</div>
+								<div class="dropdown">
+									<select ng-model="newAAFCNLPO.facilityType" class="dropdown-select form-control ng-pristine ng-valid"
+										title="Please select" data-live-search="false">
+										<option>GE10</option>
+										<option>GE1N</option>
+										<option></option>
+										<option></option>
+										<option></option>
+										<option></option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group required">
+								<div class="canopi-input-title">Collector Circuits:</div>
+								<div class="dropdown">
+									<select ng-model="newAAFCNLPO.collectorCircuit" class="dropdown-select form-control ng-pristine ng-valid"
+										title="Please select" data-live-search="false">
+										<option>Yes</option>
+										<option>No</option>
+										<option></option>
+										<option></option>
+										<option></option>
+										<option></option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="canopi-input-title">Site Type:</div>
+								<div class="dropdown">
+									<select ng-model="newAAFCNLPO.siteType" class="dropdown-select form-control ng-pristine ng-valid"
+										title="Please select" data-live-search="false">
+										<option>Yes</option>
+										<option>No</option>
+										<option></option>
+										<option></option>
+										<option></option>
+										<option></option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="canopi-input-title">Number of Link's:</div>
+								<div class="dropdown">
+									<select ng-model="newAAFCNLPO.numberLink" class="dropdown-select form-control ng-pristine ng-valid"
+										title="Please select" data-live-search="false">
+										<option>1</option>
+										<option>2</option>
+										<option>3</option>
+										<option></option>
+										<option></option>
+										<option></option>
+									</select>
+								</div>
+							</div>
+						</div> <!-- end col -->
+					</div> <!-- End row -->
+					<!-- TABSET -->
+					<div class="row">
+						<tabset class="canopi-tabset" justified="false"> 
+							<tab heading="Link 1">
+								<br>
+								
+								<div class="row">
+									<div class="col-lg-4 col-md-4 col-sm-12">																												
+										<div class="form-group"> 
+											<div class="canopi-input-title">NTE Port:</div>
+											<div class="input group">
+												<input type="text" class="form-control" ng-model="newAAFCNLPO.ntePortLink1"  placeholder="Type and Search">
+			                                     <span class="input-group-btn">
+			                                        <button class="btn btn-default canopi-btn-sharp-corners" type="button"><i class="fa fa-search"></i></button>
+			                                     </span>
+			                              	</div><!-- /input-group -->
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Device 1 Port:</div>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" ng-model="newAAFCNLPO.device1PortLink1" placeholder="Type and Search">
+                                                  <span class="input-group-btn">
+                                                    <button class="btn btn-default canopi-btn-sharp-corners" type="button"><i class="fa fa-search"></i></button>
+                                                  </span>
+                                            </div><!-- /input-group -->
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-4 col-sm-4">
+										<div class="form-group canopi-right-inner-addon">
+											<div class="canopi-input-title">NTE Bank:</div>
+											<div class="dropdown">
+												<select ng-model="newAAFCNLPO.nteBankLink1" class="dropdown-select form-control ng-pristine ng-valid"
+													title="Please select" data-live-search="false">
+													<option>1</option>
+													<option>2</option>
+													<option></option>
+													<option></option>
+													<option></option>
+													<option></option>
+												</select>
+											</div>
+										</div>
+										<div class="form-group canopi-right-inner-addon">
+											<div class="canopi-input-title">Device 1 Bank:</div>
+											<div class="dropdown">
+												<select ng-model="newAAFCNLPO.device1BankLink1" class="dropdown-select form-control ng-pristine ng-valid"
+													title="Please select" data-live-search="false">
+													<option>1</option>
+													<option>2</option>
+													<option></option>
+													<option></option>
+													<option></option>
+													<option></option>
+												</select>
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-4 col-sm-4">
+										
+										<div class="form-group">
+											<div class="canopi-input-title">NTE Transceiver:</div>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" ng-model="newAAFCNLPO.nteTransceiverLink1" placeholder="Type and Search">
+                                                  <span class="input-group-btn">
+                                                    <button class="btn btn-default canopi-btn-sharp-corners" type="button"><i class="fa fa-search"></i></button>
+                                                  </span>
+                                            </div><!-- /input-group -->
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Device 1 Transceiver:</div>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" ng-model="newAAFCNLPO.device1TransceiverLink1" placeholder="Type and Search">
+                                                  <span class="input-group-btn">
+                                                    <button class="btn btn-default canopi-btn-sharp-corners" type="button"><i class="fa fa-search"></i></button>
+                                                  </span>
+                                            </div><!-- /input-group -->
+										</div>
+									</div>
+									
+									<br>
+									
+									<div class="row canopi-inputfields"  style="padding-left: 20px; padding-right: 20px;">
+										<p style="size:24px; color: #444444;"><b>TIRKS Information</b></p>
+									</div>
+									<div class="col-lg-4 col-md-4 col-sm-4">
+										<div class="form-group">
+											<div class="canopi-input-title">AT A:</div>
+											<input type="text" class="form-control" ng-model="newAAFCNLPO.ATALink1" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Reserve Project:</div>
+												<input type="text" class="form-control" ng-model="newAAFCNLPO.reserveProjLink1" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">System Prefix:</div>
+												<input type="text" class="form-control" ng-model="newAAFCNLPO.systemPrefixLink1" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">System Suffix:</div>
+												<input type="text" class="form-control" ng-model="newAAFCNLPO.systemSuffixLink1" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">PDAC:</div>
+												<input type="text" class="form-control" ng-model="newAAFCNLPO.pdacLink1" placeholder="">
+										</div>
+										<div class="form-group required">
+											<div class="canopi-input-title ">Sub Path:</div>
+											<input type="text" class="form-control" ng-model="newAAFCNLPO.subPathLink1" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Coordination No. 1:</div>
+											<input type="text" class="form-control" ng-model="newAAFCNLPO.coordinationNo1Link1" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Coordination No. 2:</div>
+												<input type="text" class="form-control" ng-model="newAAFCNLPO.coordinationNo2Link1" placeholder="">
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-4 col-sm-4">
+										<div class="form-group">
+											<div class="canopi-input-title">AT Z:</div>
+											<input type="text" class="form-control" ng-model="newAAFCNLPO.ATZLink1" placeholder="">
+										</div>
+										<div class="form-group required">
+											<div class="canopi-input-title">User:</div>
+												<input type="text" class="form-control" ng-model="newAAFCNLPO.userLink1" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Division Revenue Group:</div>
+												<input type="text" class="form-control" ng-model="newAAFCNLPO.divisionRevenueGroupLink1" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Division Revenue Type:</div>
+												<input type="text" class="form-control" ng-model="newAAFCNLPO.divisionRevenueTypeLink1" placeholder="">
+										</div>
+										<div class="form-group required">
+											<div class="canopi-input-title">Work Group:</div>
+												<input type="text" class="form-control" ng-model="newAAFCNLPO.workGroupLink1" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title required">DV:</div>
+											<input type="text" class="form-control" ng-model="newAAFCNLPO.DVLink1" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">FMT:</div>
+											<input type="text" class="form-control" ng-model="newAAFCNLPO.FMTLink1" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">TIRKS Notes:</div>
+											<button class="btn canopi-btn-orange"><span>Display/Update</span></button>
+										</div>
+									</div>
+								</div>
+							</tab>
+							<tab heading="Link 2">
+								<br>
+								
+								<div class="row">
+									<div class="col-lg-4 col-md-4 col-sm-12">
+										<div class="form-group canopi-right-inner-addon">
+											<div class="canopi-input-title">NTE Port:</div>
+											<i class="fa fa-search"></i>
+											<input type="text" class="form-control" ng-model="newAAFCNLPO.ntePortLink2" placeholder="Type and Search">
+										</div>
+										<div class="form-group canopi-right-inner-addon">
+											<div class="canopi-input-title">Device 1 Port:</div>
+											<i class="fa fa-search"></i>
+											<input type="text" class="form-control" ng-model="newAAFCNLPO.device1PortLink2" placeholder="Type and Search">
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-4 col-sm-4">
+										<div class="form-group canopi-right-inner-addon">
+											<div class="canopi-input-title">NTE Bank:</div>
+											<div class="dropdown">
+												<select ng-model="newAAFCNLPO.nteBankLink2" class="dropdown-select form-control ng-pristine ng-valid"
+													title="Please select" data-live-search="false">
+													<option>1</option>
+													<option>2</option>
+													<option></option>
+													<option></option>
+													<option></option>
+													<option></option>
+												</select>
+											</div>
+										</div>
+										<div class="form-group canopi-right-inner-addon">
+											<div class="canopi-input-title">Device 1 Bank:</div>
+											<div class="dropdown">
+												<select ng-model="newAAFCNLPO.device1BankLink2" class="dropdown-select form-control ng-pristine ng-valid"
+													title="Please select" data-live-search="false">
+													<option>1</option>
+													<option>2</option>
+													<option></option>
+													<option></option>
+													<option></option>
+													<option></option>
+												</select>
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-4 col-sm-4">
+										<div class="form-group canopi-right-inner-addon">
+											<div class="canopi-input-title">NTE Transceiver:</div>
+											<i class="fa fa-search"></i>
+											<input type="text" class="form-control" ng-model="newAAFCNLPO.nteTransceiverLink2" placeholder="Type and Search">
+										</div>
+										<div class="form-group canopi-right-inner-addon">
+											<div class="canopi-input-title">Device 1 Transceiver:</div>
+											<i class="fa fa-search"></i>
+											<input type="text" class="form-control" ng-model="newAAFCNLPO.device1TransceiverLink2" placeholder="Type and Search">
+										</div>
+									</div>
+									
+									<br>
+									
+									<div class="row canopi-inputfields"  style="padding-left: 20px; padding-right: 20px;">
+										<p style="size:24px; color: #444444;"><b>TIRKS Information</b></p>
+									</div>
+									<div class="col-lg-4 col-md-4 col-sm-4">
+										<div class="form-group">
+											<div class="canopi-input-title">AT A:</div>
+											<input type="text" class="form-control" ng-model="newAAFCNLPO.ATALink2" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Reserve Project:</div>
+												<input type="text" class="form-control" ng-model="newAAFCNLPO.reserveProjLink2" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">System Prefix:</div>
+												<input type="text" class="form-control" ng-model="newAAFCNLPO.systemPrefixLink2" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">System Suffix:</div>
+												<input type="text" class="form-control" ng-model="newAAFCNLPO.systemSuffixLink2" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">PDAC:</div>
+												<input type="text" class="form-control" ng-model="newAAFCNLPO.pdacLink2" placeholder="">
+										</div>
+										<div class="form-group required">
+											<div class="canopi-input-title ">Sub Path:</div>
+											<input type="text" class="form-control" ng-model="newAAFCNLPO.subPathLink2" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Coordination No. 1:</div>
+											<input type="text" class="form-control" ng-model="newAAFCNLPO.coordinationNo1Link2" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Coordination No. 2:</div>
+												<input type="text" class="form-control" ng-model="newAAFCNLPO.coordinationNo2Link2" placeholder="">
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-4 col-sm-4">
+										<div class="form-group">
+											<div class="canopi-input-title">AT Z:</div>
+											<input type="text" class="form-control" ng-model="newAAFCNLPO.ATZLink2" placeholder="">
+										</div>
+										<div class="form-group required">
+											<div class="canopi-input-title">User:</div>
+												<input type="text" class="form-control" ng-model="newAAFCNLPO.userLink2" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Division Revenue Group:</div>
+												<input type="text" class="form-control" ng-model="newAAFCNLPO.divisionRevenueGroupLink2" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Division Revenue Type:</div>
+												<input type="text" class="form-control" ng-model="newAAFCNLPO.divisionRevenueTypeLink2" placeholder="">
+										</div>
+										<div class="form-group required">
+											<div class="canopi-input-title">Work Group:</div>
+												<input type="text" class="form-control" ng-model="newAAFCNLPO.workGroupLink2" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title required">DV:</div>
+											<input type="text" class="form-control" ng-model="newAAFCNLPO.DVLink2" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">FMT:</div>
+											<input type="text" class="form-control" ng-model="newAAFCNLPO.FMTLink2" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">TIRKS Notes:</div>
+											<button class="btn canopi-btn-orange"><span>Display/Update</span></button>
+										</div>
+									</div>
+								</div>
+							</tab>
+						</tabset>
+					</div>
+					<div class="row" style="padding-left: 20px; padding-right: 20px;">
+						<div class="col-md-12">
+							<button class="btn canopi-btn-orange"><span>Submit</span></button>
+							<button class="btn canopi-btn-gray" ng-click="clear()"><span>Clear</span></button>
+						</div>
+					</div>
+			</div><!-- end panel body -->
+		</div>
+	</div>
+</div>
+						

@@ -1,0 +1,1 @@
+angular.module('maxmedia.directive', []);

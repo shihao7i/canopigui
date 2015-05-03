@@ -1,0 +1,31 @@
+{   
+    "key": "Term",
+    "tableRows": 
+        {"rowMetaData":
+            { "columnList":[{"hyperlink":false,	"editable": true, "dropdown": false, "id":"terms", "displayName":"Terms"},
+                            {"hyperlink":false,	"editable": true, "dropdown": true,  "id":"archive", "displayName":"Archive"}],
+
+              "rowValueList":[{"cellValues":["N/A-AWS CIRCUIT", "NO"]},
+                              {"cellValues":["MONTH TO MONTH", "NO"]},
+                              {"cellValues":["VOLUME PRICING", "NO"]},
+                              {"cellValues":["12 MONTHS", "NO"]},
+                              {"cellValues":["24 MONTHS", "NO"]},
+                              {"cellValues":["36 MONTHS", "NO"]},
+                              {"cellValues":["48 MONTHS", "NO"]},
+                              {"cellValues":["49 MONTHS", "NO"]},
+                              {"cellValues":["60 MONTHS", "NO"]}
+                            ],
+               "dropdowns": [{"id":"archive", "values":["YES", "NO"], "defaultValue":"NO"}],
+               "datepickers": []
+            }
+        },
+
+    "returnStaus": "Success",
+    "returnMessage": "",
+    "returnCode": "0",
+    "pageInfo" : {
+        "totalRecords" : "9",
+        "currentPage": "0",
+        "itemsPerPage": "100"
+    }
+}

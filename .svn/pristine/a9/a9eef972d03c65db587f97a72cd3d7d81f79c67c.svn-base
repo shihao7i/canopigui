@@ -1,0 +1,281 @@
+'use strict';
+
+angular.module('admin.app').controller('RuleAdminController', 
+    ['$scope', '$log', '$filter', '$q', '$stateParams', '$templateCache', '$interval', 'uiGridExporterConstants', 'uiGridConstants', 'ruleCategories', 'AdminJsonService', 'ModalRowEdit', 'UiGridUtilService',
+    function ($scope, $log, $filter, $q, $stateParams, $templateCache, $interval, uiGridExporterConstants, uiGridConstants, ruleCategories, AdminJsonService, ModalRowEdit, UiGridUtilService) {
+        // Revert templateCache
+        $templateCache.put('ui-grid/selectionRowHeader',
+            "<div class=\"ui-grid-disable-selection\"><div class=\"ui-grid-cell-contents\"><ui-grid-selection-row-header-buttons></ui-grid-selection-row-header-buttons></div></div>"
+          );
+  
+        // Revert to default setting
+        $templateCache.put('ui-grid/uiGridHeaderCell',
+             "<div ng-class=\"{ 'sortable': sortable }\"><!-- <div class=\"ui-grid-vertical-bar\">&nbsp;</div> --><div class=\"ui-grid-cell-contents\" col-index=\"renderIndex\"><span>{{ col.displayName CUSTOM_FILTERS }}</span> <span ui-grid-visible=\"col.sort.direction\" ng-class=\"{ 'ui-grid-icon-up-dir': col.sort.direction == asc, 'ui-grid-icon-down-dir': col.sort.direction == desc, 'ui-grid-icon-blank': !col.sort.direction }\">&nbsp;</span></div><div class=\"ui-grid-column-menu-button\" ng-if=\"grid.options.enableColumnMenus && !col.isRowHeader  && col.colDef.enableColumnMenu !== false\" ng-click=\"toggleMenu($event)\" ng-class=\"{'ui-grid-column-menu-button-last-col': isLastCol}\"><i class=\"ui-grid-icon-angle-down\">&nbsp;</i></div><div ng-if=\"filterable\" class=\"ui-grid-filter-container\" ng-repeat=\"colFilter in col.filters\"><div ng-if=\"colFilter.type !== 'select'\"><input type=\"text\" class=\"ui-grid-filter-input\" ng-model=\"colFilter.term\" ng-attr-placeholder=\"{{colFilter.placeholder || ''}}\"><div class=\"ui-grid-filter-button\" ng-click=\"colFilter.term = null\"><i class=\"ui-grid-icon-cancel\" ng-show=\"!!colFilter.term\">&nbsp;</i><!-- use !! because angular interprets 'f' as false --></div></div><div ng-if=\"colFilter.type === 'select'\"><select class=\"ui-grid-filter-select\" ng-model=\"colFilter.term\" ng-attr-placeholder=\"{{colFilter.placeholder || ''}}\" ng-options=\"option.value as option.label for option in colFilter.selectOptions\"></select><div class=\"ui-grid-filter-button-select\" ng-click=\"colFilter.term = null\"><i class=\"ui-grid-icon-cancel\" ng-show=\"!!colFilter.term\">&nbsp;</i><!-- use !! because angular interprets 'f' as false --></div></div></div></div>"
+         );
+ 
+        var vm = this;
+        
+        $log.debug("$stateParams => " + angular.toJson($stateParams));
+
+        // Table lookup accordion open by default
+        vm.searchAccordionOpen = true;
+        
+        // sort the rule category values in ascending order
+        vm.ruleCategories = $filter('orderBy')(ruleCategories, 'name');
+        vm.uiGridExporterConstants = uiGridExporterConstants;
+
+        // Load default values
+        
+        if ($stateParams.ruleCategory === 'taskQueue') {
+            vm.ruleCategory =  vm.ruleCategories[5];
+        } 
+        else if ($stateParams.ruleCategory === 'taskDuration') {
+            vm.ruleCategory = vm.ruleCategories[2];
+        }
+        else if ($stateParams.ruleCategory === 'taskEscalation') {
+            vm.ruleCategory = vm.ruleCategories[3];
+        }
+        else {
+            vm.ruleCategory = vm.ruleCategories[6];  // default to "WO Description" for testing
+        }
+        
+        vm.mySlections = [];
+        vm.addRuleCategory = vm.ruleCategories[6];  // default to "WO Description" for testing
+        vm.woDescription = '';
+        vm.orderType='';
+        
+        vm.state = {};  
+
+        // Configure grid
+        vm.gridOptions = {
+            enableCellEditOnFocus:true,
+            enableSelectAll: false,
+//            enableHorizontalScrollbar: uiGridConstants.scrollbars.ALWAYS,
+            enableColumnMenus: false,
+            enableColumnResizing: true,
+            enableGridMenu:true,
+            multiSelect: false,
+            rowHeight: 45,
+            exporterCsvFilename: vm.ruleCategory.value + '.csv',
+            exporterMenuPdf: false,
+            exporterMenuCsv: false,
+            saveScroll: true,
+            gridMenuCustomItems: [
+                {
+                  title: 'Hide Empty Columns',
+                  action: function () {
+                    vm.toggleEmptyColumns(); 
+                  }
+                },
+                {
+                  title: 'Reset Columns',
+                  action: function () {
+                    vm.changeRuleCategory(); 
+                  }
+                }
+            ],
+            onRegisterApi: function (gridApi) {
+                vm.gridApi = gridApi;
+                // Register Events
+                gridApi.selection.on.rowSelectionChanged($scope, rowSelectionChanged);
+                //saving inline edited rows
+                gridApi.rowEdit.on.saveRow($scope, saveRow);
+                
+//                gridApi.cellNav.on.navigate($scope,function(newRowCol, oldRowCol){
+//                    $log.log('navigation event');
+//                });
+            }
+        };
+
+        AdminJsonService.getRuleCategory(vm.ruleCategory.value).then(function (data) {
+            vm.data = UiGridUtilService.extractTableCellValues(data.tableRows);
+            vm.gridOptions.data = vm.data;
+            
+            var colDefs = UiGridUtilService.extractColumnDefs(data.tableRows);
+            colDefs = UiGridUtilService.autoColWidth(colDefs, data.tableRows.rowMetaData);
+
+            vm.gridOptions.columnDefs = colDefs;
+        });
+
+        // Handle grid events
+        function rowSelectionChanged(row) {
+            vm.selectedRow = row.isSelected ? row.entity : false;
+            var msg = 'row selected ' + row.isSelected;
+            $log.log(msg);
+            //Go to selected row
+            vm.selectedIndex = vm.gridOptions.data.lastIndexOf(vm.selectedRow);
+            vm.gridApi.cellNav.scrollToFocus(vm.selectedRow);
+        }
+        
+        function saveRow(rowEntity) {
+                // create a fake promise - normally you'd use the promise returned by $http or $resource
+                var promise = $q.defer();
+                vm.gridApi.rowEdit.setSavePromise( rowEntity, promise.promise );
+                // fake a delay of 3 seconds whilst the save occurs, return error if woDescription is "no"
+                $interval( function() {
+                if (rowEntity.woDescription === 'no' ){
+                promise.reject();
+                } else {
+                promise.resolve();
+                }
+                }, 1000, 1);
+        }; 
+        
+        vm.toggleEmptyColumns = function(){
+            
+            var selectedCols = [];
+            selectedCols.push(vm.gridOptions.columnDefs[10]);
+            selectedCols.push(vm.gridOptions.columnDefs[11]);
+            selectedCols.push(vm.gridOptions.columnDefs[12]);
+            $log.debug(selectedCols);
+            
+            //angular.forEach(selectedCols, function (data, index) {
+//                if(selectedCols[0].visible=true){
+//                    selectedCols[0].visible=false;
+//                }
+//                else{
+//                    selectedCols[0].visible=true;
+//                }
+            //}
+//            if(scope.isChecked = true){
+//                selectedCols[0].visible=false;
+//                selectedCols[1].visible=false;
+//                selectedCols[2].visible=false;
+//                
+//            }
+//            else{
+//                selectedCols[0].visible=true;
+//                selectedCols[1].visible=true;
+//                selectedCols[2].visible=true;
+//            }
+            if((vm.gridOptions.columnDefs[10].visible === true) &&(vm.gridOptions.columnDefs[11].visible === true) && (vm.gridOptions.columnDefs[12].visible === true)){
+                vm.gridOptions.columnDefs[10].visible = false;
+                vm.gridOptions.columnDefs[11].visible = false;
+                vm.gridOptions.columnDefs[12].visible = false;            
+            }
+            else{
+                vm.gridOptions.columnDefs[10].visible = true;
+                vm.gridOptions.columnDefs[11].visible = true;
+                vm.gridOptions.columnDefs[12].visible = true;
+            }
+            
+            vm.gridApi.core.refresh();
+            
+        };
+        
+        vm.insertEmptyRowTop = function(){
+            vm.gridOptions.data.unshift({});
+        };
+        vm.insertEmptyRowBottom = function(){
+
+            //vm.gridOptions.data.splice((vm.gridOptions.data.length),0, { woDescription: '', orderType: '', carrier:'', isTelcoPartner:'', franchiseIndicator:'' });
+            //vm.gridOptions.data.splice((vm.gridOptions.data.length),0, {});
+            vm.gridOptions.data.push((vm.gridOptions.data.length),0, {});
+
+
+        };
+        vm.insertEmptyRowAtLocation = function(){
+//            vm.selectedIndex = vm.gridOptions.data.lastIndexOf(vm.selectedRow);
+//            vm.gridOptions.data.splice(vm.selectedIndex+1, 0, { woDescription: '', orderType: '', taskDescription:'', tasksDuration:'', tasksEscalation:'' });
+            
+             //Scratchwork
+//            vm.selectedIndex = vm.gridOptions.data.lastIndexOf(vm.selectedRow);
+//            vm.newRowIndex = vm.selectedIndex+1;
+//            var dataCopy = angular.copy(vm.gridOptions.data);
+//            dataCopy.splice(vm.newRowIndex, 0, { woDescription: '', orderType: '', taskDescription:'', tasksDuration:'', tasksEscalation:'' });
+//            vm.gridOptions.data = dataCopy;
+            //$log.debug("Selecting");
+            //vm.gridApi.core.refresh();
+            //vm.gridApi.selection.selectRow(vm.gridOptions.data[vm.newRowIndex]);
+            //$log.debug(vm.gridOptions.data[vm.newRowIndex]);
+            vm.gridApi.selection.selectAllRows(true);
+            
+            
+        };
+        
+        vm.insertCopyAtLocation = function(){
+                vm.selectedIndex = vm.gridOptions.data.lastIndexOf(vm.selectedRow);
+                vm.newRowIndex = vm.selectedIndex+1;
+                var dataCopy = angular.copy(vm.gridOptions.data);                
+                dataCopy.splice(vm.newRowIndex, 0, { woDescription: '', orderType: '', taskDescription:'', tasksDuration:'', tasksEscalation:'' });
+                dataCopy[vm.newRowIndex] = vm.gridOptions.data[vm.selectedIndex];
+                vm.gridOptions.data = dataCopy;                
+        };
+
+        vm.changeRuleCategory = function () {
+            
+            AdminJsonService.getRuleCategory(vm.ruleCategory.value).then(function (data) {
+    
+                vm.data = UiGridUtilService.extractTableCellValues(data.tableRows);
+                vm.gridOptions.data = vm.data;
+              
+                var colDefs = UiGridUtilService.extractColumnDefs(data.tableRows);
+                colDefs = UiGridUtilService.autoColWidth(colDefs, data.tableRows.rowMetaData);
+
+                vm.gridOptions.columnDefs = colDefs;
+                vm.gridOptions.exporterCsvFilename = vm.ruleCategory.value + '.csv';
+            });
+        };
+
+        /**
+         * Add or Edit an item
+         * @param {Object} item Optional item if this is an edit operation
+         */
+        vm.addItem = function (item) {
+            //Old Version - using modal
+            //            ModalRowEdit.open(vm.gridOptions.columnDefs, item).then(function (newItem) {
+            //                vm.gridOptions.data.push(newItem);
+            //            });
+            //New Version - inline
+            if(vm.selectedRow){
+                vm.insertEmptyRowAtLocation();
+            }            
+            else{
+                $log.debug("yes");
+                vm.gridApi.selection.selectAllRows();
+                //var newItem = {};
+                //vm.gridOptions.data.push(newItem);
+                
+            }
+            
+
+        };
+        
+        vm.editItem = function(item){
+            //Set inline editable to true
+            //vm.gridOptions.data.push(item);
+        };
+
+        vm.remove = function (item) {
+            // Remove an item
+            vm.gridOptions.data.splice(vm.gridOptions.data.lastIndexOf(vm.selectedRow ), 1);            
+        };        
+
+        vm.export = function () {
+            vm.gridApi.exporter.csvExport(vm.uiGridExporterConstants.ALL, vm.uiGridExporterConstants.ALL);
+        };
+        
+//        vm.saveState = function(){
+//            $log.debug("Clicked save");
+//            vm.state = vm.gridApi.saveState.save();
+//        };
+//        
+//        vm.restoreState= function(){
+//            $log.debug("Clicked cancel");
+//            vm.gridApi.saveState.restore( $scope, vm.state );
+//        };
+        /**
+         * Workaround to filter on all columns
+         * @todo Remove this when ui-grid provides it natively
+         */
+        vm.refreshData = function (filter) {
+            vm.gridOptions.data = vm.data;
+            while (filter) {
+                var oSearchArray = filter.split(' ');
+                vm.gridOptions.data = $filter('filter')(vm.gridOptions.data, oSearchArray[0], undefined);
+                oSearchArray.shift();
+                filter = (oSearchArray.length !== 0) ? oSearchArray.join(' ') : '';
+            }
+        };
+
+    }]);

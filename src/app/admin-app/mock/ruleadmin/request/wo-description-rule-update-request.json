@@ -1,0 +1,21 @@
+{  
+   "attuid":"pb154j",
+   "data":[  
+      {  
+         "id":"1001",
+         "woDescription":"ADD ETTC MTSO LGX",
+         "orderType":"AddEttcsMtsoCollectorCircuit",
+         "carrier":"",
+         "isTelcoPartner":"",
+         "franchiseIndicator":"",
+         "deviceVebdor":"",
+         "firstCabinet":"",
+         "nodeb1OnAir":"",
+         "trafficType":"",
+         "cabinetType":"",
+         "isOew":"",
+         "isSharedUni":"",
+         "isTargetNsb":""
+      }
+   ]
+}

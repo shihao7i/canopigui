@@ -1,0 +1,12 @@
+{  
+   "attuid":"pb154j",
+   "action": "UPDATE",
+   "key": {"woType":"ETTCSNewCabinet"},
+   "data":[  
+      {  
+         "id":"1001",
+         "name":"UDA #1",
+         "archive":"NO"
+      }
+   ]
+}

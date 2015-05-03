@@ -1,0 +1,30 @@
+
+<div class="panel-heading sub-panel-heading" style="padding-top: 20px;">
+    <div class="sub-panel-title">
+        <span class="sub-panel-header">Subtasks for selected tasks</span>
+        <form class="form-inline" style="display: inline; padding-left: 5px;">
+            <div class="form-group pull-right" style="margin-top: 3px;">
+                <button class="btn btn-success pull-right btn-sm" href="#" style="float: right; margin-left: 5px;" ng-click="tasks.subTask.export()">
+                    <i class="fa fa-file-excel-o fa-lg"></i>Export
+                </button>
+                <button class="btn btn btn-info btn-sm" ng-click="ruleadmin.insertCopyAtLocation()" style="float: right; margin-left: 5px;">Copy/Add</button>                                
+                <button class="btn btn-blue btn-sm" ng-click="tasks.subTask.addItem()" style="float: right;">Add</button>
+                <button class="btn btn app-btn-dark btn-sm" ng-disabled="true" style="float: right; margin-left: 5px; margin-right: 5px;" ng-click="ruleadmin.saveState()">Cancel</button>
+                <button class="btn btn btn-orange btn-sm" ng-disabled="true" style="float: right;" ng-click="ruleadmin.saveState()">Save</button>
+            </div>
+        </form>
+    </div>
+</div>  
+<div class="row">                        
+    <div class="col-md-12">
+        <div  ui-grid="tasks.gridOptionsSubTasks" 
+              ui-grid-exporter
+              ui-grid-cellNav 
+              ui-grid-edit 
+              ui-grid-selection 
+              ui-grid-resize-columns 
+              ui-grid-auto-resize 
+              class="subTasksGrid">
+        </div>
+    </div>                     
+</div>

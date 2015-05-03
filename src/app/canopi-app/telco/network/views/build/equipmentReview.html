@@ -1,0 +1,68 @@
+<div class="row">
+	<div class="col-md-12 col-lg-12">
+		<!-- BREADCRUM - We can setup this with Angular $location  -->
+		<div class="row">
+			<h4 style="margin-top: 20px; margin-bottom: 20px;">Equipment Review</h4>
+		</div>
+		
+		<accordion class="canopi-accordion" close-others="oneAtATime">
+			<accordion-group is-open="accordionOpen.clli"> 
+				<accordion-heading> 
+					<span style="color: #ef6f00; font-size: 17px;">CLLI</span> 
+					<i style="color: #ef6f00;" class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': accordionOpen.search, 'glyphicon-chevron-right': !accordionOpen.clli}"></i>
+				</accordion-heading>
+				<div style="border-bottom: solid; border-width: 1px; margin-bottom: 20px; color: #9C9C9C;"></div>
+				<div class="row">
+					<div style="padding-left: 20px; margin-bottom: 10px">CLLI:</div>
+					<div class="col-lg-12 col-md-12">
+						<button href='javascript:void(0);' class='btn btn-blue btn-flexible'  style="margin-right: 5px;">Build</button>
+						<button href='javascript:void(0);' class='btn btn-blue btn-flexible'  style="margin-right: 5px;">Add Device</button>
+						<button href='javascript:void(0);' class='btn btn-blue btn-flexible disabled'  style="margin-right: 5px;">Add Mapping</button>
+						<button href='javascript:void(0);' class='btn btn-blue btn-flexible'  style="margin-right: 5px;">Email</button>
+					</div>
+				</div>
+			</accordion-group>
+		</accordion>
+		
+		<accordion class="canopi-accordion" close-others="oneAtATime">
+			<accordion-group is-open="accordionOpen.devices"> 
+				<accordion-heading> 
+					<span style="color: #ef6f00; font-size: 17px;">Devices</span> 
+					<i style="color: #ef6f00;" class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': accordionOpen.search, 'glyphicon-chevron-right': !accordionOpen.devices}"></i>
+				</accordion-heading>
+				<div style="border-bottom: solid; border-width: 1px; margin-bottom: 20px; color: #9C9C9C;"></div>
+				<div class="row">
+					<div class="col-lg-12 col-md-12">
+						<span style="margin-right: 10px;">Select All </span>
+						<span style="margin-right: 10px;">Unselect All</span>
+						<button href='javascript:void(0);' class='btn btn-blue btn-flexible disabled'  style="margin-right: 5px;">Delete Selected</button>
+						<button href='javascript:void(0);' class='btn btn-blue btn-flexible disabled'  style="margin-right: 5px;">Cancel Selected Action</button>
+						<button href='javascript:void(0);' class='btn btn-blue btn-flexible disabled'  style="margin-right: 5px;">View History</button>
+						<button href='javascript:void(0);' class='btn btn-blue btn-flexible disabled'  style="margin-right: 5px;">Send External</button>
+					</div>
+				</div>
+			</accordion-group>
+		</accordion>
+		
+		<accordion class="canopi-accordion" close-others="oneAtATime">
+			<accordion-group is-open="accordionOpen.linkMapping"> 
+				<accordion-heading> 
+					<span style="color: #ef6f00; font-size: 17px;">Link Mapping</span> 
+					<i style="color: #ef6f00;" class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': accordionOpen.search, 'glyphicon-chevron-right': !accordionOpen.linkMapping}"></i>
+				</accordion-heading>
+				<div style="border-bottom: solid; border-width: 1px; margin-bottom: 20px; color: #9C9C9C;"></div>
+				<div class="row">
+					<div class="col-lg-12 col-md-12">
+						<span style="margin-right: 10px;">Select All </span>
+						<span style="margin-right: 10px;">Unselect All</span>
+						<button href='javascript:void(0);' class='btn btn-blue btn-flexible disabled'  style="margin-right: 5px;">Delete Selected</button>
+						<button href='javascript:void(0);' class='btn btn-blue btn-flexible disabled'  style="margin-right: 5px;">Cancel Selected Action</button>
+					</div>
+					
+				</div>
+			</accordion-group>
+		</accordion>
+	</div>
+</div>
+
+			

@@ -1,0 +1,43 @@
+{   "parentType": "",
+    "parentValue": "",
+    "lookupType": "Carrier Name",
+    "tableRows": 
+        {"rowMetaData":
+            { "columnList":[{"hyperlink":false,	"id":"carrierName", "displayName":"Carrier Name"}],
+
+              "rowValueList":[{"cellValues":["360 NETWORKS"]},
+                              {"cellValues":["702 COMMUNICATIONS"]},
+                              {"cellValues":["ACS"]},
+                              {"cellValues":["ADVANCED COMM TECH (ACT)"]},
+                              {"cellValues":["ARMY"]},
+                              {"cellValues":["ATLANTIC TELPHONE MEMBERSHIP"]},
+                              {"cellValues":["ATT"]},
+                              {"cellValues":["B2 TELECOM"]},
+                              {"cellValues":["BAYRING"]},  
+                              {"cellValues":["BLUEBIRD"]},
+                              {"cellValues":["BRANDENBURG TELEPHONE CO"]},
+                              {"cellValues":["CASS COUNTY TELCO"]},
+                              {"cellValues":["CENTENNIAL"]},                            
+                              {"cellValues":["CENTURYLINK"]},
+                              {"cellValues":["CHARTER COMMUNICATIONS"]},
+                              {"cellValues":["CHILLICOTHE TELEPHONE"]},
+                              {"cellValues":["CINCINNATI BELL"]},
+                              {"cellValues":["CLEARWAVE"]},                            
+                              {"cellValues":["COLORADO COMMUNICATIONS TRANSP"]},
+                              {"cellValues":["COMCASTS"]}
+                            ]
+            }
+        },
+
+    "returnStaus": "Success",
+    "returnMessage": "",
+    "returnCode": "0",
+    "pageInfo" : {
+        "totalRecords" : "20",
+        "currentPage": "0",
+        "itemsPerPage": "100"
+    }
+}
+
+
+

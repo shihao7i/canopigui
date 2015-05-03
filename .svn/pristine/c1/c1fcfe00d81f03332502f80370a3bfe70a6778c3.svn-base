@@ -1,0 +1,20 @@
+{
+  "returnStatus":"Success",
+  "returnCode":null,
+  "returnMessage":null,
+  "pageInfo":null,
+  "permissionlist":[
+    {
+      "name":"TELCO.ACNA.114.UPDATE",
+      "id":"18064",
+      "description":"TELCO.ACNA.114.UPDATE",
+      "createdBy":"pd6624"
+    },
+    {
+      "name":"TELCO.RETAIL.UPDATE",
+      "id":"17940",
+      "description":"TELCO.RETAIL.UPDATE",
+      "createdBy":"MIGRATION"
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{   
+    "key": "Special Applicaiton",
+    "tableRows": 
+        {"rowMetaData":
+            { "columnList":[{"hyperlink":false,	"editable": true, "dropdown": false, "id":"applicationName", "displayName":"Application Name"},
+                            {"hyperlink":false,	"editable": true, "dropdown": true,  "id":"archive", "displayName":"Archive"}],
+
+              "rowValueList":[{"cellValues":["COW", "NO"]},
+                              {"cellValues":["COLT", "NO"]},
+                              {"cellValues":["DAS", "NO"]},
+                              {"cellValues":["SPECIAL_EVENT", "NO"]}
+                            ],
+              "dropdowns": [{"id":"archive", "values":["YES", "NO"], "defaultValue":"NO"}],
+              "datepickers": []
+            }
+        },
+
+    "returnStaus": "Success",
+    "returnMessage": "",
+    "returnCode": "0",
+    "pageInfo" : {
+        "totalRecords" : "4",
+        "currentPage": "0",
+        "itemsPerPage": "100"
+    }
+}
+
+
+

@@ -1,0 +1,74 @@
+describe('Testing Maxmedia autoFillTextField directive', function() {
+    
+    var scope, compile, elem;
+
+    beforeEach(module('maxmedia.directive'));
+    
+    beforeEach(inject(function($compile, $rootScope){
+        scope = $rootScope.$new();
+        compile = $compile;
+    }));
+    
+    
+    beforeEach(function() {
+        scope.languageList = [
+            "ActionScript",
+            "AppleScript",
+            "Asp",
+            "BASIC",
+            "C",
+            "C++",
+            "Clojure",
+            "COBOL",
+            "ColdFusion",
+            "Erlang",
+            "Fortran",
+            "Groovy",
+            "Haskell",
+            "Java",
+            "JavaScript",
+            "Lisp",
+            "Perl",
+            "PHP",
+            "Python",
+            "Ruby",
+            "Scala",
+            "Scheme"
+        ];
+    });
+    
+    function complileDirective(html) {
+  
+        elem = angular.element(html);
+        
+        //compile the directive and run the compiled view
+        compile(elem)(scope);
+        
+        //call digest on the scope!
+        scope.$digest();
+    }
+    
+
+
+    it('Should have source value populated', function (){
+       
+       var htmlToTest ='<div auto-fill-text-field ng-model="selectedValue" name="autocomplete1" label="Autocomplete Field" source="languageList"></div>';
+
+       complileDirective(htmlToTest);
+       
+       expect(elem.isolateScope().source).toBe(scope.languageList);
+       
+       expect(elem.find('input')).toBeDefined();
+       
+       var event = angular.element.Event('select');
+       elem.find('input').triggerHandler(event);
+       
+       //TODO: need to figure out how to get autocompete to work
+
+    });
+    
+
+    
+});
+
+

@@ -1,0 +1,96 @@
+angular.module('canopi.service').service('UiGridUtilService', ['$templateCache', '$log', function ($templateCache, $log) {
+    'use strict';
+    /**
+     * Put a specific template on the templateCache
+     *
+     * @param name
+     */
+    this.loadTemplate = function (name) {
+        var template = angular.injector(['canopi.templates']).get(name);
+        $templateCache.put(name, template);
+    };
+
+    // auto adjust column widths in ui-grid
+    // http://stackoverflow.com/questions/17174096/is-there-a-way-to-auto-adjust-widths-in-ng-grid
+
+    this.autoColWidth = function (colDefs, row) {
+        var totalChars = 0;
+
+        for (var i = 0; i < row.columnList.length; i++) {
+            totalChars += (new String(row.columnList[i].displayName)).length;
+        }
+
+        for (var i = 0; i < colDefs.length; i++) {
+            var numChars = (new String(colDefs[i].displayName)).length;
+            if (totalChars > 100) {
+                colDefs[i].width = ( (numChars / totalChars) * 200) + "%";
+            } else {
+                colDefs[i].width = ( (numChars / totalChars) * 100) + "%";
+            }
+        }
+
+        return colDefs;
+    };
+
+    /**
+     * Helper method to build ng-grid's columnDefs property based on meta data column attributes
+     *
+     * @param tableData Table metadata
+     * @returns {Array} Table columns
+     */
+    this.extractColumnDefs = function (tableData) {
+        var columns = _.uniq(tableData.rowMetaData.columnList, 'id');
+
+        angular.forEach(columns, function (column) {
+            column.field = column.id;
+            column.enableColumnMenu = false;
+            //column.cellTemplate = "" +
+            //"   <div ng-if='COL_FIELD.length > 20' class='ui-grid-cell-contents'>{{COL_FIELD CUSTOM_FILTERS}}</div>" +
+            //"   <div ng-if='COL_FIELD.length <= 20' class='ui-grid-cell-contents'>{{COL_FIELD CUSTOM_FILTERS}}</div>";
+
+            // If this field is editable, set the editable template to the right input
+            if (column.editable) {
+                column.enableCellEdit = true;
+                column.enableCellEditOnFocus = false;
+                // Load the editable cell template and store in the cache
+                var template = angular.injector(['canopi.templates']).get('ui-grid/' + column.fieldType);
+                $templateCache.put('ui-grid/' + column.fieldType, template);
+
+                column.editableCellTemplate = 'ui-grid/' + column.fieldType;
+                column.editDropdownOptionsArray = column.fieldOptions;
+                column.editDropdownIdLabel = 'label';
+            }
+
+        });
+
+        return columns;
+    };
+
+    /**
+     * Helper method to build ng-grid's data property based on meta data row values
+     * @param tableData Table metadata
+     * @returns {Array} Data rows
+     */
+    this.extractTableCellValues = function (tableData) {
+        var localRowData = [];
+        var cellsInRow = [];
+
+        var totalCols = tableData.rowMetaData.columnList.length;
+        var totalRows = tableData.rowMetaData.rowValueList.length;
+
+        for (var i = 0; i < totalRows; i++) {
+
+            cellsInRow = tableData.rowMetaData.rowValueList[i].cellValues;
+
+            var obj = {};
+
+            for (var j = 0; j < totalCols; j++) {
+                obj[tableData.rowMetaData.columnList[j]['id']] = cellsInRow[j];
+            }
+
+            localRowData.push(obj);
+        }
+
+        return localRowData;
+    };
+}]);

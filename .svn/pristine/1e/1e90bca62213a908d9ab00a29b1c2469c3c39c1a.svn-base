@@ -1,0 +1,12 @@
+{ "tableRows": 
+	{"rowMetaData":
+		{ "columnList":[ {"hyperlink":false, 	"id":"ipType",			"displayName":"IP Type"},
+		                 {"hyperlink":false,	"id":"ipVersion",		"displayName":"IP Version"},
+		                 {"hyperlink":false,	"id":"ipAddress",		"displayName":"IP Address"} ] },
+		                
+	    "rowValueList":[ {"cellValues":["NTE_Management","IPv4","29.144.10.30"]},
+	                     {"cellValues":["Gateway Address","IPv4","16.106.47.76"]}]},
+	      "errorStaus": "Success",
+	      				"errorMessage":"",
+	      				"errorCode":"0"
+}

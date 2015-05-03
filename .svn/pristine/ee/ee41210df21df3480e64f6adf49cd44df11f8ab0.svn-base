@@ -1,0 +1,56 @@
+{   
+    "key": "Task Code/Name",
+    "tableRows": 
+        {"rowMetaData":
+            { "columnList":[{"hyperlink":false,	"visiable": false, "editable": false, "fieldType": "input", "fieldOptions": [], "fieldDefault": "", "id":"rowId", "displayName":"Row ID"},
+                            {"hyperlink":false,	"visiable": true, "editable": false, "fieldType": "input", "fieldOptions": [], "fieldDefault": "", "id":"taskCode", "displayName":"Task Codes"},
+                            {"hyperlink":false,	"visiable": true, "editable": true, "fieldType": "input", "fieldOptions": [], "fieldDefault": "","id":"taskName", "displayName":"Task Name"}],
+
+              "rowValueList":[{"cellValues":["1001", "ACP", "CONFIRM ACCESS COMPLETE"]},
+                              {"cellValues":["1002", "ACQ", "VALIDATE CIQ"]},
+                              {"cellValues":["1003", "ACQ-FAIL", "VALIDATE CIQ FAIL"]},
+                              {"cellValues":["1004", "ACQ-MAN", "VALIDATE CIQ MANUALLY"]},
+                              {"cellValues":["1005", "ACT", "VERIFY ALL GRANITE PATHS ACTIVE USING BULK UPDATE"]},
+                              {"cellValues":["1006", "ACT-FAIL", "ACT FAIL"]},
+                              {"cellValues":["1007", "ACT-MAN", "VERIFY TRUNKS IN SERVICE ON MSC"]},
+                              {"cellValues":["1008", "ACT-RADIO-FAIL", "ACTIVATE RADIO FAIL"]},
+                              {"cellValues":["1009", "ACT-SEG", "VFY GRANITE FULLY UPDATED AND MARK SEG(S) ACTIVE"]},
+                              {"cellValues":["1010", "AL2", "ISSUE AFFLIATE LICENSE REQUEST"]},
+                              {"cellValues":["1011", "ALM", "TEST ALARMS"]},
+                              {"cellValues":["1012", "ALM-NG-AUTO", "TEST ALARMS - NEXT GEN"]},
+                              {"cellValues":["1013", "ALM-NG-AUTO-FAIL", "TEST ALARMS - NEXT GEN FAIL"]},                              
+                              {"cellValues":["1014", "ALM-NG-MNLASGALMHNL", "Manual CTS alarm handling for assigned ticket"]},
+                              {"cellValues":["1015", "ALM-NG-MNLCLSALMHNL", "Manual CTS alarm handling for closed ticket"]},
+                              {"cellValues":["1016", "ALR", "ISSUE AFFLIATE LICENSE REQUEST"]},
+                              {"cellValues":["1017", "AP-RADIO-ERROR-FAIL", "AP-RADIO-ERROR-FAIL"]},
+                              {"cellValues":["1018", "API", "ACCESS POINTS INTEGRATED"]},
+                              {"cellValues":["1019", "API-SMCELL", "ACCESS POINTS INTEGRATED"]},
+                              {"cellValues":["1020", "APRD", "SMALL CELL PROVISIONING REDESIGN TASK"]},
+                              {"cellValues":["1021", "ARP", "SS7-ASSGN ROUTER PORT AND ROUTER DSX IN GRANITE"]},
+                              {"cellValues":["1022", "ASR", "ISSUE ASR TO NACOE FOR POI CONNECTION"]},                              
+                              {"cellValues":["1023", "ASR-AUTO-FAIL", "ISSUE UNI ASR FAIL"]},
+                              {"cellValues":["1024", "ASR-DS3OCx", "ISSUE ASR"]},
+                              {"cellValues":["1025", "ASR-DS3OCx-CLAR", "New Connect DS3OCx-CLAR"]},
+                              {"cellValues":["1026", "ASR-DS3OCx-DATA", "New Connect DS3OCx-DATA"]},
+                              {"cellValues":["1027", "ASR-DS3OCx-FAIL", "New Connect  DS3OCx-FAIL"]},
+                              {"cellValues":["1028", "ASR-DS3OCx-JEP", "New Connect DS3OCx-JEP"]},
+                              {"cellValues":["1029", "ASR-DS3OCx-REJ", "New Connect DS3OCx-REJ"]},
+                              {"cellValues":["1030", "ASR-DS3OCx-TPERR", "New Connect DS3OCx-TPERR"]},
+                              {"cellValues":["1031", "ASR-EPLS", "ISSUE ASR SUPPLIER CIRCUIT"]},
+                              {"cellValues":["1032", "ASR-GRM-DTR", "ASR GROOM DETERMINATION"]}, 
+                              {"cellValues":["1033", "ASR-MAN", "ISSUE ASR FOR TELCO PARTNERS AND LNS"]},
+                              {"cellValues":["1034", "ASR-SCOPE", "EAMIS or BDSL ORDER THROUGH SCOPE TO ACCOUNT TEAM"]},
+                              {"cellValues":["1035", "ASR-SCOPE-BYPASS", "ASR-SCOPE Bypass"]},
+                              {"cellValues":["1036", "ASR-SCOPE-FAIL", "ASR-SCOPE Fail"]}
+                             ]
+            }
+        },
+    "returnStaus": "Success",
+    "returnMessage": "",
+    "returnCode": "0",
+    "pageInfo" : {
+        "totalRecords" : "36",
+        "currentPage": "0",
+        "itemsPerPage": "100"
+    }
+}

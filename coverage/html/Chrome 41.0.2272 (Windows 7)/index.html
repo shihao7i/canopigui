@@ -1,0 +1,662 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for All files</title>
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" href="prettify.css">
+
+    <style>
+        body, html {
+            margin:0; padding: 0;
+        }
+        body {
+            font-family: Helvetica Neue, Helvetica,Arial;
+            font-size: 10pt;
+        }
+        div.header, div.footer {
+            background: #eee;
+            padding: 1em;
+        }
+        div.header {
+            z-index: 100;
+            position: fixed;
+            top: 0;
+            border-bottom: 1px solid #666;
+            width: 100%;
+        }
+        div.footer {
+            border-top: 1px solid #666;
+        }
+        div.body {
+            margin-top: 10em;
+        }
+        div.meta {
+            font-size: 90%;
+            text-align: center;
+        }
+        h1, h2, h3 {
+            font-weight: normal;
+        }
+        h1 {
+            font-size: 12pt;
+        }
+        h2 {
+            font-size: 10pt;
+        }
+        pre {
+            font-family: Consolas, Menlo, Monaco, monospace;
+            margin: 0;
+            padding: 0;
+            line-height: 14px;
+            font-size: 14px;
+            -moz-tab-size: 2;
+            -o-tab-size:  2;
+            tab-size: 2;
+        }
+
+        div.path { font-size: 110%; }
+        div.path a:link, div.path a:visited { color: #000; }
+        table.coverage { border-collapse: collapse; margin:0; padding: 0 }
+
+        table.coverage td {
+            margin: 0;
+            padding: 0;
+            color: #111;
+            vertical-align: top;
+        }
+        table.coverage td.line-count {
+            width: 50px;
+            text-align: right;
+            padding-right: 5px;
+        }
+        table.coverage td.line-coverage {
+            color: #777 !important;
+            text-align: right;
+            border-left: 1px solid #666;
+            border-right: 1px solid #666;
+        }
+
+        table.coverage td.text {
+        }
+
+        table.coverage td span.cline-any {
+            display: inline-block;
+            padding: 0 5px;
+            width: 40px;
+        }
+        table.coverage td span.cline-neutral {
+            background: #eee;
+        }
+        table.coverage td span.cline-yes {
+            background: #b5d592;
+            color: #999;
+        }
+        table.coverage td span.cline-no {
+            background: #fc8c84;
+        }
+
+        .cstat-yes { color: #111; }
+        .cstat-no { background: #fc8c84; color: #111; }
+        .fstat-no { background: #ffc520; color: #111 !important; }
+        .cbranch-no { background:  yellow !important; color: #111; }
+
+        .cstat-skip { background: #ddd; color: #111; }
+        .fstat-skip { background: #ddd; color: #111 !important; }
+        .cbranch-skip { background: #ddd !important; color: #111; }
+
+        .missing-if-branch {
+            display: inline-block;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: black;
+            color: yellow;
+        }
+
+        .skip-if-branch {
+            display: none;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: #ccc;
+            color: white;
+        }
+
+        .missing-if-branch .typ, .skip-if-branch .typ {
+            color: inherit !important;
+        }
+
+        .entity, .metric { font-weight: bold; }
+        .metric { display: inline-block; border: 1px solid #333; padding: 0.3em; background: white; }
+        .metric small { font-size: 80%; font-weight: normal; color: #666; }
+
+        div.coverage-summary table { border-collapse: collapse; margin: 3em; font-size: 110%; }
+        div.coverage-summary td, div.coverage-summary table  th { margin: 0; padding: 0.25em 1em; border-top: 1px solid #666; border-bottom: 1px solid #666; }
+        div.coverage-summary th { text-align: left; border: 1px solid #666; background: #eee; font-weight: normal; }
+        div.coverage-summary th.file { border-right: none !important; }
+        div.coverage-summary th.pic { border-left: none !important; text-align: right; }
+        div.coverage-summary th.pct { border-right: none !important; }
+        div.coverage-summary th.abs { border-left: none !important; text-align: right; }
+        div.coverage-summary td.pct { text-align: right; border-left: 1px solid #666; }
+        div.coverage-summary td.abs { text-align: right; font-size: 90%; color: #444; border-right: 1px solid #666; }
+        div.coverage-summary td.file { text-align: right; border-left: 1px solid #666; white-space: nowrap;  }
+        div.coverage-summary td.pic { min-width: 120px !important;  }
+        div.coverage-summary a:link { text-decoration: none; color: #000; }
+        div.coverage-summary a:visited { text-decoration: none; color: #333; }
+        div.coverage-summary a:hover { text-decoration: underline; }
+        div.coverage-summary tfoot td { border-top: 1px solid #666; }
+
+        div.coverage-summary .yui3-datatable-sort-indicator, div.coverage-summary .dummy-sort-indicator {
+            height: 10px;
+            width: 7px;
+            display: inline-block;
+            margin-left: 0.5em;
+        }
+        div.coverage-summary .yui3-datatable-sort-indicator {
+            background: url("https://yui-s.yahooapis.com/3.6.0/build/datatable-sort/assets/skins/sam/sort-arrow-sprite.png") no-repeat scroll 0 0 transparent;
+        }
+        div.coverage-summary .yui3-datatable-sorted .yui3-datatable-sort-indicator {
+            background-position: 0 -20px;
+        }
+        div.coverage-summary .yui3-datatable-sorted-desc .yui3-datatable-sort-indicator {
+            background-position: 0 -10px;
+        }
+
+        .high { background: #b5d592 !important; }
+        .medium { background: #ffe87c !important; }
+        .low { background: #fc8c84 !important; }
+
+        span.cover-fill, span.cover-empty {
+            display:inline-block;
+            border:1px solid #444;
+            background: white;
+            height: 12px;
+        }
+        span.cover-fill {
+            background: #ccc;
+            border-right: 1px solid #444;
+        }
+        span.cover-empty {
+            background: white;
+            border-left: none;
+        }
+        span.cover-full {
+            border-right: none !important;
+        }
+        pre.prettyprint {
+            border: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        .com { color: #999 !important; }
+        .ignore-none { color: #999; font-weight: normal; }
+
+    </style>
+</head>
+<body>
+<div class="header medium">
+    <h1>Code coverage report for <span class="entity">All files</span></h1>
+    <h2>
+        
+        Statements: <span class="metric">50.88% <small>(1683 / 3308)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Branches: <span class="metric">19.78% <small>(109 / 551)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Functions: <span class="metric">47.3% <small>(377 / 797)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Lines: <span class="metric">50.86% <small>(1682 / 3307)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"></div>
+</div>
+<div class="body">
+<div class="coverage-summary">
+<table>
+<thead>
+<tr>
+   <th data-col="file" data-fmt="html" data-html="true" class="file">File</th>
+   <th data-col="pic" data-type="number" data-fmt="html" data-html="true" class="pic"></th>
+   <th data-col="statements" data-type="number" data-fmt="pct" class="pct">Statements</th>
+   <th data-col="statements_raw" data-type="number" data-fmt="html" class="abs"></th>
+   <th data-col="branches" data-type="number" data-fmt="pct" class="pct">Branches</th>
+   <th data-col="branches_raw" data-type="number" data-fmt="html" class="abs"></th>
+   <th data-col="functions" data-type="number" data-fmt="pct" class="pct">Functions</th>
+   <th data-col="functions_raw" data-type="number" data-fmt="html" class="abs"></th>
+   <th data-col="lines" data-type="number" data-fmt="pct" class="pct">Lines</th>
+   <th data-col="lines_raw" data-type="number" data-fmt="html" class="abs"></th>
+</tr>
+</thead>
+<tbody><tr>
+	<td class="file high" data-value="./src/app/canopi-app/about/controllers\"><a href="./src/app/canopi-app/about/controllers/index.html">./src/app/canopi-app/about/controllers\</a></td>
+	<td data-value="100" class="pic high"><span class="cover-fill cover-full" style="width: 100px;"></span><span class="cover-empty" style="width:0px;"></span></td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="10" class="abs high">(10&nbsp;/&nbsp;10)</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="0" class="abs high">(0&nbsp;/&nbsp;0)</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="4" class="abs high">(4&nbsp;/&nbsp;4)</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="10" class="abs high">(10&nbsp;/&nbsp;10)</td>
+	</tr>
+
+<tr>
+	<td class="file low" data-value="./src/app/canopi-app/admin/controllers\"><a href="./src/app/canopi-app/admin/controllers/index.html">./src/app/canopi-app/admin/controllers\</a></td>
+	<td data-value="7.31" class="pic low"><span class="cover-fill" style="width: 7px;"></span><span class="cover-empty" style="width:93px;"></span></td>
+	<td data-value="7.31" class="pct low">7.31%</td>
+	<td data-value="383" class="abs low">(28&nbsp;/&nbsp;383)</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="58" class="abs low">(0&nbsp;/&nbsp;58)</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="90" class="abs low">(0&nbsp;/&nbsp;90)</td>
+	<td data-value="7.31" class="pct low">7.31%</td>
+	<td data-value="383" class="abs low">(28&nbsp;/&nbsp;383)</td>
+	</tr>
+
+<tr>
+	<td class="file high" data-value="./src/app/canopi-app/dashboard/controllers\"><a href="./src/app/canopi-app/dashboard/controllers/index.html">./src/app/canopi-app/dashboard/controllers\</a></td>
+	<td data-value="100" class="pic high"><span class="cover-fill cover-full" style="width: 100px;"></span><span class="cover-empty" style="width:0px;"></span></td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="24" class="abs high">(24&nbsp;/&nbsp;24)</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="0" class="abs high">(0&nbsp;/&nbsp;0)</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="5" class="abs high">(5&nbsp;/&nbsp;5)</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="24" class="abs high">(24&nbsp;/&nbsp;24)</td>
+	</tr>
+
+<tr>
+	<td class="file low" data-value="./src/app/canopi-app/telco/inventory/controllers\"><a href="./src/app/canopi-app/telco/inventory/controllers/index.html">./src/app/canopi-app/telco/inventory/controllers\</a></td>
+	<td data-value="18.18" class="pic low"><span class="cover-fill" style="width: 18px;"></span><span class="cover-empty" style="width:82px;"></span></td>
+	<td data-value="18.18" class="pct low">18.18%</td>
+	<td data-value="22" class="abs low">(4&nbsp;/&nbsp;22)</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="0" class="abs high">(0&nbsp;/&nbsp;0)</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="4" class="abs low">(0&nbsp;/&nbsp;4)</td>
+	<td data-value="18.18" class="pct low">18.18%</td>
+	<td data-value="22" class="abs low">(4&nbsp;/&nbsp;22)</td>
+	</tr>
+
+<tr>
+	<td class="file low" data-value="./src/app/canopi-app/telco/network/controllers/build\"><a href="./src/app/canopi-app/telco/network/controllers/build/index.html">./src/app/canopi-app/telco/network/controllers/build\</a></td>
+	<td data-value="12.12" class="pic low"><span class="cover-fill" style="width: 12px;"></span><span class="cover-empty" style="width:88px;"></span></td>
+	<td data-value="12.12" class="pct low">12.12%</td>
+	<td data-value="66" class="abs low">(8&nbsp;/&nbsp;66)</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="8" class="abs low">(0&nbsp;/&nbsp;8)</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="20" class="abs low">(0&nbsp;/&nbsp;20)</td>
+	<td data-value="12.12" class="pct low">12.12%</td>
+	<td data-value="66" class="abs low">(8&nbsp;/&nbsp;66)</td>
+	</tr>
+
+<tr>
+	<td class="file low" data-value="./src/app/canopi-app/telco/network/controllers\"><a href="./src/app/canopi-app/telco/network/controllers/index.html">./src/app/canopi-app/telco/network/controllers\</a></td>
+	<td data-value="9.66" class="pic low"><span class="cover-fill" style="width: 9px;"></span><span class="cover-empty" style="width:91px;"></span></td>
+	<td data-value="9.66" class="pct low">9.66%</td>
+	<td data-value="238" class="abs low">(23&nbsp;/&nbsp;238)</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="26" class="abs low">(0&nbsp;/&nbsp;26)</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="57" class="abs low">(0&nbsp;/&nbsp;57)</td>
+	<td data-value="9.66" class="pct low">9.66%</td>
+	<td data-value="238" class="abs low">(23&nbsp;/&nbsp;238)</td>
+	</tr>
+
+<tr>
+	<td class="file low" data-value="./src/app/canopi-app/telco/orders/controllers/deviceSwap\"><a href="./src/app/canopi-app/telco/orders/controllers/deviceSwap/index.html">./src/app/canopi-app/telco/orders/controllers/deviceSwap\</a></td>
+	<td data-value="23.08" class="pic low"><span class="cover-fill" style="width: 23px;"></span><span class="cover-empty" style="width:77px;"></span></td>
+	<td data-value="23.08" class="pct low">23.08%</td>
+	<td data-value="26" class="abs low">(6&nbsp;/&nbsp;26)</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="0" class="abs high">(0&nbsp;/&nbsp;0)</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="7" class="abs low">(0&nbsp;/&nbsp;7)</td>
+	<td data-value="23.08" class="pct low">23.08%</td>
+	<td data-value="26" class="abs low">(6&nbsp;/&nbsp;26)</td>
+	</tr>
+
+<tr>
+	<td class="file low" data-value="./src/app/canopi-app/telco/orders/controllers/inlCNLLAGPO\"><a href="./src/app/canopi-app/telco/orders/controllers/inlCNLLAGPO/index.html">./src/app/canopi-app/telco/orders/controllers/inlCNLLAGPO\</a></td>
+	<td data-value="22.32" class="pic low"><span class="cover-fill" style="width: 22px;"></span><span class="cover-empty" style="width:78px;"></span></td>
+	<td data-value="22.32" class="pct low">22.32%</td>
+	<td data-value="112" class="abs low">(25&nbsp;/&nbsp;112)</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="0" class="abs high">(0&nbsp;/&nbsp;0)</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="35" class="abs low">(0&nbsp;/&nbsp;35)</td>
+	<td data-value="22.32" class="pct low">22.32%</td>
+	<td data-value="112" class="abs low">(25&nbsp;/&nbsp;112)</td>
+	</tr>
+
+<tr>
+	<td class="file low" data-value="./src/app/canopi-app/telco/orders/controllers/multiPointEVCPO\"><a href="./src/app/canopi-app/telco/orders/controllers/multiPointEVCPO/index.html">./src/app/canopi-app/telco/orders/controllers/multiPointEVCPO\</a></td>
+	<td data-value="15.38" class="pic low"><span class="cover-fill" style="width: 15px;"></span><span class="cover-empty" style="width:85px;"></span></td>
+	<td data-value="15.38" class="pct low">15.38%</td>
+	<td data-value="104" class="abs low">(16&nbsp;/&nbsp;104)</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="0" class="abs high">(0&nbsp;/&nbsp;0)</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="23" class="abs low">(0&nbsp;/&nbsp;23)</td>
+	<td data-value="15.38" class="pct low">15.38%</td>
+	<td data-value="104" class="abs low">(16&nbsp;/&nbsp;104)</td>
+	</tr>
+
+<tr>
+	<td class="file low" data-value="./src/app/canopi-app/telco/orders/controllers/p2pEVCPO\"><a href="./src/app/canopi-app/telco/orders/controllers/p2pEVCPO/index.html">./src/app/canopi-app/telco/orders/controllers/p2pEVCPO\</a></td>
+	<td data-value="17.65" class="pic low"><span class="cover-fill" style="width: 17px;"></span><span class="cover-empty" style="width:83px;"></span></td>
+	<td data-value="17.65" class="pct low">17.65%</td>
+	<td data-value="85" class="abs low">(15&nbsp;/&nbsp;85)</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="0" class="abs high">(0&nbsp;/&nbsp;0)</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="21" class="abs low">(0&nbsp;/&nbsp;21)</td>
+	<td data-value="17.65" class="pct low">17.65%</td>
+	<td data-value="85" class="abs low">(15&nbsp;/&nbsp;85)</td>
+	</tr>
+
+<tr>
+	<td class="file low" data-value="./src/app/canopi-app/telco/orders/controllers/search\"><a href="./src/app/canopi-app/telco/orders/controllers/search/index.html">./src/app/canopi-app/telco/orders/controllers/search\</a></td>
+	<td data-value="31.68" class="pic low"><span class="cover-fill" style="width: 31px;"></span><span class="cover-empty" style="width:69px;"></span></td>
+	<td data-value="31.68" class="pct low">31.68%</td>
+	<td data-value="322" class="abs low">(102&nbsp;/&nbsp;322)</td>
+	<td data-value="5" class="pct low">5%</td>
+	<td data-value="20" class="abs low">(1&nbsp;/&nbsp;20)</td>
+	<td data-value="24.14" class="pct low">24.14%</td>
+	<td data-value="58" class="abs low">(14&nbsp;/&nbsp;58)</td>
+	<td data-value="31.68" class="pct low">31.68%</td>
+	<td data-value="322" class="abs low">(102&nbsp;/&nbsp;322)</td>
+	</tr>
+
+<tr>
+	<td class="file low" data-value="./src/app/canopi-app/telco/orders/controllers/uniASEBBPO\"><a href="./src/app/canopi-app/telco/orders/controllers/uniASEBBPO/index.html">./src/app/canopi-app/telco/orders/controllers/uniASEBBPO\</a></td>
+	<td data-value="26.19" class="pic low"><span class="cover-fill" style="width: 26px;"></span><span class="cover-empty" style="width:74px;"></span></td>
+	<td data-value="26.19" class="pct low">26.19%</td>
+	<td data-value="42" class="abs low">(11&nbsp;/&nbsp;42)</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="0" class="abs high">(0&nbsp;/&nbsp;0)</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="13" class="abs low">(0&nbsp;/&nbsp;13)</td>
+	<td data-value="26.19" class="pct low">26.19%</td>
+	<td data-value="42" class="abs low">(11&nbsp;/&nbsp;42)</td>
+	</tr>
+
+<tr>
+	<td class="file low" data-value="./src/app/canopi-app/telco/orders/controllers/uniPO\"><a href="./src/app/canopi-app/telco/orders/controllers/uniPO/index.html">./src/app/canopi-app/telco/orders/controllers/uniPO\</a></td>
+	<td data-value="17.11" class="pic low"><span class="cover-fill" style="width: 17px;"></span><span class="cover-empty" style="width:83px;"></span></td>
+	<td data-value="17.11" class="pct low">17.11%</td>
+	<td data-value="76" class="abs low">(13&nbsp;/&nbsp;76)</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="2" class="abs low">(0&nbsp;/&nbsp;2)</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="16" class="abs low">(0&nbsp;/&nbsp;16)</td>
+	<td data-value="17.11" class="pct low">17.11%</td>
+	<td data-value="76" class="abs low">(13&nbsp;/&nbsp;76)</td>
+	</tr>
+
+<tr>
+	<td class="file high" data-value="./src/app/canopi-app\"><a href="./src/app/canopi-app/index.html">./src/app/canopi-app\</a></td>
+	<td data-value="100" class="pic high"><span class="cover-fill cover-full" style="width: 100px;"></span><span class="cover-empty" style="width:0px;"></span></td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="19" class="abs high">(19&nbsp;/&nbsp;19)</td>
+	<td data-value="66.67" class="pct medium">66.67%</td>
+	<td data-value="6" class="abs medium">(4&nbsp;/&nbsp;6)</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="6" class="abs high">(6&nbsp;/&nbsp;6)</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="19" class="abs high">(19&nbsp;/&nbsp;19)</td>
+	</tr>
+
+<tr>
+	<td class="file high" data-value="./src/components/directives/maxmedia\"><a href="./src/components/directives/maxmedia/index.html">./src/components/directives/maxmedia\</a></td>
+	<td data-value="98.28" class="pic high"><span class="cover-fill" style="width: 98px;"></span><span class="cover-empty" style="width:2px;"></span></td>
+	<td data-value="98.28" class="pct high">98.28%</td>
+	<td data-value="116" class="abs high">(114&nbsp;/&nbsp;116)</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="40" class="abs high">(40&nbsp;/&nbsp;40)</td>
+	<td data-value="94.74" class="pct high">94.74%</td>
+	<td data-value="38" class="abs high">(36&nbsp;/&nbsp;38)</td>
+	<td data-value="98.28" class="pct high">98.28%</td>
+	<td data-value="116" class="abs high">(114&nbsp;/&nbsp;116)</td>
+	</tr>
+
+<tr>
+	<td class="file low" data-value="./src/components/directives\"><a href="./src/components/directives/index.html">./src/components/directives\</a></td>
+	<td data-value="23.64" class="pic low"><span class="cover-fill" style="width: 23px;"></span><span class="cover-empty" style="width:77px;"></span></td>
+	<td data-value="23.64" class="pct low">23.64%</td>
+	<td data-value="495" class="abs low">(117&nbsp;/&nbsp;495)</td>
+	<td data-value="10.25" class="pct low">10.25%</td>
+	<td data-value="361" class="abs low">(37&nbsp;/&nbsp;361)</td>
+	<td data-value="22.86" class="pct low">22.86%</td>
+	<td data-value="105" class="abs low">(24&nbsp;/&nbsp;105)</td>
+	<td data-value="23.64" class="pct low">23.64%</td>
+	<td data-value="495" class="abs low">(117&nbsp;/&nbsp;495)</td>
+	</tr>
+
+<tr>
+	<td class="file high" data-value="./src/components/filters\"><a href="./src/components/filters/index.html">./src/components/filters\</a></td>
+	<td data-value="100" class="pic high"><span class="cover-fill cover-full" style="width: 100px;"></span><span class="cover-empty" style="width:0px;"></span></td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="14" class="abs high">(14&nbsp;/&nbsp;14)</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="2" class="abs high">(2&nbsp;/&nbsp;2)</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="4" class="abs high">(4&nbsp;/&nbsp;4)</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="13" class="abs high">(13&nbsp;/&nbsp;13)</td>
+	</tr>
+
+<tr>
+	<td class="file high" data-value="./src/components/services\"><a href="./src/components/services/index.html">./src/components/services\</a></td>
+	<td data-value="99.21" class="pic high"><span class="cover-fill" style="width: 99px;"></span><span class="cover-empty" style="width:1px;"></span></td>
+	<td data-value="99.21" class="pct high">99.21%</td>
+	<td data-value="252" class="abs high">(250&nbsp;/&nbsp;252)</td>
+	<td data-value="91.67" class="pct high">91.67%</td>
+	<td data-value="24" class="abs high">(22&nbsp;/&nbsp;24)</td>
+	<td data-value="98.91" class="pct high">98.91%</td>
+	<td data-value="92" class="abs high">(91&nbsp;/&nbsp;92)</td>
+	<td data-value="99.21" class="pct high">99.21%</td>
+	<td data-value="252" class="abs high">(250&nbsp;/&nbsp;252)</td>
+	</tr>
+
+<tr>
+	<td class="file high" data-value="./test/app/canopi-app/about/controllers\"><a href="./test/app/canopi-app/about/controllers/index.html">./test/app/canopi-app/about/controllers\</a></td>
+	<td data-value="100" class="pic high"><span class="cover-fill cover-full" style="width: 100px;"></span><span class="cover-empty" style="width:0px;"></span></td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="20" class="abs high">(20&nbsp;/&nbsp;20)</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="0" class="abs high">(0&nbsp;/&nbsp;0)</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="6" class="abs high">(6&nbsp;/&nbsp;6)</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="20" class="abs high">(20&nbsp;/&nbsp;20)</td>
+	</tr>
+
+<tr>
+	<td class="file high" data-value="./test/app/canopi-app/dashboard/controllers\"><a href="./test/app/canopi-app/dashboard/controllers/index.html">./test/app/canopi-app/dashboard/controllers\</a></td>
+	<td data-value="100" class="pic high"><span class="cover-fill cover-full" style="width: 100px;"></span><span class="cover-empty" style="width:0px;"></span></td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="8" class="abs high">(8&nbsp;/&nbsp;8)</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="0" class="abs high">(0&nbsp;/&nbsp;0)</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="3" class="abs high">(3&nbsp;/&nbsp;3)</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="8" class="abs high">(8&nbsp;/&nbsp;8)</td>
+	</tr>
+
+<tr>
+	<td class="file high" data-value="./test/app/canopi-app\"><a href="./test/app/canopi-app/index.html">./test/app/canopi-app\</a></td>
+	<td data-value="100" class="pic high"><span class="cover-fill cover-full" style="width: 100px;"></span><span class="cover-empty" style="width:0px;"></span></td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="32" class="abs high">(32&nbsp;/&nbsp;32)</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="0" class="abs high">(0&nbsp;/&nbsp;0)</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="13" class="abs high">(13&nbsp;/&nbsp;13)</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="32" class="abs high">(32&nbsp;/&nbsp;32)</td>
+	</tr>
+
+<tr>
+	<td class="file high" data-value="./test/components/directives/maxmedia\"><a href="./test/components/directives/maxmedia/index.html">./test/components/directives/maxmedia\</a></td>
+	<td data-value="97.76" class="pic high"><span class="cover-fill" style="width: 97px;"></span><span class="cover-empty" style="width:3px;"></span></td>
+	<td data-value="97.76" class="pct high">97.76%</td>
+	<td data-value="357" class="abs high">(349&nbsp;/&nbsp;357)</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="0" class="abs high">(0&nbsp;/&nbsp;0)</td>
+	<td data-value="94.29" class="pct high">94.29%</td>
+	<td data-value="70" class="abs high">(66&nbsp;/&nbsp;70)</td>
+	<td data-value="97.76" class="pct high">97.76%</td>
+	<td data-value="357" class="abs high">(349&nbsp;/&nbsp;357)</td>
+	</tr>
+
+<tr>
+	<td class="file high" data-value="./test/components/directives\"><a href="./test/components/directives/index.html">./test/components/directives\</a></td>
+	<td data-value="100" class="pic high"><span class="cover-fill cover-full" style="width: 100px;"></span><span class="cover-empty" style="width:0px;"></span></td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="160" class="abs high">(160&nbsp;/&nbsp;160)</td>
+	<td data-value="75" class="pct medium">75%</td>
+	<td data-value="4" class="abs medium">(3&nbsp;/&nbsp;4)</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="35" class="abs high">(35&nbsp;/&nbsp;35)</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="160" class="abs high">(160&nbsp;/&nbsp;160)</td>
+	</tr>
+
+<tr>
+	<td class="file high" data-value="./test/components/filters\"><a href="./test/components/filters/index.html">./test/components/filters\</a></td>
+	<td data-value="100" class="pic high"><span class="cover-fill cover-full" style="width: 100px;"></span><span class="cover-empty" style="width:0px;"></span></td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="18" class="abs high">(18&nbsp;/&nbsp;18)</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="0" class="abs high">(0&nbsp;/&nbsp;0)</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="7" class="abs high">(7&nbsp;/&nbsp;7)</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="18" class="abs high">(18&nbsp;/&nbsp;18)</td>
+	</tr>
+
+<tr>
+	<td class="file high" data-value="./test/components/services\"><a href="./test/components/services/index.html">./test/components/services\</a></td>
+	<td data-value="96.74" class="pic high"><span class="cover-fill" style="width: 96px;"></span><span class="cover-empty" style="width:4px;"></span></td>
+	<td data-value="96.74" class="pct high">96.74%</td>
+	<td data-value="307" class="abs high">(297&nbsp;/&nbsp;307)</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="0" class="abs high">(0&nbsp;/&nbsp;0)</td>
+	<td data-value="96.92" class="pct high">96.92%</td>
+	<td data-value="65" class="abs high">(63&nbsp;/&nbsp;65)</td>
+	<td data-value="96.74" class="pct high">96.74%</td>
+	<td data-value="307" class="abs high">(297&nbsp;/&nbsp;307)</td>
+	</tr>
+
+</tbody>
+</table>
+</div>
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sat Apr 11 2015 22:14:20 GMT-0400 (Eastern Daylight Time)</div>
+</div>
+
+<script src="prettify.js"></script>
+
+<script src="https://yui-s.yahooapis.com/3.6.0/build/yui/yui-min.js"></script>
+<script>
+
+    YUI().use('datatable', function (Y) {
+
+        var formatters = {
+          pct: function (o) {
+              o.className += o.record.get('classes')[o.column.key];
+              try {
+                  return o.value.toFixed(2) + '%';
+              } catch (ex) { return o.value + '%'; }
+          },
+          html: function (o) {
+              o.className += o.record.get('classes')[o.column.key];
+              return o.record.get(o.column.key + '_html');
+          }
+        },
+          defaultFormatter = function (o) {
+              o.className += o.record.get('classes')[o.column.key];
+              return o.value;
+          };
+
+        function getColumns(theadNode) {
+            var colNodes = theadNode.all('tr th'),
+                cols = [],
+                col;
+            colNodes.each(function (colNode) {
+                col = {
+                    key: colNode.getAttribute('data-col'),
+                    label: colNode.get('innerHTML') || ' ',
+                    sortable: !colNode.getAttribute('data-nosort'),
+                    className: colNode.getAttribute('class'),
+                    type: colNode.getAttribute('data-type'),
+                    allowHTML: colNode.getAttribute('data-html') === 'true' || colNode.getAttribute('data-fmt') === 'html'
+                };
+                col.formatter = formatters[colNode.getAttribute('data-fmt')] || defaultFormatter;
+                cols.push(col);
+            });
+            return cols;
+        }
+
+        function getRowData(trNode, cols) {
+            var tdNodes = trNode.all('td'),
+                    i,
+                    row = { classes: {} },
+                    node,
+                    name;
+            for (i = 0; i < cols.length; i += 1) {
+                name = cols[i].key;
+                node = tdNodes.item(i);
+                row[name] = node.getAttribute('data-value') || node.get('innerHTML');
+                row[name + '_html'] = node.get('innerHTML');
+                row.classes[name] = node.getAttribute('class');
+                //Y.log('Name: ' + name + '; Value: ' + row[name]);
+                if (cols[i].type === 'number') { row[name] = row[name] * 1; }
+            }
+            //Y.log(row);
+            return row;
+        }
+
+        function getData(tbodyNode, cols) {
+            var data = [];
+            tbodyNode.all('tr').each(function (trNode) {
+                data.push(getRowData(trNode, cols));
+            });
+            return data;
+        }
+
+        function replaceTable(node) {
+            if (!node) { return; }
+            var cols = getColumns(node.one('thead')),
+                data = getData(node.one('tbody'), cols),
+                table,
+                parent = node.get('parentNode');
+
+            table = new Y.DataTable({
+                columns: cols,
+                data: data,
+                sortBy: 'file'
+            });
+            parent.set('innerHTML', '');
+            table.render(parent);
+        }
+
+        Y.on('domready', function () {
+            replaceTable(Y.one('div.coverage-summary table'));
+            if (typeof prettyPrint === 'function') {
+                prettyPrint();
+            }
+        });
+    });
+</script>
+</body>
+</html>

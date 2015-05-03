@@ -1,0 +1,383 @@
+'use strict';
+
+angular.module('admin.app').controller('MobilityOrdersController', 
+                            ['$scope', '$http', '$templateCache', '$log', '$q', '$interval', 'orderPicklists', 'OrderSearchService', 'TaskSearchService', 'UiGridUtilService',
+                            function ($scope, $http,$templateCache, $log, $q, $interval, orderPicklists, OrderSearchService, TaskSearchService, UiGridUtilService) {
+       
+        // Revert templateCache
+        $templateCache.put('ui-grid/selectionRowHeader',
+            "<div class=\"ui-grid-disable-selection\"><div class=\"ui-grid-cell-contents\"><ui-grid-selection-row-header-buttons></ui-grid-selection-row-header-buttons></div></div>"
+          );
+        var vm = this;
+
+        init();
+        
+        function init() {
+    
+  	    initializeVMVariables();
+ 	    setupVMMethods();
+            
+        };
+        
+        function initializeVMVariables() {
+
+            vm.displayTable = false;
+            vm.displayOrderDetails = false;
+            
+            // this object will be populated in 
+            // orderPicklists => { poTypes, woTypes }
+            vm.searchButtonDisabled = true;
+            vm.clearButtonDisabled = true;
+            
+            vm.searchAccordionOpen = true;
+            vm.orderPicklists = orderPicklists;
+            vm.poType = orderPicklists.poTypes;
+            vm.woType = orderPicklists.woTypes;
+
+            vm.gridOptionsSearchResults = {};
+            vm.gridOptionsTaskListTable = {};
+            
+            vm.isLoading = true;
+            
+            //Mobility Search DateTables setup
+            vm.tableData = {
+                loadTrigger: 0,
+                tableDefinition:{}
+            };
+            
+        };
+        
+    
+        
+        function setupVMMethods() {
+            
+            //WORKS - must enable multiselect
+            //http://plnkr.co/edit/PHeHVC6CGidJLNSC57ft?p=preview
+            vm.deleteSelected = function(){
+                                
+                angular.forEach(vm.gridApi.selection.getSelectedRows(), function (data, index) {
+
+                    vm.gridOptionsTaskListTable.data.splice(vm.gridOptionsTaskListTable.data.lastIndexOf(data), 1);
+                  
+                });
+            };       
+            
+            //http://stackoverflow.com/questions/26316331/scroll-to-selection-in-angular-ui-grid-not-ng-grid has an alternate approach to cellNav
+            //https://github.com/angular-ui/ng-grid/issues/2128
+            //https://github.com/angular-ui/ng-grid/issues/2788
+            
+            vm.moveSelectedUp = function(){
+                
+                vm.selectedIndex = vm.gridOptionsTaskListTable.data.lastIndexOf(vm.selectedRow);
+                if(vm.previousIndex > -1){
+
+                    vm.previousIndex = vm.selectedIndex - 1;
+                    vm.nextIndex = vm.selectedIndex+1;
+
+                    vm.previousRowData = vm.gridOptionsTaskListTable.data[vm.previousIndex];
+
+                    vm.nextRowData = vm.gridOptionsTaskListTable.data[vm.nextIndex];
+
+                    vm.gridOptionsTaskListTable.data[vm.previousIndex] = vm.gridOptionsTaskListTable.data[vm.selectedIndex];
+                    vm.gridOptionsTaskListTable.data[vm.selectedIndex] = vm.previousRowData;
+                    vm.selectedIndex = vm.selectedIndex-1;
+
+                    vm.checkStart();
+                    vm.checkEnd();
+                }
+
+                else{
+
+                }                
+                vm.gridApi.cellNav.scrollTo(vm.selectedRow);
+                
+            };
+            vm.checkStart = function(){
+                vm.previousIndex = vm.selectedIndex-1;
+                if(vm.previousIndex <0){
+                    vm.firstElement=true;
+                }
+                else{
+                    vm.firstElement=false;
+                }
+            }
+            vm.checkEnd = function(){
+                vm.nextIndex = vm.selectedIndex+1;
+                if(vm.nextIndex === vm.gridOptionsTaskListTable.data.length){
+                    vm.lastElement = true;
+                }
+                else{
+                    vm.lastElement=false;
+                }
+            }
+            vm.moveSelectedDown = function(){
+                
+                vm.selectedIndex = vm.gridOptionsTaskListTable.data.lastIndexOf(vm.selectedRow);
+
+                if(vm.nextIndex !== vm.gridOptionsTaskListTable.data.length){
+
+                    vm.previousIndex = vm.selectedIndex - 1;
+                    vm.nextIndex = vm.selectedIndex+1;
+
+                    vm.previousRowData = vm.gridOptionsTaskListTable.data[vm.previousIndex];
+
+                    vm.nextRowData = vm.gridOptionsTaskListTable.data[vm.nextIndex];
+
+                    vm.gridOptionsTaskListTable.data[vm.nextIndex] =vm.gridOptionsTaskListTable.data[vm.selectedIndex];
+                    vm.gridOptionsTaskListTable.data[vm.selectedIndex] = vm.nextRowData;
+                    vm.selectedIndex = vm.selectedIndex+1;
+
+
+                    vm.checkEnd();
+                    vm.checkStart();
+                }
+                else{
+                    //vm.nextIndex = vm.selectedIndex+1;
+                }                   
+                vm.gridApi.cellNav.scrollTo(vm.selectedRow);
+            };
+            
+                       
+            vm.insertCopyAtLocation = function(){
+                vm.newRowIndex = vm.selectedIndex+1;
+                var dataCopy = angular.copy(vm.gridOptionsTaskListTable.data);                
+                dataCopy.splice(vm.newRowIndex, 0, { taskName: '', taskSequence: '', taskDescription:'', tasksDuration:'', tasksEscalation:'' });
+                dataCopy[vm.newRowIndex] = vm.gridOptionsTaskListTable.data[vm.selectedIndex];
+                vm.gridOptionsTaskListTable.data = dataCopy;
+                
+            };           
+            
+            
+            vm.orderSearch = function () {
+
+                var currentOrderPicklist = vm.poType.name;             
+                var posearchresultpath = "";
+                
+                if(currentOrderPicklist === "CM Research Project Order") {
+                    posearchresultpath = "posearchresults-cmresearchpo"
+                } else {
+                    posearchresultpath = "posearchresults-ettcs"
+                }
+                
+                vm.orderSearchPromiseTable = OrderSearchService.getPOSearchResults(posearchresultpath).then(function(data) {
+                     
+                    vm.displayTable = true;
+
+                    processSearchResult(data);
+                    var tableData = data.tableRows;  
+                    vm.gridOptionsSearchResults.data = extractTableCellValues(tableData);
+                    vm.gridOptionsSearchResults.columnDefs = extractColumnDefs(tableData);
+
+                    //vm.displayOrderDetails = true;
+                });
+                
+                
+            };
+            
+            
+            // fetch data 
+//            vm.refresh();
+            
+            $scope.$watch('mobilityorders.poType', function (val){
+
+                if(val.name !== undefined || val === "") {
+                    if(val.name !== "" && val.name !== undefined)  {
+                        vm.searchButtonDisabled = false;
+                        vm.clearButtonDisabled = false;
+                    } else {
+                        vm.searchButtonDisabled = true;
+                        vm.clearButtonDisabled = true;
+                    }
+                }
+
+            });
+            
+            $scope.$watch('mobilityorders.woType', function (val){
+
+                if(val.name !== undefined || val === "") {
+                    if(val.name !== "" && val.name !== undefined)  {
+                        vm.searchButtonDisabled = false;
+                        vm.clearButtonDisabled = false;
+                    } else {
+                        vm.searchButtonDisabled = true;
+                        vm.clearButtonDisabled = true;
+                    }
+                }
+
+            });
+            
+            vm.clear = function() {
+                vm.poType = '';
+                vm.woType = '';
+            };
+            
+            vm.gridOptionsSearchResults = { 
+                enableRowSelection: true,
+                enableRowHeaderSelection: false,
+                enableHorizontalScrollbar: 0,
+                multiSelect: false,
+                onRegisterApi: function (gridApi) {
+                    vm.gridApi = gridApi;
+                    // Register Events
+                    gridApi.selection.on.rowSelectionChanged($scope, rowSelectionChanged);
+                }
+            };  
+            
+            // Handle grid events
+            function rowSelectionChanged(row) {
+                vm.selectedRow = row.isSelected ? row.entity : false;
+                displayOrderDetail();
+            }
+        
+            
+            vm.gridOptionsTaskListTable = { 
+                enableRowSelection: true,
+                //enableRowHeaderSelection: false,
+                enableHorizontalScrollbar: 0,
+                multiSelect: false,
+                //showGridFooter:true,
+                //enableFooterTotalSelected:true,
+                enableSorting:false,
+                onRegisterApi: function (gridApi) {
+                    vm.gridApi = gridApi;
+                    gridApi.selection.on.rowSelectionChanged($scope,rowSelectionChangedTaskList);
+                    //saving inline edited rows
+                    gridApi.rowEdit.on.saveRow($scope, saveRow);
+                }
+            };
+            
+            
+        };
+        
+         
+        function displayOrderDetail() {
+
+            vm.displayOrderDetails = true;
+
+            TaskSearchService.getTasks().then(function(data) {
+
+                var tableData = data.tableRows;  
+
+                vm.gridOptionsTaskListTable.data = extractTableCellValues(tableData);
+                var colDefs = extractColumnDefs(tableData);
+                colDefs = UiGridUtilService.autoColWidth(colDefs, tableData.rowMetaData);
+                vm.gridOptionsTaskListTable.columnDefs = colDefs;
+
+            });
+
+        };
+
+
+        function processSearchResult(responseData) {
+
+            vm.tableData.tableDefinition = responseData.tableRows;
+
+            ++vm.tableData.loadTrigger;			//fires off table generation upon digest
+
+        }
+        
+        
+        function rowSelectionChangedTaskList(row) {
+                var msg = 'row selected ' + row.isSelected;
+                $log.log(msg);
+
+                vm.selectedRow = row.entity;
+                vm.gridApi.cellNav.scrollTo(vm.selectedRow);
+                
+                vm.selectedIndex = vm.gridOptionsTaskListTable.data.lastIndexOf(vm.selectedRow);
+                vm.previousIndex = vm.selectedIndex - 1;
+                vm.nextIndex = vm.selectedIndex + 1;
+                //These checks happen once per selected row
+                //Is the selected row already the last Element? Then disable the down button
+                //Is the selected row the first element in the list? Then disable the up button
+                if(vm.nextIndex === (vm.gridOptionsTaskListTable.data.length)){
+                    vm.lastElement = true;
+                    vm.firstElement=false;
+                }
+                else{
+                    vm.lastElement = false;
+                }
+
+                if(vm.previousIndex < 0){
+                    vm.firstElement = true;
+                    vm.lastElement = false;
+                }
+                else{
+                    vm.firstElement=false;
+                }        
+        };
+        
+        function saveRow(rowEntity) {
+                // create a fake promise - normally you'd use the promise returned by $http or $resource
+                var promise = $q.defer();
+                vm.gridApi.rowEdit.setSavePromise( rowEntity, promise.promise );
+                // fake a delay of 3 seconds whilst the save occurs, return error if gender is "male"
+                $interval( function() {
+                if (rowEntity.gender === 'male' ){
+                promise.reject();
+                } else {
+                promise.resolve();
+                }
+                }, 3000, 1);
+        }; 
+          
+         
+                                           
+        // helper method to build ui-grid's columnDefs property based on meta data column attributes
+        function extractColumnDefs(tableData) {
+            
+            var uniqueColumns = _.uniq(tableData.rowMetaData.columnList, 'id'),
+                
+            // map meta data column defs to the column defs ng-grid expects
+            columnDefMap = {
+                id: 'name',
+                displayName: 'displayName'
+            };
+
+            var columnDefs = uniqueColumns.map(function (id) {
+                var t = {};
+                for (var key in columnDefMap) {
+                    t[columnDefMap[key]] = id[key];
+                };
+                return t;
+            });
+            
+            //Tooltip
+             // Add cellTemplate
+            _.forEach(columnDefs, function (def) {
+                def.cellTemplate = "" +
+                        "   <div ng-if='COL_FIELD.length > 20' class='ui-grid-cell-contents' tooltip-append-to-body='true' tooltip='{{COL_FIELD CUSTOM_FILTERS}}'>{{COL_FIELD CUSTOM_FILTERS}}</div>" +
+                        "   <div ng-if='COL_FIELD.length <= 20' class='ui-grid-cell-contents'>{{COL_FIELD CUSTOM_FILTERS}}</div>";
+            });
+            
+            return columnDefs;
+        };
+        
+        
+        // helper method to build ng-grid's data property based on meta data row values
+        function extractTableCellValues(tableData) {
+            
+            var localRowData = [];
+            var cellsInRow = [];
+            
+            var totalCols = tableData.rowMetaData.columnList.length;
+            var totalRows = tableData.rowMetaData.rowValueList.length;
+            
+            for (var i=0; i < totalRows; i++) {
+                
+                cellsInRow = tableData.rowMetaData.rowValueList[i].cellValues;
+                
+                var obj = {};
+                
+                for (var j=0; j < totalCols; j++) {
+                    obj[tableData.rowMetaData.columnList[j]['id']] = cellsInRow[j];
+                }
+                
+                localRowData.push(obj);
+            }
+
+            return localRowData;
+        };                                            
+          
+     
+}]);

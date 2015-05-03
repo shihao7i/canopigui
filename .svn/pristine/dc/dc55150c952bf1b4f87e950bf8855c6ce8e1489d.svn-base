@@ -1,0 +1,172 @@
+<div class="row">
+	<div class="col-md-12 col-lg-12">
+		<!-- BREADCRUM - We can setup this with Angular $location  -->
+		<div class="row">
+			<h4 style="margin-top: 20px; margin-bottom: 20px;">Device Details</h4>
+		</div>
+		
+		<!-- TOP ACCORDION - SEARCH -->
+		<accordion class="canopi-accordion" close-others="oneAtATime">
+			<accordion-group is-open="accordionOpen.search"> 
+				<accordion-heading> 
+					<span style="color: #ef6f00; font-size: 26px; font-family: Omnes-ATT-II-Light;">Search</span> 
+					<i style="color: #ef6f00;" class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': accordionOpen.search, 'glyphicon-chevron-right': !accordionOpen.search}"></i>
+				</accordion-heading>
+				<div style="border-bottom: solid; border-width: 1px; margin-bottom: 20px; color: #9C9C9C;"></div>					
+				
+				<!-- FORMS -->
+				<div class="row">
+					<div class="col-lg-4 col-md-4 col-sm-4">
+						<div class="form-group">
+							<div>Device CLLI:</div>
+							<input type="text" class="form-control" placeholder="">
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-4 col-sm-4">
+						<div class="form-group">
+							<div>PTNII Name:</div>
+							<input type="text" class="form-control" placeholder="">
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-4 col-sm-4">
+						<div class="form-group">
+							<div>IP Address:</div>
+							<input type="text" class="form-control" placeholder="">
+						</div>
+					</div>
+				</div>
+				
+				<div class="row" style="padding-left: 20px;">
+					<button href='javascript:void(0);' class='btn canopi-btn-blue'>Search</button>
+					<button href='javascript:void(0);' class='btn canopi-btn-gray'>Clear</button>
+				</div>
+			</accordion-group>
+		</accordion>
+		
+		<!-- BOTTOM ACCORDIONG - DEVICES -->
+		<accordion class="canopi-accordion" close-others="oneAtATime"> 
+			<accordion-group is-open="accordionOpen.details"> 
+				
+				<accordion-heading> 
+					<span style="color: #ef6f00; font-size: 26px; font-family: Omnes-ATT-II-Light;">Device Details</span>
+					<i  style="color: #ef6f00;" class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': accordionOpen.details, 'glyphicon-chevron-right': !accordionOpen.details}"></i>
+				</accordion-heading>
+				<div style="border-bottom: solid; border-width: 1px; margin-bottom: 20px; color: #9C9C9C;"></div>
+				
+				<div class="row">
+
+						<div class="col-lg-6 col-md-6 col-sm-6" style="padding-left: -15px">
+							<div class="form-group">
+								<div>Device Name:</div>
+								<input type="text" class="form-control" placeholder="">
+							</div>
+						</div>
+						<div class="col-lg-2 col-md-2 col-sm-2">
+							<div style="padding-top:20px;">
+								<button href='javascript:void(0);' class='btn canopi-btn-blue'>Network Discovery</button>
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-4 col-sm-4">
+							<div style="padding-top:20px;">
+								<button href='javascript:void(0);' class='btn canopi-btn-blue'>Export</button>
+							</div>
+						</div>
+
+				</div>
+				
+				<!-- FORMS -->
+				<div class="row">
+					<div class="col-lg-4 col-md-4 col-sm-4">
+						<div class="form-group">
+							<div>Status:</div>
+							<input type="text" class="form-control" placeholder="">
+						</div>
+						<div class="form-group">
+							<div>Street:</div>
+							<input type="text" class="form-control" placeholder="">
+						</div>
+						<div class="form-group">
+							<div>IPAG Cluster:</div>
+							<input type="text" class="form-control" placeholder="">
+						</div>
+						<div class="form-group">
+							<div>Zip:</div>
+							<input type="text" class="form-control" placeholder="">
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-4 col-sm-4">
+						<div class="form-group">
+							<div>Device Type:</div>
+							<input type="text" class="form-control" placeholder="">
+						</div>
+						<div class="form-group">
+							<div>City:</div>
+							<input type="text" class="form-control" placeholder="">
+						</div>
+						<div class="form-group">
+							<div>Homing Cluster:</div>
+							<input type="text" class="form-control" placeholder="">
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-4 col-sm-4">
+						<div class="form-group">
+							<div>Role:</div>
+							<input type="text" class="form-control" placeholder="">
+						</div>
+						<div class="form-group">
+							<div>State:</div>
+							<input type="text" class="form-control" placeholder="">
+						</div>
+						<div class="form-group">
+							<div>Lata:</div>
+							<input type="text" class="form-control" placeholder="">
+						</div>
+					</div>
+				</div>
+			</accordion-group>
+		</accordion>
+		
+		<!-- BOTTOM ACCORDIONG - DEVICES -->
+		<accordion class="canopi-accordion" close-others="oneAtATime"> 
+			<accordion-group is-open="accordionOpen.table"> 
+				
+				<accordion-heading> 
+					<span style="color: #ef6f00; font-size: 26px; font-family: Omnes-ATT-II-Light;">IP Addresses</span>
+					<i  style="color: #ef6f00;" class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': accordionOpen.table, 'glyphicon-chevron-right': !accordionOpen.table}"></i>
+				</accordion-heading>
+				<div style="border-bottom: solid; border-width: 1px; margin-bottom: 20px; color: #9C9C9C;"></div>
+		
+				<!-- DATATABLE -->
+				<div class="table-responsive col-lg-12 no-padding" style="padding-top: 10px;">						
+					<table class="table table-striped table-hover data-table"
+						search-result-table
+						table-data="ipAddressesData" type="simple"
+						event-handler="gridEventHandler(eventId, data)">
+					</table>					
+				</div>
+			</accordion-group>
+		</accordion>
+		
+				<!-- BOTTOM ACCORDIONG - DEVICES -->
+		<accordion class="canopi-accordion" close-others="oneAtATime"> 
+			<accordion-group is-open="accordionOpen.table"> 
+				
+				<accordion-heading> 
+					<span style="color: #ef6f00; font-size: 26px; font-family: Omnes-ATT-II-Light;">Cards Ports</span> 
+					<i  style="color: #ef6f00;" class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': accordionOpen.table, 'glyphicon-chevron-right': !accordionOpen.table}"></i>
+				</accordion-heading>
+				<div style="border-bottom: solid; border-width: 1px; margin-bottom: 20px; color: #9C9C9C;"></div>
+		
+				<!-- DATATABLE -->
+				<div class="table-responsive col-lg-12 no-padding" style="padding-top: 10px;">						
+					<table class="table table-striped table-hover data-table"
+						search-result-table
+						table-data="cardsOrPortsData" type="simple"
+						event-handler="gridEventHandler(eventId, data)">
+					</table>					
+				</div>
+			</accordion-group>
+		</accordion>
+		
+	</div>
+</div>

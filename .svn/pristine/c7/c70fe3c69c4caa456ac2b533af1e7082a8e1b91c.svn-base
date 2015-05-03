@@ -1,0 +1,31 @@
+{   
+    "key": "Carrier Name",
+    "tableRows": 
+        {"rowMetaData":
+            { "columnList":[{"hyperlink":false,	"editable": true, "dropdown": false, "id":"priorityNumber", "displayName":"Priority Number"},
+                            {"hyperlink":false,	"editable": true, "dropdown": false, "id":"priorityDescription", "displayName":"Priority Description"},
+                            {"hyperlink":false,	"editable": true, "dropdown": true,  "id":"archive", "displayName":"Archive"}],
+                        
+              "rowValueList":[{"cellValues":["1", "Escalation", "NO"]},
+                              {"cellValues":["1", "High Utilization Site", "NO"]},
+                              {"cellValues":["2", "LTE Planned", "NO"]},
+                              {"cellValues":["3", "DAS", "NO"]}
+                            ],
+              "dropdowns": [{"id":"archive", "values":["YES", "NO"], "defaultValue":"NO"}],
+              "datepickers": []
+            }
+        },
+
+    "returnStaus": "Success",
+    "returnMessage": "",
+    "returnCode": "0",
+    "pageInfo" : {
+        "totalRecords" : "4",
+        "currentPage": "0",
+        "itemsPerPage": "100"
+    }
+}
+
+
+
+

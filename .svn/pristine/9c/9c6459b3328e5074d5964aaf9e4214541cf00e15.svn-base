@@ -1,0 +1,128 @@
+<div class="row">
+    
+    <div class="col-md-12 col-lg-12">
+        
+        <div class="row">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                        <ol class="breadcrumb">
+                              <li><a href="#"><i class="fa fa-home fa-lg"></i>&nbsp;&nbsp;&nbsp;Home</a></li>
+                              <li class="active">Workorder Templates</li>
+                            </ol>
+                      </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <accordion class="app-accordion">
+                <accordion-group is-open="mobilityorders.searchAccordionOpen">
+                    <accordion-heading>
+                        <span class="app-accordion-header">Mobility Order Search</span>
+			<i class="pull-right glyphicon app-accordion-open-icon" ng-class="{'glyphicon-chevron-up': mobilityorders.searchAccordionOpen, 'glyphicon-chevron-down': !mobilityorders.searchAccordionOpen}"></i>
+                    </accordion-heading>
+                    
+                    <div style="border-bottom: solid; border-width: 1px; margin-bottom: 20px; color: #9C9C9C; margin-left: 15px; margin-right: 15px;"></div>
+
+             
+                    <div class="row" style="padding-left: 15px; padding-right: 15px;">
+
+                        <div class="col-md-4">
+<!--                            <form>
+                                <div class="form-group">-->
+                                        <div class="canopi-input-title">Project Order Type:</div>
+<!--                                        <div class="dropdown">
+                                                <select ng-model="mobilityorders.poType" ng-change="mobilityorders.poTypeSelected(mobilityorders.poType)" ng-options="p.name for p in ::mobilityorders.orderPicklists.poTypes"
+                                                    class="dropdown-select form-control"
+                                                        title="Please select" data-live-search="false">
+                                                </select>
+                                        </div>-->
+                                        <div ng-dropdown-multiselect="" options="mobilityorders.poType" events="mobilityorders.poTypeSelectionEvents" selected-model="mobilityorders.poTypeCurrentSelection" extra-settings="mobilityorders.poTypeSettings"></div>
+
+                                <!--</div>-->
+                            <!--</form>-->
+                        </div>
+
+                        <div class="col-md-4">
+<!--                            <form>
+                                <div class="form-group">-->
+                                        <div class="canopi-input-title">Work Order Type:</div>
+<!--                                        <div class="dropdown">
+                                                <select ng-model="mobilityorders.woType" ng-change="mobilityorders.woTypeSelected(mobilityorders.woType)" ng-options="p.name for p in ::mobilityorders.orderPicklists.woTypes"
+                                                    class="dropdown-select form-control"
+                                                        title="Please select" data-live-search="false">
+                                                </select>
+                                        </div>-->
+                                        <div ng-dropdown-multiselect="" options="mobilityorders.woType" events="mobilityorders.woTypeSelectionEvents" selected-model="mobilityorders.woTypeCurrentSelection" extra-settings="mobilityorders.woTypeSettings"></div>                                       
+                                        
+                                        
+<!--                                </div>
+                        
+                            </form>-->
+                        </div>
+
+                    </div>
+                    
+
+                    
+                    
+                    <div class="row" style="padding-left: 15px; padding-right: 15px; padding-top: 5px;">
+                        <div class="col-md-12" style="text-align: right;">
+                            <button href='javascript:void(0);' class='btn canopi-btn-blue'  ng-disabled="mobilityorders.searchButtonDisabled" ng-click="mobilityorders.orderSearch()">Search</button>
+                            <button href='javascript:void(0);' class='btn canopi-btn-gray'  ng-disabled="mobilityorders.clearButtonDisabled" ng-click="mobilityorders.clear()">Clear</button>
+                        </div>
+                    </div>
+                    
+<!--                    <div class="row" style="padding-left: 15px; padding-right: 15px; margin-top: 15px;">
+                        <div class="col-md-12" ng-show="mobilityorders.displayTable">
+                            <div class="app-accordion-tableheader">Search Results</div>
+                             Mobility Search Table                        
+                            <div cg-busy="{promise:mobilityorders.orderSearchPromiseTable, message:'Loading Your Data', templateUrl:'lib/angular-busy/custom-templates/mycustomtemplate.html'}" ui-grid="mobilityorders.gridOptionsSearchResults" ui-grid-selection class="tasksSearchResultsUIGrid"></div>    
+                        </div>
+                    </div>-->
+                                          
+                </accordion-group>                           
+            </accordion>
+        </div>
+        
+         <!-- Mobility Search Results -->
+        <div class="row" ng-show="mobilityorders.displayTable">
+            <div class="panel panel-default app-panel">
+                <div class="panel-heading app-panel-heading">
+                    <div class="app-panel-title">
+                        <span class="app-panel-header">Order Result</span>
+                    </div>
+                </div>
+
+                <div class="panel-body">
+                    
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div style="border-bottom: solid; border-width: 1px; color: #9C9C9C; margin-bottom: 15px; margin-left: 15px; margin-right: 15px;"></div>
+<!--                            <div style="padding-left: 15px; padding-right: 15px;">-->
+<!--                                    <table id="posearchresultstable" cg-busy="{promise:mobilityorders.orderSearchPromiseTable, message:'Loading Your Data', templateUrl:'lib/angular-busy/custom-templates/mycustomtemplate.html'}" class="table table-striped" simple-datatable add-filter="true" add-export="true"
+                                    table-data="mobilityorders.tableData"></table>-->
+                                    <div style="margin-left: 15px; margin-right: 15px;" 
+                                         cg-busy="{promise:mobilityorders.orderSearchPromiseTable, message:'Loading Your Data', templateUrl:'lib/angular-busy/custom-templates/mycustomtemplate.html'}" 
+                                         ui-grid="mobilityorders.gridOptionsSearchResults" 
+                                         ui-grid-selection ui-grid-resize-columns class="tasksSearchResultsUIGrid"></div>                                      
+                            <!--</div>-->
+                        </div>
+<!--                        <div class="col-md-12">
+                            <div style="border-bottom: solid; border-width: 1px; color: #9C9C9C; margin-bottom: 15px; margin-left: 15px; margin-right: 15px;"></div>                          
+                            <div style="margin-left: 15px; margin-right: 15px;" cg-busy="{promise:mobilityorders.orderSearchPromiseTable, message:'Loading Your Data', templateUrl:'lib/angular-busy/custom-templates/mycustomtemplate.html'}" ui-grid="mobilityorders.gridOptionsSearchResults" ui-grid-selection class="tasksSearchResultsUIGrid"></div>    
+                        </div>-->
+                    </div>
+         
+                </div>
+            </div>
+        </div> <!-- Mobility Search Results -->
+
+        
+       
+        <div ng-show="mobilityorders.displayOrderDetails">
+	     <div ng-include="'app/admin-app/mobilityorders/views/mobilityOrderDetail.html'"></div>
+	</div>
+          
+    </div>
+    
+</div>

@@ -1,0 +1,12 @@
+{  
+   "attuid":"pb154j",
+   "action": "UPDATE",
+   "key": {},
+   "data":[  
+      {  
+         "id":"1001",
+         "backhaulProduct":"T1", 
+         "archive":"NO"
+      }
+   ]
+}

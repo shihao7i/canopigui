@@ -1,0 +1,160 @@
+<div class="row">
+	<div class="col-md-12 col-lg-12">
+	    <!-- BREADCRUMBS - We can setup with Angular $location -->
+		<div class="row">
+			<div class="panel panel-default">
+				<div class="panel-body">
+				    <ol class="breadcrumb">
+					  <li><a href="#"><i class="fa fa-home fa-lg"></i>&nbsp;&nbsp;&nbsp;Home</a></li>
+					  <li class="active">New Device Swap</li>
+					</ol>
+				</div>
+			</div>
+		</div> 
+		<!-- End Breadcrumbs -->
+		<!-- Start of Panel -->
+		<div class="row">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<span style="color: #ef6f00; font-size: 26px; font-family: Omnes-ATT-II-Light;">Device  Swap Creation</span>
+					<div style="border-bottom: solid; border-width: 1px; margin-bottom: 20px; color: #9C9C9C;"></div>
+					
+					<!-- FORMS -->
+					<div class="row canopi-inputfields"  style="padding-left: 20px; padding-right: 20px;">
+						<!-- <div class="col-md-12">
+								<div class="form-group canopi-right-inner-addon required">
+									<div class="canopi-input-title">Device CLLI:</div>
+									<i class="fa fa-search"></i>
+									<input type="text" class="form-control" placeholder="Type and Search">
+								</div>
+								<button class="btn canopi-btn-orange"><span>Impacted Order Search</span></button>								
+						</div> -->
+						<!-- <div class="col-lg-4 col-md-4 col-sm-4">
+							<div class="form-group canopi-right-inner-addon required">
+								<div class="canopi-input-title">Device CLLI:</div>
+								<i class="fa fa-search"></i>
+								<input type="text" class="form-control" placeholder="Type and Search">
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-4 col-sm-4">
+							<button class="btn canopi-btn-orange"><span>Impacted Order Search</span></button>
+						</div> -->
+						<div class="col-lg-12 col-md-12 col-sm-12">
+							<div class="form-group required">
+								<div class="canopi-input-title">Device CLLI:</div>
+								<div class="input-group">
+                                    <input type="text" class="form-control" ng-model="newDeviceSwap.deviceCLLI" placeholder="Type and Search">
+                                      <span class="input-group-btn">
+                                        <button class="btn btn-default canopi-btn-sharp-corners" type="button"><i class="fa fa-search"></i></button>
+                                      </span>
+                                </div><!-- /input-group -->
+                                <button class="btn canopi-btn-orange"><span>Impacted Order Search</span></button>
+							</div>
+							<div class="col-lg-4 col-md-4 col-sm-4">
+								
+							</div>
+						</div>
+						
+					</div>
+					
+					<div class="row" style="padding-left: 20px; padding-right: 20px;"> <!-- MIDDLE -->
+						<div class="col-md-6 col-sm-6 col-xs-6">
+							<div class="panel panel-default canopi-input-form-full">
+								<div class="panel-heading">
+									<p style="size:24px; color: #444444;"><b>Source Device</b></p>
+								</div>
+								<div class="panel-body"> <!-- Source Device-->
+									<div class="col-lg-12 col-md-12 col-sm-12">
+										<div class="form-group">
+											<div class="canopi-input-title">Device Type:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Device Sub Type:</div>
+											<input type="text" class="form-control"  placeholder="">
+										</div>	
+										<div class="form-group">
+											<div class="canopi-input-title">Device Name:</div>
+											<input type="text" class="form-control"  placeholder="">
+										</div>
+									</div>
+									
+									<!-- DATATABLE -->
+									<div class="table-responsive col-lg-12 no-padding" style="padding-top: 10px;">						
+										<table class="table table-striped table-hover data-table"
+											search-result-table id="sourceTable"
+											table-data="resultsets['sourceDevice'].resultData" add-export="true"
+											event-handler="gridEventHandler(eventId, data)">
+										</table>
+									</div>
+							
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6 col-sm-6 col-xs-6">
+							<div class="panel panel-default canopi-input-form-full">
+								<div class="panel-heading">
+									<p style="size:24px; color: #444444;"><b>Target Device</b></p>
+								</div>
+								<div class="panel-body"><!-- Target Device -->
+									<div class="col-lg-12 col-md-12 col-sm-12">
+										<div class="form-group required">
+											<div class="canopi-input-title">Device Type:</div>
+											<div class="dropdown">
+												<select class="dropdown-select form-control ng-pristine ng-valid"
+													title="Please select" data-live-search="false">
+													<option>1</option>
+													<option>2</option>
+													<option></option>
+													<option></option>
+													<option></option>
+													<option></option>
+												</select>
+											</div>
+										</div>
+										<div class="form-group required">
+											<div class="canopi-input-title">Device Sub Type:</div>
+											<div class="dropdown">
+												<select class="dropdown-select form-control ng-pristine ng-valid"
+													title="Please select" data-live-search="false">
+													<option>1</option>
+													<option>2</option>
+													<option></option>
+													<option></option>
+													<option></option>
+													<option></option>
+												</select>
+											</div>
+										</div>	
+										<div class="form-group">
+											<div class="canopi-input-title">Device Name:</div>
+											<input type="text" class="form-control"  placeholder="">
+										</div>
+									</div>
+								
+									<!-- DATATABLE -->
+									<div class="table-responsive col-lg-12 no-padding" style="padding-top: 10px;">						
+										<table class="table table-striped table-hover data-table"
+											search-result-table id="targetTable"
+											table-data="resultsets['targetDevice'].resultData" add-export="true"
+											event-handler="gridEventHandler(eventId, data)">
+										</table>
+									</div>
+								
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					 <!-- SEARCH AND CLEAR BUTTONS -->
+                     <div class="row" style="padding-left: 20px; padding-right: 20px;">
+						<div class="col-md-12">
+							<button class="btn canopi-btn-orange"><span>Submit</span></button>
+							<button class="btn canopi-btn-gray" ng-disabled="picklistNotReady" ng-click="clear()"><span>Clear</span></button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

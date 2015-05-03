@@ -1,0 +1,25 @@
+{   
+    "tableName": "Term",
+    "tableRows": 
+        {"rowMetaData":
+            { "columnList":[{"hyperlink":false,	"visible": false, "editable": false, "fieldType": "input", "fieldOptions": [], "fieldDefault": "", "id":"id", "displayName":"ID"},
+                            {"hyperlink":false,	"visible": true, "editable": true, "fieldType": "input", "fieldOptions": [], "fieldDefault": "", "id":"terms", "displayName":"Terms"},
+                            {"hyperlink":false,	"visible": true, "editable": true, "fieldType": "dropdown", "fieldOptions": [{"value": "YES", "label": "YES"}, {"value": "NO", "label": "NO"}], "fieldDefault": "NO", "id":"archive", "displayName":"Archive"}],
+
+              "rowValueList":[{"cellValues":["1001", "N/A-AWS CIRCUIT", "NO"]},
+                              {"cellValues":["1002", "MONTH TO MONTH", "NO"]},
+                              {"cellValues":["1003", "VOLUME PRICING", "NO"]},
+                              {"cellValues":["1004", "12 MONTHS", "NO"]},
+                              {"cellValues":["1005", "24 MONTHS", "NO"]},
+                              {"cellValues":["1006", "36 MONTHS", "NO"]},
+                              {"cellValues":["1007", "48 MONTHS", "NO"]},
+                              {"cellValues":["1008", "49 MONTHS", "NO"]},
+                              {"cellValues":["1009", "60 MONTHS", "NO"]}
+                            ]
+            }
+        },
+
+    "returnStaus": "Success",
+    "returnMessage": "",
+    "returnCode": "0"
+}

@@ -1,0 +1,285 @@
+angular.module('canopi.app').controller('ProjectOrderSearchController', ['$scope', '$log', '$location', '$rootScope', '$state', 'CommonUtilJsonService', 'OrderSearchJsonService', 'Cache', '$filter', '$timeout',
+                                       function ($scope, $log, $location, $rootScope, $state, CommonUtilJsonService, OrderSearchJsonService, Cache, $filter, $timeout) {
+	'use strict';
+	
+    init();
+ 
+    
+    function init() {
+
+    	initializeScopeVariables();
+    
+	    setupScopeMethods();
+
+		populatePicklistValues();
+       
+    }  
+        
+    
+    function initializeScopeVariables() {
+
+        $scope.name = "ProjectOrderSearch";
+
+        $scope.isLoading = false;  // set activity indicator to false
+
+        $scope.picklistNotReady = true;   // picklist values not loaded yet
+
+        $scope.displayDataTables = false;
+        
+        //Angular UI Datepicker setup
+        $scope.datepickers = {
+            dueStartDateDatepicker: false,
+            dueEndDateDatepicker: false,
+            createdStartDateDatepicker: false,
+            createdEndDateDatepicker: false,
+            lastUpdatedStartDateDatepicker: false,
+            lastUpdatedEndDateDatepicker: false
+        };
+
+        $scope.dateOptions = {
+            formatYear: 'yy',
+            startingDay: 1,
+            showWeeks: "false"
+        };
+
+        $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+        $scope.format = $scope.formats[3];
+
+
+
+    	//Angular UI Pagination setup
+		$scope.maxSize = 5;
+		$scope.transclude = {bigCurrentPage: 0};
+		$scope.enablePagination = false;
+
+        //DateTables setup
+        $scope.tableData = {
+            loadTrigger: 0,
+            tableDefinition:{},
+        };
+     	   
+        $scope.tableRecords = 0;
+        
+    	$scope.accordionOpen = {
+    		search: true,
+    		table: false
+    	};
+
+        clearPOSearchScopeVariables();
+  
+    }
+    
+    
+    function setupScopeMethods() {
+
+
+        // Called from the results table when the user clicked on a cell that needs an external controller action.
+        // eventId indicates the event being fired
+        // data is an object containing event specific properties
+        $scope.gridEventHandler = function(eventId, data)
+        {
+             $log.debug("gridEventHandler: eventId=" + eventId + ", data=" + angular.toJson(data));
+
+        };
+
+
+        $scope.poSearch = function() {
+
+        	$scope.isLoading = true;  // set activity indicator to false
+        	$scope.accordionOpen.table = true; // open table accordion to show loading message
+        	
+        	var currentPage = $scope.transclude.currentPage - 1;
+
+        	//currentPage will be NaN if its not an event coming from pagination, such as click Prev or Next
+        	if(isNaN(currentPage)) {
+        		currentPage = 0;
+        	}
+        	
+        	var postObject = marshalPOSearchRequest(currentPage);
+            var promise = OrderSearchJsonService.getProjectOrderSummary(postObject);
+
+            $scope.projectOrderTablePromise = promise.then(function(data) {
+
+     	    	$log.debug("PO Summary => " + JSON.stringify(data, null, '\t'));
+
+     	    	$scope.enablePagination = true;
+
+       	    	$scope.tableRecords = data.pageInfo.totalRecords;
+        	    $scope.totalItems = data.pageInfo.totalRecords/10;
+     	    	$scope.currenRecordsReturned = data.serviceOrderList.length;
+
+                processSearchResult(data);
+                $scope.displayDataTables = true;
+ 
+                $scope.isLoading = false;  // set activity indicator to false
+     	    });
+        };
+
+        $scope.poSearch.dueStartDate = '';
+        $scope.poSearch.dueEndDate = '';
+        $scope.poSearch.createdStartDate = '';
+        $scope.poSearch.createdEndDate = '';
+        $scope.poSearch.lastUpdatedStartDate = '';
+        $scope.poSearch.lastUpdatedEndDate = '';
+
+        $scope.open = function($event, selectedDatepicker) {
+
+            $event.preventDefault();
+            $event.stopPropagation();
+
+            $scope.datepickers[selectedDatepicker] = true;
+        };
+
+        $scope.clear = function() {
+
+            clearPOSearchScopeVariables();
+
+            setPicklistsToDefaultValues();
+        };
+
+    }
+        
+	function clearPOSearchScopeVariables() {
+
+		$scope.poSearch = {
+				projectOrderId: '',
+				externalOrderId: '',
+				icsc: '',
+				serviceOrderNumber: '',
+				currentStep: '',
+   		        customerCircuitReference: '',
+   		        serviceId: '',
+				usoNumber: '',
+				
+				customerName: '',
+				customerCode: '',
+				svid: '',
+				ban: '',
+				acna: '',
+				lagId: '',
+   		        nteClli: '',
+
+   				dueStartDate: '',
+				dueEndDate: '',
+   				createdStartDate: '',
+				createdEndDate: '',
+   				lastUpdatedStartDate: '',
+				lastUpdatedEndDate: '',
+				
+				createdBy: '',
+				lastUpdatedBy: '',
+				telcoCircuitId: '',
+	
+				orderType: {},					
+				orderAction: {},						
+				orderStatus: {},
+				decompMode: {},
+				rtpIndicator: {},
+				complexMacd: {}
+
+		};
+	}
+    
+	
+	
+    function marshalPOSearchRequest(currentPageNumber) {
+
+    	// for testing only ...
+    	var postObject = {
+     		   orderType: $scope.poSearch.orderType.name,
+     		   orderAction: $scope.poSearch.orderAction.name,
+     		   orderStatus: $scope.poSearch.orderStatus.name,
+     		   pageInfo: { currentPage: currentPageNumber.toString(), itemsPerPage: '100'},
+     		   externalOrderId: $scope.poSearch.externalOrderId,
+     		   uso: $scope.poSearch.usoNumber,
+     		   decompMode: $scope.poSearch.decompMode.name,
+     		   currentStep: $scope.poSearch.currentStep,
+     		   icsc: $scope.poSearch.icsc,
+     		   projectOrderId: $scope.poSearch.projectOrderId,
+     		   serviceId: $scope.poSearch.serviceId,
+               customerName: $scope.poSearch.customerName,
+               projectCustomerCode: $scope.poSearch.customerCode,
+     		   ban: $scope.poSearch.ban,
+    		   acna: $scope.poSearch.acna,
+     		   createdBy: $scope.poSearch.createdBy,
+     		   dueDateFrom: $scope.poSearch.dueStartDate,
+     		   dueDateTo: $scope.poSearch.dueEndDate,
+     		   createdOnFrom: $scope.poSearch.createdStartDate,
+     		   createdOnTo: $scope.poSearch.createdEndDate,
+     		   lastUpdatedFrom: $scope.poSearch.lastUpdatedStartDate,
+     		   lastUpdatedTo: $scope.poSearch.lastUpdatedEndDate,
+     		   lastUpdatedBy: $scope.poSearch.lastUpdatedBy,
+               projectCustomerSVID: $scope.poSearch.svid,
+     		   customerCircuitId: $scope.poSearch.telcoCircuitId,
+     		   //nteClliA: $scope.poSearch.nteClli,
+     		   //nteClliZ: $scope.poSearch.nteClli,
+     		   //lagIdA: $scope.poSearch.lagId,
+     		   //lagIdZ: $scope.poSearch.lagId,
+     		   //searchAZSide;
+     		   //searchLagByLagId:
+     		   //searchINLTechByLagId:
+     		   //searchINLTechByLagName;
+     		   //searchEVCbyNteClli;
+     		   //searchLagByInlClo;
+     		   //orderIndicator;
+     		   //serviceType;
+     	
+     			rtpIndicator: $scope.poSearch.rtpIndicator.name,
+     			complexMacdIndicator: $scope.poSearch.complexMacd.name,
+     			customerCircuitReference: $scope.poSearch.customerCircuitReference
+		   
+        };
+    	
+    	return postObject;
+        
+    }
+    
+    
+   
+    function processSearchResult(responseData) {
+
+    	$scope.tableData.tableDefinition = responseData.tableRows;
+
+        ++$scope.tableData.loadTrigger;			//fires off table generation upon digest
+
+    }
+    
+    
+    function setPicklistsToDefaultValues() {
+    	
+		// set default picklist selection 
+		$scope.poSearch.orderType = $scope.poOrderTypeList[0];
+		$scope.poSearch.orderAction = $scope.poOrderActionList[0];
+		$scope.poSearch.orderStatus = $scope.poOrderStatusList[0];
+		$scope.poSearch.decompMode = $scope.decompModeList[0];		
+		$scope.poSearch.rtpIndicator = $scope.poRTPIndicatorList[0];
+		$scope.poSearch.complexMacd = $scope.poComplexMACDList[0];
+		
+    }
+    
+    
+	function populatePicklistValues() {
+
+		// picklists for the CANOPI GUI are loaded in app.js
+		$rootScope.$watch('picklists', function () {
+
+			//This will fire AFTER this controller has initiated and $state.parms is finally set correctly
+			if ($rootScope.picklists !== undefined) {
+
+				$scope.poOrderTypeList  = $rootScope.picklists.poOrderTypeList;   
+				$scope.poOrderActionList  = $rootScope.picklists.poOrderActionList;   
+				$scope.poOrderStatusList  = $rootScope.picklists.poOrderStatusList;   
+				$scope.decompModeList  = $rootScope.picklists.decompModeList;   
+				$scope.poRTPIndicatorList  = $rootScope.picklists.poRTPIndicatorList;   
+				$scope.poComplexMACDList  = $rootScope.picklists.poComplexMACDList;   
+	
+				$scope.picklistNotReady = false;
+				
+				setPicklistsToDefaultValues();
+			}
+
+		});
+	}
+
+
+}]);

@@ -1,0 +1,28 @@
+angular.module('admin.service').service('OrderSearchService', ['$q', '$http', '$log', 'mockDataFlag', 
+                              function ($q, $http,$log, mockDataFlag) {
+	
+	'use strict';
+	
+        var baseUrl = '/gui-canopi-js/src/app/admin-app/mock/mobilityorders/';
+	
+	this.getPOSearchResults = function () {
+
+            var deferred = $q.defer();
+            $http.get(baseUrl + 'posearchresults.json').success(function (response) {
+                 deferred.resolve(response);
+            });
+       
+            return deferred.promise; 
+	};
+        
+ 	this.getWOSearchResults = function () {
+
+            var deferred = $q.defer();
+            $http.get(baseUrl + 'wosearchresults.json').success(function (response) {
+                 deferred.resolve(response);
+            });
+       
+            return deferred.promise; 
+	};
+
+}]);

@@ -1,0 +1,27 @@
+{   "parentType": "",
+    "parentValue": "",
+    "lookupType": "Special Applicaiton",
+    "tableRows": 
+        {"rowMetaData":
+            { "columnList":[{"hyperlink":false,	"id":"applicationName", "displayName":"Application Name"}],
+
+              "rowValueList":[{"cellValues":["COW"]},
+                              {"cellValues":["COLT"]},
+                              {"cellValues":["DAS"]},
+                              {"cellValues":["SPECIAL_EVENT"]}
+                            ]
+            }
+        },
+
+    "returnStaus": "Success",
+    "returnMessage": "",
+    "returnCode": "0",
+    "pageInfo" : {
+        "totalRecords" : "4",
+        "currentPage": "0",
+        "itemsPerPage": "100"
+    }
+}
+
+
+

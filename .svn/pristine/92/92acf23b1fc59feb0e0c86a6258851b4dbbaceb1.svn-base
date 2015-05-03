@@ -1,0 +1,82 @@
+        <!-- Mobility Search Details -->
+        <div class="row">
+            <div class="panel panel-default app-panel">
+                <div class="panel-heading app-panel-heading">
+                    <div class="app-panel-title">
+                        <span class="app-panel-header">Mobility Order Details</span>
+                    </div>
+                </div>
+
+                <div class="panel-body">
+                    
+                    <div class="row" style="padding-left: 15px; padding-right: 15px;">
+                        
+                        <div class="col-md-12">
+                            <div style="border-bottom: solid; border-width: 1px; color: #9C9C9C;"></div>
+                            <p style="display: inline-block; margin-bottom: 0; margin-top: 15px;">Project Order Type:  ETTCS</p>&nbsp;&nbsp;&nbsp;&nbsp;<p style="display: inline-block; margin-bottom: 0;">Work Order Type:  ETTCSSimple</p>
+                            <p style="margin-bottom: 0; margin-top: 15px;">Work Order Description:  Lorem ipsum dolor sit amet&nbsp;<i class="fa fa-pencil-square-o"></i>
+                            
+                            <div style="border-bottom: 1px solid #eee; margin-bottom: 10px;">
+                                <div class="panel-heading sub-panel-heading">
+                                    <div class="sub-panel-title">
+                                        <span class="sub-panel-header">Task List</span>
+                                        <form class="form-inline" style="display: inline; padding-left: 5px;">
+                                            <div class="form-group pull-right" style="margin-top: 3px; padding-right: 10px;">
+                                                <button href='javascript:void(0);' class='btn canopi-btn-blue btn-sm' ng-click="mobilityorders.addTask()">Add Task</button>
+                                                <button href='javascript:void(0);' class='btn btn-orange btn-sm'  ng-click="mobilityorders.saveTasks()">Save</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>                             
+                            </div>
+                                <div class="row">
+                                    <div class="col-md-11">
+                                        <div  ui-grid="mobilityorders.gridOptionsTaskListTable" 
+                                              ui-grid-cellNav ui-grid-edit ui-grid-row-edit ui-grid-selection 
+                                              ui-grid-resize-columns ui-grid-auto-resize class="tasksTasksListUIGrid"></div>
+                                        <!--<div  ui-grid="mobilityorders.gridOptionsTaskListTable" ui-grid-selection class="tasksTasksListUIGrid"></div> -->
+                                    </div>
+                                    <div class="col-md-1">
+                                        <div class="btn-group-vertical" role="group" aria-label="Vertical button group" style="margin-top: 90px;">
+                                            <span style="font-size: 11px;">Modify Order</span>
+                                            <button type="button" class="btn btn-default" ng-click="mobilityorders.moveSelectedUp()" ng-disabled="mobilityorders.firstElement"><i class="fa fa-arrow-up"></i></button>
+                                           <button type="button" class="btn btn-default" ng-click="mobilityorders.moveSelectedDown()" ng-disabled="mobilityorders.lastElement"><i class="fa fa-arrow-down"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                            
+                            <div style="border-bottom: 1px solid #eee; margin-bottom: 5px;">
+                                <div class="panel-heading sub-panel-heading">
+                                    <div class="sub-panel-title">
+                                        <span class="sub-panel-header">Dynamic Workorder Attributes</span>
+                                        <form class="form-inline" style="display: inline; padding-left: 5px;">
+                                            <div class="form-group pull-right" style="margin-top: 3px; padding-right: 10px;">
+                                                <button href='javascript:void(0);' class='btn canopi-btn-blue btn-sm' ng-click="mobilityorders.addTask()">Add UDA</button>
+                                                <button href='javascript:void(0);' class='btn btn-orange btn-sm'  ng-click="mobilityorders.saveTasks()">Save</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>   
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-10">
+                                     <div  ui-grid="mobilityorders.gridOptionsUDATable" 
+                                           ui-grid-cellNav ui-grid-edit ui-grid-row-edit ui-grid-selection 
+                                           ui-grid-resize-columns ui-grid-auto-resize></div>
+                                </div> 
+<!--                                <div class="col-md-1">
+                                        <div class="btn-group-vertical" role="group" aria-label="Vertical button group" style="margin-top: 60px;">
+                                           <button type="button" class="btn btn-default"><i class="fa fa-plus"></i></button>
+                                           <button type="button" class="btn btn-default"><i class="fa fa-minus"></i></button>
+                                        </div>
+                                </div>-->
+                            </div>
+
+                        </div>
+
+                    </div>             
+                </div>
+            </div>
+        </div> <!-- Mobility Search Details -->

@@ -1,0 +1,119 @@
+'use strict';
+ 
+describe('Testing ProjectOrderSearchController', function(){
+    
+    var scope, _httpBackend, _OrderSearchJsonService, _CommonUtilJsonService;
+ 
+    //mock Application to allow us to inject our own dependencies
+    beforeEach(module('canopi.app'));
+    beforeEach(module('canopi.service'));
+
+        //load the mock module thus overriding the $state service
+    beforeEach(module('stateMock'));
+
+    //mock the controller for the same reason and include $rootScope and $controller
+    beforeEach(inject(function($rootScope, $controller, $httpBackend){
+
+        //create an empty scope
+        scope = $rootScope.$new();
+        _httpBackend = $httpBackend;
+
+        //Jasmine spec runner was returning ‘Error: Unexpected request: GET ... No more request expected.’ 
+        // Stub out the rest calls made in canopi.app module's run block
+        _httpBackend.expectGET('/canopigui/rest/common/user/get/pb154j').respond([]);
+        _httpBackend.expectGET('/canopigui/rest/common/picklists/get').respond([]);
+        
+        //declare the controller and inject our empty scope
+        $controller('ProjectOrderSearchController', {$scope: scope});
+        
+    }));
+    
+    // tests start here
+
+    it('should have the correct initial state', inject(function ($rootScope){
+   
+        $rootScope.$digest();
+        
+        console.log(scope.name);
+ 
+        expect(scope.name).toEqual('ProjectOrderSearch');
+        expect(scope.isLoading).toEqual(false);
+        expect(scope.picklistNotReady).toEqual(true);
+        expect(scope.displayDataTables).toEqual(false);
+        //Date Picker
+        expect(scope.datepickers.dueStartDateDatepicker).toEqual(false);
+        expect(scope.datepickers.dueEndDateDatepicker).toEqual(false);
+        expect(scope.datepickers.dueEndDateDatepicker).toEqual(false);
+        expect(scope.datepickers.createdEndDateDatepicker).toEqual(false);
+        expect(scope.datepickers.lastUpdatedStartDateDatepicker).toEqual(false);
+        expect(scope.datepickers.lastUpdatedEndDateDatepicker).toEqual(false);
+        expect(scope.dateOptions.formatYear).toMatch('yy');
+        expect(scope.dateOptions.startingDay).toBe(1);
+        expect(scope.dateOptions.showWeeks).toMatch("false");
+        expect(scope.formats.length).toBe(4);
+        expect(scope.formats).toContain('dd-MMMM-yyyy');
+        expect(scope.formats).toContain('yyyy/MM/dd');
+        expect(scope.formats).toContain('dd.MM.yyyy');
+        expect(scope.formats).toContain('shortDate');
+        expect(scope.format).toMatch(scope.formats[3]);
+        //Angular UI Pagination Setup
+        expect(scope.maxSize).toBe(5);
+        expect(scope.transclude.bigCurrentPage).toBe(0);
+        expect(scope.enablePagination).toEqual(false);
+        //Table Records
+        expect(scope.tableData.loadTrigger).toBe(0);
+        expect(scope.tableData.tableDefinition).toEqual({});
+        expect(scope.tableRecords).toBe(0);
+        //Accordion
+        expect(scope.accordionOpen.search).toEqual(true);
+        expect(scope.accordionOpen.table).toEqual(false);
+    }));
+    
+     it('should set datepickers to empty first', inject(function($rootScope){
+        
+        $rootScope.$digest();
+        
+        expect(scope.poSearch.dueStartDate).toEqual('');
+        expect(scope.poSearch.dueEndDate).toEqual('');
+        expect(scope.poSearch.createdStartDate).toEqual('');
+        expect(scope.poSearch.createdEndDate).toEqual('');
+        expect(scope.poSearch.lastUpdatedStartDate).toEqual('');
+        expect(scope.poSearch.lastUpdatedEndDate).toEqual('');
+    }));
+    
+//    it('should call gridEventHandler', inject(function ($rootScope){
+//        var data = {
+//            
+//        }
+//    }));
+
+//    it('should call poSearch', inject(function($rootScope){
+//        
+////        $scope.data={
+////            
+////        }
+//        
+//        $rootScope.$digest();
+//        
+////        expect(scope.enablePagination).toEqual(true);
+////        expect(scope.accordionOpen.table).toEqual(true);
+//        
+//    }));
+    
+    describe('calling poSearch function', function(){
+        beforeEach(function(){
+           scope.poSearch(); 
+        });
+        
+        it('set initial properties', function(){
+            expect(scope.isLoading).toEqual(true);
+            expect(scope.accordionOpen.table).toEqual(true);
+        });
+        
+        it('checks currentPage is not empty', function(){
+            expect(scope.currentPage).not.toBeNull();
+        });
+    });
+        
+   
+});

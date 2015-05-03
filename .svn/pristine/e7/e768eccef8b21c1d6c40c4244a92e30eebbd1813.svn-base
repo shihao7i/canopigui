@@ -1,0 +1,210 @@
+<div class="row">
+    <div class="col-md-12 col-lg-12">
+
+        <!-- BREADCRUMBS - We can setup with Angular $location -->
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <ol class="breadcrumb">
+                        <li><a href="#"><i class="fa fa-home fa-lg"></i>&nbsp;&nbsp;&nbsp;Home</a></li>
+                        <li class="active">Rule Administration</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <accordion class="app-accordion">
+                <accordion-group is-open="ruleadmin.searchAccordionOpen">
+                    <accordion-heading>
+                        <span class="app-accordion-header">Table Lookup</span>
+			<i class="pull-right glyphicon app-accordion-open-icon" ng-class="{'glyphicon-chevron-up': ruleadmin.searchAccordionOpen, 'glyphicon-chevron-down': !ruleadmin.searchAccordionOpen}"></i>
+                    </accordion-heading>
+                    
+                    <div style="border-bottom: solid; border-width: 1px; margin-bottom: 20px; color: #9C9C9C; margin-left: 15px; margin-right: 15px;"></div>
+
+                    <div class="row" style="padding-left: 15px; padding-right: 15px;">
+                        <div class="col-md-4">
+                            <form>
+                                <div class="canopi-input-title">Rule Category: </div>
+                                <div class="form-group">
+                                    <div class="dropdown">
+                                        <select ng-model="ruleadmin.ruleCategory"
+                                                ng-options="ruleCategory.name for ruleCategory in ::ruleadmin.ruleCategories"
+                                                ng-change="ruleadmin.changeRuleCategory()"
+                                                class="dropdown-select form-control"
+                                                title="Please select" data-live-search="true">
+                                        </select>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>                       
+                    </div>
+                    
+                </accordion-group>
+            </accordion>
+        </div>
+        
+        <!-- Lookup Results -->
+        <div class="row">
+            <div class="panel panel-default app-panel">
+                <div class="panel-heading app-panel-heading">
+                    <div class="app-panel-title">
+                        <span class="app-panel-header">Lookup Results</span>
+                            <form class="form-inline" style="display: inline; padding-left: 5px;">
+                            <div class="form-group">
+                                <input class="form-control" style="margin-top: -8px;" type="text"
+                                       ng-model="ruleadmin.ruleCategoryFilter"
+                                       ng-model-options="{debounce: 300}"
+                                       ng-change="ruleadmin.refreshData(ruleadmin.ruleCategoryFilter)"
+                                       placeholder="Search"/>
+                            </div>
+                            <div class="form-group">
+                                <div checkbox id="hideCols" style="margin-left: 8px;" value="Hide Empty Columns" state="isChecked" ng-click="ruleadmin.toggleEmptyColumns()"></div>
+                            </div>
+                            <div class="form-group pull-right" style="margin-top: 3px; padding-right: 10px;">
+                                <button class="btn btn-success pull-right btn-sm" href="#" style="float: right; margin-left: 5px;" ng-click="ruleadmin.export()">
+                                    <i class="fa fa-file-excel-o fa-lg"></i>
+                                    Export</button>
+                                <button class="btn btn-primary btn-sm" ng-click="ruleadmin.addItem()" style="float: right;">Add Item</button>
+                                <button class="btn btn-orange btn-sm" ng-disabled="!ruleadmin.selectedRow" ng-click="ruleadmin.insertCopyAtLocation()" style="float: right; margin-left: 5px; margin-right: 5px;">Copy/Edit Item</button>
+                                <button class="btn btn-success btn-sm" ng-disabled="!ruleadmin.selectedRow" ng-click="ruleadmin.editItem(ruleadmin.selectedRow)" style="float: right; margin-left: 5px; margin-right: 5px;">Edit Item</button>
+                                <button class="btn btn-danger btn-sm" style="float: right;" ng-disabled="!ruleadmin.selectedRow" ng-click="ruleadmin.remove()">Remove
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="row canopi-inputfields" style="padding-left: 20px; padding-right: 20px;">
+                        <div style="border-bottom: solid; border-width: 1px; color: #9C9C9C; margin-left: 15px; margin-right: 15px; margin-bottom: 15px;"></div>
+
+                        <div class="col-md-12">
+
+                            <!--Version 1-->
+                            <div class="ruleAdminUIGrid" ui-grid="ruleadmin.gridOptions" ui-grid-exporter ui-grid-selection ui-grid-auto-resize ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-resize-columns></div>
+<!--                            <button class="btn btn-primary" ng-click="ruleadmin.addItem()">Add Item</button>
+                            <button class="btn btn-success" ng-disabled="!ruleadmin.selectedRow" ng-click="ruleadmin.editItem(ruleadmin.selectedRow)">Edit Item</button>
+                            <button class="btn btn-danger" ng-disabled="!ruleadmin.selectedRow" ng-click="ruleadmin.remove()">Remove</button>                            
+                            <button class="btn btn-orange"  ng-disabled="!ruleadmin.selectedRow" ng-click="ruleadmin.insertCopyAtLocation()">Copy/Edit Item</button>                            -->
+                            
+                            <!--Version 2-->
+                            <!--
+                            <div ui-grid="ruleadmin.gridOptions" ui-grid-cellNav ui-grid-pinning class="grid"></div>
+                            <button class="btn btn-primary" ng-click="ruleadmin.addItem()">Add Item</button>
+                            <button class="btn btn-success" ng-disabled="!ruleadmin.selectedRow" ng-click="ruleadmin.editItem(ruleadmin.selectedRow)">Edit Item</button>
+                            <button class="btn btn-danger" ng-disabled="!ruleadmin.selectedRow" ng-click="ruleadmin.remove()">Remove</button>                            
+                            <button class="btn btn-orange"  ng-disabled="!ruleadmin.selectedRow" ng-click="ruleadmin.insertCopyAtLocation()">Copy/Edit Item</button>                            
+                            -->
+                            
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button href='javascript:void(0);' class='btn canopi-btn-blue' ng-click="addTask()">Save</button>
+                                    <button href='javascript:void(0);' class='btn canopi-btn-gray'  ng-click="deleteTask()">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- panel-body -->
+            </div>
+            <!-- panel -->
+        </div>
+        
+<!--        New Rule, Modify rule Form
+        <div class="row">
+            <div class="panel panel-default app-panel">
+                <div class="panel-heading app-panel-heading">
+                    <div class="app-panel-title">
+                        <span class="app-panel-header">Add New Rule</span>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="row canopi-inputfields" style="padding-left: 20px; padding-right: 20px;">
+                        <div style="border-bottom: solid; border-width: 1px; color: #9C9C9C; margin-left: 15px; margin-right: 15px; margin-bottom: 15px;"></div>
+                        <div class="col-md-4">
+                            <form>
+                                <div class="canopi-input-title">Rule Category: </div>
+                                <div class="form-group">                                    
+                                    <div class="dropdown">
+                                        <select ng-model="ruleadmin.addRuleCategory"
+                                                ng-options="ruleCategory.name for ruleCategory in ::ruleadmin.ruleCategories"
+                                                ng-change="ruleadmin.changeRuleCategory()"
+                                                class="dropdown-select form-control"
+                                                title="Please select" data-live-search="true">
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="canopi-input-title">WO Description: </div>
+                                <div class="form-group">                                    
+                                    <input type="text" class="form-control" ng-model="ruleadmin.woDescription" placeholder="Enter here">
+                                </div>
+                                <div class="canopi-input-title">Order Type: </div>
+                                <div class="form-group">                                    
+                                    <input type="text" class="form-control" ng-model="ruleadmin.orderType" placeholder="Enter here">
+                                </div>
+                                <div class="canopi-input-title">Carrier: </div>
+                                <div class="form-group">                                    
+                                    <input type="text" class="form-control" ng-model="ruleadmin.carrier" placeholder="Enter here">
+                                </div>
+                                <div class="canopi-input-title">Is Telco Partner: </div>
+                                <div class="form-group">                                    
+                                    <input type="text" class="form-control" ng-model="ruleadmin.isTelcoPartner" placeholder="Enter here">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-md-4">
+                            <form>                                
+                                <div class="canopi-input-title">Franchise Indicator: </div>
+                                <div class="form-group">                                    
+                                    <input type="text" class="form-control" ng-model="ruleadmin.franchiseIndicator" placeholder="Enter here">
+                                </div>
+                                <div class="canopi-input-title">Device Vendor: </div>
+                                <div class="form-group">                                    
+                                    <input type="text" class="form-control" ng-model="ruleadmin.deviceVendor" placeholder="Enter here">
+                                </div>
+                                <div class="canopi-input-title">First Cabinet: </div>
+                                <div class="form-group">                                    
+                                    <input type="text" class="form-control" ng-model="ruleadmin.firstCabinet" placeholder="Enter here">
+                                </div>
+                                <div class="canopi-input-title">NODEB1 on Air: </div>
+                                <div class="form-group">                                    
+                                    <input type="text" class="form-control" ng-model="ruleadmin.nodeB1" placeholder="Enter here">
+                                </div>
+                                <div class="canopi-input-title">Traffic Type: </div>
+                                <div class="form-group">                                    
+                                    <input type="text" class="form-control" ng-model="ruleadmin.trafficType" placeholder="Enter here">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-md-4">
+                            <form>
+                                <div class="canopi-input-title">Cabinet Type: </div>
+                                <div class="form-group">                                    
+                                    <input type="text" class="form-control" ng-model="ruleadmin.cabinetType" placeholder="Enter here">
+                                </div>
+                                <div class="canopi-input-title">Is OEW: </div>
+                                <div class="form-group">                                    
+                                    <input type="text" class="form-control" ng-model="ruleadmin.isOEW" placeholder="Enter here">
+                                </div>
+                                <div class="canopi-input-title">Is Shared UNI: </div>
+                                <div class="form-group">                                    
+                                    <input type="text" class="form-control" ng-model="ruleadmin.isSharedUNI" placeholder="Enter here">
+                                </div>
+                                <div class="canopi-input-title">Is Target NSB: </div>
+                                <div class="form-group">                                    
+                                    <input type="text" class="form-control" ng-model="ruleadmin.isTargetNSB" placeholder="Enter here">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             panel 
+        </div>-->
+        
+    </div>
+    <!-- col-md-12 -->
+</div> <!-- row -->
+
+

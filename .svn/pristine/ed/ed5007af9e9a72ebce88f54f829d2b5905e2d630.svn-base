@@ -1,0 +1,52 @@
+<div class= "row">
+
+    <div class="col-md-12 col-lg-12">
+      <!-- BREADCRUMBS - We can setup with Angular $location -->
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <ol class="breadcrumb">
+                        <li><a href="#"><i class="fa fa-home fa-lg"></i>&nbsp;&nbsp;&nbsp;Home</a></li>
+                        <li class="active">Lookup & Pickup Lists</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+      
+     
+      	<div class="row canopi-inputfields"  style="padding-left: 20px; padding-right: 20px;">
+
+            <div class="col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-12">
+                <div class="form-group">
+                    <div class="canopi-input-title">Lookup Type:</div>
+                    <div class="dropdown">
+                        <select ng-model="lookupadmin.lookupType" ng-options="p.name for p in lookupadmin.lookupTypeList"
+                                class="dropdown-select form-control"
+                                title="Please select" data-live-search="false">
+                        </select>
+                    </div>
+    
+                </div>							
+            </div>
+        </div>
+      
+        <!--
+      
+        <div class="row" style="padding-left: 20px; padding-right: 20px;">
+          
+            <div class="col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-12">
+              
+                <div class="gridStyle" ng-grid="gridOptions"></div>
+                    <button class="btn" ng-click="addItem()" >Add Item</button>
+                    <button class="btn btn-danger" ng-click="remove()"> Remove</button> 
+         
+                </div>
+     
+            </div>
+        </div>
+        
+        -->
+        
+    <div>
+</div>
+

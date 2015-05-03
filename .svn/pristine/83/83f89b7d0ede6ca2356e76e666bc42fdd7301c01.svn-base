@@ -1,0 +1,231 @@
+<!-- BREADCRUMBS - We can setup with Angular $location -->
+<div class="row">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-home fa-lg"></i>&nbsp;&nbsp;&nbsp;Home</a></li>
+                <li class="active">Manage Groups</li>
+            </ol>
+        </div>
+    </div>
+</div>
+<!-- PANEL - ng-grid table for groups and tabs for each group's information -->
+<div class="row">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="col-mg-4 col-lg-4" >
+                <div class="form-group">
+                    <div class="canopi-input-title">Search By:</div>
+                    <div class="input-group">
+                        <input type="text" class="form-control" ng-model="groupAffiliateFilter.filterText"
+                               placeholder="Type and Search">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default canopi-btn-sharp-corners" type="button"><i
+                                class="fa fa-search"></i></button>
+                    </span>
+                    </div>
+                    <!-- /input-group -->
+                </div>
+                <div class="table-responsive">
+                	<div cg-busy="{promise:manageGroupsPromise, message:'Loading Your Data', templateUrl:'lib/angular-busy/custom-templates/mycustomtemplate2.html'}" style="border: 1px solid rgb(212,212,212);  height: 440px; margin-bottom: 20px;" ng-grid="groupAffiliateOptions"></div>
+                </div>
+                <div>
+                    <button type="button" class="btn  btn-blue" data-toggle="modal"
+                            data-target="#addGroupModal" ng-disabled="isLoading === true"  ng-click="populateLoginUserInfo()" >Add Group
+                    </button>
+                    <button type="button" class="btn  btn-blue"
+                            ng-disabled="groupAffiliateSelectedItems.length == 0 || isLoading === true"  
+                            data-toggle="modal" data-target="#deleteGroupModal">Delete Group
+                    </button>
+                    <button type="button" class="btn  btn-blue" data-toggle="modal"
+                            data-target="#modifyGroupModal" ng-disabled="groupAffiliateSelectedItems.length === 0 || isLoading === true" 
+                             ng-click="setupModifyModal()">Modify Group
+                    </button>
+                </div>
+            </div>
+            <!--end col-lg-4-->
+
+            <div class="col-lg-8 col-md-8 col-sm-12" style="padding-top: 15px;" cg-busy="{promise:userInfoInWorkGroupPromise, message:'Loading Your Data', templateUrl:'lib/angular-busy/custom-templates/mycustomtemplate2.html'}">
+                <tabset class="canopi-tabset canopi-admin-tabset">
+                    <tab heading="Permissions">
+	                        <div group-assignment
+	                            leftboxtitle="Group Permission List"
+	                            rightboxtitle="Permission List"
+	                            left-items="getGroupPermissionsList.permissionlist"
+	                            right-items="listAllPermissions"
+	                            cols="columnDefs"
+	                            grid-custom-options="swappingGridOptions"
+	                            add-items="addPermissionToGroup(itemsToBeAdded)"
+	                            delete-items="removePermissionFromGroup(itemsToBeRemoved)"
+	                            move-left="moveToLeft()"
+	                            move-right="moveToRight()">
+	                        </div>
+                    </tab>
+                    <tab heading="Users">
+                        <div class="table-responsive">
+                        	<div ng-grid="userOptions" style="height: 385px;"></div>
+                        </div>
+                        <div class="row">
+	                            <button type="button" class="btn btn-blue css_right" 
+	                            ng-disabled="getUserInWorkGroupSelectedItems === null || getUserInWorkGroupSelectedItems.length === 0 || usersInWorkGroup.userlist.length === 0 || isLoading === true"
+	                            data-toggle = "modal" data-target="#removeUserModal" style="margin-top: 1.5%; margin-right: 15px;">Remove User</button>
+                        </div>                        
+                    </tab>
+                    <tab heading="Administrators">
+                    	<div class="table-responsive">
+                        	<div ng-grid="adminDataOptions" style="height: 385px;"></div>
+                        </div>
+                    </tab>
+                </tabset>
+            </div><!-- end col-lg-8 -->           
+        </div>
+    </div>
+</div><!--end row -->
+
+<!-- ADMIN - DELETE USER CONFIRMATION MESSAGE MODAL -->
+<div class="modal fade" id="removeUserModal" draggable tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+           <div class="modal-header" style="height: 45px;">
+                <button type="button" class="close modal-button-close" data-dismiss="modal" aria-hidden="true"><span class="icon-ICON_X_CLOSEWINDOW"></span></button>
+                <h4 class="modal-title" id="myModalLabel">Confirmation Message</h4>
+            </div>
+            <div id="confirmationMsgForREMOVEUSER" class="modal-body"><p>Are you sure you want delete the user attUid {{ getUserInWorkGroupSelectedItems[0].attUid }}</p></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-blue" data-dismiss="modal" data-toggle="modal" data-target="#removeUserSuccessMsg" ng-click="removeUserInWorkGroup()"><span>Yes</span></button>
+                <button type="button" class="btn btn-blue" data-dismiss="modal"><span>No</span></button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+<!-- USERS TAB - DELETE USER SUCCESS MESSAGE MODAL -->
+<div modal-dialog dialog-id="removeUserSuccessMsg"
+                  title-id="removeUserSuccessMsgTitle" 
+                  body-id="removeMsgForAddGroup"
+                  title="Message"
+                  message="USER Deleted Successfully"
+                  button-label="OK">
+</div><!-- /.modal -->
+
+
+
+
+<!-- MANAGE GROUPS MODAL - ADD GROUP MODAL -->
+<div class="modal fade" data-keyboard="false" data-backdrop="static" id="addGroupModal" draggable tabindex="-1"
+     role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
+    <div class="modal-dialog" style="width: 500px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close modal-button-close" data-dismiss="modal" aria-hidden="true" ng-click="clearAddGroupModal()"><span
+                        class="icon-ICON_X_CLOSEWINDOW"></span></button>
+                <h4 class="modal-title" id="myModalLabel2">Add Group</h4>
+            </div>
+            <div class="modal-body">
+                <div ng-include="'app/admin/views/manageGroups/addGroup.html'"></div>
+            </div>
+            <div class="modal-footer">
+                <divs>
+                    <button type="button" class="btn btn-blue" data-toggle="modal" data-target="#addAdminModal"ng-click="populateAllUsersInfo()">Add Admin</button>
+                    <button type="button" class="btn btn-blue" ng-disabled="addGroupSelectedItems.length === 0" ng-click="removeAdminFromGroup()">Remove Admin</button>
+                    <button type="button" class="btn btn-orange" ng-disabled="saveNewWorkGroup.affiliate.name === '' || saveNewWorkGroup.inputName.length === 0"  data-dismiss="modal" data-toggle="modal" data-target="#addGroupSuccessMsg" ng-click="saveNewWorkGroup()">Save</button>
+                    <button type="button" class="btn btn-black" data-dismiss="modal" ng-click="clearAddGroupModal()">Cancel</button>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div> <!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- ADMIN - ADD GROUP SUCCESS MESSAGE MODAL -->
+<div modal-dialog dialog-id="addGroupSuccessMsg"
+                  title-id="addGroupSuccessMsgTitle" 
+                  body-id="successMsgForAddGroup"
+                  title="Message"
+                  message="New Group Added Successfully"
+                  button-label="OK">
+</div><!-- /.modal -->
+
+
+
+<!-- ADMIN - DELETE GROUP CONFIRMATION MESSAGE MODAL -->
+<div class="modal fade" id="deleteGroupModal" draggable tabindex="-1" role="dialog" aria-labelledby="myModalLabel3" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+           <div class="modal-header" style="height: 45px;">
+                <button type="button" class="close modal-button-close" data-dismiss="modal" aria-hidden="true"><span class="icon-ICON_X_CLOSEWINDOW"></span></button>
+                <h4 class="modal-title" id="myModalLabel3">Confirmation Message</h4>
+            </div>
+            <div id="confirmationMsgForDeleteGroup" class="modal-body"><p>Are you sure you want delete the group name {{groupAffiliateOptions.selectedItems[0].name}}</p></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-blue" data-dismiss="modal" data-toggle="modal" data-target="#deleteGroupSuccessMsg" ng-click="deleteWorkGroup()"><span>Yes</span></button>
+                <button type="button" class="btn btn-blue" data-dismiss="modal"><span>No</span></button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- ADMIN - DELETE GROUP SUCCESS MESSAGE MODAL -->
+<div modal-dialog dialog-id="deleteGroupSuccessMsg"
+                  title-id="deleteGroupSuccessMsgTitle" 
+                  body-id="deleteMsgForAddGroup"
+                  title="Message"
+                  message="Group Deleted Successfully"
+                  button-label="OK">
+</div><!-- /.modal -->
+
+<!-- MANAGE GROUPS MODAL - MODIFY GROUP MODAL -->
+<div class="modal fade" data-keyboard="false" data-backdrop="static" id="modifyGroupModal" draggable tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel4" aria-hidden="true">
+    <div class="modal-dialog" style="width: 500px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close modal-button-close" data-dismiss="modal" aria-hidden="true" ng-click="clearModifiedGroupModal()"><span class="icon-ICON_X_CLOSEWINDOW"></span></button>
+                <h4 class="modal-title">Modify Group</h4>
+            </div>
+            <div class="modal-body">
+                <div ng-include="'app/admin/views/manageGroups/modifyGroup.html'"></div>
+            </div>
+            <div class="modal-footer">
+                <div>
+                    <button type="button" class="btn btn-blue"   data-toggle="modal" data-target="#addAdminModal" ng-click="populateAllUsersInfo()">Add Admin</button>
+                    <button type="button" class="btn btn-blue"   ng-disabled="modifyGroupSelectedItems.length == 0" ng-click="removeAdminFromGroup()">Remove Admin</button>
+                    <button type="button" class="btn btn-orange" ng-disabled="groupAffiliateOptions.selectedItems[0].name.length === 0"  data-dismiss="modal" data-toggle="modal" data-target="#modifyGroupSuccessMsg" ng-click="saveModifiedWorkGroup()" >Save</button>
+                    <button type="button" class="btn btn-black"  data-dismiss="modal" ng-click="clearModifiedGroupModal()">Cancel</button>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- ADMIN - MODIFY GROUP SUCCESS MESSAGE MODAL -->
+<div modal-dialog dialog-id="modifyGroupSuccessMsg"
+                  title-id="myModalLabel" 
+                  body-id="successMsgForModifyGroup"
+                  title="Message"
+                  message="Group Updated Successfully"
+                  button-label="OK">
+</div><!-- /.modal -->
+
+<!-- MANAGE GROUPS MODAL - ADD ADMIN MODAL -->
+<div class="modal fade" data-keyboard="false" data-backdrop="static" id="addAdminModal" draggable tabindex="-1" role="dialog" aria-labelledby="myModalLabel4" aria-hidden="true">
+    <div class="modal-dialog" style="width: 500px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close modal-button-close" data-dismiss="modal" aria-hidden="true" ng-click="clearAddAdminModal()"><span class="icon-ICON_X_CLOSEWINDOW"></span></button>
+                <h4 class="modal-title" id="myModalLabel4">Add Admin</h4>
+            </div>
+            <div class="modal-body">
+                <div ng-include="'app/admin/views/manageGroups/addAdmin.html'"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-blue"  ng-disabled=" addAdminSelectedItems.length === 0" data-dismiss="modal" ng-click="addAdminToGroup()">Add</button>               
+                <button type="button" class="btn btn-black" data-dismiss="modal"  ng-click="clearAddAdminModal()">Cancel</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->   
+</div><!-- /.modal -->
+
+
+

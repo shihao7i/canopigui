@@ -1,0 +1,172 @@
+<div class="row">
+    
+    <div class="col-md-12 col-lg-12">
+        
+        <div class="row">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                        <ol class="breadcrumb">
+                              <li><a href="#"><i class="fa fa-home fa-lg"></i>&nbsp;&nbsp;&nbsp;Home</a></li>
+                              <li class="active">Task Search</li>
+                            </ol>
+                      </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <accordion class="app-accordion">
+                <accordion-group is-open="tasks.searchAccordionOpen">
+                    <accordion-heading>
+                        <span class="app-accordion-header">Task Search</span>
+			<i class="pull-right glyphicon app-accordion-open-icon" ng-class="{'glyphicon-chevron-up': tasks.searchAccordionOpen, 'glyphicon-chevron-down': !tasks.searchAccordionOpen}"></i>
+                    </accordion-heading>
+                    
+                    <div style="border-bottom: solid; border-width: 1px; margin-bottom: 20px; color: #9C9C9C; margin-left: 15px; margin-right: 15px;"></div>
+
+             
+                    <div class="row" style="padding-left: 15px; padding-right: 15px;">
+
+                        <!--
+                        <div class="col-md-4">
+                            <form>
+                                <div class="form-group">
+                                        <div class="canopi-input-title">Task Code:</div>
+                                        <div class="dropdown">
+                                                <select ng-model="tasks.taskCode" ng-options="t.name for t in ::tasks.taskCodeList"
+                                                    class="dropdown-select form-control"
+                                                        title="Please select" data-live-search="false">
+                                                </select>
+                                        </div>
+                                </div>
+
+                            </form>
+                        </div> 
+                        -->
+                        
+                        <div class="col-md-4">
+                            <form>
+                        	<div class="form-group">
+                                    <div class="canopi-input-title">Task Code:</div>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" ng-model="tasks.taskCode" placeholder="Type and Search">
+                                          <span class="input-group-btn">
+                                            <button class="btn btn-default canopi-btn-sharp-corners" type="button"><i class="fa fa-search"></i></button>
+                                          </span>
+                                    </div><!-- /input-group -->
+                                </div>
+
+                            </form>
+                        </div> 
+                        
+                        <!--
+                        <div class="col-md-4">
+                            <form>
+                                 <div class="form-group">
+                                        <div class="canopi-input-title">Task Name:</div>
+                                        <div class="dropdown">
+                                                <select ng-model="tasks.taskName" ng-options="t.name for t in ::tasks.taskNameList"
+                                                    class="dropdown-select form-control"
+                                                        title="Please select" data-live-search="false">
+                                                </select>
+                                        </div>
+                                </div>
+
+                            </form>
+                        </div>
+                        -->
+          
+                        <div class="col-md-4">
+                            <form>
+                        	<div class="form-group">
+                                    <div class="canopi-input-title">Task Name:</div>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" ng-model="tasks.taskName" placeholder="Type and Search">
+                                          <span class="input-group-btn">
+                                            <button class="btn btn-default canopi-btn-sharp-corners" type="button"><i class="fa fa-search"></i></button>
+                                          </span>
+                                    </div><!-- /input-group -->
+                                </div>
+
+                            </form>
+                        </div> 
+                        
+                        <div class="col-md-4">
+                            <form>
+                                 <div class="form-group">
+                                        <div class="canopi-input-title">Task Type:</div>
+                                        <div class="dropdown">
+                                                <select ng-model="tasks.taskType" ng-options="t.name for t in ::tasks.taskTypes"
+                                                    class="dropdown-select form-control"
+                                                        title="Please select" data-live-search="false">
+                                                </select>
+                                        </div>
+                                </div>
+
+                            </form>
+                        </div>
+                        
+                        <div class="row" style="padding-left: 15px; padding-right: 15px; padding-top: 5px;">
+                            <div class="col-md-12" style="text-align: right;">
+                                <button href='javascript:void(0);' class='btn canopi-btn-blue' ng-click="equipmentSearch()">Search</button>
+                                <button href='javascript:void(0);' class='btn canopi-btn-gray'  ng-click="clear()">Clear</button>
+                            </div>
+                        </div>
+                    </div>
+                </accordion-group>
+            </accordion>
+        </div>
+        
+        <!-- Task Search Results -->
+        <div class="row" ng-show="true">
+            <div class="panel panel-default app-panel">
+                <div class="panel-heading app-panel-heading">
+                    <div class="app-panel-title">
+                        <span class="app-panel-header">Task Result</span>
+                                                <form class="form-inline" style="display: inline; padding-left: 5px;">
+                            <div class="form-group">
+                              <input class="form-control" type="text"
+                                       ng-model="lookupadmin.lookupFilter"
+                                       ng-model-options="{debounce: 300}"
+                                       ng-change="lookupadmin.refreshData(lookupadmin.lookupFilter)"
+                                       placeholder="Search" style="margin-top: -8px;"/>                       
+                            </div>
+                            <div class="form-group pull-right" style="margin-top: 3px; padding-right: 10px;">
+                                <button class="btn btn-success pull-right btn-sm" href="#" style="float: right; margin-left: 5px;" ng-click="lookupadmin.export()">
+                                    <i class="fa fa-file-excel-o fa-lg"></i>
+                                    Export</button>
+                                <button class="btn btn-sm canopi-btn-blue" ng-click="lookupadmin.addItem()" style="float: right;">Add Item</button>
+                                <button class="btn btn-success btn-sm" ng-disabled="!lookupadmin.selectedRow" style="float: right; margin-left: 5px; margin-right: 5px;" ng-click="lookupadmin.addItem(lookupadmin.selectedRow)">Edit Item</button>
+
+                                <button class="btn btn-danger btn-sm" style="float: right;" ng-disabled="!lookupadmin.selectedRow"
+                                        ng-click="lookupadmin.remove()">Remove
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="panel-body">
+                    
+                    <div class="row" style="padding-left: 15px; padding-right: 15px;">
+                        
+                        <div class="col-md-12">
+                            
+                            <div style="border-bottom: solid; border-width: 1px; color: #9C9C9C; margin-bottom: 15px;"></div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div  ui-grid="tasks.gridOptionsTaskListTable" 
+                                          ui-grid-selection ui-grid-resize-columns class="tasksTasksListUIGrid"></div>    
+<!--                            <table  class="table table-striped" simple-datatable add-filter="true" add-export="true"
+                              table-data="tasks.tableData"></table>-->
+                                </div>                                
+                            </div>
+                        </div>
+
+                    </div>             
+                </div>
+            </div>
+        </div> <!-- Task Search Results -->
+    </div>
+    
+</div>

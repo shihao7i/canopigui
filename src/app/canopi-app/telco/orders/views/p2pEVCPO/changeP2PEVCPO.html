@@ -1,0 +1,711 @@
+<div class="row">
+
+	<div class="col-md-12 col-lg-12">
+
+	    <!-- BREADCRUMBS - We can setup with Angular $location -->
+		<div class="row">
+				<div class="panel panel-default">
+				  <div class="panel-body">
+					    <ol class="breadcrumb">
+						  <li><a href="#"><i class="fa fa-home fa-lg"></i>&nbsp;&nbsp;&nbsp;Home</a></li>
+						  <li class="active">Change P2P EVC PO</li>
+						</ol>
+					  </div>
+				</div>
+		</div>
+		
+		<div class="row">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<span style="color: #ef6f00; font-size: 26px; font-family: Omnes-ATT-II-Light;">Change Project Order</span>
+					<div style="border-bottom: solid; border-width: 1px; margin-bottom: 20px; color: #9C9C9C;"></div>
+					
+					<!-- FORMS ------------------------------------------------------------------------------->
+					
+					<!-- Checkbox -->				
+					<div class="row canopi-inputfields"  style="padding-left: 20px; padding-right: 20px;">
+						<div class="col-lg-4 col-md-4 col-sm-12">
+							<!-- Checkbox Directive -->
+							<div checkbox id="ortOrder" value="ORT Order" state="isChecked"></div>
+						</div>
+					</div>
+					
+					<div class="row canopi-inputfields"  style="padding-left: 20px; padding-right: 20px;">
+						<div class="col-lg-4 col-md-4 col-sm-4">
+							<div class="form-group">
+								<div class="canopi-input-title">Market Indicator:</div>
+								<div class="dropdown">
+									<select ng-model="changeP2PEVC.marketIndicator" class="dropdown-select form-control ng-pristine ng-valid"
+										title="Please select" data-live-search="false">
+										<option>WHOLESALE</option>
+										<option>RETAIL</option>
+										<option></option>
+										<option></option>
+										<option></option>
+										<option></option>
+									</select>
+								</div>
+							</div> <!-- End field-->
+							<div class="form-group required">
+								<div class="canopi-input-title">Product Type:</div>
+								<div class="dropdown">
+									<select ng-model="changeP2PEVC.productType" class="dropdown-select form-control ng-pristine ng-valid"
+										title="Please select" data-live-search="false">
+										<option>OEM-AC</option>
+										<option></option>
+										<option></option>
+										<option></option>
+										<option></option>
+										<option></option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="canopi-input-title">EVC Circuit ID:</div>
+                                 <div class="input-group">
+                                     <input type="text" class="form-control" ng-model="changeP2PEVC.evcCircuitID" placeholder="Type and Search">
+                                       <span class="input-group-btn">
+                                         <button class="btn btn-default canopi-btn-sharp-corners" type="button"><i class="fa fa-search"></i></button>
+                                       </span>
+                                 </div><!-- /input-group -->
+							</div>
+							<div class="form-group">
+								<div class="canopi-input-title">EVC Frame:</div>
+								<div class="dropdown">
+									<select ng-model="changeP2PEVC.evcFrame" class="dropdown-select form-control ng-pristine ng-valid"
+										title="Please select" data-live-search="false">
+										<option>Regular</option>
+										<option>Jumbo</option>
+										<option></option>
+										<option></option>
+										<option></option>
+										<option></option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group required">
+								<div class="canopi-input-title">SCP:</div>
+								<div class="dropdown">
+									<select ng-model="changeP2PEVC.scp" class="dropdown-select form-control ng-pristine ng-valid"
+										title="Please select" data-live-search="false">
+										<option>No</option>
+										<option>Yes</option>
+										<option></option>
+										<option></option>
+										<option></option>
+										<option></option>
+									</select>
+								</div>
+							</div>
+						</div><!-- End col 1 -->
+						<div class="col-lg-4 col-md-4 col-sm-4">
+							
+							<div class="form-group">
+								<div class="canopi-input-title">Customer Name:</div>
+                                 <div class="input-group">
+                                     <input type="text" class="form-control" ng-model="changeP2PEVC.customerName" placeholder="Type and Search">
+                                       <span class="input-group-btn">
+                                         <button class="btn btn-default canopi-btn-sharp-corners" type="button"><i class="fa fa-search"></i></button>
+                                       </span>
+                                 </div><!-- /input-group -->
+							</div>
+							<div class="form-group">
+								<div class="canopi-input-title">Customer Circuit Reference:</div>
+								<input type="text" class="form-control" ng-model="changeP2PEVC.customerCircuitReference" placeholder="">
+							</div>
+							<div class="form-group">
+								<div class="canopi-input-title">OptID:</div>
+                                 <div class="input-group">
+                                     <input type="text" class="form-control" ng-model="changeP2PEVC.optID" placeholder="Type and Search">
+                                       <span class="input-group-btn">
+                                         <button class="btn btn-default canopi-btn-sharp-corners" type="button"><i class="fa fa-search"></i></button>
+                                       </span>
+                                 </div><!-- /input-group -->
+							</div>
+							<div class="form-group">
+								<div class="canopi-input-title">BAN:</div>
+                                 <div class="input-group">
+                                     <input type="text" class="form-control" ng-model="changeP2PEVC.ban" placeholder="Type and Search">
+                                       <span class="input-group-btn">
+                                         <button class="btn btn-default canopi-btn-sharp-corners" type="button"><i class="fa fa-search"></i></button>
+                                       </span>
+                                 </div><!-- /input-group -->
+							</div>
+							<div class="form-group">
+								<div class="canopi-input-title">ACNA:</div>
+                                 <div class="input-group">
+                                     <input type="text" class="form-control" ng-model="changeP2PEVC.acna"  placeholder="Type and Search">
+                                       <span class="input-group-btn">
+                                         <button class="btn btn-default canopi-btn-sharp-corners" type="button"><i class="fa fa-search"></i></button>
+                                       </span>
+                                 </div><!-- /input-group -->
+							</div>
+							<div class="form-group">
+								<div class="canopi-input-title">Reserve Project:</div>
+								<input type="text" class="form-control" ng-model="changeP2PEVC.reserveProject" placeholder="">
+							</div>
+						</div><!-- End col 2 -->
+						<div class="col-lg-4 col-md-4 col-sm-4">
+							<div class="form-group">
+								<div class="canopi-input-title">Desired Due Date:</div>
+								<p class="input-group">
+	                                <input type="text" class="form-control"
+	                                       datepicker-popup="{{format}}" ng-model="changeP2PEVC.desiredDueDate"
+	                                       is-open="datepickers.desiredDatepicker" min-date="minDate"
+	                                       max-date="'2015-12-25'"
+	                                       datepicker-options="dateOptions"
+	                                       date-disabled="disabled(date, mode)"
+	                                       ng-required="true" close-text="Close"/>
+	                              <span class="input-group-btn">
+	                                <button type="button" class="btn btn-default canopi-btn-sharp-corners" ng-click="open($event, 'desiredDatepicker')"><i
+	                                        class="fa fa-calendar"></i></button>
+	                              </span>
+	                            </p>
+							</div>
+							<div class="form-group required">
+								<div class="canopi-input-title">CCNA:</div>
+								<input type="text" class="form-control" ng-model="changeP2PEVC.ccna" placeholder="">
+							</div>
+							<div class="form-group">
+								<div class="canopi-input-title">EVC NC Code:</div>
+								<div class="dropdown">
+									<select ng-model="changeP2PEVC.evcNcCode" class="dropdown-select form-control ng-pristine ng-valid"
+										title="Please select" data-live-search="false">
+										<option>VLM</option>
+										<option></option>
+										<option></option>
+										<option></option>
+										<option></option>
+										<option></option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="canopi-input-title">Originating Service:</div>
+								<input type="text" class="form-control" ng-model="changeP2PEVC.originatingService" placeholder="">
+							</div>
+							<div class="form-group required">
+								<div class="canopi-input-title">USO#:</div>
+								<input type="text" class="form-control" ng-model="changeP2PEVC.usoNumber" placeholder="">
+							</div>
+						</div><!-- End col 3 -->
+					</div><!-- End rest of fields -->
+					
+					<div class="row" style="padding-left: 20px; padding-right: 20px;"> <!-- MIDDLE -->
+						<div class="col-md-6 col-sm-6 col-xs-6">
+							<div class="panel panel-default canopi-input-form-full">
+								<div class="panel-heading">
+									<div radiobutton-group radioList="radioList"></div>
+									<div checkbox id="rehomeSiteA" value="Rehome Site A" state="isCheckedRehomeSiteA"></div>
+								</div>
+								<div class="panel-body"> <!-- REGULAR UNI SITE A -->
+									<div class="col-lg-12 col-md-12 col-sm-12">
+										<div class="form-group">
+											<div class="canopi-input-title">UNI Circuit ID:</div>
+			                                 <div class="input-group">
+			                                     <input type="text" class="form-control" placeholder="Type and Search">
+			                                       <span class="input-group-btn">
+			                                         <button class="btn btn-default canopi-btn-sharp-corners" type="button"><i class="fa fa-search"></i></button>
+			                                       </span>
+			                                 </div><!-- /input-group -->
+										</div>
+									</div>
+									<div class="col-lg-6 col-md-6 col-sm-12">
+										<div class="form-group">
+											<div class="canopi-input-title">Port Config:</div>
+											<input type="text" class="form-control"  placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Port Bandwidth:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Used Bandwidth:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">COS Category:</div>
+											<div class="dropdown">
+												<select class="dropdown-select form-control ng-pristine ng-valid"
+													title="Please select" data-live-search="false">
+													<option>1</option>
+													<option>2</option>
+													<option></option>
+													<option></option>
+													<option></option>
+													<option></option>
+												</select>
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">COS Package:</div>
+											<div class="dropdown">
+												<select class="dropdown-select form-control ng-pristine ng-valid"
+													title="Please select" data-live-search="false">
+													<option>1</option>
+													<option>2</option>
+													<option></option>
+													<option></option>
+													<option></option>
+													<option></option>
+												</select>
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">IPAG CLLI:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>										
+									</div><!-- End col -->
+									<div class="col-lg-6 col-md-6 col-sm-12">
+										<div class="form-group">
+											<div class="canopi-input-title">VLAN ID:</div>
+											<input type="text" class="form-control"  placeholder="">
+										</div>
+										<div class="form-group required">
+											<div class="canopi-input-title">EVC CIR:</div>
+											<input type="text" class="form-control"  placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">UNI CIR:</div>
+											<input type="text" class="form-control"  placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Ingress Profile:</div>
+			                                 <div class="input-group">
+			                                     <input type="text" class="form-control" placeholder="Type and Search">
+			                                       <span class="input-group-btn">
+			                                         <button class="btn btn-default canopi-btn-sharp-corners" type="button"><i class="fa fa-search"></i></button>
+			                                       </span>
+			                                 </div><!-- /input-group -->
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Engress Profile:</div>
+			                                 <div class="input-group">
+			                                     <input type="text" class="form-control" placeholder="Type and Search">
+			                                       <span class="input-group-btn">
+			                                         <button class="btn btn-default canopi-btn-sharp-corners" type="button"><i class="fa fa-search"></i></button>
+			                                       </span>
+			                                 </div><!-- /input-group -->
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Diverse IPAG CLLI:</div>
+											<input type="text" class="form-control"  placeholder="">
+										</div>
+									</div><!-- End col -->
+								</div> <!-- end panel body -->
+								<div class="panel-body"> <!-- MPA SHARED UNI SITE A -->
+									<div class="col-lg-12 col-md-12 col-sm-12">
+										<div class="form-group">
+											<div class="canopi-input-title">MPA Shared UNI Facility ID:</div>
+			                                 <div class="input-group">
+			                                     <input type="text" class="form-control" placeholder="Type and Search">
+			                                       <span class="input-group-btn">
+			                                         <button class="btn btn-default canopi-btn-sharp-corners" type="button"><i class="fa fa-search"></i></button>
+			                                       </span>
+			                                 </div><!-- /input-group -->
+										</div>	
+									</div> <!-- End col -->
+									<div class="col-lg-6 col-md-6 col-sm-12">
+										<div class="form-group">
+											<div class="canopi-input-title">Port Config:</div>
+											<input type="text" class="form-control"  placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Port Bandwidth:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Used Bandwidth:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group required">
+											<div class="canopi-input-title">ICO UNI Circuit ID:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">ICO EVC Circuit ID:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Mileage Band:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">IPAG CLLI:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Distance:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+									</div><!-- End col -->
+									<div class="col-lg-6 col-md-6 col-sm-12">
+										<div class="form-group">
+											<div class="canopi-input-title">VLAN ID:</div>
+											<input type="text" class="form-control"  placeholder="">
+										</div>
+										<div class="form-group required">
+											<div class="canopi-input-title">EVC CIR:</div>
+											<input type="text" class="form-control"  placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">UNI CIR:</div>
+											<input type="text" class="form-control"  placeholder="">
+										</div>
+										<div class="form-group required">
+											<div class="canopi-input-title">EVC GOS Profile:</div>
+											<div class="dropdown">
+												<select class="dropdown-select form-control ng-pristine ng-valid"
+													title="Please select" data-live-search="false">
+													<option>1</option>
+													<option>2</option>
+													<option></option>
+													<option></option>
+													<option></option>
+													<option></option>
+												</select>
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">ICO SWC CLLI:</div>
+			                                 <div class="input-group">
+			                                     <input type="text" class="form-control" placeholder="Type and Search">
+			                                       <span class="input-group-btn">
+			                                         <button class="btn btn-default canopi-btn-sharp-corners" type="button"><i class="fa fa-search"></i></button>
+			                                       </span>
+			                                 </div><!-- /input-group -->
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">ICO Connection Charge:</div>
+											<input type="text" class="form-control"  placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">BIP (%):</div>
+											<input type="text" class="form-control"  placeholder="">
+										</div>
+									</div><!-- End col -->
+								</div><!-- end panel body -->
+								
+							</div><!-- End panel -->
+						</div><!-- End left col -->
+						<div class="col-md-6 col-sm-6 col-xs-6">
+							<div class="panel panel-default canopi-input-form-full">
+								<div class="panel-heading">
+									<div radiobutton-group radioList="radioList2"></div>
+									<div checkbox id="rehomeSiteZ" value="Rehome Site Z" state="isCheckedRehomeSiteZ"></div>
+								</div>
+								<div class="panel-body">
+									<div class="col-lg-12 col-md-12 col-sm-12">										
+										<div class="form-group">
+											<div class="canopi-input-title">UNI Circuit ID:</div>
+			                                 <div class="input-group">
+			                                     <input type="text" class="form-control" placeholder="Type and Search">
+			                                       <span class="input-group-btn">
+			                                         <button class="btn btn-default canopi-btn-sharp-corners" type="button"><i class="fa fa-search"></i></button>
+			                                       </span>
+			                                 </div><!-- /input-group -->
+										</div>
+									</div>
+									<div class="col-lg-6 col-md-6 col-sm-12">
+										<div class="form-group">
+											<div class="canopi-input-title">Port Config:</div>
+											<input type="text" class="form-control"  placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Port Bandwidth:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Used Bandwidth:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">COS Category:</div>
+											<div class="dropdown">
+												<select class="dropdown-select form-control ng-pristine ng-valid"
+													title="Please select" data-live-search="false">
+													<option>1</option>
+													<option>2</option>
+													<option></option>
+													<option></option>
+													<option></option>
+													<option></option>
+												</select>
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">COS Package:</div>
+											<div class="dropdown">
+												<select class="dropdown-select form-control ng-pristine ng-valid"
+													title="Please select" data-live-search="false">
+													<option>1</option>
+													<option>2</option>
+													<option></option>
+													<option></option>
+													<option></option>
+													<option></option>
+												</select>
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">IPAG CLLI:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>										
+									</div><!-- End col -->
+									<div class="col-lg-6 col-md-6 col-sm-12">
+										<div class="form-group">
+											<div class="canopi-input-title">VLAN ID:</div>
+											<input type="text" class="form-control"  placeholder="">
+										</div>
+										<div class="form-group required">
+											<div class="canopi-input-title">EVC CIR:</div>
+											<input type="text" class="form-control"  placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">UNI CIR:</div>
+											<input type="text" class="form-control"  placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Ingress Profile:</div>
+			                                 <div class="input-group">
+			                                     <input type="text" class="form-control" placeholder="Type and Search">
+			                                       <span class="input-group-btn">
+			                                         <button class="btn btn-default canopi-btn-sharp-corners" type="button"><i class="fa fa-search"></i></button>
+			                                       </span>
+			                                 </div><!-- /input-group -->
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Engress Profile:</div>
+			                                 <div class="input-group">
+			                                     <input type="text" class="form-control" placeholder="Type and Search">
+			                                       <span class="input-group-btn">
+			                                         <button class="btn btn-default canopi-btn-sharp-corners" type="button"><i class="fa fa-search"></i></button>
+			                                       </span>
+			                                 </div><!-- /input-group -->
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Diverse IPAG CLLI:</div>
+											<input type="text" class="form-control"  placeholder="">
+										</div>
+									</div><!-- End col -->
+								</div> <!-- end panel body -->
+								<div class="panel-body"> <!-- MPA SHARED UNI SITE Z -->
+									<div class="col-lg-12 col-md-12 col-sm-12">
+										<div class="form-group">
+											<div class="canopi-input-title">MPA Shared UNI Facility ID:</div>
+			                                 <div class="input-group">
+			                                     <input type="text" class="form-control" placeholder="Type and Search">
+			                                       <span class="input-group-btn">
+			                                         <button class="btn btn-default canopi-btn-sharp-corners" type="button"><i class="fa fa-search"></i></button>
+			                                       </span>
+			                                 </div><!-- /input-group -->
+										</div>	
+									</div> <!-- End col -->
+									<div class="col-lg-6 col-md-6 col-sm-12">
+										<div class="form-group">
+											<div class="canopi-input-title">Port Config:</div>
+											<input type="text" class="form-control"  placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Port Bandwidth:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Used Bandwidth:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group required">
+											<div class="canopi-input-title">ICO UNI Circuit ID:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">ICO EVC Circuit ID:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Mileage Band:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">IPAG CLLI:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Distance:</div>
+											<input type="text" class="form-control" placeholder="">
+										</div>
+									</div><!-- End col -->
+									<div class="col-lg-6 col-md-6 col-sm-12">
+										<div class="form-group">
+											<div class="canopi-input-title">VLAN ID:</div>
+											<input type="text" class="form-control"  placeholder="">
+										</div>
+										<div class="form-group required">
+											<div class="canopi-input-title">EVC CIR:</div>
+											<input type="text" class="form-control"  placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">UNI CIR:</div>
+											<input type="text" class="form-control"  placeholder="">
+										</div>
+										<div class="form-group required">
+											<div class="canopi-input-title">EVC GOS Profile:</div>
+											<div class="dropdown">
+												<select class="dropdown-select form-control ng-pristine ng-valid"
+													title="Please select" data-live-search="false">
+													<option>1</option>
+													<option>2</option>
+													<option></option>
+													<option></option>
+													<option></option>
+													<option></option>
+												</select>
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">ICO SWC CLLI:</div>
+			                                 <div class="input-group">
+			                                     <input type="text" class="form-control" placeholder="Type and Search">
+			                                       <span class="input-group-btn">
+			                                         <button class="btn btn-default canopi-btn-sharp-corners" type="button"><i class="fa fa-search"></i></button>
+			                                       </span>
+			                                 </div><!-- /input-group -->
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">ICO Connection Charge:</div>
+											<input type="text" class="form-control"  placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">BIP (%):</div>
+											<input type="text" class="form-control"  placeholder="">
+										</div>
+									</div><!-- End col -->
+								</div><!-- end panel body -->
+							</div>
+						</div><!-- End right col -->
+					</div>
+					
+					<div class="row">
+						<tabset class="canopi-tabset" justified="false"> 
+							<tab heading="Critical Dates">
+								<div class="row">
+									<div class="col-md-8 col-sm-12">
+										<form class="form-inline" role="form">
+											<div class="form-group">
+												<div class="form-group">
+													<div class="canopi-input-title">APP:</div>													
+													<p class="input-group">
+                                                       <input type="text" class="form-control"
+                                                              datepicker-popup="{{format}}" ng-model="changeP2PEVC.app"
+                                                              is-open="datepickers.appDatepicker" min-date="minDate"
+                                                              max-date="'2015-12-25'"
+                                                              datepicker-options="dateOptions"
+                                                              date-disabled="disabled(date, mode)"
+                                                              ng-required="true" close-text="Close"/>
+                                                     <span class="input-group-btn">
+                                                       <button type="button" class="btn btn-default canopi-btn-sharp-corners" ng-click="open($event, 'appDatepicker')"><i
+                                                               class="fa fa-calendar"></i></button>
+                                                     </span>
+                                                    </p>											
+												</div>
+												<div class="form-group">
+													<div class="canopi-input-title">SID:</div>													
+													<p class="input-group">
+                                                       <input type="text" class="form-control"
+                                                              datepicker-popup="{{format}}" ng-model="changeP2PEVC.sid"
+                                                              is-open="datepickers.sidDatepicker" min-date="minDate"
+                                                              max-date="'2015-12-25'"
+                                                              datepicker-options="dateOptions"
+                                                              date-disabled="disabled(date, mode)"
+                                                              ng-required="true" close-text="Close"/>
+                                                     <span class="input-group-btn">
+                                                       <button type="button" class="btn btn-default canopi-btn-sharp-corners" ng-click="open($event, 'sidDatepicker')"><i
+                                                               class="fa fa-calendar"></i></button>
+                                                     </span>
+                                                   	</p>											
+												</div>
+												<div class="form-group required">
+													<div class="canopi-input-title">Due Date:</div>													
+													<p class="input-group">
+                                                       <input type="text" class="form-control"
+                                                              datepicker-popup="{{format}}" ng-model="changeP2PEVC.dueDate"
+                                                              is-open="datepickers.dueDatepicker" min-date="minDate"
+                                                              max-date="'2015-12-25'"
+                                                              datepicker-options="dateOptions"
+                                                              date-disabled="disabled(date, mode)"
+                                                              ng-required="true" close-text="Close"/>
+                                                     <span class="input-group-btn">
+                                                       <button type="button" class="btn btn-default canopi-btn-sharp-corners" ng-click="open($event, 'dueDatepicker')"><i
+                                                               class="fa fa-calendar"></i></button>
+                                                     </span>
+                                                   	</p>
+                                            	</div>
+											</div>
+										</form>
+									</div>								
+								</div>
+							</tab>							
+							<tab heading="External Order Info">
+								<div class="row">	
+									<div class="col-lg-4 col-md-4 col-sm-4">
+										<div class="form-group">
+											<div class="canopi-input-title">ASR Number:</div>
+											<input type="text" class="form-control" ng-model="changeP2PEVC.asrNumber" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">ASR/PON Version:</div>
+											<input type="text" class="form-control" ng-model="changeP2PEVC.asrPonVersion" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">Req Type:</div>
+											<input type="text" class="form-control" ng-model="changeP2PEVC.reqType" placeholder="">
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-4 col-sm-4">
+										<div class="form-group">
+											<div class="canopi-input-title">ASR Item ID:</div>
+											<input type="text" class="form-control" ng-model="changeP2PEVC.asrItemID" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">ASR SUPP Type:</div>
+											<input type="text" class="form-control" ng-model="changeP2PEVC.asrSuppType" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">ICSC:</div>
+											<input type="text" class="form-control" ng-model="changeP2PEVC.asrICSC" placeholder="">
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-4 col-sm-4">
+										<div class="form-group">
+											<div class="canopi-input-title">ASR Type:</div>
+											<input type="text" class="form-control" ng-model="changeP2PEVC.asrType" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">ASR PON:</div>
+											<input type="text" class="form-control" ng-model="changeP2PEVC.asrPon" placeholder="">
+										</div>
+										<div class="form-group">
+											<div class="canopi-input-title">ASR Activity:</div>
+											<input type="text" class="form-control" ng-model="changeP2PEVC.asrActivity" placeholder="">
+										</div>
+									</div>						
+								</div>
+							</tab>
+						</tabset>
+					</div>
+					
+					
+					<!-- SEARCH AND CLEAR BUTTONS -->
+		        	<div class="row" style="padding-left: 20px; padding-right: 20px;">
+						<div class="col-md-12">
+							<button class="btn canopi-btn-orange"><span>Submit</span></button>
+							<button class="btn canopi-btn-gray" ng-click="clear()"><span>Clear</span></button>
+						</div>
+					</div>
+					
+					
+				</div> <!-- End panel body -->
+			</div><!-- End panel -->
+		</div><!-- End panel row -->
+	</div> <!-- End parent col -->
+</div><!-- End parent row -->

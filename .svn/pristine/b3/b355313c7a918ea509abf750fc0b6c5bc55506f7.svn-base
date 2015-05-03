@@ -1,0 +1,134 @@
+/*************************************************
+[TABLE OF CONTENTS]
+1. Body
+2. Panels
+3. Accordion
+4. UI-Grid
+*************************************************/
+
+/***********************************************
+    1. Body
+************************************************/
+
+
+/***********************************************
+    2. Panels
+************************************************/
+.app-panel > .app-panel-heading > .app-panel-title > .app-panel-header {
+    color: #ef6f00; 
+    font-size: 24px;
+    font-weight: normal;
+}
+
+.app-panel > .app-panel-heading {
+    background: white;
+    background-color: white;
+    height: 60px;
+    padding-left: 20px;
+    border-bottom: none;
+}
+
+.app-panel > .app-panel-heading > .app-panel-title {
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.app-panel > .panel-body {
+    border: 0;
+    padding-top: 0px;
+}
+
+/***********************************************
+    3. Accordion
+************************************************/
+
+.app-accordion .app-accordion-header {
+    color: #ef6f00; 
+    font-size: 24px;
+    font-weight: normal;
+}
+
+.app-accordion .app-accordion-tableheader {
+    color: #ef6f00; 
+    font-size: 18px;
+    font-weight: normal;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.app-accordion .app-accordion-open-icon {
+    color: #ef6f00;
+}
+
+.app-accordion > .panel-group > .panel > .panel-heading {
+    background: white;
+    background-color: white;
+    height: 60px;
+    padding-left: 20px;
+    cursor: pointer;
+}
+
+.app-accordion > .panel-group > .panel > .panel-heading > .panel-title {
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.app-accordion .panel-default > .panel-heading + .panel-collapse > .panel-body {
+    border: 0;
+    padding-top: 0px;
+}
+
+/***********************************************
+    4. UI-Grid
+************************************************/
+.ui-grid-top-panel {
+  position: relative;
+  overflow: hidden;
+  font-weight: bold;
+  color: white;
+  background: none;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#eeeeee', GradientType=0);
+  -webkit-border-top-right-radius: -1px;
+  -webkit-border-bottom-right-radius: 0;
+  -webkit-border-bottom-left-radius: 0;
+  -webkit-border-top-left-radius: -1px;
+  -moz-border-radius-topright: -1px;
+  -moz-border-radius-bottomright: 0;
+  -moz-border-radius-bottomleft: 0;
+  -moz-border-radius-topleft: -1px;
+  border-top-right-radius: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: -1px;
+  -moz-background-clip: padding-box;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
+
+.ui-grid-header {
+  border-bottom: 1px solid #d4d4d4;
+  box-sizing: content-box;
+  background-color: #067AB4;
+}
+
+.ui-grid-row:nth-child(odd) .ui-grid-cell {
+  background-color: #fff;
+}
+.ui-grid-row:nth-child(even) .ui-grid-cell {
+  background-color: #f3f3f3;
+}
+
+.ui-grid-cell-contents {
+  padding: 8px;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  white-space: nowrap;
+  -ms-text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  height: 100%;
+}

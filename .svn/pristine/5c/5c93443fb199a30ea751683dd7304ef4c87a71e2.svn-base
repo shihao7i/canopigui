@@ -1,0 +1,139 @@
+'use strict';
+
+angular.module('admin.app').controller('LookupAdminController',
+    ['$scope', '$log', '$filter', '$templateCache', 'uiGridExporterConstants', 'uiGridConstants', 'lookupTypes', 'AdminJsonService', 'UiGridUtilService', 'ModalRowEdit', 'Dialog',
+        function ($scope, $log, $filter, $templateCache, uiGridExporterConstants, uiGridConstants, lookupTypes, AdminJsonService, UiGridUtilService, ModalRowEdit, Dialog) {
+            var vm = this;
+
+            // By default the accordion is open
+            vm.searchAccordionOpen = true;
+
+            // sort the lookup type values in ascending order
+            vm.lookupTypes = $filter('orderBy')(lookupTypes, 'name');
+            vm.uiGridExporterConstants = uiGridExporterConstants;
+
+            // Load default values
+            vm.lookupType = vm.lookupTypes[2];
+            vm.mySlections = [];
+
+            // Create and configure grid
+            vm.gridOptions = UiGridUtilService.createGrid({
+                exporterCsvFilename: vm.lookupType.value + '.csv',
+                onRegisterApi: function (gridApi) {
+                    vm.gridApi = gridApi;
+
+                    // Register events
+                    gridApi.edit.on.beginCellEdit($scope, beginCellEdit);
+                    gridApi.edit.on.afterCellEdit($scope, afterCellEdit);
+                    gridApi.selection.on.rowSelectionChanged($scope, rowSelectionChanged);
+                    gridApi.rowEdit.on.saveRow($scope, saveRow);
+                    //gridApi.core.registerRowsProcessor(UiGridUtilService.rowProcessor, 100);
+                    //gridApi.core.registerColumnsProcessor(UiGridUtilService.columnProcessor, 100);
+                },
+                gridMenuCustomItems: [
+                    {
+                        title: 'Hide Empty Columns',
+                        action: function () {
+                            vm.gridOptions.columnDefs[1].visible = false;
+                            vm.gridApi.core.refresh();
+                        }
+                    },
+                    {
+                        title: 'Reset Columns',
+                        action: function () {
+                            vm.changeLookupType();
+                        }
+                    }
+                ]
+            });
+
+
+            AdminJsonService.getLookupType(vm.lookupType.value).then(function (data) {
+                vm.data = UiGridUtilService.extractTableCellValues(data.tableRows);
+                vm.gridOptions.data = vm.data;
+                vm.gridOptions.columnDefs = UiGridUtilService.extractColumnDefs(data.tableRows);
+            });
+
+            // Handle grid events
+            function beginCellEdit(rowEntity) {
+                vm.gridApi.selection.clearSelectedRows();
+                vm.gridApi.selection.selectRow(rowEntity);
+
+                // Save row for undo
+                vm.undoRow = angular.copy(rowEntity);
+                vm.isEditing = true;
+            }
+
+            function afterCellEdit(rowEntity) {
+                vm.isEditing = false;
+            }
+
+            function rowSelectionChanged(rowEntity) {
+                vm.selectedRow = rowEntity.isSelected ? rowEntity.entity : false;
+            }
+
+            function saveRow(rowEntity) {
+                console.log("Saving row");
+            }
+
+            vm.undo = function(){
+
+            };
+
+            vm.changeLookupType = function () {
+                AdminJsonService.getLookupType(vm.lookupType.value).then(function (data) {
+                    vm.data = UiGridUtilService.extractTableCellValues(data.tableRows);
+                    vm.gridOptions.data = vm.data;
+                    vm.gridOptions.columnDefs = UiGridUtilService.extractColumnDefs(data.tableRows);
+                    vm.gridOptions.exporterCsvFilename = vm.lookupType.value + '.csv';
+                });
+            };
+
+            /**
+             * Add or Edit an item
+             * @param {Object} item Optional item if this is an edit operation
+             */
+            vm.addItem = function (item) {
+                if (vm.selectedRow) {
+                    vm.selectedIndex = vm.gridOptions.data.lastIndexOf(vm.selectedRow);
+                    vm.gridOptions.data.splice(vm.selectedIndex + 1, 0, {});
+                }
+                else {
+                    var newItem = {};
+                    vm.gridOptions.data.push(newItem);
+                }
+            };            
+            
+            vm.insertCopyAtLocation = function () {
+                vm.selectedIndex = vm.gridOptions.data.lastIndexOf(vm.selectedRow);
+                vm.newRowIndex = vm.selectedIndex + 1;
+                var dataCopy = angular.copy(vm.gridOptions.data);
+                dataCopy.splice(vm.newRowIndex, 0, {});
+                dataCopy[vm.newRowIndex] = vm.gridOptions.data[vm.selectedIndex];
+                vm.gridOptions.data = dataCopy;
+
+            };
+
+            vm.remove = function (item) {
+                // Remove an item
+            };
+            
+            vm.export = function(){
+               vm.gridApi.exporter.csvExport(vm.uiGridExporterConstants.ALL, vm.uiGridExporterConstants.ALL);
+            }
+            
+            
+            /**
+             * Workaround to filter on all columns
+             * @todo Remove this when ui-grid provides it natively
+             */
+            vm.refreshData = function (filter) {
+                vm.gridOptions.data = vm.data;
+                while (filter) {
+                    var oSearchArray = filter.split(' ');
+                    vm.gridOptions.data = $filter('filter')(vm.gridOptions.data, oSearchArray[0], undefined);
+                    oSearchArray.shift();
+                    filter = (oSearchArray.length !== 0) ? oSearchArray.join(' ') : '';
+                }
+            };
+        }]);

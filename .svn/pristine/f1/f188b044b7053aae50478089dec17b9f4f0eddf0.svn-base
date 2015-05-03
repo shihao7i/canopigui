@@ -1,0 +1,25 @@
+{   "lookupType": "Special Applicaitons",
+    "tableRows": 
+        {"rowMetaData":
+            { "columnList":[{"hyperlink":false,	"id":"specialApplication", "displayName":"Special Application"}],
+
+              "rowValueList":[{"cellValues":["COW"]},
+                              {"cellValues":["COLT"]},
+                              {"cellValues":["DAS"]},
+                              {"cellValues":["SPECIAL_EVENT"]}
+                            ]
+            }
+        },
+
+    "returnStaus": "Success",
+    "returnMessage": "",
+    "returnCode": "0",
+    "pageInfo" : {
+        "totalRecords" : "4",
+        "currentPage": "0",
+        "itemsPerPage": "100"
+    }
+}
+
+
+

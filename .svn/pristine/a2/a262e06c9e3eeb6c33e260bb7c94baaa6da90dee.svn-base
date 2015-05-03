@@ -1,0 +1,37 @@
+{  
+    "key": "Rework Code",
+    "tableRows": 
+        {"rowMetaData":
+            { "columnList":[{"hyperlink":false,	"visible": false, "editable": false, "fieldType": "input", "fieldOptions": [], "fieldDefault": "", "id":"rowId", "displayName":"Row ID"},
+                            {"hyperlink":false,	"visible": true, "editable": true, "fieldType": "input", "fieldOptions": [], "fieldDefault": "", "id":"reworkTaskOperation", "displayName":"Rework Task Details/Task Operation"},
+                            {"hyperlink":false,	"visible": true, "editable": true, "fieldType": "input", "fieldOptions": [], "fieldDefault": "", "id":"reworkCode", "displayName":"Rework Code"},
+                            {"hyperlink":false, "visible": true, "editable": true, "fieldType": "input", "fieldOptions": [], "fieldDefault": "", "id":"reworkDescription", "displayName":"Rework Description"},
+                            {"hyperlink":false, "visible": true, "editable": true, "fieldType": "dropdown", "fieldOptions": [{"value": "1", "label": "1"}, {"value": "2", "label": "2"}, {"value": "3", "label": "3"}, {"value": "4", "label": "4"}, {"value": "5", "label": "5"}], "fieldDefault": "", "id":"sla", "displayName":"SLA"},
+                            {"hyperlink":false,	"visible": true, "editable": true, "fieldType": "dropdown", "fieldOptions": [{"value": "YES", "label": "YES"}, {"value": "NO", "label": "NO"}], "fieldDefault": "NO", "id":"archive", "displayName":"Archive"}],
+
+
+              "rowValueList":[{"cellValues":["1001", "RETURN TO PCO ATM FOR REWORK", "ATMPCO01", "ATMPCO01 - LOGICAL CROSS CONNECT ERROR", "1", "NO"]},
+                              {"cellValues":["1002", "RETURN TO PCO ATM FOR REWORK", "ATMPCO02", "ATMPCO02 - CTS TICKET/DISPATCH NEEDED", "1", "NO"]},
+                              {"cellValues":["1003", "RETURN TO C&E FOR REWORK", "ASC01", "ASC01 - SYSTEM ISSUES - EXACT", "1", "NO"]},
+                              {"cellValues":["1004", "RETURN TO C&E FOR REWORK", "ASC03", "ASC03 - INCOR RWK - TELCO SYSTEM FLOW ISSUE", "1", "NO"]},
+                              {"cellValues":["1005", "RETURN TO C&E FOR REWORK", "ASC04", "ASC04 - TELCO DLR NOT RECEIVED", "1", "NO"]},
+                              {"cellValues":["1006", "RETURN TO C&E FOR REWORK", "CE0101", "CE0101-PING TEST FAILED TO SIAD", "1", "NO"]},
+                              {"cellValues":["1007", "RETURN TO C&E FOR REWORK", "CE0102", "CE0102-PHYSICAL ISSUES BETWEEN SIAD AND NTE", "1", "NO"]},
+                              {"cellValues":["1008", "RETURN TO C&E FOR REWORK", "CE0103", "CE0103-DISPATCH TO CELL SITE TO RELOAD SIAD CONFIG", "1", "NO"]},
+                              {"cellValues":["1009", "RETURN TO C&E FOR REWORK", "CE0103", "CE0103-DISPATCH TO CELL SITE FOR TROUBLESHOOT SIAD", "1", "NO"]},
+                              {"cellValues":["1010", "RETURN TO C&E FOR REWORK", "CE0105", "CE0105-SIAD ON BACKORDER", "1", "NO"]}
+                             ]
+            }
+        },
+    "returnStaus": "Success",
+    "returnMessage": "",
+    "returnCode": "0",
+    "pageInfo" : {
+        "totalRecords" : "10",
+        "currentPage": "0",
+        "itemsPerPage": "100"
+    }
+}
+
+
+

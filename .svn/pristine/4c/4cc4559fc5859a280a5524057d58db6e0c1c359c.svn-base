@@ -1,0 +1,301 @@
+/*************************************************
+[table of contents]
+1. body
+2. panels
+3. dropdown 
+4. accordion
+5. ui-grid
+*************************************************/
+
+/***********************************************
+    1. body
+************************************************/
+/* maxmedia original blue primary color */
+.app-btn-dark {
+    background: #444444;
+    border-color: #444444;
+    color: #fff;
+}
+/* hover color generated using colorhexa site using original blue */
+.app-btn-dark:hover {
+    background: #444444;
+    border-color: #444444;
+    color: #fff;
+}
+.app-btn-dark:active {
+    background: #444444;
+    border-color: #444444;
+    color: #fff;
+}
+.app-btn-dark:focus {
+    background: #444444;
+    border-color: #444444;
+    color: #fff;
+}
+
+/*.btn-orange:hover, .btn-orange:active, .btn-orange:focus, .btn-orange:active:focus {
+  background-color: #d66300;
+  outline: 0;
+  color: #fff !important;
+  border: solid;
+  border-width: 1px;
+  border-color: #d66300;
+  -webkit-box-shadow: 0 0 0 transparent;
+  box-shadow: 0 0 0 transparent;
+}*/
+
+/***********************************************
+    2. panels
+************************************************/
+.app-panel > .app-panel-heading > .app-panel-title > .app-panel-header {
+    color: #ef6f00; 
+    font-size: 24px;
+    font-weight: normal;
+}
+
+.app-panel .sub-panel-heading > .sub-panel-title > .sub-panel-header {
+    font-size: 21px;
+    color: #777;
+}
+
+.app-panel > .app-panel-heading {
+    background: white;
+    background-color: white;
+    height: 60px;
+    padding-left: 20px;
+    border-bottom: none;
+}
+
+.app-panel .sub-panel-heading {
+    background: white;
+    background-color: white;
+    padding-left: 0px;
+    padding-right: 0px;
+    border-bottom: none;
+}
+
+.app-panel > .app-panel-heading > .app-panel-title {
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.app-panel > .panel-body {
+    border: 0;
+    padding-top: 0px;
+}
+
+/***********************************************
+    3. dropdown
+************************************************/
+.app-customdropdown > .caret {
+    margin-left: 270px;
+}
+
+/***********************************************
+    4. accordion
+************************************************/
+
+.app-accordion .app-accordion-header {
+    color: #ef6f00; 
+    font-size: 24px;
+    font-weight: normal;
+}
+
+.app-accordion .app-accordion-tableheader {
+    color: #ef6f00; 
+    font-size: 18px;
+    font-weight: normal;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.app-accordion .app-accordion-open-icon {
+    color: #ef6f00;
+}
+
+.app-accordion > .panel-group > .panel > .panel-heading {
+    background: white;
+    background-color: white;
+    height: 60px;
+    padding-left: 20px;
+    cursor: pointer;
+}
+
+.app-accordion > .panel-group > .panel > .panel-heading > .panel-title {
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.app-accordion .panel-default > .panel-heading + .panel-collapse > .panel-body {
+    border: 0;
+    padding-top: 0px;
+}
+
+/***********************************************
+    5. ui-grid
+************************************************/
+.ui-grid-top-panel {
+  height: 40px;
+  position: relative;
+  overflow: hidden;
+  font-weight: bold;
+  color: white;
+  background: none;
+  filter: progid:dximagetransform.microsoft.gradient(startcolorstr='#ffffff', endcolorstr='#eeeeee', gradienttype=0);
+  -webkit-border-top-right-radius: -1px;
+  -webkit-border-bottom-right-radius: 0;
+  -webkit-border-bottom-left-radius: 0;
+  -webkit-border-top-left-radius: -1px;
+  -moz-border-radius-topright: -1px;
+  -moz-border-radius-bottomright: 0;
+  -moz-border-radius-bottomleft: 0;
+  -moz-border-radius-topleft: -1px;
+  border-top-right-radius: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: -1px;
+  -moz-background-clip: padding-box;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
+
+.ui-grid-header {
+  border-bottom: 1px solid #d4d4d4;
+  box-sizing: content-box;
+  background-color: #067ab4;
+  /* height: 50px; */
+}
+
+.ui-grid-header .ui-grid-cell-contents {
+    padding: 10px;
+}
+
+.ui-grid-row:nth-child(odd) .ui-grid-cell {
+  background-color: #fff;
+  background-color: #fff;    border-bottom: solid;    border-width: 1px;    border-color: #c0c0c0;
+}
+.ui-grid-row:nth-child(even) .ui-grid-cell {
+  /* background-color: #fff; */
+  border-bottom: solid;
+  border-width: 1px;
+  border-color: #c0c0c0;
+  /* padding-right: 5px; */
+  /* padding-left: 5px; */
+}
+
+.ui-grid-cell-contents {
+  padding: 14px;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  white-space: nowrap;
+  -ms-text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  /* height: 35px; */
+}
+
+.ui-grid-menu-button {
+     background: #444444;
+     /* right: -30px; */
+     top: -1px;
+     position:absolute;
+     min-height: 42px;
+     width: 35px;
+}
+
+.ui-grid-row-header-cell .btn-xs {
+    font-size: 9px;
+}
+
+.ui-grid-menu-button .ui-grid-icon-container {
+    margin-top: 10px;
+    margin-left: 7px;
+    color: white;
+    /*width: 24px;*/
+}
+
+.ui-grid-menu {
+    padding: 10px 0px;
+}
+
+.ui-grid-menu-button .ui-grid-menu .ui-grid-menu-mid {
+    border: 0px;
+}
+
+.ui-grid-menu-items {
+    background: #fff;
+    color: #393939;
+}
+
+/*.ui-grid-menu-button .ui-grid-menu{
+     right: auto;
+}*/
+
+.ui-grid-menu .ui-grid-menu-inner ul li:not(:last-child) {
+    border-bottom: 1px solid #bbb;
+    padding: 10px;
+}
+.ui-grid-menu .ui-grid-menu-inner ul li {
+    border-right: 3px solid transparent;
+}
+
+.ui-grid-menu .ui-grid-menu-inner ul li:hover {
+    box-shadow: none;
+    /* border-right: 3px solid #ef6f00; */
+    background-color: #f3f3f3;
+}
+
+.ui-grid-pinned-container-left .ui-grid-cell-contents {
+    /* padding: 9px; */
+    padding-left: 5px;
+    /* width: 40px; */
+    /* background-color: white; */
+} 
+
+.ui-grid-cell {
+  overflow: hidden;
+  float: left;
+  background-color: inherit;
+  border-right: none;
+  border-color: #d4d4d4;
+  box-sizing: border-box;
+}
+
+div.ui-grid-cell input {
+  padding: 6px 12px;
+}
+
+div.ui-grid-cell form {
+  margin-top: 5px;
+  margin-right: 8px;
+  margin-left: 8px;
+}
+
+.ui-grid-row-dirty > [ui-grid-row] > .ui-grid-cell {
+    background-color: #d9edf7 !important;
+}
+
+.ui-grid-row-selected > [ui-grid-row] > .ui-grid-cell {
+    background-color: #dff0d8 !important;
+}
+
+.ui-grid-cell-focus {
+    background-color: transparent;
+}
+
+.tasksTasksListUIGrid {
+    height: 335px;
+}
+
+.mobilityordersTaskListTable {
+    height: 335px;
+}
+
+.ui-grid-header-viewport {
+  overflow: hidden;
+   height: 100%; 
+}

@@ -1,0 +1,13 @@
+{  
+   "attuid":"pb154j",
+   "action": "UPDATE",
+   "key": {},
+   "data":[  
+      {  
+         "id":"1001",
+         "jeopardyCode": "PREREJ20",
+         "jeopardyDescription": "PREREJ20 SITE DOWN PRIOR TO MPC ETTC TASK",
+         "archive":"NO"
+      }
+   ]
+}

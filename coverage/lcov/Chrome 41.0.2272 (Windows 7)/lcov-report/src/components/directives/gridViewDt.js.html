@@ -1,0 +1,1315 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for ./src/components/directives/gridViewDt.js</title>
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" href="../prettify.css">
+
+    <style>
+        body, html {
+            margin:0; padding: 0;
+        }
+        body {
+            font-family: Helvetica Neue, Helvetica,Arial;
+            font-size: 10pt;
+        }
+        div.header, div.footer {
+            background: #eee;
+            padding: 1em;
+        }
+        div.header {
+            z-index: 100;
+            position: fixed;
+            top: 0;
+            border-bottom: 1px solid #666;
+            width: 100%;
+        }
+        div.footer {
+            border-top: 1px solid #666;
+        }
+        div.body {
+            margin-top: 10em;
+        }
+        div.meta {
+            font-size: 90%;
+            text-align: center;
+        }
+        h1, h2, h3 {
+            font-weight: normal;
+        }
+        h1 {
+            font-size: 12pt;
+        }
+        h2 {
+            font-size: 10pt;
+        }
+        pre {
+            font-family: Consolas, Menlo, Monaco, monospace;
+            margin: 0;
+            padding: 0;
+            line-height: 14px;
+            font-size: 14px;
+            -moz-tab-size: 2;
+            -o-tab-size:  2;
+            tab-size: 2;
+        }
+
+        div.path { font-size: 110%; }
+        div.path a:link, div.path a:visited { color: #000; }
+        table.coverage { border-collapse: collapse; margin:0; padding: 0 }
+
+        table.coverage td {
+            margin: 0;
+            padding: 0;
+            color: #111;
+            vertical-align: top;
+        }
+        table.coverage td.line-count {
+            width: 50px;
+            text-align: right;
+            padding-right: 5px;
+        }
+        table.coverage td.line-coverage {
+            color: #777 !important;
+            text-align: right;
+            border-left: 1px solid #666;
+            border-right: 1px solid #666;
+        }
+
+        table.coverage td.text {
+        }
+
+        table.coverage td span.cline-any {
+            display: inline-block;
+            padding: 0 5px;
+            width: 40px;
+        }
+        table.coverage td span.cline-neutral {
+            background: #eee;
+        }
+        table.coverage td span.cline-yes {
+            background: #b5d592;
+            color: #999;
+        }
+        table.coverage td span.cline-no {
+            background: #fc8c84;
+        }
+
+        .cstat-yes { color: #111; }
+        .cstat-no { background: #fc8c84; color: #111; }
+        .fstat-no { background: #ffc520; color: #111 !important; }
+        .cbranch-no { background:  yellow !important; color: #111; }
+
+        .cstat-skip { background: #ddd; color: #111; }
+        .fstat-skip { background: #ddd; color: #111 !important; }
+        .cbranch-skip { background: #ddd !important; color: #111; }
+
+        .missing-if-branch {
+            display: inline-block;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: black;
+            color: yellow;
+        }
+
+        .skip-if-branch {
+            display: none;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: #ccc;
+            color: white;
+        }
+
+        .missing-if-branch .typ, .skip-if-branch .typ {
+            color: inherit !important;
+        }
+
+        .entity, .metric { font-weight: bold; }
+        .metric { display: inline-block; border: 1px solid #333; padding: 0.3em; background: white; }
+        .metric small { font-size: 80%; font-weight: normal; color: #666; }
+
+        div.coverage-summary table { border-collapse: collapse; margin: 3em; font-size: 110%; }
+        div.coverage-summary td, div.coverage-summary table  th { margin: 0; padding: 0.25em 1em; border-top: 1px solid #666; border-bottom: 1px solid #666; }
+        div.coverage-summary th { text-align: left; border: 1px solid #666; background: #eee; font-weight: normal; }
+        div.coverage-summary th.file { border-right: none !important; }
+        div.coverage-summary th.pic { border-left: none !important; text-align: right; }
+        div.coverage-summary th.pct { border-right: none !important; }
+        div.coverage-summary th.abs { border-left: none !important; text-align: right; }
+        div.coverage-summary td.pct { text-align: right; border-left: 1px solid #666; }
+        div.coverage-summary td.abs { text-align: right; font-size: 90%; color: #444; border-right: 1px solid #666; }
+        div.coverage-summary td.file { text-align: right; border-left: 1px solid #666; white-space: nowrap;  }
+        div.coverage-summary td.pic { min-width: 120px !important;  }
+        div.coverage-summary a:link { text-decoration: none; color: #000; }
+        div.coverage-summary a:visited { text-decoration: none; color: #333; }
+        div.coverage-summary a:hover { text-decoration: underline; }
+        div.coverage-summary tfoot td { border-top: 1px solid #666; }
+
+        div.coverage-summary .yui3-datatable-sort-indicator, div.coverage-summary .dummy-sort-indicator {
+            height: 10px;
+            width: 7px;
+            display: inline-block;
+            margin-left: 0.5em;
+        }
+        div.coverage-summary .yui3-datatable-sort-indicator {
+            background: url("https://yui-s.yahooapis.com/3.6.0/build/datatable-sort/assets/skins/sam/sort-arrow-sprite.png") no-repeat scroll 0 0 transparent;
+        }
+        div.coverage-summary .yui3-datatable-sorted .yui3-datatable-sort-indicator {
+            background-position: 0 -20px;
+        }
+        div.coverage-summary .yui3-datatable-sorted-desc .yui3-datatable-sort-indicator {
+            background-position: 0 -10px;
+        }
+
+        .high { background: #b5d592 !important; }
+        .medium { background: #ffe87c !important; }
+        .low { background: #fc8c84 !important; }
+
+        span.cover-fill, span.cover-empty {
+            display:inline-block;
+            border:1px solid #444;
+            background: white;
+            height: 12px;
+        }
+        span.cover-fill {
+            background: #ccc;
+            border-right: 1px solid #444;
+        }
+        span.cover-empty {
+            background: white;
+            border-left: none;
+        }
+        span.cover-full {
+            border-right: none !important;
+        }
+        pre.prettyprint {
+            border: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        .com { color: #999 !important; }
+        .ignore-none { color: #999; font-weight: normal; }
+
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1>Code coverage report for <span class="entity">./src/components/directives/gridViewDt.js</span></h1>
+    <h2>
+        
+        Statements: <span class="metric">4.82% <small>(4 / 83)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Branches: <span class="metric">0% <small>(0 / 48)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Functions: <span class="metric">0% <small>(0 / 25)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Lines: <span class="metric">4.82% <small>(4 / 83)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../index.html">All files</a> &#187; <a href="index.html">./src/components/directives\</a> &#187; gridViewDt.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332</td><td class="line-coverage"><span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">angular.module('canopi.directive').directive('gridViewDt', ['$window', '$compile', '$location', '$timeout', '$log',
+<span class="fstat-no" title="function not covered" >                                               function ($window, $compile, $location, $timeout, $log) {</span>
+	'use strict';
+	
+<span class="cstat-no" title="statement not covered" >    return {</span>
+        restrict: 'A, C',
+&nbsp;
+        //Declare isolate scope so we can use multiple table controls in the same controller
+        //and we don't bear the danger of controller scope effecting anything here
+        scope: {
+        	tableInstance: "=",			//Maps to the object in the controller scope holding definition, api, etc.
+        	rowData: "=",				//Maps to the object in the controller scope holding an array of row value arrays
+        	optionOverride: "=",				//Maps to options that override DataTable options
+        	fireDetail: "&amp;"			//Maps to controller's getDetailsResult(orderType,id) method
+        },
+&nbsp;
+        
+        link: <span class="fstat-no" title="function not covered" >function (scope, element, attrs) {</span>
+        	
+<span class="cstat-no" title="statement not covered" >        	$log.debug("===========  NEW gridViewDt directive created: id=" + attrs.id);</span>
+&nbsp;
+    		//External API to redraw the table
+        	
+<span class="cstat-no" title="statement not covered" >    		scope.reDraw = <span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >				if ( $.fn.dataTable.fnIsDataTable(document.getElementById(attrs.id)) ) {</span>
+<span class="cstat-no" title="statement not covered" >					element.DataTable().draw();</span>
+	      		} 
+    		};
+    		
+    		
+<span class="cstat-no" title="statement not covered" >    		scope.update = <span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >				if ( $.fn.dataTable.fnIsDataTable(document.getElementById(attrs.id)) ) {</span>
+<span class="cstat-no" title="statement not covered" >					element.DataTable()</span>
+					.rows()
+					.invalidate()
+					.draw();
+	      		} 
+    		};
+    		
+    		
+    		//External API to see if actual DataTable exists... could be with or without data
+<span class="cstat-no" title="statement not covered" >    		scope.isTableExist = <span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >    			return $.fn.dataTable.fnIsDataTable(document.getElementById(attrs.id));</span>
+    		};
+&nbsp;
+    		
+    		//External API to add rows to the table  [ [col, col, col], [col, col, col] ]   format
+<span class="cstat-no" title="statement not covered" >    		scope.addRows = <span class="fstat-no" title="function not covered" >function(data) {</span></span>
+<span class="cstat-no" title="statement not covered" >				if ( $.fn.dataTable.fnIsDataTable(document.getElementById(attrs.id)) ) {</span>
+<span class="cstat-no" title="statement not covered" >					element.DataTable()</span>
+					.rows
+					.add(data)
+					.draw();
+	      		} 
+    		};
+&nbsp;
+    		
+    		//External API to delete the row identified by the data in this object
+<span class="cstat-no" title="statement not covered" >    		scope.deleteRows = <span class="fstat-no" title="function not covered" >function(dataSelector) {</span></span>
+<span class="cstat-no" title="statement not covered" >				if ( $.fn.dataTable.fnIsDataTable(document.getElementById(attrs.id)) ) {</span>
+					
+					//Now delete each of these rows, if any
+<span class="cstat-no" title="statement not covered" >					element.DataTable()</span>
+					.rows(convertSelectorToIndexArray(dataSelector))
+					.remove()
+					.draw();
+	      		} 
+    		};
+&nbsp;
+    		
+    		//External API to update the data represented in rows matching the passed in data
+    		//Passed as an array of indexes or and object to match or undefined (whole table)
+    		
+<span class="cstat-no" title="statement not covered" >    		scope.updateRows = <span class="fstat-no" title="function not covered" >function(dataSelector) {</span></span>
+<span class="cstat-no" title="statement not covered" >				if ( $.fn.dataTable.fnIsDataTable(document.getElementById(attrs.id)) ) {</span>
+&nbsp;
+					//Now select the rows based on the array of indexes
+<span class="cstat-no" title="statement not covered" >					element.DataTable()</span>
+						.rows(convertSelectorToIndexArray(dataSelector))
+						.invalidate()
+						.nodes()
+						.each( <span class="fstat-no" title="function not covered" >function (rowTR, rowIdx) {</span>
+<span class="cstat-no" title="statement not covered" >							$compile(rowTR)(scope);</span>
+						})
+						.draw();
+	      		} 
+    		};
+    		
+    		
+    		//Setup and API for the controller to call in our directive
+    		//https://groups.google.com/forum/#!topic/angular/htKUVVNhi7A
+    		
+<span class="cstat-no" title="statement not covered" >    		scope.tableInstance.API = {</span>
+    			reDraw:			scope.reDraw,
+    			isTableExist:	scope.isTableExist,
+    			addRows:		scope.addRows,
+    			deleteRows:		scope.deleteRows,
+    			updateRows:		scope.updateRows
+			};
+&nbsp;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >			var recalcLayout = <span class="fstat-no" title="function not covered" >function(id) {</span></span>
+				
+				//If we've initialized a table, make sure to adjust the column headings
+				//since they live in a seperate div and sometimes don't redraw properly
+&nbsp;
+<span class="cstat-no" title="statement not covered" >				if ( $.fn.dataTable.fnIsDataTable(document.getElementById(id)) ) {</span>
+	
+					//Redraw the tables columns since we've resized, but only on tables that are showing
+<span class="cstat-no" title="statement not covered" >					var dt = element.dataTable();</span>
+					
+					//Want to assess whether or not the table is hidden in a tab and doesn't need it's columns resized
+					//but the dt.lengh &gt; 0 trick doesn't seem to work (since length seems to always be 1)
+<span class="cstat-no" title="statement not covered" >					dt.fnAdjustColumnSizing();</span>
+				}
+			};
+&nbsp;
+        	//We need to bind to the window resize so we can tell the table's headers to recalculate
+        	//Headers and table rows exist in different tables and don't stay in width sync, unfortunately.
+        	//DataTables recommends compensating for this when resizes are needed by manually calculating widths.
+        	//The problem ocurrs mainly when using sScrollX and sScrollXInner
+        	//http://datatables.net/forums/discussion/13767/sscrollx-and-sscrollxinner-column-alignments/p1
+        	//http://datatables.net/forums/discussion/comment/30608
+        	
+        	//An alternative solution could be to recalcuate every time the table redraws
+        	//http://datatables.net/forums/discussion/comment/10385
+        	
+<span class="cstat-no" title="statement not covered" >        	angular.element($window).bind('resize', <span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >        		recalcLayout(attrs.id);</span>
+        	});
+&nbsp;
+        	
+        	//Have to unbind from the resize event when this directive is destroyed
+<span class="cstat-no" title="statement not covered" >            scope.$on('$destroy', <span class="fstat-no" title="function not covered" >function() {</span></span>
+//            	$log.debug("----------- Destroy on table attrs.id=" + attrs.id);
+<span class="cstat-no" title="statement not covered" >                angular.element($window).unbind('resize');</span>
+            });
+&nbsp;
+     
+            //Setup an event that's fired when the controller thinks this table needs to re-layout it's columns
+<span class="cstat-no" title="statement not covered" >            scope.$on('layout', <span class="fstat-no" title="function not covered" >function() {</span></span>
+            	// You might need this timeout to be sure its run after DOM render.
+<span class="cstat-no" title="statement not covered" >                $timeout(<span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >                	recalcLayout(attrs.id);</span>
+                }, 0, false);
+            });
+            
+&nbsp;
+        	//Setup local storage saving/loading methods so we can keep the state of our filter, columns, etc.
+            //We need to override this so we can store our state according to our 3 different table types
+            //Don't register these methods if we only want to store one set of parameters... i.e.  if we want
+            //the same set of filters and columns to apply to all table searches
+            
+<span class="cstat-no" title="statement not covered" >            var getLocalStorageKey = <span class="fstat-no" title="function not covered" >function() {</span></span>
+  
+<span class="cstat-no" title="statement not covered" >            	return 'DataTables_' + $location.host() + '_' + attrs.id;</span>
+            };
+            
+<span class="cstat-no" title="statement not covered" >        	var saveState = <span class="fstat-no" title="function not covered" >function (oSettings, oData) {</span></span>
+        		
+        		//Only try to store the state of the table if loadTrigger isn't zero - indicating a desire
+        		//to kill the table
+        		
+<span class="cstat-no" title="statement not covered" >        		console.debug("&lt;&lt;&lt; saveState() called, key=" + getLocalStorageKey() + (scope.tableInstance.loadTrigger == 0 ? ", NOT STORING!" : "") );</span>
+    			
+<span class="cstat-no" title="statement not covered" >        		if ( scope.tableInstance.loadTrigger &gt; 0  ) {</span>
+        			//Store the actual table parms the table manages
+<span class="cstat-no" title="statement not covered" >        			localStorage.setItem( getLocalStorageKey(), angular.toJson(oData) );</span>
+        		}
+            };
+            
+<span class="cstat-no" title="statement not covered" >            var loadState = <span class="fstat-no" title="function not covered" >function (oSettings) {</span></span>
+<span class="cstat-no" title="statement not covered" >        		console.debug("&gt;&gt;&gt; loadState() called, key=" + getLocalStorageKey());</span>
+<span class="cstat-no" title="statement not covered" >        		return angular.fromJson(localStorage.getItem(getLocalStorageKey()));</span>
+            };
+            
+            
+&nbsp;
+            //This catches our tablelink callbacks and forwards to the controller's method
+<span class="cstat-no" title="statement not covered" >    		scope.getDetailsResult = <span class="fstat-no" title="function not covered" >function(orderType, id)</span></span>
+    		{
+<span class="cstat-no" title="statement not covered" >    			scope.fireDetail({'orderType': orderType, 'id': id});</span>
+    		};
+&nbsp;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    		scope.cellEvent = <span class="fstat-no" title="function not covered" >function(data)</span></span>
+    		{
+<span class="cstat-no" title="statement not covered" >    			$log.debug('cellEvent fired: data = ' + data);</span>
+    		};
+&nbsp;
+&nbsp;
+&nbsp;
+    		//We can't build the table in the link function... So wait until angular detects we have
+    		//column defs and then attempt to build the table.  Normally these shouldn't change once the table
+    		//is created. 
+    		
+<span class="cstat-no" title="statement not covered" >            scope.$watch("tableInstance.columnDefs", <span class="fstat-no" title="function not covered" >function() {</span></span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            	$log.debug("===========  $watch on columnDefs hit");</span>
+            	
+<span class="cstat-no" title="statement not covered" >           		if ( scope.tableInstance.columnDefs !== undefined  &amp;&amp; scope.tableInstance.columnDefs.length &gt; 0 ) {</span>
+        		
+        			//Setup some locals to seperate column from row data 
+<span class="cstat-no" title="statement not covered" >        			var localColumnDefs = [];</span>
+&nbsp;
+        	    	//Convert the array of 
+<span class="cstat-no" title="statement not covered" >        	    	for(var n=0; n &lt; scope.tableInstance.columnDefs.length; n++)</span>
+    	      		{
+<span class="cstat-no" title="statement not covered" >        	    		var column = scope.tableInstance.columnDefs[n];</span>
+<span class="cstat-no" title="statement not covered" >	      				var columnOptions = {</span>
+	            	      		"defaultContent": column.defaultContent === undefined ? "" : column.defaultContent,
+	      						"title": column.displayName,
+	      						"visible": column.visible === undefined ? true : column.visible,
+//	      						"dataProp": column.id, 
+	      						"targets": n							//can also be an array 
+	      				};
+&nbsp;
+	      				//Only if data is defined do we want to tell the table to use this specific 
+	      				//property... otherwise it uses the index into the row array
+<span class="cstat-no" title="statement not covered" >	      				if ( column.data )</span>
+<span class="cstat-no" title="statement not covered" >	      					columnOptions['data'] = column.data;</span>
+	      				
+<span class="cstat-no" title="statement not covered" >	      				if ( column.width )</span>
+<span class="cstat-no" title="statement not covered" >	      					columnOptions['width'] = column.width;	</span>	//defaults to autoWidth
+	
+	      				//Only define this if there should be a rendering callback for hyperlinks
+<span class="cstat-no" title="statement not covered" >		    			if( column.template )</span>
+<span class="cstat-no" title="statement not covered" >	    					columnOptions["render"] = { '_': 'data', 'display': column.template };</span>
+	    						
+<span class="cstat-no" title="statement not covered" >	      				localColumnDefs.push(columnOptions);</span>
+    	      		}
+        	    	
+        			//We've just finished creating localColumnDefs (column data only)
+        	      	//Proceed to prepare the table for construction
+        	      	
+<span class="cstat-no" title="statement not covered" >        	      	var isExistingTable = scope.isTableExist();</span>
+        	      	
+        	      	//First see if we have an existing table so we can decide if we need to kill it... 
+<span class="cstat-no" title="statement not covered" >        	      	if ( isExistingTable  &amp;&amp; localColumnDefs.length &gt; 0  ) {</span>
+        	      		
+        	      		//If a table already exists and we have columns... then we should kill it
+        	      		//If a table already exists but there is no key... then the controller wants to kill the table and not regenerate
+    	        				
+<span class="cstat-no" title="statement not covered" >   	      				element.DataTable().clear();</span>
+<span class="cstat-no" title="statement not covered" >   	      				element.DataTable().destroy();</span>
+<span class="cstat-no" title="statement not covered" >   	      				$("#"+attrs.id).empty();</span>
+   	      			} 
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        	      	var options =  !scope.optionOverride ? (!scope.tableInstance.optionOverride ? {} : scope.tableInstance.optionOverride) : scope.optionOverride;</span>
+<span class="cstat-no" title="statement not covered" >        	      	var dataTable = element.DataTable($.extend(getTableCreateOptions(localColumnDefs), options));</span>
+	
+<span class="cstat-no" title="statement not covered" >       				if ( scope.rowData != undefined )</span>
+<span class="cstat-no" title="statement not covered" >       					dataTable.rows.add(scope.rowData).draw();</span>
+           			
+        		}  //if tableDefinition !== undefined
+        		
+        	});  // watch on columnDefs
+&nbsp;
+&nbsp;
+            //Select rows in this table instance that match 
+<span class="fstat-no" title="function not covered" >            function selectRows(data) {</span>
+            	
+            }
+            
+            //Create options for construction of the table... The only variable at this point is the 
+            //column definitions
+            
+<span class="fstat-no" title="function not covered" >            function getTableCreateOptions(columns) {</span>
+<span class="cstat-no" title="statement not covered" >            	return {</span>
+            			jQueryUI: true,
+            			dom: "&lt;'row'&gt;t&lt;'row'&gt;",
+ 						language: {
+      					         "emptyTable": 'No records available'
+  					    },
+            			columnDefs: columns,
+            			retrieve: true,
+            			
+            			//This method is called everytime DataTables adds a row to the table
+            			createdRow: <span class="fstat-no" title="function not covered" >function( nRow, aData, iDataIndex ) {</span>
+            				//We need to compile the newly added row in case HTML with angular attributes was injected
+            				//into the TD's or they won't work
+<span class="cstat-no" title="statement not covered" >            				$compile(nRow)(scope);</span>
+            			},
+            			
+            			//Controls column smart sizes... no need to specify in column defs, ON by default
+	            		autoWidth: true,
+	            		
+            			scrollX: "100%",
+	            		scrollY: "300px",
+//	            		scrollCollapse: true,
+            			paging: false,
+            			
+            			//These parameters enable state saving in local storage and register
+            			//callbacks so we can modify where they're stored since we have 3 tables
+            			bStateSave: false,
+            	        stateSaveCallback: saveState,
+            	        stateLoadCallback: loadState
+        	      	};
+            };
+            
+    		//Take an object whose properties are meant to match properties in our rows
+    		//and convert that to a representation of an array of indexes.
+    		
+<span class="fstat-no" title="function not covered" >    		function convertSelectorToIndexArray(selector) {</span>
+    			
+<span class="cstat-no" title="statement not covered" >    			if ( typeof selector === "object" ) {</span>
+					//Make it an array of indexes that match the object
+<span class="cstat-no" title="statement not covered" >					return element.DataTable().rows().flatten().filter( <span class="fstat-no" title="function not covered" >function (rowIdx) {</span></span>
+<span class="cstat-no" title="statement not covered" >								var match = selector || {};</span>
+<span class="cstat-no" title="statement not covered" >								var rowObject = element.DataTable().row(rowIdx).data();</span>
+<span class="cstat-no" title="statement not covered" >								for (var prop in match) {</span>
+<span class="cstat-no" title="statement not covered" >									if ( !rowObject.hasOwnProperty(prop) || rowObject[prop] !== match[prop] )</span>
+<span class="cstat-no" title="statement not covered" >										return false;</span>
+								}
+<span class="cstat-no" title="statement not covered" >								return true;</span>
+							})
+							.toArray();
+				}
+&nbsp;
+    			//If selector is anything other than the object type... simply return it.
+    			//It could already be an array of integers (indexes) or undefinded (for all)
+    			//or an integer for a specific index
+<span class="cstat-no" title="statement not covered" >    			return selector;</span>
+    		};
+            
+            
+        }, 	//link method
+&nbsp;
+    };
+}]);
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sat Apr 11 2015 22:14:19 GMT-0400 (Eastern Daylight Time)</div>
+</div>
+
+<script src="../prettify.js"></script>
+
+<script src="https://yui-s.yahooapis.com/3.6.0/build/yui/yui-min.js"></script>
+<script>
+
+    YUI().use('datatable', function (Y) {
+
+        var formatters = {
+          pct: function (o) {
+              o.className += o.record.get('classes')[o.column.key];
+              try {
+                  return o.value.toFixed(2) + '%';
+              } catch (ex) { return o.value + '%'; }
+          },
+          html: function (o) {
+              o.className += o.record.get('classes')[o.column.key];
+              return o.record.get(o.column.key + '_html');
+          }
+        },
+          defaultFormatter = function (o) {
+              o.className += o.record.get('classes')[o.column.key];
+              return o.value;
+          };
+
+        function getColumns(theadNode) {
+            var colNodes = theadNode.all('tr th'),
+                cols = [],
+                col;
+            colNodes.each(function (colNode) {
+                col = {
+                    key: colNode.getAttribute('data-col'),
+                    label: colNode.get('innerHTML') || ' ',
+                    sortable: !colNode.getAttribute('data-nosort'),
+                    className: colNode.getAttribute('class'),
+                    type: colNode.getAttribute('data-type'),
+                    allowHTML: colNode.getAttribute('data-html') === 'true' || colNode.getAttribute('data-fmt') === 'html'
+                };
+                col.formatter = formatters[colNode.getAttribute('data-fmt')] || defaultFormatter;
+                cols.push(col);
+            });
+            return cols;
+        }
+
+        function getRowData(trNode, cols) {
+            var tdNodes = trNode.all('td'),
+                    i,
+                    row = { classes: {} },
+                    node,
+                    name;
+            for (i = 0; i < cols.length; i += 1) {
+                name = cols[i].key;
+                node = tdNodes.item(i);
+                row[name] = node.getAttribute('data-value') || node.get('innerHTML');
+                row[name + '_html'] = node.get('innerHTML');
+                row.classes[name] = node.getAttribute('class');
+                //Y.log('Name: ' + name + '; Value: ' + row[name]);
+                if (cols[i].type === 'number') { row[name] = row[name] * 1; }
+            }
+            //Y.log(row);
+            return row;
+        }
+
+        function getData(tbodyNode, cols) {
+            var data = [];
+            tbodyNode.all('tr').each(function (trNode) {
+                data.push(getRowData(trNode, cols));
+            });
+            return data;
+        }
+
+        function replaceTable(node) {
+            if (!node) { return; }
+            var cols = getColumns(node.one('thead')),
+                data = getData(node.one('tbody'), cols),
+                table,
+                parent = node.get('parentNode');
+
+            table = new Y.DataTable({
+                columns: cols,
+                data: data,
+                sortBy: 'file'
+            });
+            parent.set('innerHTML', '');
+            table.render(parent);
+        }
+
+        Y.on('domready', function () {
+            replaceTable(Y.one('div.coverage-summary table'));
+            if (typeof prettyPrint === 'function') {
+                prettyPrint();
+            }
+        });
+    });
+</script>
+</body>
+</html>

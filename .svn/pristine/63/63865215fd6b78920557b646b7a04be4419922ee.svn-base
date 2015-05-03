@@ -1,0 +1,25 @@
+<div class="modal-header">
+    <button type="button" class="close modal-button-close" ng-click="$dismiss()">
+        <span class="icon-ICON_X_CLOSEWINDOW"></span>
+    </button>
+    <h4 class="modal-title" id="myModalLabel">{{modal.isNew ? 'New' : 'Edit'}}</h4>
+</div>
+<div class="modal-body">
+    <form name="modalRowEdit">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-body">
+                <!--Create form groups-->
+                <div class="form-group" ng-repeat="field in modal.columnDefs">
+                    <label>{{field.displayName}}</label>
+                    <input ng-model="modal.data[field.name]" name="field.name" class="form-control"/>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-black" ng-click="$dismiss()">Cancel</button>
+    <button type="button" class="btn btn-orange" ng-click="$close(modal.data)">
+        {{modal.isNew ? 'Create': 'Save'}}
+    </button>
+</div>

@@ -1,0 +1,25 @@
+{   
+    "tableName": "Carrier Name",
+    "tableRows": 
+        {"rowMetaData":
+            { "columnList":[{"hyperlink":false,	"visible": false, "editable": false, "fieldType": "input", "fieldOptions": [], "fieldDefault": "", "id":"id", "displayName":"ID"},
+                            {"hyperlink":false,	"visible": true, "editable": true, "fieldType": "input", "fieldOptions": [], "fieldDefault": "", "id":"priorityNumber", "displayName":"Priority Number"},
+                            {"hyperlink":false,	"visible": true, "editable": true, "fieldType": "input", "fieldOptions": [], "fieldDefault": "", "id":"priorityDescription", "displayName":"Priority Description"},
+                            {"hyperlink":false,	"visible": true, "editable": true, "fieldType": "dropdown", "fieldOptions": [{"value": "YES", "label": "YES"}, {"value": "NO", "label": "NO"}], "fieldDefault": "NO", "id":"archive", "displayName":"Archive"}],
+                        
+              "rowValueList":[{"cellValues":["1001", "1", "Escalation", "NO"]},
+                              {"cellValues":["1002", "1", "High Utilization Site", "NO"]},
+                              {"cellValues":["1003", "2", "LTE Planned", "NO"]},
+                              {"cellValues":["1004", "3", "DAS", "NO"]}
+                            ]
+            }
+        },
+
+    "returnStaus": "Success",
+    "returnMessage": "",
+    "returnCode": "0"
+}
+
+
+
+

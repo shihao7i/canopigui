@@ -1,0 +1,144 @@
+<div class="row">
+    
+    <div class="col-md-12 col-lg-12">
+        
+        <div class="row">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                        <ol class="breadcrumb">
+                              <li><a href="#"><i class="fa fa-home fa-lg"></i>&nbsp;&nbsp;&nbsp;Home</a></li>
+                              <li class="active">Mobility Search</li>
+                            </ol>
+                      </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <accordion class="app-accordion">
+                <accordion-group is-open="status.open">
+                    <accordion-heading>
+                        <span class="app-accordion-header">Mobility Order Search</span>
+			<i class="pull-right glyphicon app-accordion-open-icon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                    </accordion-heading>
+                    
+                    <div style="border-bottom: solid; border-width: 1px; margin-bottom: 20px; color: #9C9C9C; margin-left: 15px; margin-right: 15px;"></div>
+
+             
+                    <div class="row" style="padding-left: 15px; padding-right: 15px;">
+
+                        <div class="col-md-4">
+                            <form>
+                                <div class="form-group">
+                                        <div class="canopi-input-title">Project Order Type:</div>
+                                        <div class="dropdown">
+                                                <select ng-model="mobilityorders.poType" ng-options="p.name for p in poTypeList"
+                                                    class="dropdown-select form-control"
+                                                        title="Please select" data-live-search="false">
+                                                </select>
+                                        </div>
+                                </div>
+                            </form>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button href='javascript:void(0);' class='btn canopi-btn-blue' ng-click="equipmentSearch()">Search</button>
+                                    <button href='javascript:void(0);' class='btn canopi-btn-gray'  ng-click="clear()">Clear</button>
+                                </div>
+                            </div>
+                        </div> <!-- col-md-3 -->
+
+                        <div class="col-md-4">
+                            <form>
+                                <div class="form-group">
+                                        <div class="canopi-input-title">Work Order Type:</div>
+                                        <div class="dropdown">
+                                                <select ng-model="mobilityorders.woType" ng-options="p.name for p in woTypeList"
+                                                    class="dropdown-select form-control"
+                                                        title="Please select" data-live-search="false">
+                                                </select>
+                                        </div>
+                                </div>
+                        
+                            </form>
+                        </div>
+
+                    </div>
+                </accordion-group>
+            </accordion>
+        </div>
+        
+        <div class="row">
+            
+            <div ui-grid="mobilityorders.gridOptionsSearchResults" ui-grid-selection class="tasksSearchResultsUIGrid"></div>
+            
+        </div>
+        
+        <div class="row" style="margin-top: 20px;">
+            <div class="panel panel-default app-panel">
+                <div class="panel-heading app-panel-heading">
+                    <div class="app-panel-title">
+                        <span class="app-panel-header">Mobility Order Details</span>
+                    </div>
+                </div>
+
+                <div class="panel-body">
+                    
+                    <div class="row" style="padding-left: 15px; padding-right: 15px;">
+                        
+                        <div class="col-md-12">
+                            <div style="border-bottom: solid; border-width: 1px; color: #9C9C9C;"></div>
+                            <p style="display: inline-block; margin-bottom: 0; margin-top: 15px;">Work Order ID:  217</p>&nbsp;&nbsp;&nbsp;&nbsp;<p style="display: inline-block; margin-bottom: 0;">Work Order Type:  ETTCSSimple</p>
+                            <p style="margin-bottom: 0; margin-top: 15px;">Work Order Description:  Lorem ipsum dolor sit amet&nbsp;<i class="fa fa-pencil-square-o"></i>
+                            
+                            <div style="border-bottom: 1px solid #eee; margin-bottom: 10px;">
+                                <h3>Task List</h3>
+                            </div>
+                                <div class="row">
+                                    <div class="col-md-11">
+                                        <div  ui-grid="mobilityorders.gridOptionsTaskListTable" ui-grid-selection class="tasksTasksListUIGrid"></div>                                
+                                    </div>
+                                    <div class="col-md-1">
+                                        <div class="btn-group-vertical" role="group" aria-label="Vertical button group" style="margin-top: 90px;">
+                                           <button type="button" class="btn btn-default"><i class="fa fa-arrow-up"></i></button>
+                                           <button type="button" class="btn btn-default"><i class="fa fa-arrow-down"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button href='javascript:void(0);' class='btn canopi-btn-blue' ng-click="equipmentSearch()">Add</button>
+                                    <button href='javascript:void(0);' class='btn canopi-btn-gray'  ng-click="clear()">Modify</button>
+                                </div>
+                            </div>
+                            
+                            <div style="border-bottom: 1px solid #eee; margin-bottom: 5px;">
+                                <h3>UDA</h3>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <ul class="list-group">
+                                        <li class="list-group-item">Cras justo odio</li>
+                                        <li class="list-group-item">Dapibus ac facilisis in</li>
+                                        <li class="list-group-item">Morbi leo risus</li>
+                                        <li class="list-group-item">Porta ac consectetur ac</li>
+                                        <li class="list-group-item">Vestibulum at eros</li>
+                                    </ul>  
+                                </div> 
+                                <div class="col-md-1">
+                                        <div class="btn-group-vertical" role="group" aria-label="Vertical button group" style="margin-top: 60px;">
+                                           <button type="button" class="btn btn-default"><i class="fa fa-plus"></i></button>
+                                           <button type="button" class="btn btn-default"><i class="fa fa-minus"></i></button>
+                                        </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>             
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>

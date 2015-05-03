@@ -1,0 +1,152 @@
+<div class="row">
+	<div class="col-md-12 col-lg-12">
+		<!-- BREADCRUM - We can setup this with Angular $location  -->
+		<div class="row">
+			<h4 style="margin-top: 20px; margin-bottom: 20px;">Network Discovery</h4>
+		</div>
+		
+		
+		<!-- TOP ACCORDION - SEARCH -->
+		<accordion class="canopi-accordion" close-others="oneAtATime">
+			<accordion-group is-open="accordionOpen.search"> 
+				<accordion-heading> 
+					<span style="color: #ef6f00; font-size: 26px; font-family: Omnes-ATT-II-Light;">Search</span> 
+					<i style="color: #ef6f00;" class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': accordionOpen.search, 'glyphicon-chevron-right': !accordionOpen.search}"></i>
+				</accordion-heading>
+				<div style="border-bottom: solid; border-width: 1px; margin-bottom: 20px; color: #9C9C9C;"></div>
+				
+				<div class="row">
+					<div class="col-lg-6 col-md-6 col-sm-6" style="padding-left: -15px; padding-right: 5px">
+						<div class="form-group">
+							<div class="canopi-input-title">Device CLLI:</div>
+							<div class="input-group">
+								<input type="text" class="form-control" placeholder="">
+								<div class="input-group-btn">
+									<button type="button" class="btn btn-default canopi-btn-sharp-corners" data-toggle="modal" 
+										data-target="#aboutDevice" ng-click="$broadcast('layout')">
+										<i class="fa fa-search"></i>
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-6 col-md-6 col-sm-6" style="padding-left: 5px">
+						<div style="padding-top:20px;">
+							<a href="javascript:void(0);" class="btn canopi-btn-blue">Discover</a>
+							<a href="javascript:void(0);" class="btn canopi-btn-blue">Clear</a>
+						</div>
+					</div>
+				</div>
+				<!-- FORMS -->
+				<div class="row">
+					<div class="col-lg-4 col-md-4 col-sm-4">
+						<div class="form-group">
+							<div>Device Name:</div>
+							<input type="text" class="form-control" placeholder="">
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-4 col-sm-4">
+						<div class="form-group">
+							<div>Device Type:</div>
+							<input type="text" class="form-control" placeholder="">
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-4 col-sm-4">
+						<div class="form-group">
+							<div>Device Sub Type:</div>
+							<input type="text" class="form-control" placeholder="">
+						</div>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-lg-4 col-md-4 col-sm-4">
+						<div class="form-group">
+							<div>User Request Time:</div>
+							<input type="text" class="form-control" placeholder="">
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-4 col-sm-4">
+						<div class="form-group">
+							<div>System Request Time:</div>
+							<input type="text" class="form-control" placeholder="">
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-4 col-sm-4">
+						<div class="form-group">
+							<div>Data Collection Time:</div>
+							<input type="text" class="form-control" placeholder="">
+						</div>
+					</div>
+				</div>
+								
+				<div class="row">
+					<div class="col-lg-4 col-md-4 col-sm-4">
+						<div class="form-group">
+							<div>Discovery Status:</div>
+							<input type="text" class="form-control" placeholder="">
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-4 col-sm-4">
+
+					</div>
+					<div class="col-lg-4 col-md-4 col-sm-4">
+
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12 col-md-12 col-sm-12">
+						<div class="form-group">
+							<div>Discovery Message:</div>
+							<textarea rows='5' class='form-control'></textarea>
+						</div>
+					</div>
+				</div>
+			</accordion-group>
+		</accordion>
+		
+		<accordion class="canopi-accordion" close-others="oneAtATime"> 
+			<accordion-group is-open="accordionOpen.table"> 
+				
+				<accordion-heading> 
+					<span style="color: #ef6f00; font-size: 26px; font-family: Omnes-ATT-II-Light;">Network Details</span> 
+					<i  style="color: #ef6f00;" class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': accordionOpen.table, 'glyphicon-chevron-right': !accordionOpen.table}"></i>
+				</accordion-heading>
+				<div style="border-bottom: solid; border-width: 1px; margin-bottom: 20px; color: #9C9C9C;"></div>
+		
+				<!-- DATATABLE -->
+				<div class="table-responsive col-lg-12 no-padding" style="padding-top: 10px;">						
+					<table class="table table-striped table-hover data-table"
+						search-result-table
+						table-data="networkDetailsData" type="simple"
+						event-handler="gridEventHandler(eventId, data)">
+					</table>					
+				</div>
+			</accordion-group>
+		</accordion>
+		
+	</div>
+</div>
+
+
+<!-- Modal - About Dialog -->
+<div class="modal fade" id="aboutDevice" draggable tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div id="aboutModalDialog" class="modal-dialog" style="width:800px">
+    <div class="modal-content canopi-modal-content">
+      <div class="modal-header">
+        <button type="button" class="canopi-close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <span class="modal-title" id="myModalLabel">Device CLLI</span>
+      </div>
+      <div id="aboutContainer" class="modal-body">
+        <!-- DATATABLE -->
+		<div class="table-responsive no-padding">						
+			<table class="table table-striped table-hover data-table"
+				search-result-table id="aboutDeviceTable" add-pagination="false"
+				table-data="deviceClliInfo"
+				event-handler="gridEventHandler(eventId, data)">
+			</table>					
+		</div>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

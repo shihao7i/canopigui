@@ -1,0 +1,129 @@
+<div class="row">
+    
+    <div class="col-md-12 col-lg-12">
+        
+        <div class="row">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                        <ol class="breadcrumb">
+                              <li><a href="#"><i class="fa fa-home fa-lg"></i>&nbsp;&nbsp;&nbsp;Home</a></li>
+                              <li class="active">Task Search</li>
+                            </ol>
+                      </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <accordion class="app-accordion">
+                <accordion-group is-open="tasks.searchAccordionOpen">
+                    <accordion-heading>
+                        <span class="app-accordion-header">Task Search</span>
+			<i class="pull-right glyphicon app-accordion-open-icon" ng-class="{'glyphicon-chevron-down': tasks.searchAccordionOpen, 'glyphicon-chevron-right': !tasks.searchAccordionOpen}"></i>
+                    </accordion-heading>
+                    
+                    <div style="border-bottom: solid; border-width: 1px; margin-bottom: 20px; color: #9C9C9C; margin-left: 15px; margin-right: 15px;"></div>
+
+             
+                    <div class="row" style="padding-left: 15px; padding-right: 15px;">
+
+                        <div class="col-md-4">
+                            <form>
+                                <div class="form-group">
+                                        <div class="canopi-input-title">Task Code:</div>
+                                        <div class="dropdown">
+                                                <select ng-model="tasks.taskSearch.taskCode" ng-options="t.name for t in tasks.taskCodeList"
+                                                    class="dropdown-select form-control"
+                                                        title="Please select" data-live-search="false">
+                                                </select>
+                                        </div>
+                                </div>
+
+                            </form>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button href='javascript:void(0);' class='btn canopi-btn-blue' ng-click="equipmentSearch()">Search</button>
+                                    <button href='javascript:void(0);' class='btn canopi-btn-gray'  ng-click="clear()">Clear</button>
+                                </div>
+                            </div>
+                        </div> 
+
+                        <div class="col-md-4">
+                            <form>
+                                 <div class="form-group">
+                                        <div class="canopi-input-title">Task Name:</div>
+                                        <div class="dropdown">
+                                                <select ng-model="tasks.taskSearch.taskName" ng-options="t.name for t in tasks.taskNameList"
+                                                    class="dropdown-select form-control"
+                                                        title="Please select" data-live-search="false">
+                                                </select>
+                                        </div>
+                                </div>
+
+                            </form>
+                        </div>
+
+                        <div class="col-md-4">
+                            <form>
+                                 <div class="form-group">
+                                        <div class="canopi-input-title">Task Type:</div>
+                                        <div class="dropdown">
+                                                <select ng-model="tasks.taskSearch.taskType" ng-options="t.name for t in tasks.taskTypeList"
+                                                    class="dropdown-select form-control"
+                                                        title="Please select" data-live-search="false">
+                                                </select>
+                                        </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </accordion-group>
+            </accordion>
+        </div>
+        
+        <!-- Task Search Results -->
+        <div class="row" ng-show="true">
+            <div class="panel panel-default app-panel">
+                <div class="panel-heading app-panel-heading">
+                    <div class="app-panel-title">
+                        <span class="app-panel-header">Task Search Results</span>
+                    </div>
+                </div>
+
+                <div class="panel-body">
+                    
+                    <div class="row" style="padding-left: 15px; padding-right: 15px;">
+                        
+                        <div class="col-md-12">
+                            
+                            <div style="border-bottom: solid; border-width: 1px; color: #9C9C9C; margin-bottom: 15px;"></div>
+
+                            <div class="row">
+                                <div class="col-md-11">
+                                    <div  ui-grid="tasks.gridOptionsTaskListTable" ui-grid-selection class="tasksTasksListUIGrid"></div>    
+<!--                            <table  class="table table-striped" simple-datatable add-filter="true" add-export="true"
+                              table-data="tasks.tableData"></table>-->
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="btn-group-vertical" role="group" aria-label="Vertical button group" style="margin-top: 90px;">
+                                       <button type="button" class="btn btn-default" ng-click="tasks.deleteSelected()"><i class="fa fa-arrow-up"></i></button>
+                                       <button type="button" class="btn btn-default"ng-click="tasks.swapSelected()"><i class="fa fa-arrow-down"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button href='javascript:void(0);' class='btn canopi-btn-blue' ng-click="equipmentSearch()">Add</button>
+                                    <button href='javascript:void(0);' class='btn canopi-btn-gray'  ng-click="clear()">Modify</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>             
+                </div>
+            </div>
+        </div> <!-- Task Search Results -->
+    </div>
+    
+</div>
