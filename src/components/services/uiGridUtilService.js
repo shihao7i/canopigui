@@ -246,11 +246,21 @@
         * @returns {undefined}
         */
         function makeEditable(column) {
-            var template = angular.injector(['canopi.templates']).get('ui-grid/' + column.fieldType);
-            $templateCache.put('ui-grid/' + column.fieldType, template);
+            
+            if (column.fieldType === 'input' || column.fieldType === 'dropdown') {
+                var template = angular.injector(['canopi.templates']).get('ui-grid/' + column.fieldType);
+                $templateCache.put('ui-grid/' + column.fieldType, template);
 
-            column.editableCellTemplate = 'ui-grid/' + column.fieldType;
-
+                column.editableCellTemplate = 'ui-grid/' + column.fieldType;
+            }
+            
+            
+            if (column.fieldType === 'date') {
+                column.type = 'date';
+                column.cellFilter = 'date:"MM/dd/yyyy"';
+            }
+            
+        
             // add a default blank value in dropdown
             if (column.fieldType === "dropdown") {
                 column.fieldOptions.unshift({
@@ -295,6 +305,13 @@
                 //console.log(cellsInRow);
                 var obj = {};
                 for (var j = 0; j < totalCols; j++) {
+                    
+                    if (columns[j].fieldType === 'date') {
+                        if (cellsInRow[j] && cellsInRow[j].length > 0) {
+                            cellsInRow[j] = new Date(cellsInRow[j]);
+                        }
+                    }
+                    
                     obj[tableData.rowMetadata.columnList[j]['id']] = cellsInRow[j];
                     //Check if cell should have a tooltip
                     if(cellsInRow[j] && cellsInRow[j].length > 10){

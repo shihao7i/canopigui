@@ -241,7 +241,7 @@
                     vm.displayTaskResults = false;
                     vm.displaySubtaskResults = false;
 
-                    AdminJsonService.getTasks().then(function(data) {
+                    AdminJsonService.getAllTasks().then(function(data) {
 
                         vm.displayTaskResults = true;
 
