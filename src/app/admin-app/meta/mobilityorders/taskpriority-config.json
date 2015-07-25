@@ -1,0 +1,10 @@
+  {
+      "title":"Task Priority",
+      "code":"COLM_TEMPLATE_TASK",
+      "value":"tasklist-search-response",
+      "sortId":"task_code",
+      "urlSuffix":"table/COLM_TEMPLATE_TASK",
+      "columnWidths":{"large": [""], 
+                      "medium": ["task_code"],
+                      "small": [""]}
+   }

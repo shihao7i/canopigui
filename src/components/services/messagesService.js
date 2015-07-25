@@ -1,25 +1,49 @@
-angular.module('canopi.service').service('MessagesService', ['$log', 'HelperUtilService', function ($log, HelperUtilService) {
-	
-	'use strict';
-	
-	var messageList = [];
+(function() {
+    'use strict';
+    
+    angular.module('canopi.service')
+           .factory('MessagesService', messagesService);
 
-    this.addMessage = function (message, type) {
+    messagesService.$inject = ['$log', 'HelperUtilService'];    
 
-        messageList.push(HelperUtilService.getMessageAndType(message, type));
+    function messagesService($log, HelperUtilService) {
+        
+        var messageList = [];
+        
+        var service = {
+            addMessage: addMessage,
+            getMessages: getMessages,
+            removeMessage: removeMessage,
+            clearMessages: clearMessages,
+            checkMessgeList: checkMessgeList
+        };
+        
+        return service;
+        
+        /////////
 
-	};
+        function addMessage(message, type) {
+            messageList.push(HelperUtilService.getMessageAndType(message, type));
+	}
 	
-	this.getMessages = function () {
-		return messageList;
-	};
+	function getMessages() {
+            return messageList;
+	}
 	
-	this.removeMessage = function (index) {
-		messageList.splice(index, 1);
-	};
+	function removeMessage(index) {
+            messageList.splice(index, 1);
+                
+	}
 	
-	this.clearMessages = function () {
-		messageList = [];
-	};
-
-}]);
+	function clearMessages() {
+            messageList = [];
+	}
+        
+        function checkMessgeList() {
+            if(messageList.length === 1) {
+                angular.element('.admin-app-container').css('margin-top', '100px');            
+            }
+        }
+    }
+    
+})();

@@ -1,11 +1,12 @@
 
+
 <!-- MAIN NAVIGATION  -->
 <nav class="navbar navbar-default navbar-fixed-top">
     <!-- TOP LAYER SECTION - ICON, USERNAME, LOGOUT, ETC -->
     <div class="app-top container-fluid">
         <span class="pull-right">
-            <span><i class="fa fa-user"></i><span class="app-user ng-cloak">Paul Beresuita</span></span>
-            <span><button class="btn btn-default canopi-btn-blue btn-xs app-btn-logout">Logout</button></span>
+            <span><i class="fa fa-user"></i><span class="app-user ng-cloak">{{userFullName}}</span></span>
+            <span><button class="btn btn-default canopi-btn-blue btn-xs app-btn-logout" ng-click="logout()">Logout</button></span>
         </span>
     </div>
     <div class="navbar-header">
@@ -16,8 +17,14 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
+<!--        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>-->
         <div>
-            <a class="navbar-brand canopi-brand" data-toggle="modal" data-target="#aboutModal">
+            <a class="navbar-brand canopi-brand" ui-sref="adminmaingui.dashboard">
                 <img src="assets/images/att_logo_color.png" alt="AT&amp;T" class="pull-left">
             </a>
             <div class="app-info">
@@ -31,23 +38,11 @@
         <ul class="nav navbar-nav">
 
             <!-- WORORDER & TEMPLATE -->
-            <!--
+            
             <li class="dropdown dropdown-large">
                 <a ui-sref="adminmaingui.mobilityorders">Workorder Templates</a>
             </li> 
-            -->
-             <li class="dropdown dropdown-large">
-                <a href="#" data-toggle="dropdown">Workorder Templates<b class="caret"></b></a>
-                <ul class="dropdown-menu dropdown-menu-large row" style="top: inherit;">
-                    <li class="col-md-12">
-                        <ul>
-                            <li><a ui-sref="adminmaingui.newwotemplate">New Workorder Template</a></li>
-                            <li><a ui-sref="adminmaingui.mobilityorders">Workorder Template Details</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-
+           
             <!-- TASKS -->
             <li class="dropdown dropdown-large">
                 <a ui-sref="adminmaingui.tasks">Tasks</a>
@@ -83,6 +78,9 @@
                         <ul>
                             <li><a href="#">Mobility Admin T-Space Link</a></li>
                         </ul>
+                        <ul>
+                            <li><a href="#" data-toggle="modal" data-target="#aboutModal">About</a></li>
+                        </ul>
                     </li>
                 </ul>
             </li>
@@ -101,7 +99,7 @@
             <img src="assets/images/att_logo_blk.png" width="50" alt="AT&amp;T">
         </div>
         <div class="col-lg-4 col-lg-offset-2 col-md-5 col-md-offset-1 col-sm-5 canopi-footer-allRightsReserved">
-            <p>Â© 2015 AT&amp;T Corporation.  All Rights Reserved. </p>
+            <p>© 2015 AT&amp;T Corporation.  All Rights Reserved. </p>
         </div>
         <div class="col-lg-5 col-md-5 col-sm-6 canopi-footer-links">
             <ul>

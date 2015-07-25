@@ -1,41 +1,216 @@
-{   
-    "tableName": "Backhual Product",   
-    "tableRows": 
-        {"rowMetaData":
-            { "columnList":[{"hyperlink":false,	"visible": false, "editable": false, "fieldType": "input", "fieldOptions": [], "fieldDefault": "", "id":"id", "displayName":"ID"},
-                            {"hyperlink":false,	"visible": true, "editable": true, "fieldType": "input", "fieldOptions": [], "fieldDefault": "", "id":"backhualProduct", "displayName":"Backhual Product"},
-                            {"hyperlink":false,	"visible": true, "editable": true, "fieldType": "dropdown", "fieldOptions": [{"value": "YES", "label": "YES"}, {"value": "NO", "label": "NO"}], "fieldDefault": "NO", "id":"archive", "displayName":"Archive"}],
+{
+   "returnStatus":"SUCCESS",
+   "returnMessage":"SUCCESS",
+   "returnCode":"0",
+   "tableName":"COLM_BACKHAUL_PRODUCT",
+   "rowMetadata":{
+      "columnList":[
+         {
+            "id":"id",
+            "hyperlink":false,
+            "visible":false,
+            "editable":false,
+            "fieldType":"input",
+            "fieldDefault":null,
+            "displayName":"id",
+            "fieldOptions":[
 
-              "rowValueList":[{"cellValues":["1001", "T1", "NO"]},
-                              {"cellValues":["1002", "IF_ETHERNET (ASE)", "NO"]},
-                              {"cellValues":["1003", "BDSL", "NO"]},
-                              {"cellValues":["1004", "OEW_LNS_OPTION_G", "NO"]},
-                              {"cellValues":["1005", "OOF_ETHERNET", "NO"]},
-                              {"cellValues":["1006", "ASE_OOF_MEETPOINT", "NO"]},
-                              {"cellValues":["1007", "OEW_LNS_OPTION_B", "NO"]},
-                              {"cellValues":["1008", "OEW_SINGLE_CONTROL_PLAN", "NO"]},
-                              {"cellValues":["1009", "OEW_SCP_OOF_MEETPOINT", "NO"]},  
-                              {"cellValues":["1010", "OC3_C", "NO"]},
-                              {"cellValues":["1011", "MOBILITY_EMUX", "NO"]},
-                              {"cellValues":["1012", "MIS_ETHERNET", "NO"]},
-                              {"cellValues":["1013", "MIS_TDM", "NO"]},                            
-                              {"cellValues":["1014", "ETHERNET_MICROWAVE_ASE", "NO"]},
-                              {"cellValues":["1015", "ETHERNET_MICROWAVE_OOF_ETHERNET", "NO"]},
-                              {"cellValues":["1016", "ETHERNET_MICROWAVE_ASE_OOF_MEETPOINT", "NO"]},
-                              {"cellValues":["1017", "ETHERNET_MICROWAVE_OEW_LNS_OPTION_B", "NO"]},
-                              {"cellValues":["1018", "ETHERNET_MICROWAVE_OEW_SINGLE_CONTROL_PLAN", "NO"]},                            
-                              {"cellValues":["1019", "ETHERNET_MICROWAVE_OEW_SCP_OOF_MEETPOINT", "NO"]},
-                              {"cellValues":["1020", "ETHERNET_MICROWAVE_OC3_C", "NO"]},
-                              {"cellValues":["1021", "ETHERNET_MICROWAVE_MOBILITY_EMUX", "NO"]},
-                              {"cellValues":["1022", "ETTCS", "NO"]},
-                              {"cellValues":["1023", "LTE", "NO"]}
-                            ]
-            }
-        },
+            ]
+         },
+         {
+            "id":"ref_id",
+            "hyperlink":false,
+            "visible":false,
+            "editable":false,
+            "fieldType":"input",
+            "fieldDefault":null,
+            "displayName":"Reference ID",
+            "fieldOptions":[
 
-    "returnStaus": "Success",
-    "returnMessage": "",
-    "returnCode": "0"
+            ]
+         },
+         {
+            "id":"title",
+            "hyperlink":false,
+            "visible":true,
+            "editable":true,
+            "fieldType":"input",
+            "fieldDefault":null,
+            "displayName":"Backhaul Product",
+            "fieldOptions":[
+
+            ]
+         }
+      ]
+   },
+   "rowValueList":[
+      {
+         "cellValues":[
+            "1000000167",
+            "ASE",
+            "ASE"
+         ]
+      },
+      {
+         "cellValues":[
+            "1000000168",
+            "OOF_ETHERNET",
+            "OOF_ETHERNET"
+         ]
+      },
+      {
+         "cellValues":[
+            "1000000169",
+            "ASE_OOF_MEETPOINT",
+            "ASE_OOF_MEETPOINT"
+         ]
+      },
+      {
+         "cellValues":[
+            "1000000170",
+            "OEW_LNS_OPTION_B",
+            "OEW_LNS_OPTION_B"
+         ]
+      },
+      {
+         "cellValues":[
+            "1000000171",
+            "OEW_SINGLE_CONTROL_PLAN",
+            "OEW_SINGLE_CONTROL_PLAN"
+         ]
+      },
+      {
+         "cellValues":[
+            "1000000172",
+            "OEW_SCP_OOF_MEETPOINT",
+            "OEW_SCP_OOF_MEETPOINT"
+         ]
+      },
+      {
+         "cellValues":[
+            "1000000173",
+            "OC_3_C",
+            "OC3_C"
+         ]
+      },
+      {
+         "cellValues":[
+            "1000000174",
+            "MOBILITY_EMUX",
+            "MOBILITY_EMUX"
+         ]
+      },
+      {
+         "cellValues":[
+            "1000000175",
+            "ETHERNET_MICROWAVE_ASE",
+            "ETHERNET_MICROWAVE_ASE"
+         ]
+      },
+      {
+         "cellValues":[
+            "1000000176",
+            "ETHERNET_MICROWAVE_OOF_ETHERNET",
+            "ETHERNET_MICROWAVE_OOF_ETHERNET"
+         ]
+      },
+      {
+         "cellValues":[
+            "1000000177",
+            "ETHERNET_MICROWAVE_ASE_OOF_MEETPOINT",
+            "ETHERNET_MICROWAVE_ASE_OOF_MEETPOINT"
+         ]
+      },
+      {
+         "cellValues":[
+            "1000000178",
+            "ETHERNET_MICROWAVE_OEW_LNS_OPTION_B",
+            "ETHERNET_MICROWAVE_OEW_LNS_OPTION_B"
+         ]
+      },
+      {
+         "cellValues":[
+            "1000000179",
+            "ETHERNET_MICROWAVE_OEW_SINGLE_CONTROL_PLAN",
+            "ETHERNET_MICROWAVE_OEW_SINGLE_CONTROL_PLAN"
+         ]
+      },
+      {
+         "cellValues":[
+            "1000000180",
+            "ETHERNET_MICROWAVE_OEW_SCP_OOF_MEETPOINT",
+            "ETHERNET_MICROWAVE_OEW_SCP_OOF_MEETPOINT"
+         ]
+      },
+      {
+         "cellValues":[
+            "1000000181",
+            "ETHERNET_MICROWAVE_OC_3_C",
+            "ETHERNET_MICROWAVE_OC3_C"
+         ]
+      },
+      {
+         "cellValues":[
+            "1000000182",
+            "ETHERNET_MICROWAVE_MOBILITY_EMUX",
+            "ETHERNET_MICROWAVE_MOBILITY_EMUX"
+         ]
+      },
+      {
+         "cellValues":[
+            "1000000183",
+            "LTE",
+            "LTE"
+         ]
+      },
+      {
+         "cellValues":[
+            "1000000184",
+            "ETTCS",
+            "ETTCS"
+         ]
+      },
+      {
+         "cellValues":[
+            "1000000185",
+            "T_1",
+            "T1"
+         ]
+      },
+      {
+         "cellValues":[
+            "1000000186",
+            "MIS_ETHERNET",
+            "MIS_ETHERNET"
+         ]
+      },
+      {
+         "cellValues":[
+            "1000000187",
+            "MIS_TDM",
+            "MIS_TDM"
+         ]
+      },
+      {
+         "cellValues":[
+            "1000000188",
+            "OEW_LNS_OPTION_G",
+            "OEW_LNS_OPTION_G"
+         ]
+      },
+      {
+         "cellValues":[
+            "1000000189",
+            "BDSL",
+            "BDSL"
+         ]
+      },
+      {
+         "cellValues":[
+            "1000000190",
+            "ETTC_ASE_OOR",
+            "ETTC_ASE_OOR"
+         ]
+      }
+   ]
 }
-
-

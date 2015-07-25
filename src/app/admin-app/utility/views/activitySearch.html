@@ -1,5 +1,5 @@
 <!-- BREADCRUMBS -->
-<div class="row">
+<!--<div class="row">
     <div class="panel panel-default">
         <div class="panel-body">
             <ol class="breadcrumb">
@@ -8,7 +8,7 @@
             </ol>
         </div>
     </div>
-</div>
+</div>-->
 
 <!-- ACTIVITY SEARCH -->
 <div class="row">
@@ -28,7 +28,7 @@
                         <input type="text" class="form-control ng-pristine ng-valid ng-touched" ng-model="activitysearch.userid" placeholder="Enter ATTUID here">  
                     </div>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <form>
                         <div class="canopi-input-title">Activity Type: </div>
                         <div class="form-group">
@@ -45,13 +45,13 @@
                 </div>  
 
 
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <div class="canopi-input-title">Work Order Type:</div>
                     <div isteven-multi-select
                          input-model="activitysearch.woTypeMultiselectPickList"
                          output-model="activitysearch.woTypeMultiselectPickListOutput"
                          button-label="icon name"
-                         item-label="icon name maker"
+                         item-label="icon name maker title"
                          tick-property="ticked"
                          max-labels="0"
                          on-item-click="activitysearch.woTypeSelectionClickItemEvent(data)"
@@ -64,7 +64,7 @@
                 </div>
 
 
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <div class="form-group">
                         <div class="canopi-input-title">From Date:</div> 
                         <p class="input-group">
@@ -86,7 +86,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <div class="form-group">
                         <div class="canopi-input-title">To Date:</div> 
                         <p class="input-group">
@@ -137,28 +137,32 @@
             <div class="app-header-underline"></div>
 
             <div class="col-md-12">
+                
                 <div class="app-table-top-menu">
-
-                <span class="app-table-top-menu-title">Activity Table</span>
-                <form class="form-inline app-table-top-menu-buttons">
-                    <div class="form-group">
-                        <input class="form-control" style="margin-top: -8px;" type="text"
-                               ng-model="activitysearch.activityFilter"
-                               ng-model-options="{debounce: 300}"
-                               ng-change="activitysearch.refreshData(activitysearch.activityFilter)"
-                               placeholder="Search"/>
-                    </div>
-                    <div class="form-group" style="margin-left: 10px; margin-top: -8px;">
-                        <div><span style="color: #777; font-weight: bold;" ng-show="activitysearch.activityType.name">Activity Type: {{activitysearch.activityType.name}}</span></div>              
-                    </div>
-                    <div class="form-group pull-right" style="margin-top: 3px;">
-                        <div class="btn-group btn-group-sm">                                        
-                            <button class="btn btn-success btn-wide"
-                                    ng-click="activitysearch.export()"><i class="fa fa-fw fa-file-excel-o"></i> Export
-                            </button>
+                    
+                    <form class="form-inline">
+                        
+                        <div class="form-group">
+                                <span class="app-table-top-menu-title">Activity Table</span>
                         </div>
-                    </div>
-                </form>
+                        <div class="form-group">
+                            <input class="form-control" type="text"
+                                   ng-model="activitysearch.activityFilter"
+                                   ng-model-options="{debounce: 300}"
+                                   ng-change="activitysearch.refreshData(activitysearch.activityFilter)"
+                                   placeholder="Search"/>
+                        </div>
+                        <div class="form-group" style="margin-left: 10px; margin-top: -8px;">
+                            <div><span style="color: #777; font-weight: bold;" ng-show="activitysearch.activityType.name">Activity Type: {{activitysearch.activityType.name}}</span></div>              
+                        </div>
+                        <div class="form-group app-button-group pull-right">
+                            <div class="btn-group btn-group-sm">                                        
+                                <button class="btn btn-success btn-wide"
+                                        ng-click="activitysearch.export()"><i class="fa fa-fw fa-file-excel-o"></i> Export
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
                 <!--Grid-->
                 <div class="ruleAdminUIGrid" ui-grid="activitysearch.gridOptionsActivityResultsTable" ui-grid-save-state ui-grid-exporter ui-grid-selection ui-grid-auto-resize ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-resize-columns></div>
@@ -167,6 +171,5 @@
         </div>
     </div> <!-- panel -->
 </div> <!-- row -->
-
 
 

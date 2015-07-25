@@ -1,1 +1,6 @@
-angular.module('maxmedia.directive', []);
+(function() {
+    'use strict';
+    
+    angular.module('maxmedia.directive', []);
+
+})();

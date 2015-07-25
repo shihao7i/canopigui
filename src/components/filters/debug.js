@@ -1,8 +1,16 @@
-'use strict';
-
-angular.module('canopi.filter')
-    .filter('debug', function () {
+(function() {
+    'use strict';
+    
+    angular.module('canopi.filter')
+           .filter('debug', debugFilter);
+	
+    debugFilter.$inject = ['$log'];    
+        
+    function debugFilter($log) {
         return function (obj) {
-            console.log(obj);
+            $log.debug(obj);
         };
-    });
+    }
+    
+})();
+

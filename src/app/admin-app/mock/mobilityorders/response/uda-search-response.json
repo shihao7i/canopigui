@@ -1,0 +1,19 @@
+{
+    "tableName": "UDA",
+    "rowMetadata":
+        { "columnList":[{"hyperlink":false,	"visible": false, "editable": false, "fieldType": "input", "fieldOptions": null, "fieldDefault": "", "id":"id", "displayName":"ID"},
+                        {"hyperlink":false,	"visible": true, "editable": true, "fieldType": "input", "fieldOptions": null, "fieldDefault": "", "id":"name", "displayName":"Name"},
+                        {"hyperlink":false,	"visible": true, "editable": true, "fieldType": "dropdown", "fieldOptions": [{"title": "YES", "code": "YES"}, {"title": "NO", "code": "NO"}], "fieldDefault": "NO", "id":"archive", "displayName":"Archive"}]
+        },
+
+    "rowValueList":[{"cellValues":["1001", "UDA #1", "NO"]},
+                    {"cellValues":["1002", "UDA #2", "NO"]},
+                    {"cellValues":["1003", "UDA #3", "NO"]},
+                    {"cellValues":["1004", "UDA #4", "NO"]},
+                    {"cellValues":["1005", "UDA #5", "NO"]},
+                    {"cellValues":["1006", "UDA #6", "NO"]},
+                    {"cellValues":["1007", "UDA #7", "NO"]},
+                    {"cellValues":["1008", "UDA #8", "NO"]},
+                    {"cellValues":["1009", "UDA #9", "NO"]}]
+
+}

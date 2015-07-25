@@ -8,19 +8,19 @@ angular.module('canopi.app', ['ngGrid', 'ngRoute', 'ngResource', 'ui.bootstrap',
 // Better Error Handling in AngularJS
 // http://odetocode.com/blogs/scott/archive/2014/04/21/better-error-handling-in-angularjs.aspx
 // $exceptionHandler function will be invoked if throw ({message}) is called from the application
-/*
-angular.module('canopi.app').config(function($provide){
-	 
-    $provide.decorator("$exceptionHandler", function($delegate, $injector){
-        return function(exception, cause){
-            var $rootScope = $injector.get("$rootScope");
-            $rootScope.addError({message:"Exception", reason:exception});
-            $delegate(exception, cause);
-        };
-    });
- 
-})
-*/
+
+//angular.module('canopi.app').config(['$provide', function($provide){
+//	 
+//    $provide.decorator("$exceptionHandler", ['$delegate', '$inject', function($delegate, $injector){
+//        return function(exception, cause){
+//            var $rootScope = $injector.get("$rootScope");
+//            $rootScope.addError({message:"Exception", reason:exception});
+//            $delegate(exception, cause);
+//        };
+//    }]);
+// 
+//}]);
+
 
 
 angular.module('canopi.app').config(['$stateProvider', '$urlRouterProvider',  function($stateProvider, $urlRouterProvider) {

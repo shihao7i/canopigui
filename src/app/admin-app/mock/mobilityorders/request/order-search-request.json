@@ -1,7 +1,7 @@
 {
-    "attuid": "yw508r",
+    "attuid": "pb154j",
     "action": "SEARCH",
-    "key": {},
+    "key": {"tableName": "Work Order Search Result"},
     "data":[  
       {  
         "poType": ["ETTCS"],

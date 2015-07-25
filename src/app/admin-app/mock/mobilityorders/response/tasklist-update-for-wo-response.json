@@ -1,48 +1,42 @@
-{  
-   "data":[  
-      {  
-         "oldId":"",
-         "newId":"1001"
+{
+   "data":[
+      {
+         "oldId":"111",
+         "newId":"111"
       },
-      {  
-         "oldId":"",
-         "newId":"1002"
+      {
+         "oldId":"222",
+         "newId":"222"
       },
-      {  
-         "oldId":"",
-         "newId":"1003"
+      {
+         "oldId":"333",
+         "newId":"333"
       },
-      {  
+      {
          "oldId":"",
          "newId":"1004"
       },
-      {  
+      {
          "oldId":"",
          "newId":"1005"
       },
-      {  
+      {
          "oldId":"",
          "newId":"1006"
+      }
+   ],
+   "delete":[
+      {
+         "oldId":"777",
+         "newId":""
       },
-      {  
-         "oldId":"",
-         "newId":"1007"
+      {
+         "oldId":"888",
+         "newId":""
       },
-      {  
-         "oldId":"",
-         "newId":"1008"
-      },
-      {  
-         "oldId":"",
-         "newId":"1009"
-      },
-      {  
-         "oldId":"",
-         "newId":"1010"
-      },
-      {  
-         "oldId":"",
-         "newId":"1011"
+      {
+         "oldId":"999",
+         "newId":""
       }
    ],
    "returnStaus":"Success",

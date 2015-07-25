@@ -1,0 +1,93 @@
+[
+   {
+      "title":"Jeopardy Code",
+      "code":"COLM_JEOPARDY_REFERENCE",
+      "value":"jeopardy-code-lookup-response",
+      "sortId":"jep_code",
+      "uniqueColumns":["jep_code"],
+      "urlSuffix":"table/COLM_JEOPARDY_REFERENCE",
+      "columnWidths":{"large": [""], 
+                      "medium": ["jep_code"],
+                      "small": ["version"]}
+   },
+   {
+      "title":"Rework Code",
+      "code":"COLM_REWORK_CODE",
+      "value":"rework-code-lookup-response",
+      "urlSuffix":"table/COLM_REWORK_CODE",
+      "columnWidths":{"large": [""], 
+                      "medium": [""],
+                      "small": ["sla", "archive", "reworkCode"]}
+   },
+   {
+      "title":"Carrier Name",
+      "code":"CANOPI_CARRIER_NAME",
+      "value":"carrier-name-lookup-response",
+      "uniqueColumns":["edp_carrier"],
+      "rule": {   
+          "invalidCondition": { 
+            "emptyColumns": ["carrier_name"]
+          },
+          "errorMessage": "CANOPI/Granite Carrier Name must be entered in order for newly added/updated data to be saved."
+      },
+      "urlSuffix":"table/CANOPI_CARRIER_NAME",
+      "columnWidths":{"large": [""], 
+                      "medium": [""],
+                      "small": [""]}
+   },
+   {
+      "title":"Cancel Reason",
+      "code":"COLM_CANCEL_REASON",
+      "value":"cancel-reason-lookup-response",
+      "urlSuffix":"table/COLM_CANCEL_REASON",
+      "columnWidths":{"large": [""], 
+                      "medium": [""],
+                      "small": ["archive"]}
+   },
+   {
+      "title":"Desired Workorder Type",
+      "code":"COLM_DESIRED_WO_TYPE",
+      "value":"desired-workorder-type-lookup-response",
+      "urlSuffix":"table/COLM_DESIRED_WO_TYPE",
+      "columnWidths":{"large": [""], 
+                      "medium": [""],
+                      "small": [""]}
+   },
+   {
+      "title":"Backhaul Product",
+      "code":"COLM_BACKHAUL_PRODUCT",
+      "value":"backhaul-product-lookup-response",
+      "valuesToCopy":[{"source": "title", "destination": "ref_id"}],
+      "urlSuffix":"table/COLM_BACKHAUL_PRODUCT",
+      "columnWidths":{"large": [""], 
+                      "medium": [""],
+                      "small": [""]}
+   },
+   {
+      "title":"Special Application",
+      "code":"COLM_SPECIAL_APPLICATION",
+      "value":"special-application-lookup-response",
+      "urlSuffix":"table/COLM_SPECIAL_APPLICATION",
+      "columnWidths":{"large": [""], 
+                      "medium": [""],
+                      "small": ["archive"]}
+   },
+   {
+      "title":"Priority Project",
+      "code":"COLM_PRIORITY_PROJECT",
+      "value":"priority-project-lookup-response",
+      "urlSuffix":"table/COLM_PRIORITY_PROJECT",
+      "columnWidths":{"large": [""], 
+                      "medium": [""],
+                      "small": ["archive", "priorityNumber"]}
+   },
+   {
+      "title":"Term",
+      "code":"COLM_TERM",
+      "value":"term-lookup-response",
+      "urlSuffix":"table/COLM_TERM",
+      "columnWidths":{"large": [""], 
+                      "medium": [""],
+                      "small": ["archive"]}
+   }
+]

@@ -1,15 +1,3 @@
-<!-- BREADCRUMBS -->
-<div class="row">
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <ol class="breadcrumb">
-                <li><a ui-sref="adminmaingui.dashboard"><i class="fa fa-home fa-lg"></i>&nbsp;&nbsp;&nbsp;Home</a></li>
-                <li class="active">Table & Pick Lists</li>
-            </ol>
-        </div>
-    </div>
-</div>
-
 <!-- TABLE LOOKUP -->
 <div class="row">
     <accordion class="app-accordion">
@@ -29,8 +17,8 @@
                     <div class="form-group">
                         <div class="dropdown">
                             <select ng-model="lookupadmin.lookupType"
-                                    ng-options="lookupType.name for lookupType in ::lookupadmin.lookupTypes"
-                                    ng-change="lookupadmin.changeLookupType()"
+                                    ng-options="lookupType.title for lookupType in ::lookupadmin.lookupTypeConfig"
+                                    ng-change="lookupadmin.changeLookupType('{{lookupadmin.lookupType.title}}')"
                                     class="dropdown-select form-control"
                                     title="Please select" data-live-search="true">
                             </select>
@@ -39,14 +27,20 @@
 
                 </form>
             </div>
+            
+            <div class="col-md-1 col-sm-1">
+                <div class="canopi-input-title">&nbsp;</div>
+                <button href='#' class='btn btn-blue btn-wide' ng-click="lookupadmin.search()">Search</button>
+            </div>
 
         </accordion-group>
     </accordion>
 </div>
 
+<div cg-busy="[lookupadmin.lookupTypePromise, lookupadmin.changeLookupTypePromise]"></div>
 
 <!-- TABLE LOOKUP RESULTS -->
-<div class="row">
+<div class="row" ng-show="lookupadmin.showResults">
     <div class="panel panel-default app-panel">
 
         <div class="panel-heading app-panel-heading">
@@ -62,45 +56,54 @@
             <div class="col-md-12">
 
                 <div class="app-table-top-menu">
-                    <span class="app-table-top-menu-title">Lookup Table</span>
-                    <form class="form-inline app-table-top-menu-buttons">
+                    
+                    <form class="form-inline">
+                        <div class="form-group">
+                            <span class="app-table-top-menu-title">Lookup Table</span>
+                        </div>
                         <div class="form-group">
                             <input class="form-control input-sm" type="text"
+                                   id="lookupsearchbox"
                                    ng-model="lookupadmin.lookupFilter"
                                    ng-model-options="{debounce: 300}"
                                    ng-change="lookupadmin.refreshData(lookupadmin.lookupFilter)"
-                                   placeholder="Search" style="margin-top: -8px;"/>
+                                   placeholder="Search"/>
                         </div>
-                        <div class="form-group pull-right" style="margin-top: 3px;">
+                        <div class="form-group app-button-group pull-right">
                             <button class="btn btn-success btn-sm btn-wide"
-                                    ng-click="lookupadmin.export()">
+                                    ng-click="lookupadmin.export()" ng-disabled="lookupadmin.isEmptyTable">
                                 <i class="fa fa-file-excel-o"></i> Export
                             </button>
                             <button class="btn btn-orange btn-sm btn-wide"
-                                    ng-disabled="lookupadmin.gridApi.rowEdit.getDirtyRows().length < 1"
+                                    ng-disabled="(!lookupadmin.isEmptyRowFound() && !lookupadmin.newRow && lookupadmin.gridApi.rowEdit.getDirtyRows().length < 1) || (lookupadmin.undoStack.length === 0 || !lookupadmin.undoStack.length) || lookupadmin.isEmptyTable"
                                     ng-click="lookupadmin.save()">
                                 <i class="fa fa-floppy-o"></i> Save
                             </button>
                             <button class="btn btn-gray btn-sm btn-wide"
-                                    ng-disabled="lookupadmin.gridApi.rowEdit.getDirtyRows().length < 1"
+                                    ng-disabled="(lookupadmin.undoStack.length === 0 || !lookupadmin.undoStack.length) || ruleadmin.isEmptyTable"
                                     ng-click="lookupadmin.undo()">
                                 <i class="fa fa-undo"></i> Undo
                             </button>
                             <div class="btn-group btn-group-sm" dropdown>
-                                <button type="button" ng-disabled="lookupadmin.isEditing" class="btn btn-blue btn-wide dropdown-toggle" dropdown-toggle>
+                                <button type="button" ng-disabled="(lookupadmin.isEditing) || lookupadmin.isEmptyTable" class="btn btn-blue btn-wide dropdown-toggle" dropdown-toggle>
                                     <i class="fa fa-gears"></i> Actions <span class="caret"></span>
                                 </button>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li ng-class = "{disabled: lookupadmin.selectedRow}" ng-click="lookupadmin.addItem()"><a href="javascript:void(0)"><i class="fa fa-fw fa-plus-circle"></i> Add</a></li>
-                                    <li ng-class="{disabled: !lookupadmin.selectedRow}" ng-click="lookupadmin.addItem()"><a href="javascript:void(0)"><i class="fa fa-fw fa-long-arrow-down"></i> Add Item Below</a></li>
-                                    <li ng-class="{disabled: !lookupadmin.selectedRow}" ng-click="lookupadmin.insertCopyAtLocation()"><a href="javascript:void(0)"><i class="fa fa-fw fa-clipboard"></i> Copy/Add</a></li>
+                                <ul class="dropdown-menu" role="menu">                                    
+                                    <li ng-class="{disabled: lookupadmin.selectedRow}" ng-click="lookupadmin.selectedRow || lookupadmin.addItem()"><a href="javascript:void(0)"><i class="fa fa-fw fa-plus-circle"></i> Add</a></li>
+                                    <li ng-class="{disabled: !lookupadmin.selectedRow}" ng-click="!lookupadmin.selectedRow || lookupadmin.addItem()"><a href="javascript:void(0)"><i class="fa fa-fw fa-long-arrow-down"></i> Add Item Below</a></li>
+                                    <li ng-class="{disabled: !lookupadmin.selectedRow}" ng-click="!lookupadmin.selectedRow || lookupadmin.insertCopyAtLocation()"><a href="javascript:void(0)"><i class="fa fa-fw fa-clipboard"></i> Copy/Add</a></li>
+                                    <li class="divider"></li>
+                                    <li ng-class="{disabled: !lookupadmin.newRow}" ng-click="!lookupadmin.newRow || lookupadmin.discardItem()"><a href="javascript:void(0)"><i class="fa fa-fw fa-minus-circle"></i> Discard Item</a></li>
                                 </ul>
                             </div>
                         </div>
                     </form>
-                </div>   
+                </div>
+                
+                <div class="alertMessagesContainer" alert-messages></div>
 
-                <div class="lookupAdminUIGrid"
+                <div ng-show="!lookupadmin.isEmptyTable" 
+                     class="lookupAdminUIGrid"
                      ui-grid="lookupadmin.gridOptions"
                      ui-grid-exporter
                      ui-grid-auto-resize
@@ -109,11 +112,17 @@
                      ui-grid-cellnav
                      ui-grid-resize-columns
                      ui-grid-selection></div>
+                
+                <div class="panel panel-default" ng-show="lookupadmin.isEmptyTable" style="text-align: center;">
+                    <div class="panel-body">
+                        <div class="msg" style="margin-top: 20px;">
+                            <i style="color: #777" class="fa fa-frown-o fa-3x"></i><span style="font-size: 24px; margin-top: 5px; display: block; color: #777">Functionality Will be Available in Future Release.</span>
+                        </div>
+                    </div>
+                 </div>
+                
             </div>
         </div>
 
     </div> <!-- panel -->
 </div> <!-- row -->
-
-
-

@@ -1,16 +1,38 @@
-angular.module('admin.app').controller('AdminMainController', ['$rootScope', '$log', 'serverInfo',
-                                       function ($rootScope, $log, serverInfo) {
+(function() {
     'use strict';
+    
+    angular.module('canopi.directive')
+           .controller('AdminMainController', adminMainController);
 
-     var vm = this;
+    adminMainController.$inject = ['$rootScope', '$log', '$q', 'CommonUtilJsonService'];    
+	
+    function adminMainController($rootScope, $log, $q, CommonUtilJsonService) {
+	  var vm = this;
+        
+//        vm.serverTimeStamp = serverInfo.serverTimeStamp;
+//        vm.serverVersion = serverInfo.serverVersion;
+//        vm.currentDate = serverInfo.currentDate;
+//        
+//        $rootScope.userFirstName = userInfo.firstName;
+//        $rootScope.userFullName = userInfo.firstName + ' ' + userInfo.lastName;
+//        
+        
+          CommonUtilJsonService.getServerInfo().then(function (serverInfo) {
+                vm.serverTimeStamp = serverInfo.serverTimeStamp;
+                vm.serverVersion = serverInfo.serverVersion;
+                vm.currentDate = serverInfo.currentDate;
+          });
+          
+          
+          $rootScope.attUid = "pb154j";
 
-    init();
+          if (localStorage && localStorage.attuid) {
+              $rootScope.attUid = localStorage.attuid;
+          }
+        
+          $rootScope.userFirstName = "Paul";
+          $rootScope.userFullName = "Paul Beresuita";
 
-    function init() {
-
-        vm.serverTimeStamp = serverInfo.serverTimeStamp;
-        vm.serverVersion = serverInfo.serverVersion;
-        vm.currentDate = serverInfo.currentDate;
-    };
-
-}]);
+    }
+   
+})();

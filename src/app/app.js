@@ -9,7 +9,7 @@ if(token === "admin") {
     angular.module('main.app').run(['$state', function ($state) {
 
         $state.transitionTo('adminmaingui.dashboard');
-		
+
     }]);
     
 } else {

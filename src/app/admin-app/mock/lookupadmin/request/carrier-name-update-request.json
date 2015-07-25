@@ -1,13 +1,12 @@
 {  
    "attuid":"pb154j",
    "action": "UPDATE",
-   "key": {},
+   "key": {"tableName": "Carrier Name"},
    "data":[  
       {  
          "id":"1001",
          "edpCarrierName":"Carrier Deferred (Late Date)", 
-         "canopiCarrierName": "",
-         "graniteCarrierName": "",
+         "canopiGraniteCarrierName": "",
          "vfoCarrierName": "",
          "archive":"NO"
       }

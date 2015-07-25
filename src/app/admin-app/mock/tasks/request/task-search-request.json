@@ -1,6 +1,12 @@
 {
-    "attuid": "yw508r",
-    "taskCode": "",
-    "taskName": "",
-    "taskType": ""
+    "attuid": "pb154j",
+    "action": "SEARCH",
+    "key": {"tableName": "Task Result"},
+    "data":[  
+      {  
+        "taskCode": "",
+        "taskName": "",
+        "taskType": ""
+      }
+    ] 
 }

@@ -1,20 +1,22 @@
+(function() {
+    'use strict';
 
-angular.module('canopi.directive').directive('modalDialog', function() {
-	'use strict';
+    angular.module('canopi.directive')
+           .directive('modalDialog', modalDialog);
+ 
 
-	return {
-		restrict : 'EA',	
-
-		scope: {
-			dialogId: "=",
-			titleId: "=",
-			bodyId: "=",
-			title: "@",
-			message:"@",
-			buttonLabel: "@"
-		},
-
-		template : '<div class="modal fade" id="{{dialogId}}" draggable tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">' +
+    function modalDialog() {
+        var directive = {
+            restrict: 'EA',
+            scope: {
+                dialogId: "=",
+                titleId: "=",
+                bodyId: "=",
+                title: "@",
+                message:"@",
+                buttonLabel: "@"
+            },
+            template : '<div class="modal fade" id="{{dialogId}}" draggable tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">' +
 		'<div class="modal-dialog">' +
 		'<div class="modal-content">' + 
 		'<div class="modal-header" style="height: 45px;">' +
@@ -28,12 +30,19 @@ angular.module('canopi.directive').directive('modalDialog', function() {
 		'</div>' +
 		'</div>' +
 		'</div>',
-
-		link: function (scope, element, attrs, controller) {
-			scope.dialogId = attrs.dialogId;
-			scope.titleId = attrs.titleId;
-			scope.bodyId = attrs.bodyId;
-		}
-	};
-});
+            link: link
+        };
+	
+	return directive;
+        
+        ////
+        
+        function link(scope, element, attrs) {
+            scope.dialogId = attrs.dialogId;
+            scope.titleId = attrs.titleId;
+            scope.bodyId = attrs.bodyId;
+        }     
+    }
+	
+})();
 

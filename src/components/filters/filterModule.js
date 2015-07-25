@@ -1,1 +1,6 @@
-angular.module('canopi.filter', []);
+(function() {
+    'use strict';
+    
+    angular.module('canopi.filter', []);
+
+})();

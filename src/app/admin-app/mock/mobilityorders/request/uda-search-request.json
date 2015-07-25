@@ -1,0 +1,10 @@
+{
+    "attuid": "pb154j",
+    "action": "SEARCH",
+    "key": {"tableName": "UDA"},
+    "data":[  
+      {  
+          "woType":"ETTCSNewCabinet"
+      }
+    ] 
+}

@@ -13,17 +13,17 @@
  Launch Modal
  </button>
 
- <div dialog-box-with-optional-launch-button dialog-id="myModal" title="Label Name" content="dialogContent" action-button-label="Save" callback="save()"></div>
+ <div dialog-box-with-optional-launch-button dialog-id="myModal" title="Label Name" content="vm.dialogContent" action-button-label="Save" callback="vm.save()"></div>
 
  Usage #2: (this directive supports the display for both Push Button and Dialog Box)
  ---------
 
- <div dialog-box-with-optional-launch-button launch-button-label="Launch Model 2" dialog-id="myModal1" title="Label Name" content="dialogContent" action-button-label="Save" callback="save()"></div>
+ <div dialog-box-with-optional-launch-button launch-button-label="Launch Model 2" dialog-id="myModal1" title="Label Name" content="vm.dialogContent" action-button-label="Save" callback="vm.save()"></div>
 
 
  [Example of the model data set in the controller]:
 
- $scope.dialogContent = "Lorem ipsum: dolor sit amet, consectetur adipisicing elit, sed do eiusmod " +
+    vm.dialogContent = "Lorem ipsum: dolor sit amet, consectetur adipisicing elit, sed do eiusmod " +
                         "tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, " +
                         "quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo " +
                         "consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse " +
@@ -40,50 +40,65 @@
 **/
 
 
-
-angular.module('maxmedia.directive').directive('dialogBoxWithOptionalLaunchButton', ['$log', function($log) {
+(function() {
     'use strict';
+    
+    angular.module('maxmedia.directive')
+           .directive('dialogBoxWithOptionalLaunchButton', dialogBoxWithOptionalLaunchButton);
 
-    return {
-        restrict : 'EA',
-        scope : {
-            launchButtonLabel: "@?", // optional
-            dialogId: "@",
-            title: "@",
-            content:"=",
-            actionButtonLabel: "@",
-            callback: "&"
-        },
+    dialogBoxWithOptionalLaunchButton.$inject = ['$log'];    
 
-        template : '<div><button class="btn btn-blue" ng-show="launchButtonLabel !== undefined" data-toggle="modal" data-target="#{{dialogId}}">{{launchButtonLabel}}</button>' +
-                   '   <div class="modal fade" id="{{dialogId}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">' +
-                   '      <div class="modal-dialog dialogbox">' +
-                   '         <div class="modal-content">' +
-                   '            <div class="modal-header">' +
-                   '                <button type="button" class="close modal-button-close" data-dismiss="modal" aria-hidden="true"><span class="icon-ICON_X_CLOSEWINDOW"></span></button>' +
-                   '                <h4 class="modal-title" id="myModalLabel">{{title}}</h4>' +
-                   '            </div>' +
-                   '            <div class="modal-body">' +
-                   '                <strong>{{content}}</strong>' +
-                   '            </div>' +
-                                '<div class="modal-footer">' +
-                   '                <button type="button" class="btn btn-black" data-dismiss="modal">Cancel</button>' +
-                   '                <button type="button" class="btn btn-orange" data-dismiss="modal" ng-click="actionButtonClicked()">{{actionButtonLabel}}</button>' +
-                   '             </div>' +
-                   '         </div>' +
-                   '       </div>' +
-                   '   </div>' +
-                   '</div>',
+    function dialogBoxWithOptionalLaunchButton($log) {
+         var directive = {
+            restrict: 'EA',
+            scope : {
+                launchButtonLabel: "@?", // optional
+                dialogId: "@",
+                title: "@",
+                content:"=",
+                actionButtonLabel: "@",
+                callback: "&"
+            },
+            template :  '<div><button class="btn btn-blue" ng-show="vm.launchButtonLabel !== undefined" data-toggle="modal" data-target="#{{vm.dialogId}}">{{vm.launchButtonLabel}}</button>' +
+                        '   <div class="modal fade" id="{{vm.dialogId}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">' +
+                        '      <div class="modal-dialog dialogbox">' +
+                        '         <div class="modal-content">' +
+                        '            <div class="modal-header">' +
+                        '                <button type="button" class="close modal-button-close" data-dismiss="modal" aria-hidden="true"><span class="icon-ICON_X_CLOSEWINDOW"></span></button>' +
+                        '                <h4 class="modal-title" id="myModalLabel">{{vm.title}}</h4>' +
+                        '            </div>' +
+                        '            <div class="modal-body">' +
+                        '                <strong>{{vm.content}}</strong>' +
+                        '            </div>' +
+                                     '<div class="modal-footer">' +
+                        '                <button type="button" class="btn btn-black" data-dismiss="modal">Cancel</button>' +
+                        '                <button type="button" class="btn btn-orange" data-dismiss="modal" ng-click="vm.actionButtonClicked()">{{vm.actionButtonLabel}}</button>' +
+                        '             </div>' +
+                        '         </div>' +
+                        '       </div>' +
+                        '   </div>' +
+                        '</div>',
 
-        link: function (scope, element, attrs) {
+            controller: controller,
+            controllerAs: 'vm',
+            bindToController: true
+        };
+	
+        return directive;
+        
+        ////
+    }
+    
+    
+    function controller() {
 
-            scope.actionButtonClicked = function() {
+        var vm = this;
 
-                scope.callback();
+        vm.actionButtonClicked = function() {
 
-            };
-        }
-    };
-}]);
+            vm.callback();
 
-
+        };
+    }
+    
+})();

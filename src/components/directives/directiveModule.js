@@ -1,1 +1,6 @@
-angular.module('canopi.directive', []);
+(function() {
+    'use strict';
+    
+    angular.module('canopi.directive', []);
+
+})();

@@ -5,41 +5,56 @@
  * 
    [Example of the directive usage in html]:
       
-   <div checkbox id="checkbox4" value="CheckBox 4"  state="isChecked"></div>
+   <div checkbox id="checkbox4" value="CheckBox 4"  state="vm.isChecked"></div>
      
    [Example of the model data set in the controller]:
    
-   $scope.isChecked = false;   // initialized to unchecked state
+   vm.isChecked = false;   // initialized to unchecked state
      
  *  
  */
 
+(function() {
+    'use strict';
 
-angular.module('maxmedia.directive').directive('checkbox', ['$log', function($log) {
-	'use strict';
+    angular.module('maxmedia.directive')
+           .directive('checkbox', checkbox);
+
+    checkbox.$inject = ['$log'];    
+
+    function checkbox($log) {
+         var directive = {
+            restrict: 'EA',
+            scope: {
+                id: '@',
+                value: '@',
+                isChecked: "=state"
+            },
+            template :  '<div class="checkbox-group">' +
+                        '  <label for="{{vm.id}}" class="checkbox-container" ng-class="{active: vm.isChecked}" >' +
+                        '    <input name="{{vm.id}}" type="checkbox" class="checkbox-input sr-only" value="{{vm.value}}">' +
+                        '    <span class="checkbox-button" ng-click="vm.toggleMe()"></span>' +
+                        '    <span class="checkbox-text">{{vm.value}}</span>' + 
+                        '  </label>' +
+                        '</div',
+            controller: controller,
+            controllerAs: 'vm',
+            bindToController: true
+        };
 	
-	return {
-		restrict : 'EA',
-		scope: {
-			id: '@',
-			value: '@',
-			isChecked: "=state"
-		},
-		
-		template : '<div class="checkbox-group">' +
-		           '  <label for="{{id}}" class="checkbox-container" ng-class="{active: isChecked}" >' +
-		           '    <input name="{{id}}" type="checkbox" class="checkbox-input sr-only" value="{{value}}">' +
-                   '    <span class="checkbox-button" ng-click="toggleMe()"></span>' +
-                   '    <span class="checkbox-text">{{value}}</span>' + 
-                   '  </label>' +
-                   '</div',
-	               
-	    link: function (scope, element, attrs) {
+        return directive;
+        
+        ////
+    }
+    
+            
+    function controller() {
 
-	    	scope.toggleMe = function () {
-	    		scope.isChecked = !scope.isChecked;  
-		    };
-		}
-	};
-}]);
+        var vm = this;
 
+        vm.toggleMe = function () {
+            vm.isChecked = !vm.isChecked;  
+        };
+    }
+    
+})();

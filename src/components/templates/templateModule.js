@@ -1,4 +1,6 @@
-'use strict';
+(function() {
+    'use strict';
+    
+    angular.module('canopi.templates', []);
 
-angular.module('canopi.templates', []);
-
+})();

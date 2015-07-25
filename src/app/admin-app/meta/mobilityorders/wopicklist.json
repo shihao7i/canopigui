@@ -1,0 +1,843 @@
+{
+   "returnStatus":"SUCCESS",
+   "returnMessage":null,
+   "returnCode":"0",
+   "data":[
+      {
+         "title":"ETTCS",
+         "code":"ETTCS"
+      },
+      {
+         "title":"GSMoE",
+         "code":"GSMoE"
+      },
+      {
+         "title":"LTENewCabinet",
+         "code":"LTENewCabinet"
+      },
+      {
+         "title":"UPSPEED",
+         "code":"UPSPEED"
+      },
+      {
+         "title":"RET",
+         "code":"RET"
+      },
+      {
+         "title":"EPADD_Initiated",
+         "code":"EPADD_Initiated"
+      },
+      {
+         "title":"ESCORE_Initiated",
+         "code":"ESCORE_Initiated"
+      },
+      {
+         "title":"Infrastructure",
+         "code":"Infrastructure"
+      },
+      {
+         "title":"ETTCSMigration",
+         "code":"ETTCSMigration"
+      },
+      {
+         "title":"ETTCSNewCabinet",
+         "code":"ETTCSNewCabinet"
+      },
+      {
+         "title":"ETTCSNewSiteBuild",
+         "code":"ETTCSNewSiteBuild"
+      },
+      {
+         "title":"ETTCSSimple",
+         "code":"ETTCSSimple"
+      },
+      {
+         "title":"DS3-OCN",
+         "code":"DS3_OCN"
+      },
+      {
+         "title":"GDI",
+         "code":"GDI"
+      },
+      {
+         "title":"MTNO GROOM",
+         "code":"MTNO_GROOM"
+      },
+      {
+         "title":"ETTCS NSB NG UNI EVC Uplink",
+         "code":"ETTCSNSBNGUNIEVCUplink"
+      },
+      {
+         "title":"ETTCS NSB NG UNI EVC Additional Node",
+         "code":"ETTCSNSBNGUNIEVCAdditionalNode"
+      },
+      {
+         "title":"ETTCS NSB NG UNI EVC Uplink EoMW Target",
+         "code":"ETTCSNSBNGUplinkEoMWTarget"
+      },
+      {
+         "title":"ETTCS SIAD MIGRATION BACKHAUL",
+         "code":"ETTCSSiteMigrationBackhaul"
+      },
+      {
+         "title":"ETTCS SIAD MIGRATION SHORTHAUL",
+         "code":"ETTCSSiteMigrationShorthaul"
+      },
+      {
+         "title":"GraniteInitiated",
+         "code":"GraniteInitiated"
+      },
+      {
+         "title":"Inter-MTSO Rehome",
+         "code":"InterMtsoRehome"
+      },
+      {
+         "title":"Intra-MSN Rebalance",
+         "code":"IntraMsnRebalance"
+      },
+      {
+         "title":"MLPPP",
+         "code":"MLPPP"
+      },
+      {
+         "title":"MLPPP Migration UMTS",
+         "code":"MLPPPMigrationUMTS"
+      },
+      {
+         "title":"MLPPP Migration DS1 UMTS",
+         "code":"MLPPPMigrationDS1UMTS"
+      },
+      {
+         "title":"MLPPP New Cabinet Add LTE",
+         "code":"MLPPPNewCabinetAddLTE"
+      },
+      {
+         "title":"MLPPP New Cabinet Add DS1 LTE",
+         "code":"MLPPPNewCabinetAddDS1LTE"
+      },
+      {
+         "title":"MLPPP New Cabinet Add UMTS",
+         "code":"MLPPPNewCabinetUMTS"
+      },
+      {
+         "title":"MLPPP New Cabinet Add DS1 UMTS",
+         "code":"MLPPPNewCabinetDS1UMTS"
+      },
+      {
+         "title":"MLPPP Upspeed",
+         "code":"MLPPPUpspeed"
+      },
+      {
+         "title":"MLPPP Upspeed DS1",
+         "code":"MLPPPUpspeedDS1"
+      },
+      {
+         "title":"MLPPP Rehome",
+         "code":"MLPPPRehome"
+      },
+      {
+         "title":"MLPPP Rehome DS1",
+         "code":"MLPPPRehomeDS1"
+      },
+      {
+         "title":"MLPPP Rebalance",
+         "code":"MLPPPRebalance"
+      },
+      {
+         "title":"MLPPP Rebalance DS1",
+         "code":"MLPPPRebalanceDS1"
+      },
+      {
+         "title":"T1-IUB",
+         "code":"IUB"
+      },
+      {
+         "title":"TRUNKING",
+         "code":"TRUNKING"
+      },
+      {
+         "title":"BULK ORDER CREATE",
+         "code":"BULK_ORDER_CREATE"
+      },
+      {
+         "title":"IMT Trunk Group Add",
+         "code":"IMTTrunkGroupAdd"
+      },
+      {
+         "title":"IMT Trunk Group Disconnect",
+         "code":"IMTTrunkGroupDisconnect"
+      },
+      {
+         "title":"NTN PSTN Trunk Group Add",
+         "code":"NTNPSTNTrunkGroupAdd"
+      },
+      {
+         "title":"NTN PSTN Trunk Group Disconnect",
+         "code":"NTNPSTNTrunkGroupDisconnect"
+      },
+      {
+         "title":"NTN Trunk Group Add",
+         "code":"NTNTrunkGroupAdd"
+      },
+      {
+         "title":"NTN Trunk Group Disconnect",
+         "code":"NTNTrunkGroupDisconnect"
+      },
+      {
+         "title":"NTN Voicemail Trunk Group Add",
+         "code":"NTNVoicemailTrunkGroupAdd"
+      },
+      {
+         "title":"NTN Voicemail Trunk Group Disconnect",
+         "code":"NTNVoicemailTrunkGroupDisconnect"
+      },
+      {
+         "title":"NTN WDC Trunk Group Add",
+         "code":"NTNWDCTrunkGroupAdd"
+      },
+      {
+         "title":"NTN WDC Trunk Group Disconnect",
+         "code":"NTNWDCTrunkGroupDisconnect"
+      },
+      {
+         "title":"PSTN Trunk Group Add",
+         "code":"PSTNTrunkGroupAdd"
+      },
+      {
+         "title":"PSTN Trunk Group Disconnect",
+         "code":"PSTNTrunkGroupDisconnect"
+      },
+      {
+         "title":"MEDIA GATEWAY REGROOM",
+         "code":"MediaGatewayRegroom"
+      },
+      {
+         "title":"PSTN Meetpoint Trunk Group Add",
+         "code":"PSTNMeetpointTrunkGroupAdd"
+      },
+      {
+         "title":"PSTN Meetpoint Trunk Group Disconnect",
+         "code":"PSTNMeetpointTrunkGroupDisconnect"
+      },
+      {
+         "title":"SONUS PSTN Trunk Group Add",
+         "code":"SONUSPSTNTrunkGroupAdd"
+      },
+      {
+         "title":"SONUS PSTN Trunk Group Disconnect",
+         "code":"SONUSPSTNTrunkGroupDisconnect"
+      },
+      {
+         "title":"SONUS WDC Trunk Group Add",
+         "code":"SONUSWDCTrunkGroupAdd"
+      },
+      {
+         "title":"SONUS WDC Trunk Group Disconnect",
+         "code":"SONUSWDCTrunkGroupDisconnect"
+      },
+      {
+         "title":"SONUS IMT Trunk Group Add",
+         "code":"SONUSIMTTrunkGroupAdd"
+      },
+      {
+         "title":"SONUS IMT Trunk Group Disconnect",
+         "code":"SONUSIMTTrunkGroupDisconnect"
+      },
+      {
+         "title":"SONUS 911 ERCP Trunk Group Add",
+         "code":"SONUS911ERCPTrunkGroupAdd"
+      },
+      {
+         "title":"SONUS 911 TNT Trunk Group Add",
+         "code":"SONUS911TNTTrunkGroupAdd"
+      },
+      {
+         "title":"SONUS 911 Trunk Group Disconnect",
+         "code":"SONUS911TrunkGroupDisconnect"
+      },
+      {
+         "title":"SONUS Voice Mail Trunk Group Add",
+         "code":"SONUSVoiceMailTrunkGroupAdd"
+      },
+      {
+         "title":"SONUS Voice Mail Trunk Group Disconnect",
+         "code":"SONUSVoiceMailTrunkGroupDisconnect"
+      },
+      {
+         "title":"Wireless Direct Connect Trunk Group Add",
+         "code":"WirelessDirectConnectTrunkGroupAdd"
+      },
+      {
+         "title":"Wireless Direct Connect Trunk Group Disconnect",
+         "code":"WirelessDirectConnectTrunkGroupDisconnect"
+      },
+      {
+         "title":"E911 ERCP Trunk Group Add",
+         "code":"E911ERCPTrunkGroupAdd"
+      },
+      {
+         "title":"E911 TNT Trunk Group Add",
+         "code":"E911TNTTrunkGroupAdd"
+      },
+      {
+         "title":"E911 Trunk Group Disconnect",
+         "code":"E911TrunkGroupDisconnect"
+      },
+      {
+         "title":"T1 Trunk Group Add",
+         "code":"T1TrunkGroupAdd"
+      },
+      {
+         "title":"T1 Trunk Group Disconnect",
+         "code":"T1TrunkGroupDisconnect"
+      },
+      {
+         "title":"Voice Mail Trunk Group Add",
+         "code":"VoiceMailTrunkGroupAdd"
+      },
+      {
+         "title":"Voice Mail Trunk Group Disconnect",
+         "code":"VoiceMailTrunkGroupDisconnect"
+      },
+      {
+         "title":"Trunk Data Change",
+         "code":"TrunkDataChange"
+      },
+      {
+         "title":"Trunk Data Change with LEC Order Changes",
+         "code":"TrunkDataChangewithLECOrderChanges"
+      },
+      {
+         "title":"T1 NEW SITE BUILD",
+         "code":"T1NewSiteBuild"
+      },
+      {
+         "title":"T1 CABINET ADD",
+         "code":"T1CabinetAdd"
+      },
+      {
+         "title":"T1 GSM ADD",
+         "code":"T1GSMAdd"
+      },
+      {
+         "title":"T1 IUB ADD",
+         "code":"T1IUBAdd"
+      },
+      {
+         "title":"T1 ADD TO EXISTING SIAD",
+         "code":"T1AddToExistingSIAD"
+      },
+      {
+         "title":"T1 MICROWAVE ADD",
+         "code":"T1MicrowaveAdd"
+      },
+      {
+         "title":"GSM ETTCS NEW SITE BUILD ADD",
+         "code":"GSMETTCSNewSiteBuildAdd"
+      },
+      {
+         "title":"GSM T1 REDUCTION",
+         "code":"GSMT1Reduction"
+      },
+      {
+         "title":"T1 UMTS DEGROWTH",
+         "code":"T1UMTSDegrowth"
+      },
+      {
+         "title":"T1 GRANITE DISCONNECT",
+         "code":"T1GraniteDisconnect"
+      },
+      {
+         "title":"T1 POST ETTC DISCONNECT",
+         "code":"T1PostETTCDisconnect"
+      },
+      {
+         "title":"MTNO 911 GROOM",
+         "code":"MTNO911Groom"
+      },
+      {
+         "title":"MTNO 911 IMT GROOM",
+         "code":"MTNO911IMTGroom"
+      },
+      {
+         "title":"MTNO IMT GROOM",
+         "code":"MTNOIMTGroom"
+      },
+      {
+         "title":"MTNO PSTN GROOM",
+         "code":"MTNOPSTNGroom"
+      },
+      {
+         "title":"MTNO SS7 GROOM",
+         "code":"MTNOSS7Groom"
+      },
+      {
+         "title":"MTNO DS3OC GROOM",
+         "code":"MTNODS3OCGroom"
+      },
+      {
+         "title":"MTNO RAN GROOM",
+         "code":"MTNORANGroom"
+      },
+      {
+         "title":"TRUNK 911 AUDIT CM",
+         "code":"Trunk911AuditCM"
+      },
+      {
+         "title":"NTN TRUNK GROOM",
+         "code":"NTNTrunkGroom"
+      },
+      {
+         "title":"TDM DS3 OR OCn ELECTRICAL and OPTICAL ADD",
+         "code":"TDMDS3orOCnElectricalAndOpticalAdd"
+      },
+      {
+         "title":"TDM DS3 OR OCn ELECTRICAL and OPTICAL DISCONNECT",
+         "code":"TDMDS3orOCnElectricalAndOpticalDisconnect"
+      },
+      {
+         "title":"CM RESEARCH",
+         "code":"CMResearchDisable"
+      },
+      {
+         "title":"RAN GDI RESEARCH GRANITE",
+         "code":"RANGDIResearchGranite"
+      },
+      {
+         "title":"GDI RESEARCH T1 DISCONNECT",
+         "code":"GDIResearchT1Disconnect"
+      },
+      {
+         "title":"CORE GDI RESEARCH GRANITE",
+         "code":"CoreGDIResearchGranite"
+      },
+      {
+         "title":"WDC TRUNK PORT GROOM",
+         "code":"WdcTrunkPortGroom"
+      },
+      {
+         "title":"WDC TRUNK FACILITY GROOM",
+         "code":"WdcTrunkFacilityGroom"
+      },
+      {
+         "title":"SONUS TRUNK GROOM",
+         "code":"SonusTrunkGroom"
+      },
+      {
+         "title":"TDM DS3 OR OCn ACCESS DISCONNECT",
+         "code":"TdmDs3OrOcnAccessDisconnect"
+      },
+      {
+         "title":"DISCO GSMOE PATH",
+         "code":"GSMoEDisco"
+      },
+      {
+         "title":"DISCO GSMOE PATH LAST PSEUDO WIRE",
+         "code":"GSMoEDiscoLastPW"
+      },
+      {
+         "title":"EoMW Drain Site Migration",
+         "code":"EoMWDrainSiteMigration"
+      },
+      {
+         "title":"EoMW MPR SIAD Migration",
+         "code":"EoMWMprSiadMigration"
+      },
+      {
+         "title":"ETTCS CDNB New RRU",
+         "code":"EttcsCdnbNewRru"
+      },
+      {
+         "title":"ETTCS CDNB New",
+         "code":"EttcsCdnbNew"
+      },
+      {
+         "title":"EoSONET Cell Site",
+         "code":"EoSONETCellSite"
+      },
+      {
+         "title":"MSN-EMUX 2 LNS",
+         "code":"MsnEmux2Lns"
+      },
+      {
+         "title":"EMUX2-EMUX2 LNS",
+         "code":"Emux2Emux2Lns"
+      },
+      {
+         "title":"EMUX 1-EMUX 2 LNS New LAG Initial GigE",
+         "code":"Emux1Emux2LnsNewLagInitialGigE"
+      },
+      {
+         "title":"EMUX 1-EMUX 2 LNS Change LAG Additional GigE",
+         "code":"Emux1Emux2LnsChangeLagAdditionalGigE"
+      },
+      {
+         "title":"EMUX 1-EMUX 2 LNS New LAG Additional GigE",
+         "code":"Emux1Emux2LnsNewLagAdditionalGigE"
+      },
+      {
+         "title":"EMUX-SIAD LNS Brownfield",
+         "code":"EmuxSiadLnsBrownfield"
+      },
+      {
+         "title":"EMUX-SIAD LNS Multi-Cab",
+         "code":"EmuxSiadLnsMultiCabInitial"
+      },
+      {
+         "title":"EMUX-SIAD Single-Cab LNS",
+         "code":"EmuxSiadSingleCabLns"
+      },
+      {
+         "title":"ETTC OC3 Cell Site R4D",
+         "code":"EttcOc3CellSiteR4D"
+      },
+      {
+         "title":"NSB EMUX-SIAD LNS",
+         "code":"NsbEmuxSiadLns"
+      },
+      {
+         "title":"NSB EMUX-SIAD LNS Multi-Cab",
+         "code":"NsbEmuxSiadLnsMultiCab"
+      },
+      {
+         "title":"DIRECT CONNECT SIAD-MSN",
+         "code":"DirectConnectSiadMsn"
+      },
+      {
+         "title":"ETHERNET PRIVATE LINE SERVICE (EPLS) WAN",
+         "code":"EthernetPrivateLine"
+      },
+      {
+         "title":"EMUX LNS BASELINE UPSPEED",
+         "code":"EmuxLnsBaselineUpspeed"
+      },
+      {
+         "title":"ETTCS UNI Upspeed",
+         "code":"EttcsUniUpspeed"
+      },
+      {
+         "title":"ETTCS EMUX UPSPEED WITH TS",
+         "code":"EttcsEmuxUpspeedWithTs"
+      },
+      {
+         "title":"ETHERNET ON NET NEAR FRANCHISE - PREF Path",
+         "code":"EthernetOnNetNearFranchisePrefPath"
+      },
+      {
+         "title":"ETHERNET ON NET NEAR FRANCHISE - ALT Path",
+         "code":"EthernetOnNetNearFranchiseAltPath"
+      },
+      {
+         "title":"ETTCS EMUX WITH LOCAL PRIVATE LINE",
+         "code":"EttcsEmuxWithLocalPrivateLine"
+      },
+      {
+         "title":"ETHERNET OVER SONET REHOME CELL SITE",
+         "code":"EthernetOverSonetRehomeCellSite"
+      },
+      {
+         "title":"GSMoE MTSO Cisco",
+         "code":"GSMoEMtsoCisco"
+      },
+      {
+         "title":"GSMoE Cellsite Cisco",
+         "code":"GSMoECellsiteCisco"
+      },
+      {
+         "title":"ETTCS IPv6 SIAD",
+         "code":"EttcsIPv6Siad"
+      },
+      {
+         "title":"ETTCS IPv6 ENODEB",
+         "code":"EttcsIPv6ENodeB"
+      },
+      {
+         "title":"ETTCS IPV6 MIGRATION SIAD",
+         "code":"EttcsIPv6MigrationSiad"
+      },
+      {
+         "title":"ETTCS IPV6 MIGRATION ENODEB",
+         "code":"EttcsIPv6MigrationENodeB"
+      },
+      {
+         "title":"R4A TO R4B MIGRATION",
+         "code":"R4AToR4BMigration"
+      },
+      {
+         "title":"R4A TO R4B MW MIGRATION",
+         "code":"R4AToR4BMwMigration"
+      },
+      {
+         "title":"ETTC EMUX1 TO EMUX2 WITH LPL (LNS)",
+         "code":"EttcEmux1ToEmux2WithLpl"
+      },
+      {
+         "title":"ETTC EMUX1 TO EMUX2 WITH LPL NEW ADDITIONAL GigE (LNS)",
+         "code":"EttcEmux1ToEmux2WithLplNewAdditionalGige"
+      },
+      {
+         "title":"ETTC EMUX1 TO EMUX2 WITH LPL EXISTING LAG ADD GigE (LNS)",
+         "code":"EttcEmux1ToEmux2WithLplExistingLagAddGige"
+      },
+      {
+         "title":"ETTCS DISCONNECT CELL SITE",
+         "code":"EttcsDisconnectCellsiteAndEvc"
+      },
+      {
+         "title":"ETTCS DISCONNECT UNI AND EVC ONLY",
+         "code":"EttcsDisconnectUniAndEvcOnly"
+      },
+      {
+         "title":"ETTCS EVC DOWNSPEED",
+         "code":"EttcsEvcDownspeed"
+      },
+      {
+         "title":"MLPPP ERC BACKOUT (CONV)T1 IUB",
+         "code":"MlpppErcBackoutConvT1Iub"
+      },
+      {
+         "title":"MLPPP BACKOUT (NSB)T1 IUB",
+         "code":"MlpppBackoutNsbT1Iub"
+      },
+      {
+         "title":"Add ETTCS MTSO Collector Circuit",
+         "code":"AddEttcsMtsoCollectorCircuit"
+      },
+      {
+         "title":"R2B to R4B Conversion",
+         "code":"R2BToR4BConversion"
+      },
+      {
+         "title":"EoSONET MTSO Collector Circuit",
+         "code":"EoSONETMtsoCollectorCircuit"
+      },
+      {
+         "title":"Disconnect Ethernet EVC Segment",
+         "code":"DisconnectEthernetEvcSegment"
+      },
+      {
+         "title":"ETTC OC3 MTSO R4D",
+         "code":"EttcOc3MtsoR4D"
+      },
+      {
+         "title":"GSMoE MTSO",
+         "code":"GSMoEMtso"
+      },
+      {
+         "title":"Disconnect LNS OEW Baseline Segment",
+         "code":"DisconnectLnsOewBaselineSegment"
+      },
+      {
+         "title":"Disconnect LNS OEW Baseline Path",
+         "code":"DisconnectLnsOewBaselinePath"
+      },
+      {
+         "title":"DISCO ETHERNET OVER SONET FOR REHOME",
+         "code":"DiscoEthernetOverSonetForRehome"
+      },
+      {
+         "title":"ETHERNET OVER SONET REHOME MTSO",
+         "code":"EthernetOverSonetRehomeMtso"
+      },
+      {
+         "title":"ETTCS NSB Next Gen UNI-EVC Dual Uplink",
+         "code":"EttcsNSBNextGenUNIEVCDualUplink"
+      },
+      {
+         "title":"ETTCS NSB Next Gen UNI-EVC MultiCab",
+         "code":"EttcsNSBNextGenUNIEVCMultiCab"
+      },
+      {
+         "title":"INDOOR SMALL CELL EAMIS",
+         "code":"IndoorSmallCellEamis"
+      },
+      {
+         "title":"ADD BASELINE MTSO_NTC 1 of 2 SS7 SIGTRAN",
+         "code":"AddBaselineMtsoNtc1of2SS7Sigtran"
+      },
+      {
+         "title":"ADD BASELINE MTSO_NTC 2 of 2 SS7 SIGTRAN",
+         "code":"AddBaselineMtsoNtc2of2SS7Sigtran"
+      },
+      {
+         "title":"ADD BASELINE NTC 1 of 2 SS7 SIGTRAN",
+         "code":"AddBaselineNtc1of2SS7Sigtran"
+      },
+      {
+         "title":"ADD BASELINE NTC 2 of 2 SS7 SIGTRAN",
+         "code":"AddBaselineNtc2of2SS7Sigtran"
+      },
+      {
+         "title":"ADD BASELINE MTSO SS7 SIGTRAN",
+         "code":"AddBaselineMtsoSS7Sigtran"
+      },
+      {
+         "title":"ETTCS UNI DOWNSPEED",
+         "code":"EttcsUniDownspeed"
+      },
+      {
+         "title":"CDNB RAU FOR DAS",
+         "code":"CdnbRAUForDAS"
+      },
+      {
+         "title":"EoSONET OC12 MTSO Collector Circuit",
+         "code":"EoSonetOc12MtsoCollectorCircuit"
+      },
+      {
+         "title":"INDOOR SMALL CELL BDSL",
+         "code":"IndoorSmallCellBdsl"
+      },
+      {
+         "title":"INDOOR SMALL CELL 3RD PARTY",
+         "code":"IndoorSmallCell3RdParty"
+      },
+      {
+         "title":"INDOOR SMALL CELL SHARED TRANSPORT",
+         "code":"IndoorSmallCellSharedTransport"
+      },
+      {
+         "title":"DISCO OEW VLAN HAIRPIN",
+         "code":"DiscoOewVlanHairpin"
+      },
+      {
+         "title":"SMALL CELL TRANSPORT",
+         "code":"EscoreSmallCellTransport"
+      },
+      {
+         "title":"SMALL CELL SCR PROVISIONING",
+         "code":"EscoreSmallCellSCR"
+      },
+      {
+         "title":"SMALL CELL SCS PROVISIONING",
+         "code":"EscoreSmallCellSCS"
+      },
+      {
+         "title":"SMALL CELL AP PROVISIONING",
+         "code":"EscoreSmallCellAP"
+      },
+      {
+         "title":"SMALL CELL SELF-INSTALL AP PROV",
+         "code":"EscoreSmallCellSelfAP"
+      },
+      {
+         "title":"SMALL CELL DISCONNECT AP",
+         "code":"EscoreSmallCellDiscAP"
+      },
+      {
+         "title":"R4ES TO R4B CONVERSION",
+         "code":"R4ESToR4BConversion"
+      },
+      {
+         "title":"EPLSWAN BASELINE",
+         "code":"EplswanBaseline"
+      },
+      {
+         "title":"L2L ETTC EMUX IOX (LNS) ADD",
+         "code":"L2LEttcEmuxIoxlnsAdd"
+      },
+      {
+         "title":"ETTCS ELECTRICAL TO OPTICAL UNI HOTCUT",
+         "code":"EttcsElectricalToOpticalUniHotcut"
+      },
+      {
+         "title":"ETTCS OPTICAL TO OPTICAL UNI HOTCUT ERICSSON",
+         "code":"EttcsOpticalToOpticalUniHotcutEricsson"
+      },
+      {
+         "title":"ETTCS UNIVERSAL EVC DOWNSPEED",
+         "code":"EttcsUniversalEvcDownspeed"
+      },
+      {
+         "title":"OUTDOOR SMALL CELL 3RD PARTY",
+         "code":"OutdoorSmallCell3rdParty"
+      },
+      {
+         "title":"OUTDOOR SMALL CELL BDSL",
+         "code":"OutdoorSmallCellBdsl"
+      },
+      {
+         "title":"OUTDOOR SMALL CELL EAMIS",
+         "code":"OutdoorSmallCellEAMIS"
+      },
+      {
+         "title":"ETTCS MPA COORDINATED CUT FOR SINGLE EVC",
+         "code":"EttcsMpaCoordinatedCutForSingleEvc"
+      },
+      {
+         "title":"ETTCS NSB NG UNI EVC Uplink OEW",
+         "code":"EttcsNsbNgUniEvcUplinkOew"
+      },
+      {
+         "title":"ETTCS NSB NG UNI EVC Additional Node OEW",
+         "code":"EttcsNsbNgUniEvcAdditionalNodeOew"
+      },
+      {
+         "title":"ETTCS NSB Additional Node OEW",
+         "code":"EttcsNsbAdditionalNodeOew"
+      },
+      {
+         "title":"ETTCS NSB OEW",
+         "code":"EttcsNsbOew"
+      },
+      {
+         "title":"ETTC EMUX LPL (LNS) ADD",
+         "code":"EttcEmuxLplLnsAdd"
+      },
+      {
+         "title":"L2L ETTC EMUX LPL (LNS) ADD",
+         "code":"L2LEttcEmuxLplLnsAdd"
+      },
+      {
+         "title":"ETTC L2L ASE OOR HOT CUT",
+         "code":"EttcL2lAseOorHotCut"
+      },
+      {
+         "title":"EPLSWAN TS",
+         "code":"EplswanTs"
+      },
+      {
+         "title":"ETTC L2L EMUX HOT CUT (LNS) ADD",
+         "code":"EttcL2lEmuxHotCutLnsAdd"
+      },
+      {
+         "title":"ETTC L2L OPT B HOT CUT ADD",
+         "code":"EttcL2lOptBHotCutAdd"
+      },
+      {
+         "title":"ETTCS COW Redeployment First Cabinet",
+         "code":"ETTCSCOWRedeploymentFirstCabinet"
+      },
+      {
+         "title":"ETTCS COW Redeployment Additional Cabinet",
+         "code":"ETTCSCOWRedeploymentAdditionalCabinet"
+      },
+      {
+         "title":"ETTCS NSB NG UNI EVC Uplink EoMW Drain",
+         "code":"InfraETTCSNSBNGUplinkEoMWDrain"
+      },
+      {
+         "title":"ETTCS SIAD Migration Ancillary",
+         "code":"EttcsSiadMigrationAncillary"
+      },
+      {
+         "title":"ETTCS SINGLE CABINET DECOM",
+         "code":"ETTCSSingleCabinetDecom"
+      },
+      {
+         "title":"SMALL CELL MS 3G AP PROV",
+         "code":"EscoreSmallCellMs3gApProv"
+      },
+      {
+         "title":"SMALL CELL MS LTE AP PROV",
+         "code":"EscoreSmallCellMsLteApProv"
+      },
+      {
+         "title":"SMALL CELL MS LTE AP GROWTH",
+         "code":"EscoreSmallCellMsLteApGrowth"
+      },
+      {
+         "title":"SMALL CELL MS AP DISCONNECT",
+         "code":"EscoreSmallCellMsApDisconnect"
+      }
+   ]
+}

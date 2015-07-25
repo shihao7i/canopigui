@@ -1,0 +1,17 @@
+{   
+    "tableName": "Task List",
+    "rowMetadata":
+        { "columnList":[{"hyperlink":false,	"visible": false, "editable": false, "fieldType": "input", "fieldOptions": null, "fieldDefault": "", "id":"id", "displayName":"ID"},
+                        {"hyperlink":false,	"visible": true, "editable": false, "fieldType": "input", "fieldOptions": null, "id":"taskCode", "displayName":"Task Code"},
+                        {"hyperlink":false,	"visible": true, "editable": true, "fieldType": "input", "fieldOptions": null, "fieldDefault": "", "id":"taskName", "displayName":"Task Name"},
+                        {"hyperlink":false,	"visible": true, "editable": false, "fieldType": "dropdown", "fieldOptions": [{"title": "MANUAL", "code": "MANUAL"}, {"title": "REWORK", "code": "REWORK"}, {"title": "AUTOMATED", "code": "AUTOMATED"}, {"title": "EXCEPTION", "code": "EXCEPTION"}, {"title": "BYPASS", "code": "BYPASS"}], "fieldDefault": "MANUAL", "id":"taskType", "displayName":"Task Type"},
+                        {"hyperlink":false,	"visible": true, "editable": true, "fieldType": "input", "fieldOptions": null, "fieldDefault": "", "id":"taskDescription", "displayName":"Task Description"},
+                        {"hyperlink":false,	"visible": true, "editable": false, "fieldType": "input", "fieldOptions": null, "fieldDefault": "", "id":"taskSequence", "displayName":"Task Sequence"},
+                        {"hyperlink":false,	"visible": true, "editable": true, "fieldType": "dropdown", "fieldOptions": [{"title": "YES", "code": "YES"}, {"title": "NO", "code": "NO"}], "fieldDefault": "NO", "id":"taskParallelToPrevious", "displayName":"Task Parallel To Previous"},
+                        {"hyperlink":false,	"visible": true, "editable": true, "fieldType": "input", "fieldOptions": null, "fieldDefault": "", "id":"taskQueue", "displayName":"Task Queue"},
+                        {"hyperlink":false,	"visible": true, "editable": true, "fieldType": "input", "fieldOptions": null, "fieldDefault": "", "id":"taskDuration", "displayName":"Task Duration"},
+                        {"hyperlink":false,	"visible": true, "editable": true, "fieldType": "input", "fieldOptions": null, "fieldDefault": "", "id":"taskEscalation", "displayName":"Tasks Escalation"}]
+        },
+
+    "rowValueList":null
+}

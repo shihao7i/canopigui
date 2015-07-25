@@ -1,10 +1,10 @@
 {
    "attuid":"pb154j",
-   "action": "UPDATE",
-   "key": {"woType":"ETTCSNewCabinet"},
-   "data":[  
-      {  
-         "id":"",
+   "key":{
+   },
+   "data":[
+      {
+         "id":"111",
          "taskCode":"WOVAL",
          "taskName":"WORK ORDER VALIDATION",
          "taskType":"AUTOMATED",
@@ -15,8 +15,8 @@
          "taskDuration":"1",
          "taskEscalation":"RED"
       },
-      {  
-         "id":"",
+      {
+         "id":"222",
          "taskCode":"PRE-RRD",
          "taskName":"PRE DESIGN DATA ENTRY",
          "taskType":"MANUAL",
@@ -27,8 +27,8 @@
          "taskDuration":"1",
          "taskEscalation":"RED"
       },
-      {  
-         "id":"",
+      {
+         "id":"333",
          "taskCode":"PLAN",
          "taskName":"PLAN TASKS",
          "taskType":"AUTOMATED",
@@ -39,7 +39,7 @@
          "taskDuration":"2",
          "taskEscalation":"RED"
       },
-      {  
+      {
          "id":"",
          "taskCode":"STG",
          "taskName":"STAGING",
@@ -51,7 +51,7 @@
          "taskDuration":"1",
          "taskEscalation":"RED"
       },
-      {  
+      {
          "id":"",
          "taskCode":"EQPT-AUTO",
          "taskName":"BUILD EQUIPMENT",
@@ -63,7 +63,7 @@
          "taskDuration":"1",
          "taskEscalation":"RED"
       },
-      {  
+      {
          "id":"",
          "taskCode":"RRD-AUTO",
          "taskName":"RAN INITIATE WORK ORDER BUILD PATH",
@@ -74,67 +74,17 @@
          "taskQueue":"",
          "taskDuration":"2",
          "taskEscalation":"RED"
+      }
+   ],
+   "delete":[
+      {
+         "id":"777"
       },
-      {  
-         "id":"",
-         "taskCode":"PDF",
-         "taskName":"RAN FINALIZE PATH DESIGN",
-         "taskType":"MANUAL",
-         "taskDescription":"Finalize Granite Design based on design date received from Telco",
-         "taskSequence":"50",
-         "taskParallelToPrevious":"NO",
-         "taskQueue":"",
-         "taskDuration":"2",
-         "taskEscalation":"RED"
+      {
+         "id":"888"
       },
-      {  
-         "id":"",
-         "taskCode":"ACQ",
-         "taskName":"VALIDATE CIQ",
-         "taskType":"AUTOMATED",
-         "taskDescription":"Validate the CIQ source fields in Inventory are complete and property formatted.",
-         "taskSequence":"60",
-         "taskParallelToPrevious":"NO",
-         "taskQueue":"",
-         "taskDuration":"1",
-         "taskEscalation":"RED"
-      },
-      {  
-         "id":"",
-         "taskCode":"PTU",
-         "taskName":"PORT TURN UP",
-         "taskType":"MANUAL",
-         "taskDescription":"New Site Build Port Turn Up",
-         "taskSequence":"70",
-         "taskParallelToPrevious":"NO",
-         "taskQueue":"",
-         "taskDuration":"1",
-         "taskEscalation":"RED"
-      },
-      {  
-         "id":"",
-         "taskCode":"SPC",
-         "taskName":"NEW NODE INTEGRATED",
-         "taskType":"MANUAL",
-         "taskDescription":"Complete Switch data transitions",
-         "taskSequence":"80",
-         "taskParallelToPrevious":"NO",
-         "taskQueue":"",
-         "taskDuration":"1",
-         "taskEscalation":"RED"
-      },
-      {  
-         "id":"",
-         "taskCode":"ISD-MAN",
-         "taskName":"MANUALLY VERIFY GRANITE PATH ACTIVE",
-         "taskType":"MANUAL",
-         "taskDescription":"Manually Update of the Granite Path to \"active\"",
-         "taskSequence":"90",
-         "taskParallelToPrevious":"NO",
-         "taskQueue":"",
-         "taskDuration":"1",
-         "taskEscalation":"RED"
+      {
+         "id":"999"
       }
    ]
 }
-

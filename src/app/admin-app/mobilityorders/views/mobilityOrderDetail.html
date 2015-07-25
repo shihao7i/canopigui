@@ -9,15 +9,17 @@
 
         <div class="panel-body">
 
-            <div class="row" style="padding-left: 15px; padding-right: 15px;">
+            <div class="app-header-underline"></div>
 
-                <div class="col-md-12">
-                    <div style="border-bottom: solid; border-width: 1px; color: #9C9C9C; margin-bottom: 20px;"></div> 
+            <div class="col-md-12">
 
-                    <div class="panel-heading sub-panel-heading" style="padding-top: 0;">
-                        <div class="sub-panel-title">
-                            <form class="form-inline" style="display: inline; padding-left: 5px;">
-                                <div class="form-group pull-right" style="margin-bottom: 7px;">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="app-table-top-menu" style="margin-bottom: 5px;">
+
+                            <form class="form-inline">
+                                <div class="form-group app-button-group pull-right">
                                     <button class='btn btn-orange btn-sm btn-wide'
                                             ng-disabled="mobilityorders.gridApiSelectedWO.rowEdit.getDirtyRows().length < 1" 
                                             ng-click="mobilityorders.wo.save()">
@@ -30,27 +32,29 @@
                                     </button>
 
                                 </div>
-                            </form>
-                        </div>
-                    </div>                             
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div style="width:auto; height:85px" ui-grid="mobilityorders.gridOptionsSelectedWO" 
-                                 ui-grid-cellNav 
-                                 ui-grid-edit 
-                                 ui-grid-row-edit 
-                                 ui-grid-selection 
-                                 ui-grid-resize-columns 
-                                 ui-grid-auto-resize>
-                            </div> 
-                        </div>
-                    </div>
+                            </form> 
 
-                    <div class="panel-heading sub-panel-heading" style="padding-top: 20px;">
-                        <div class="sub-panel-title">
-                            <span class="sub-panel-header">Task List</span>
-                            <form class="form-inline" style="display: inline; padding-left: 5px;">
-                                <div class="form-group pull-right" style="margin-top: 3px; padding-right: 10px; margin-right: 85px;">
+                        </div> 
+                        <div ui-grid="mobilityorders.gridOptionsSelectedWO" 
+                             ui-grid-cellNav 
+                             ui-grid-edit 
+                             ui-grid-row-edit 
+                             ui-grid-selection 
+                             ui-grid-resize-columns 
+                             ui-grid-auto-resize class="selectedWOTable">
+                        </div> 
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-11">
+                        <div class="app-table-top-menu" style="padding-top: 20px;">
+                            <form class="form-inline">
+                                <div class="form-group">
+                                    <span class="app-table-top-menu-title">Task List</span>
+                                </div>
+                                <div class="form-group app-button-group pull-right">
                                     <button class="btn btn-success btn-sm btn-wide"
                                             ng-click="mobilityorders.tasklist.export()"><i class="fa fa-fw fa-file-excel-o xs-h-space"></i> Export
                                     </button>
@@ -60,7 +64,7 @@
                                         <i class="fa fa-floppy-o xs-h-space"></i> Save
                                     </button>
                                     <button class="btn btn-gray btn-sm btn-wide"
-                                            ng-disabled="mobilityorders.gridApiTaskList.rowEdit.getDirtyRows().length < 1" 
+                                            ng-disabled="mobilityorders.undoStackTaskList.length === 0 || !mobilityorders.undoStackTaskList.length" 
                                             ng-click="mobilityorders.tasklist.undo()">
                                         <i class="fa fa-undo xs-h-space"></i> Undo
                                     </button>
@@ -70,35 +74,44 @@
                                             <i class="fa fa-gears xs-h-space"></i> Actions <span class="caret" style="margin-left:7px;"></span>
                                         </button>                                        
                                         <ul class="dropdown-menu" role="menu">
-                                            <li ng-click="mobilityorders.tasklist.addTask()" data-toggle="modal" data-target="#addTaskModal"><a href="javascript:void(0)"><i class="fa fa-fw fa-plus-circle"></i> Add Task To Template</a></li>
-                                            <li ng-class="{disabled: !mobilityorders.selectedRowTaskList}" ng-click="mobilityorders.tasklist.removeTask()"><a href="javascript:void(0)"><i class="fa fa-fw fa-minus-circle"></i> Remove Task From Template</a></li>
+                                            <li ng-class="{disabled: !mobilityorders.selectedRowForTaskList}" ng-click="mobilityorders.tasklist.addTask()"><a href="#"><i
+                                                        class="fa fa-fw fa-plus-circle"></i> Add Task To Template</a></li>
+                                            <li ng-class="{disabled: !mobilityorders.selectedRowForTaskList}" ng-click="!mobilityorders.selectedRowForTaskList || mobilityorders.tasklist.removeTask()"><a href="javascript:void(0)"><i class="fa fa-fw fa-minus-circle"></i> Remove Task From Template</a></li>
                                         </ul>
                                     </div>
                                 </div>
                             </form>
-                        </div>
-                    </div>                             
-                    <div class="row">
-                        <div class="col-md-11">
-                            <div  ui-grid="mobilityorders.gridOptionsTaskListTable" 
-                                  ui-grid-exporter ui-grid-cellNav ui-grid-edit ui-grid-row-edit ui-grid-selection 
-                                  ui-grid-resize-columns ui-grid-auto-resize class="mobilityordersTaskListTable"></div>
-                        </div>
-                        <div class="col-md-1">
-                            <div class="btn-group-vertical" role="group" aria-label="Vertical button group" style="margin-top: 90px; text-align: center;">
-                                <p style="font-size: 14px; font-weight: bold">Modify Sequence</p>
-                                <div>
-                                    <button type="button" class="btn btn-blue" style="border-radius: 0;" ng-click="mobilityorders.tasklist.moveSelectedUp()" ng-disabled="mobilityorders.firstElement"><i class="fa fa-arrow-up"></i></button>
-                                    <button type="button" class="btn btn-blue" style="border-radius: 0;" ng-click="mobilityorders.tasklist.moveSelectedDown()" ng-disabled="mobilityorders.lastElement"><i class="fa fa-arrow-down"></i></button>
-                                </div>                             
-                            </div>
+                        </div> 
+                        <div  ui-grid="mobilityorders.gridOptionsTaskListTable" 
+                              ui-grid-exporter 
+                              ui-grid-cellNav 
+                              ui-grid-edit 
+                              ui-grid-row-edit 
+                              ui-grid-selection 
+                              ui-grid-resize-columns 
+                              ui-grid-auto-resize class="mobilityordersTaskListTable">                      
                         </div>
                     </div>
-                    <div class="panel-heading sub-panel-heading" style="padding-top: 20px;">
-                        <div class="sub-panel-title">
-                            <span class="sub-panel-header">Document URLs</span>
-                            <form class="form-inline" style="display: inline; padding-left: 5px;">
-                                <div class="form-group pull-right" style="margin-top: 3px;">
+                    <div class="col-md-1">
+                        <div class="btn-group-vertical" role="group" aria-label="Vertical button group" style="margin-top: 90px; text-align: center;">
+                            <p style="font-size: 14px; font-weight: bold">Modify Sequence</p>
+                            <div>
+                                <button type="button" class="btn btn-blue" style="border-radius: 0;" ng-click="mobilityorders.tasklist.moveSelectedUp()" ng-disabled="mobilityorders.firstElementForTaskList"><i class="fa fa-arrow-up"></i></button>
+                                <button type="button" class="btn btn-blue" style="border-radius: 0;" ng-click="mobilityorders.tasklist.moveSelectedDown()" ng-disabled="mobilityorders.lastElementForTaskList"><i class="fa fa-arrow-down"></i></button>
+                            </div>                             
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Not Supported for September release
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="app-table-top-menu" style="padding-top: 20px;">
+                            <form class="form-inline">
+                                <div class="form-group">
+                                    <span class="app-table-top-menu-title">Document URLs</span>
+                                </div>
+                                <div class="form-group app-button-group pull-right">
                                     <button class="btn btn-success btn-sm btn-wide"
                                             ng-click="mobilityorders.links.export()">
                                         <i class="fa fa-fw fa-file-excel-o  xs-h-space"></i> Export
@@ -109,7 +122,7 @@
                                         <i class="fa fa-floppy-o  xs-h-space"></i> Save
                                     </button>
                                     <button class="btn btn-gray btn-sm btn-wide"
-                                            ng-disabled="mobilityorders.gridApiLinks.rowEdit.getDirtyRows().length < 1"
+                                            ng-disabled="mobilityorders.undoStackLinks.length === 0 || !mobilityorders.undoStackLinks.length"
                                             ng-click="mobilityorders.links.undo()">
                                         <i class="fa fa-undo  xs-h-space"></i> Undo
                                     </button>
@@ -119,34 +132,32 @@
                                         </button>                                        
                                         <ul class="dropdown-menu" role="menu">
                                             <li ng-click="mobilityorders.links.addLink($event)"><a href="javascript:void(0)"><i class="fa fa-fw fa-plus-circle"></i> Add Link</a></li>
-                                            <li ng-click="mobilityorders.links.removeLink()"><a href="javascript:void(0)"><i class="fa fa-fw fa-minus-circle"></i> Remove Link</a></li>
+                                            <li ng-class="{disabled: !mobilityorders.newRowLink}" ng-click="!mobilityorders.newRowLink || mobilityorders.links.discardLink()"><a href="javascript:void(0)"><i class="fa fa-fw fa-minus-circle"></i> Discard Link</a></li>
                                         </ul>    
                                     </div>
                                 </div>
                             </form>
                         </div>
-                    </div>   
+                        <div  ui-grid="mobilityorders.gridOptionsLinksTable" 
+                              ui-grid-exporter 
+                              ui-grid-cellNav 
+                              ui-grid-edit 
+                              ui-grid-row-edit 
+                              ui-grid-selection 
+                              ui-grid-resize-columns 
+                              ui-grid-auto-resize 
+                              class="LinksTableUIGrid"></div>
+                    </div> 
+                </div>
 
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div  ui-grid="mobilityorders.gridOptionsLinksTable" 
-                                  ui-grid-exporter 
-                                  ui-grid-cellNav 
-                                  ui-grid-edit 
-                                  ui-grid-row-edit 
-                                  ui-grid-selection 
-                                  ui-grid-resize-columns 
-                                  ui-grid-auto-resize 
-                                  class="LinksTableUIGrid"></div>
-                        </div> 
-                    </div>
-
-
-                    <div class="panel-heading sub-panel-heading" style="padding-top: 20px;">
-                        <div class="sub-panel-title">
-                            <span class="sub-panel-header">Dynamic Workorder Attributes</span>
-                            <form class="form-inline" style="display: inline; padding-left: 5px;">
-                                <div class="form-group pull-right" style="margin-top: 3px;">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="app-table-top-menu" style="padding-top: 20px;">
+                            <form class="form-inline">
+                                <div class="form-group">
+                                    <span class="app-table-top-menu-title">Dynamic Workorder Attributes</span>
+                                </div>
+                                <div class="form-group app-button-group pull-right">
                                     <button class="btn btn-success btn-sm btn-wide"
                                             ng-click="mobilityorders.uda.export()">
                                         <i class="fa fa-fw fa-file-excel-o xs-h-space"></i> Export
@@ -157,7 +168,7 @@
                                         <i class="fa fa-floppy-o xs-h-space"></i> Save
                                     </button>
                                     <button class="btn btn-gray btn-sm btn-wide"
-                                            ng-disabled="mobilityorders.gridApiUDA.rowEdit.getDirtyRows().length < 1"
+                                            ng-disabled="mobilityorders.undoStackUDA.length === 0 || !mobilityorders.undoStackUDA.length"
                                             ng-click="mobilityorders.uda.undo()">
                                         <i class="fa fa-undo xs-h-space"></i> Undo
                                     </button>
@@ -167,33 +178,26 @@
                                         </button>                                        
                                         <ul class="dropdown-menu" role="menu">
                                             <li ng-click="mobilityorders.uda.addUDA()"><a href="javascript:void(0)"><i class="fa fa-fw fa-plus-circle"></i> Add UDA To Template</a></li>
+                                            <li ng-class="{disabled:!mobilityorders.newRowUDA}" ng-click="mobilityorders.uda.discardUDA()"><a href ="javascript:void(0)"><i class="fa fa-fw fa-minus-circle"></i> Discard UDA From Template</a></li>
                                         </ul>
                                     </div>
                                 </div>
                             </form>
                         </div>
-                    </div>   
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div  ui-grid="mobilityorders.gridOptionsUDATable" 
-                                  ui-grid-exporter 
-                                  ui-grid-cellNav 
-                                  ui-grid-edit 
-                                  ui-grid-row-edit 
-                                  ui-grid-selection 
-                                  ui-grid-resize-columns 
-                                  ui-grid-auto-resize 
-                                  class="UDATableUIGrid"></div>
-                        </div> 
-                    </div>
-
+                        <div  ui-grid="mobilityorders.gridOptionsUDATable" 
+                              ui-grid-exporter 
+                              ui-grid-cellNav 
+                              ui-grid-edit 
+                              ui-grid-row-edit 
+                              ui-grid-selection 
+                              ui-grid-resize-columns 
+                              ui-grid-auto-resize 
+                              class="UDATableUIGrid"></div>
+                    </div> 
                 </div>
+                -->
+            </div>
 
-            </div>             
         </div>
     </div>
 </div> <!-- Mobility Search Details -->
-
-<div ng-include="'app/admin-app/mobilityorders/views/addTaskModal.html'">
-</div>	

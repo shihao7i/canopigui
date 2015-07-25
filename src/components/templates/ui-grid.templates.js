@@ -1,6 +1,12 @@
 'use strict';
 angular.module('canopi.templates')
     // Overrides
+    // support required column indicator (show * next to display name if columDef.required is set to ture for the required field)
+    .value('ui-grid/uiGridHeaderCell',
+        "<div ng-class=\"{ 'sortable': sortable }\"><!-- <div class=\"ui-grid-vertical-bar\">&nbsp;</div> --><div class=\"ui-grid-cell-contents\" col-index=\"renderIndex\" title=\"TOOLTIP\"><span>{{ col.displayName CUSTOM_FILTERS }}</span><span ng-if=\"col.colDef.required\" style=\"color:white\">&nbsp;&nbsp;*</span> <span ui-grid-visible=\"col.sort.direction\" ng-class=\"{ 'ui-grid-icon-up-dir': col.sort.direction == asc, 'ui-grid-icon-down-dir': col.sort.direction == desc, 'ui-grid-icon-blank': !col.sort.direction }\">&nbsp;</span></div><div class=\"ui-grid-column-menu-button\" ng-if=\"grid.options.enableColumnMenus && !col.isRowHeader  && col.colDef.enableColumnMenu !== false\" ng-click=\"toggleMenu($event)\" ng-class=\"{'ui-grid-column-menu-button-last-col': isLastCol}\"><i class=\"ui-grid-icon-angle-down\">&nbsp;</i></div><div ui-grid-filter></div></div>"
+    )
+
+    // Overrides
     .value('ui-grid/selectionRowHeader',
     '<div class="ui-grid-disable-selection">' +
     '   <div class="text-center">' +
@@ -26,7 +32,7 @@ angular.module('canopi.templates')
     .value('ui-grid/uiGridHeaderCellSpecial',
     '<div ng-class="{ \'sortable\': sortable }">' +
     '   <span ng-if="col.field == \'taskQueue\' || col.field == \'taskDuration\' || col.field == \'taskEscalation\'">&nbsp;&nbsp;{{col.displayName}}&nbsp;&nbsp;' +
-    '       <a style="color: white" href="index.html#/adminmain/ruleadmin/{{col.field}}/{{col.colDef.woType}}" target="_ruleadmin">' +
+    '       <a style="color: white" href="#/adminmain/ruleadmin/{{col.field}}/{{col.colDef.woType}}" target="_ruleadmin">' +
     '           <i class="fa fa-external-link"></i>' +
     '       </a>' +
     '   </span>' +
@@ -59,7 +65,7 @@ angular.module('canopi.templates')
     .value('ui-grid/dropdown',
     '<div>' +
     '   <form name="inputForm">' +
-    '       <select ng-class="\'colt\' + col.uid" ui-grid-edit-dropdown ng-model="MODEL_COL_FIELD" ng-options="field[editDropdownIdLabel] as field[editDropdownValueLabel] CUSTOM_FILTERS for field in editDropdownOptionsArray"></select>' +
+    '       <select ng-class="\'colt\' + col.uid" ng-init="MODEL_COL_FIELD = MODEL_COL_FIELD || editDropdownOptionsArray[0].title" ui-grid-edit-dropdown ng-model="MODEL_COL_FIELD" ng-options="field[editDropdownIdLabel] as field[editDropdownValueLabel] CUSTOM_FILTERS for field in editDropdownOptionsArray | orderBy:\'title\'"></select>' +
     '   </form>' +
     '</div>')
     
@@ -68,11 +74,21 @@ angular.module('canopi.templates')
     '   <form name="inputForm">' +
     '       <div class="input-group has-success" style="width: 100%;">' +
     '           <span class="input-group-addon"><i class="fa fa-pencil"></i></span>' +
-    '           <input type="INPUT_TYPE" ng-class="\'colt\' + col.uid" ui-grid-editor class="form-control" placeholder="{{col.displayName}}" ng-model="MODEL_COL_FIELD">' +
+    '           <input uppercase type="INPUT_TYPE" ng-class="\'colt\' + col.uid" ui-grid-editor class="form-control" placeholder="{{col.displayName}}" ng-model="MODEL_COL_FIELD">' +
     '       </div>' +
     '   </form>' +
     '</div>')
     
+    .value('ui-grid/hyperlink',
+    '<div>' +
+    '   <form name="inputForm">' +
+    '       <div class="input-group has-success" style="width: 100%;">' +
+    '           <span class="input-group-addon"><i class="fa fa-pencil"></i></span>' +
+    '           <input type="INPUT_TYPE" ng-class="\'colt\' + col.uid" ui-grid-editor class="form-control" placeholder="{{col.displayName}}" ng-model="MODEL_COL_FIELD">' +
+    '       </div>' +
+    '   </form>' +
+    '</div>')
+          
 //    //Tooltip
 //            .value('ui-grid/tooltip',    
 //    "   <div ng-if='COL_FIELD.length > 10' class='ui-grid-cell-contents' tooltip='{{COL_FIELD CUSTOM_FILTERS}}'>{{COL_FIELD CUSTOM_FILTERS}}</div>" +

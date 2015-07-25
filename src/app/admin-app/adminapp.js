@@ -1,12 +1,12 @@
 angular.module('admin.app', [
-    'ngRoute', 'ngResource', 'ui.bootstrap', 'ngGrid',
-    'ui.router', 'ngCookies',
-    'ui.grid', 'ui.grid.selection', 'ui.grid.rowEdit', 'ui.grid.autoResize', 'ui.grid.edit', 'ui.grid.cellNav', 'ui.grid.resizeColumns', 'ui.grid.exporter',
+    'ngRoute', 'ngResource', 'ui.bootstrap', 'ngStorage', 'ngGrid', 
+    'ui.router', 'ngCookies', 'drag',
+    'ui.grid', 'ui.grid.selection', 'ui.grid.rowEdit', 'ui.grid.autoResize', 
+    'ui.grid.edit', 'ui.grid.cellNav', 'ui.grid.resizeColumns', 'ui.grid.exporter', 
+    'ui.grid.pinning', 'ui.grid.resizeColumns',  
     'canopi.directive', 'canopi.filter',
-    'admin.service',  'maxmedia.directive', 'cgBusy',  'ui.grid.resizeColumns',  'isteven-multi-select'
+    'admin.service',  'maxmedia.directive', 'cgBusy',  'isteven-multi-select'
 ]);
-
-
 
 
 angular.module('admin.app').config(['$stateProvider', '$urlRouterProvider', '$tooltipProvider', function ($stateProvider, $urlRouterProvider, $tooltipProvider) {
@@ -23,12 +23,7 @@ angular.module('admin.app').config(['$stateProvider', '$urlRouterProvider', '$to
             url: '/adminmain',
             templateUrl: 'app/admin-app/adminmain.html',
             controller: 'AdminMainController',
-            controllerAs: 'adminmain',
-            resolve: {
-                serverInfo: ['CommonUtilJsonService', function (CommonUtilJsonService) {
-                    return CommonUtilJsonService.getServerInfo();
-                }]
-            }
+            controllerAs: 'adminmain'
         })
         .state('adminmaingui.dashboard', {
             url: '/dashboard',
@@ -38,31 +33,23 @@ angular.module('admin.app').config(['$stateProvider', '$urlRouterProvider', '$to
         })
         .state('adminmaingui.mobilityorders', {
             url: '/mobilityorders',
-            templateUrl: 'app/admin-app/mobilityorders/views/mobilityOrders.html',
+            templateUrl: 'app/admin-app/mobilityorders/views/woTemplateTabs.html',
             controller: 'MobilityOrdersController',
             controllerAs: 'mobilityorders',
             resolve: {
                 orderPicklists: ['$q', 'AdminJsonService', function ($q, AdminJsonService) {
-                    var  poTypes = AdminJsonService.getPOTypes();
-                    var  woTypes = AdminJsonService.getWOTypes();
-                    
+                    var  poTypes = AdminJsonService.getMockPOTypes();
+                    var  woTypes = AdminJsonService.getMockWOTypes();
+                  
                     return $q.all([poTypes, woTypes]).then(function(results){
                         return {
                             poTypes: results[0],
                             woTypes: results[1]
                         };
                     });
-                }]
-            }
-        })
-        .state('adminmaingui.newwotemplate', {
-            url: '/newwotemplate',
-            templateUrl: 'app/admin-app/mobilityorders/views/newWOTemplate.html',
-            controller: 'NewWOTemplateController',
-            controllerAs: 'newwotemplate',
-            resolve: {
-                poPicklist: ['AdminJsonService', function (AdminJsonService) {
-                    return AdminJsonService.getPOTypes();
+                }],
+                taskPriorityConfig: ['AdminJsonService', function (AdminJsonService) {
+                    return AdminJsonService.getTaskPriorityConfig();
                 }]
             }
         })
@@ -75,7 +62,16 @@ angular.module('admin.app').config(['$stateProvider', '$urlRouterProvider', '$to
                 taskTypes: ['AdminJsonService', function (AdminJsonService) {
                     return AdminJsonService.getTaskType('tasktypepicklist');
                 }]
-            }
+            },
+            onEnter: ['TransitionData', function(TransitionData) {
+                    
+            }],
+            onExit: ['TransitionData', function(TransitionData) {
+                    
+                TransitionData.setNumberOfModalsDisplayed(0);
+                TransitionData.setDirtyRows('no');                
+
+            }]
         })
         .state('adminmaingui.lookupadmin', {
             url: '/lookupadmin',
@@ -83,19 +79,31 @@ angular.module('admin.app').config(['$stateProvider', '$urlRouterProvider', '$to
             controller: 'LookupAdminController',
             controllerAs: 'lookupadmin',
             resolve: {
-                lookupTypes: ['AdminJsonService', function (AdminJsonService) {
-                    return AdminJsonService.getLookupType('lookuptypepicklist');
+                lookupTypeConfig: ['AdminJsonService', function (AdminJsonService) {
+                    return AdminJsonService.getLookupTypeConfig();
                 }]
-            }
+            },
+            onEnter: ['TransitionData', function(TransitionData) {
+            }],
+            onExit: ['TransitionData', 'Dialog', function(TransitionData, Dialog) {
+                    
+                TransitionData.setNumberOfModalsDisplayed(0);
+                TransitionData.setDirtyRows('no');                
+
+            }]
         })
         .state('adminmaingui.ruleadmin', {
-            url: '/ruleadmin/:ruleCategory/:woType',
+            url: '/ruleadmin/:ruleCategoryValue/:woType',
+            params: {
+                ruleCategoryValue: {value: null, squash: true},
+                woType: {value: null, squash: true}
+            },
             templateUrl: 'app/admin-app/ruleadmin/views/ruleAdmin.html',
             controller: 'RuleAdminController',
             controllerAs: 'ruleadmin',
             resolve: {
-                ruleCategories: ['AdminJsonService', function (AdminJsonService) {
-                    return AdminJsonService.getRuleCategory('rulecategorypicklist');
+                ruleCategoryConfig: ['AdminJsonService', function (AdminJsonService) {
+                    return AdminJsonService.getRuleCategoryConfig();
                 }]
             }
         })
@@ -107,7 +115,7 @@ angular.module('admin.app').config(['$stateProvider', '$urlRouterProvider', '$to
             resolve: {
                 picklists: ['$q', 'AdminJsonService', function ($q, AdminJsonService) {
                     var  activityTypes = AdminJsonService.getActivityTypes('activitytypepicklist');
-                    var  woTypes = AdminJsonService.getWOTypes();
+                    var  woTypes = AdminJsonService.getMockWOTypes();
                     
                     return $q.all([activityTypes, woTypes]).then(function(results){
                         return {
@@ -123,20 +131,47 @@ angular.module('admin.app').config(['$stateProvider', '$urlRouterProvider', '$to
 }]);
 
 
-angular.module('admin.app').run([function () {
+angular.module('admin.app').run(['$rootScope', '$window', '$log',  'Dialog', 'TransitionData', 'UiGridCommands',
+                               function ($rootScope, $window, $log, Dialog, TransitionData, UiGridCommands) {
 
     console.log("Admin App Runs!");
+    
+    init();
+    
+    function init() {
+        setupEventListenerForStateChange();
+    }
+    
+    $rootScope.logout = function() {
+        console.log("logout called ...");
+        
+        // not to trigger logout action while testing from NetBeans IDE
+        if (localStorage.getItem('logout')) {	        		 
+            var logout = new String(localStorage.logout);
+            $window.location.href = logout;
+        }
+    };
+    
+    
+    function setupEventListenerForStateChange() {
+        $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+            //$log.debug("$stateChangeStart (to State)  => " + angular.toJson(toState));
+            //$log.debug("TransitionData.getDirtyRows()  => " + TransitionData.getDirtyRows());
+            //$log.debug("TransitionData.getNumberOfModalsDisplayed()  => " + TransitionData.getNumberOfModalsDisplayed());
+            //if(TransitionData.getDirtyRows() === "yes" && TransitionData.getNumberOfModalsDisplayed() < 1) {
+            if(TransitionData.getDirtyRows() === "yes") {
+                event.preventDefault();
+                Dialog.confirm("You have changes that are not saved. Would you like to discard the changes and continue?",  fromState, toState).then(function () {
+                       UiGridCommands.resetCallbacks();
+                });
 
+//                var count = TransitionData.getNumberOfModalsDisplayed();
+//                count = count + 1;
+//
+//                TransitionData.setNumberOfModalsDisplayed(count++);
+            }
+        });
+
+    }
+  
 }]);
-
-//Global options
-//angular.module('admin.app').value('uiGridOptions', {
-//    enableSelectAll: false,
-//    enableHorizontalScrollbar: uiGridConstants.NEVER,
-//    enableColumnMenus: false,
-//    enableGridMenu: true,
-//    multiSelect: false,
-//    exporterMenuPdf: false,
-//    exporterMenuCsv: false,
-//    selectionRowHeaderWidth: '105',
-//});

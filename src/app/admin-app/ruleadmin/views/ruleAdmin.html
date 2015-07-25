@@ -1,118 +1,155 @@
-<!-- BREADCRUMBS -->
-<div class="row">
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <ol class="breadcrumb">
-                <li><a ui-sref="adminmaingui.dashboard"><i class="fa fa-home fa-lg"></i>&nbsp;&nbsp;&nbsp;Home</a></li>
-                <li class="active">Rule Administration</li>
-            </ol>
-        </div>
-    </div>
-</div>
-
 <!-- TABLE LOOKUP -->
 <div class="row">
     <accordion class="app-accordion">
-        <accordion-group is-open="ruleadmin.searchAccordionOpen">
+        <accordion-group is-open="ruleadmin.searchAccordionOpen" cg-busy="[ruleadmin.woTypePromise]">
             <accordion-heading>
-                <span class="app-accordion-header">Table Lookup</span>
+                <span class="app-accordion-header">Rule Category Lookup</span>
                 <i class="pull-right glyphicon app-accordion-open-icon" ng-class="{'glyphicon-chevron-up': ruleadmin.searchAccordionOpen, 'glyphicon-chevron-down': !ruleadmin.searchAccordionOpen}"></i>
             </accordion-heading>
 
             <div class="app-header-underline"></div>
 
-            <div class="col-md-4">
+            <div class="col-md-4 col-sm-4">
                 <form>
                     <div class="canopi-input-title">Rule Category: </div>
                     <div class="form-group">
                         <div class="dropdown">
+                            <!--Passing in value '{{oldvalue}}' will pass in the previous value on ng-change-->
                             <select ng-model="ruleadmin.ruleCategory"
-                                    ng-options="ruleCategory.name for ruleCategory in ::ruleadmin.ruleCategories"
-                                    ng-change="ruleadmin.changeRuleCategory()"
+                                    ng-options="ruleCategory.title for ruleCategory in ::ruleadmin.ruleCategoryConfig"
+                                    ng-change="ruleadmin.changeRuleCategory('{{ruleadmin.ruleCategory.title}}')"
                                     class="dropdown-select form-control"
                                     title="Please select" data-live-search="true">
                             </select>
                         </div>
                     </div>
                 </form>
-            </div>                       
+            </div>   
+
+            <div class="col-md-4 col-sm-4" ng-show="ruleadmin.ruleCategory.woTypeSearchCriteria">
+                <form>
+                    <div class="canopi-input-title">Work Order Type:</div>
+                    <div class="form-group">
+                        <div class="dropdown">
+                            <select 
+                                ng-model="ruleadmin.woType" ng-options="a.title for a in ::ruleadmin.woTypes"
+                                class="dropdown-select form-control"
+                                title="Please select" data-live-search="true">
+                                <option value="" selected>Please select one</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            
+            <div class="col-md-1 col-sm-1">
+                <div class="canopi-input-title">&nbsp;</div>
+                <button href='#' class='btn btn-blue btn-wide'  ng-disabled="ruleadmin.ruleCategory.woTypeSearchCriteria && !ruleadmin.woType" ng-click="ruleadmin.search()">Search</button>
+            </div>
 
         </accordion-group>
     </accordion>
+
 </div>
 
+
+<div cg-busy="[ruleadmin.ruleCategoryPromise]"></div>
+
+
 <!-- TABLE LOOKUP RESULTS -->
-<div class="row">
+<div class="row" ng-show="ruleadmin.showResults">
     <div class="panel panel-default app-panel">
-        
+
         <div class="panel-heading app-panel-heading">
             <div class="app-panel-title">
-                <span class="app-panel-header">Lookup Results</span>
+                <span class="app-panel-header">Rule Category Results</span>
             </div>
         </div>
-        
+
         <div class="panel-body">
 
             <div class="app-header-underline"></div>
 
             <div class="col-md-12">
-                
+
                 <div class="app-table-top-menu">
-                    <span class="app-table-top-menu-title">Lookup Table</span>
-                    <form class="form-inline app-table-top-menu-buttons">
+
+                    <form class="form-inline">
                         <div class="form-group">
-                            <input class="form-control" style="margin-top: -8px;" type="text"
+                            <span class="app-table-top-menu-title">Rule Category Table</span>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="text"
+                                   id="rulesearchbox"
                                    ng-model="ruleadmin.ruleCategoryFilter"
                                    ng-model-options="{debounce: 300}"
                                    ng-change="ruleadmin.refreshData(ruleadmin.ruleCategoryFilter)"
                                    placeholder="Search"/>
                         </div>                        
-                        <div class="form-group pull-right" style="margin-top: 3px;">
+                        <div class="form-group app-button-group pull-right">
                             <button class="btn btn-success btn-sm btn-wide"
-                                    ng-click="ruleadmin.export()"><i class="fa fa-fw fa-file-excel-o"></i> Export
+                                    ng-click="ruleadmin.export()"  ng-disabled="ruleadmin.isEmptyTable"><i class="fa fa-fw fa-file-excel-o"></i> Export
                             </button>
                             <button class='btn btn-orange btn-sm btn-wide'
-                                    ng-disabled="ruleAdmin.gridApi.rowEdit.getDirtyRows().length < 1"
+                                    ng-disabled="(!ruleadmin.isEmptyRowFound() && !ruleadmin.newRow && ruleadmin.gridApi.rowEdit.getDirtyRows().length < 1) ||
+                                                        (ruleadmin.undoStack.length === 0 || !ruleadmin.undoStack.length) || ruleadmin.isEmptyTable"
                                     ng-click="ruleadmin.save()">
                                 <i class="fa fa-floppy-o"></i> Save
                             </button>
                             <button class="btn btn-gray btn-sm btn-wide"
-                                    ng-disabled="ruleAdmin.gridApi.rowEdit.getDirtyRows().length < 1"
+                                    ng-disabled="(ruleadmin.undoStack.length === 0 || !ruleadmin.undoStack.length) || ruleadmin.isEmptyTable"
                                     ng-click="ruleadmin.undo()">
                                 <i class="fa fa-undo"></i> Undo
                             </button>
                             <div class="btn-group btn-group-sm" dropdown>
-                                <button type="button" ng-disabled="ruleadmin.isEditing" class="btn btn-blue btn-wide dropdown-toggle" dropdown-toggle>
+                                <button type="button" ng-disabled="(ruleadmin.isEditing) || ruleadmin.isEmptyTable" class="btn btn-blue btn-wide dropdown-toggle" dropdown-toggle>
                                     <i class="fa fa-gears"></i> Actions <span class="caret"></span>
                                 </button>                                        
                                 <ul class="dropdown-menu" role="menu">
-                                    <li ng-class="{disabled: ruleadmin.selectedRow}" ng-click="ruleadmin.addItem()"><a href="javascript:void(0)"><i class="fa fa-fw fa-plus-circle"></i> Add</a></li>
-                                    <li ng-click="ruleadmin.addItem()" ng-class="{disabled: !ruleadmin.selectedRow}"><a href="javascript:void(0)"><i class="fa fa-fw fa-long-arrow-down"></i> Add Item Below</a></li>
-                                    <li ng-class="{disabled: !ruleadmin.selectedRow}" ng-click="ruleadmin.insertCopyAtLocation()"><a href="javascript:void(0)"><i class="fa fa-fw fa-clipboard"></i> Copy/Add</a></li>
-
+                                    <li ng-class="{disabled: ruleadmin.selectedRow}" ng-click="ruleadmin.selectedRow || ruleadmin.addItem()"><a href="javascript:void(0)"><i class="fa fa-fw fa-plus-circle"></i> Add</a></li>
+                                    <li ng-class="{disabled: !ruleadmin.selectedRow}" ng-click="!ruleadmin.selectedRow || ruleadmin.addItem()"><a href="javascript:void(0)"><i class="fa fa-fw fa-long-arrow-down"></i> Add Item Below</a></li>
+                                    <li ng-class="{disabled: !ruleadmin.selectedRow}" ng-click="!ruleadmin.selectedRow || ruleadmin.insertCopyAtLocation()"><a href="javascript:void(0)"><i class="fa fa-fw fa-clipboard"></i> Copy/Add</a></li>
+                                    <li class="divider"></li>
+                                    <li ng-class="{disabled: !ruleadmin.newRow}" ng-click="!ruleadmin.newRow || ruleadmin.discardItem()"><a href="javascript:void(0)"><i class="fa fa-fw fa-minus-circle"></i> Discard Item</a></li>
                                 </ul>
                             </div>
                         </div>
                     </form>
                 </div>
-                <!--Grid-->
-                <div class="ruleAdminUIGrid" 
+
+                <div class="alertMessagesContainer" alert-messages></div>
+
+
+                <!--Rule Admin UI Grid-->
+                <div ng-show="!ruleadmin.isEmptyTable" class="ruleAdminUIGrid"
+                     cg-busy="[ruleadmin.ruleCategoryPromise, ruleadmin.changeRuleCategoryPromise]"
                      ui-grid="ruleadmin.gridOptions" 
                      ui-grid-save-state 
                      ui-grid-exporter 
+                     ui-grid-pinning
                      ui-grid-selection 
                      ui-grid-auto-resize 
                      ui-grid-edit 
                      ui-grid-row-edit 
                      ui-grid-cellNav 
                      ui-grid-resize-columns>                                     
-                </div>                            
-
+                </div>        
+                
+                <!-- If BE call fails, it will display an empty table with a message -->
+                <div class="panel panel-default" ng-show="ruleadmin.isEmptyTable" style="text-align: center;">
+                    <div class="panel-body">
+                        <div class="msg" style="margin-top: 20px;">
+                            <i style="color: #777" class="fa fa-frown-o fa-3x"></i><span style="font-size: 24px; margin-top: 5px; display: block; color: #777">Functionality Will be Available in Future Release.</span>
+                        </div>
+                    </div>
+                </div>
+                
             </div>
         </div>
         <!-- panel-body -->
     </div>
     <!-- panel -->
 </div>
-
+<!-- row -->
 

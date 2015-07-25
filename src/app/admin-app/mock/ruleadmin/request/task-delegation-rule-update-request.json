@@ -1,6 +1,8 @@
 {  
-   "attuid":"pb154j",
-   "data":[  
+    "attuid": "pb154j",
+    "action": "UPDATE",
+    "key": {"tableName": "Task Delegation"},
+    "data":[  
       {  
          "id":"1001",
          "delegatedApplication":"ACAT",

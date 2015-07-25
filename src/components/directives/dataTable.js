@@ -1,10 +1,26 @@
-angular.module('canopi.directive').directive('dataTable',  function($window, $log) {
-    return {
-        scope: {
-            options: "=",
-            control: "="
-        },
-        link: function(scope, element, attrs) {
+(function() {
+    'use strict';
+    
+    angular.module('canopi.directive')
+           .directive('dataTable', dataTable);
+
+    dataTable.$inject = ['$window', '$log'];    
+
+    function dataTable($window, $log) {
+        var directive = {
+            restrict: 'EA',
+            scope: {
+                options: "=",
+                control: "="
+             },
+            link: link
+        };
+	
+        return directive;
+
+        ////
+        
+        function link(scope, element, attrs) {
             $log.debug('Creating dataTable with column headers: ');
             for(var i=0; i<scope.options.aoColumns.length; i++) {
                 var obj = scope.options.aoColumns[i];
@@ -49,5 +65,7 @@ angular.module('canopi.directive').directive('dataTable',  function($window, $lo
                 angular.element($window).unbind('resize');
             });
         }
-    };
-});
+    }
+	
+})();
+

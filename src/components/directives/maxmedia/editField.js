@@ -12,107 +12,123 @@
       
    If validation is not needed:   
       
-   <div edit-field id="name" label="User Name" state="isValid" placeholder="Please enter your name ..."></div>
+   <div edit-field id="name" label="User Name" state="vm.isValid" placeholder="Please enter your name ..."></div>
    
         or 
         
    If validation is needed:  (Note: see the example of the scope function defined in the controller below)
         
-   <div edit-field id="name" label="User Name" state="isValid" validate="validateName(value)" placeholder="Please enter your name ..."></div>
+   <div edit-field id="name" label="User Name" state="vm.isValid" validate="vm.validate(value)" placeholder="Please enter your name ..."></div>
    
        or
        
    For Readonly:
        
-   <div edit-field id="name" label="User Name" state="isValid" placeholder="Please enter your name ..." editable="false"></div>
+   <div edit-field id="name" label="User Name" state="vm.isValid" placeholder="Please enter your name ..." editable="vm.isEditable"></div>
     
    
      
    [Example of validate's alias function defined in the controller]:
    
-       $scope.validateName = function(value)
+       vm.validate = function(value)
        {
            if (value !== undefined && value !== null && value.length >= 6) {
-	            return {
-	            	success: true,
-	            	message: ""
-	            };
+                return {
+                    success: true,
+                    message: ""
+                };
             }
             else {
-	            return {
-	            	success: false,
-	            	message: "Please enter at least 6 characters"
-	            };
+                return {
+                    success: false,
+                    message: "Please enter at least 6 characters"
+                };
             }
         };
      
  *  
  */
 
+(function() {
+    'use strict';
+    
+    angular.module('maxmedia.directive')
+           .directive('editField', editField);
 
-angular.module('maxmedia.directive').directive('editField', ['$log', function($log) {
-	'use strict';
+    editField.$inject = ['$log'];    
+
+    function editField($log) {
+         var directive = {
+            restrict: 'EA',
+            scope: {
+                editable: '=?',    // optional
+                required: '=?',    // optional
+                isValid : '=state',
+                validate: '&?',    // optional - this is used to invoke contoller's validate's alias function
+                placeholder: '@?', // optional
+                id: '@?',          // optional
+                label: '@?'        // optional
+            },
+            template:   '<div class="form-group col-lg-4 col-md-4 col-sm-12" ng-class="{\'has-error\': !vm.isValid}">' +
+                        '<label for="{{vm.id}}" class="control-label">{{vm.label}}:</label>' +
+                        '<input name="{{vm.id}}" type="text" ng-mouseleave="vm.validateMe($event)" ng-disabled="!vm.editable" class="form-control" placeholder="{{vm.placeholder}}" {{vm.required}}>' +
+                        '<span class="help-block" ng-show="!vm.isValid">{{vm.message}}</span>' +
+                        '</div>',
+            controller: controller,
+            controllerAs: 'vm',
+            bindToController: true
+        };
 	
-	return {
-		restrict : 'EA',	
-		scope: {
-			ngModel: '=?',     // optional
-			editable: "=?",    // optional
-                        isValid : "=state",
-			validate: "&?"     // optional - this is used to invoke contoller's validate's alias function
-		},
-		
-		template:  '<div class="form-group col-lg-4 col-md-4 col-sm-12" ng-class="{\'has-error\': !isValid}">' +
-                   '<label for="{{id}}" class="control-label">{{label}}:</label>' +
-                   '<input name="{{id}}" type="text" ng-model="ngModel" ng-mouseleave="validateMe($event)" ng-disabled="!editable" class="form-control" placeholder="{{placeholder}}" {{required}}>' +
-                   '<span class="help-block" ng-show="!isValid">{{message}}</span>' +
-                   '</div>',
+        return directive;
+        
+        ////
+    }
+    
+          
+    controller.$inject = ['$scope', '$log', '$attrs'];    
 
-	    link: function (scope, element, attrs) {
-	    	
-	    	scope.placeholder = attrs.placeholder;
-	    	scope.id = attrs.label;
-	    	scope.label = attrs.label;
-	    	if (scope.isValid === undefined) {
-	            scope.isValid = true;
-	    	}
-	    	
-	    	if (scope.editable === undefined) {
-	            scope.editable = true;
-	    	}
-	    		
-	    	//$log.debug("isValid = " + scope.isValid);
-	    	//$log.debug("editable = " + scope.editable);
-	    
-	    	// check if required attribute is set on the DOM element
-	    	scope.required = attrs.hasOwnProperty('required') ? 'required="required"' : '';
-	   
-	    	// watch the return object after the controller's validate's alias function returns
-	    	scope.$watch("retObj", function(obj) {
-	    		
-	    		//$log.debug('inside $watch => ' + angular.toJson(obj));
-	    		
-	    		if (obj !== undefined) {
+    function controller($scope, $log, $attrs) {
 
-        			scope.isValid = obj.success;  // if this is false, the message will be shown right below the input field
-	    			scope.message = obj.message;  // this is the helper message set in contoller's vaidate's alias function
-	    		}
-	    		
-	    	});
-	    
-	    	
-	    	// this function is invoked when mouseleave event is triggered 
-	    	// this will then invoke contoller's validate's alias function
-	    	scope.validateMe = function(e) {
-	    		
-	    		var elem = angular.element(e.currentTarget);
-	    	
-	    		// the parameter needs to be passed in object literal form 
-	    		scope.retObj = scope.validate({value: elem.val()});
-	    	
-	    	};
+        var vm = this;
 
-		}
-	};
-}]);
+        if (vm.isValid === undefined) {
+            vm.isValid = true;
+        }
 
+        if (vm.editable === undefined) {
+            vm.editable = true;
+        }
+
+        // check if required attribute is set on the DOM element
+        vm.required = $attrs.hasOwnProperty('required') ? 'required="required"' : '';
+  
+        // watch the return object after the controller's validate's alias function returns
+        $scope.$watch(function() {
+            return vm.retObj;
+        }, function(obj) {
+
+            //$log.debug('inside $watch => ' + angular.toJson(obj));
+
+            if (obj !== undefined) {
+
+                vm.isValid = obj.success;  // if this is false, the message will be shown right below the input field
+                vm.message = obj.message;  // this is the helper message set in contoller's vaidate's alias function
+            }
+
+        });
+
+
+        // this function is invoked when mouseleave event is triggered 
+        // this will then invoke contoller's validate's alias function
+        vm.validateMe = function(e) {
+
+            var elem = angular.element(e.currentTarget);
+            
+            //$log.debug("elem.val() => " + elem.val());
+
+            // the parameter needs to be passed in object literal form 
+            vm.retObj = vm.validate({value: elem.val()});
+
+        };
+    }
+})();

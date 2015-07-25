@@ -1,7 +1,7 @@
 {  
    "attuid":"pb154j",
    "action": "UPDATE",
-   "key": {},
+   "key": {"tableName": "Priority Project"},
    "data":[  
       {  
          "id":"1001",

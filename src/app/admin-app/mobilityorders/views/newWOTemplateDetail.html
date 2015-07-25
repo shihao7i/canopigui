@@ -1,0 +1,69 @@
+<!-- PROJECT LOOKUP RESULTS -->
+<div class="row">
+    <div class="panel panel-default app-panel">
+
+        <div class="panel-heading app-panel-heading">
+            <div class="app-panel-title">
+                <span class="app-panel-header">New Workorder Template</span>
+            </div>
+        </div>
+
+        <div class="panel-body">
+
+            <div class="app-header-underline"></div>
+
+            <div class="col-md-12">
+
+                <div class="app-table-top-menu">
+                    <span class="app-table-top-menu-title">PO Type: {{mobilityorders.poType.name}}</span>
+                    <form class="form-inline" style="display: inline; padding-left: 5px;">
+                        <div class="form-group pull-right" style="margin-top: 3px;">
+                            <button class="btn btn-success btn-sm btn-wide"
+                                    ng-click="mobilityorders.newWOTemplate.export()"><i class="fa fa-fw fa-file-excel-o"></i> Export
+                            </button>
+                            <button class='btn btn-orange btn-sm btn-wide'
+                                    ng-disabled="mobilityorders.gridApiNewWOTemplate.rowEdit.getDirtyRows().length < 1"
+                                    ng-click="mobilityorders.newWOTemplate.saveNewWOTemplate()">
+                                <i class="fa fa-floppy-o"></i> Save
+                            </button>
+                            <button class="btn btn-gray btn-sm btn-wide"
+                                    ng-disabled="mobilityorders.undoStackNewWOTemplate.length === 0 || !mobilityorders.undoStackNewWOTemplate.length"
+                                    ng-click="mobilityorders.newWOTemplate.undo()">
+                                <i class="fa fa-undo"></i> Undo
+                            </button>
+                            <div class="btn-group btn-group-sm" dropdown>
+                                <button type="button" ng-disabled="mobilityorders.isEditing" class="btn btn-primary dropdown-toggle" dropdown-toggle>
+                                    <i class="fa fa-gears"></i> Actions <span class="caret"></span>
+                                </button>                                        
+                                <ul class="dropdown-menu" role="menu">
+                                    <li ng-click="mobilityorders.newWOTemplate.addNewWOTemplate($event)"><a href="javascript:void(0)"><i class="fa fa-fw fa-plus-circle"></i> Add WO Template</a></li>
+                                    <li ng-class="{disabled: !mobilityorders.selectedRowNewWOTemplate}" ng-click="!mobilityorders.selectedRowNewWOTemplate || mobilityorders.newWOTemplate.removeNewWOTemplate()"><a href="javascript:void(0)"><i class="fa fa-fw fa-minus-circle"></i> Discard WO Template</a></li>
+                                </ul>    
+                            </div>
+                        </div>
+                    </form>
+                </div>   
+
+                <div  ui-grid="mobilityorders.gridOptionsNewWOTemplateTable" 
+                      ui-grid-exporter 
+                      ui-grid-cellNav 
+                      ui-grid-edit 
+                      ui-grid-row-edit 
+                      ui-grid-selection 
+                      ui-grid-resize-columns 
+                      ui-grid-auto-resize 
+                      class="LinksTableUIGrid">
+                    <div class="admin-empty-table" ng-show="!mobilityorders.gridOptionsNewWOTemplateTable.data.length">
+                        <div class="msg">
+                            <span>Empty WO Templates Table</span>                                  
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div> <!-- panel -->
+</div> <!-- row -->
+
+<div  ng-show="mobilityorders.displayChildTablesForNewWOTemplateFlag" ng-include="'app/admin-app/mobilityorders/views/childTablesForNewWOTemplate.html'">
+</div>

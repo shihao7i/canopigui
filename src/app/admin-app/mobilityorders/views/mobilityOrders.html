@@ -1,31 +1,19 @@
-<div class="row">
-    <div class="col-md-12">
-
-        <!-- Breadcrumb -->
-        <div class="row">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <ol class="breadcrumb">
-                        <li><a ui-sref="adminmaingui.dashboard"><i class="fa fa-home fa-lg"></i>&nbsp;&nbsp;&nbsp;Home</a></li>
-                        <li class="active">Workorder Template Details</li>
-                    </ol>
-                </div>
-            </div>
-        </div>
-
+<div class="col-md-12">
+        
         <!-- Mobility Search Forms/Selections -->
         <div class="row">
             <accordion class="app-accordion">
                 <accordion-group is-open="mobilityorders.searchAccordionOpen">
 
                     <accordion-heading>
-                        <span class="app-accordion-header">Mobility Order Template Search</span>
+                        <span class="app-accordion-header">Workorder Template Search</span>
                         <i class="pull-right glyphicon app-accordion-open-icon" ng-class="{'glyphicon-chevron-up': mobilityorders.searchAccordionOpen, 'glyphicon-chevron-down': !mobilityorders.searchAccordionOpen}"></i>
                     </accordion-heading>
 
                     <!-- Container Header Underline -->
                     <div style="border-bottom: solid; border-width: 1px; margin-bottom: 20px; color: #9C9C9C; margin-left: 15px; margin-right: 15px;"></div>
 
+                    
                     <!-- Search Forms/Selections -->
                     <div class="row" style="padding-left: 15px; padding-right: 15px;">
                         <div class="col-md-4">
@@ -46,64 +34,31 @@
                                  >
                             </div>
                         </div>
+                                       
                         <div class="col-md-4">
-                            <div class="canopi-input-title">Work Order Type:</div>
-<!--                            <div ng-dropdown-multiselect="" options="mobilityorders.woType" events="mobilityorders.woTypeSelectionEvents" selected-model="mobilityorders.woTypeCurrentSelection" extra-settings="mobilityorders.woTypeSettings"></div>                                                                                                                     -->
-                            <div isteven-multi-select
-                                 input-model="mobilityorders.woTypeMultiselectPickList"
-                                 output-model="mobilityorders.woTypeMultiselectPickListOutput"
-                                 button-label="icon name"
-                                 item-label="icon name maker"
-                                 tick-property="ticked"
-                                 max-labels="0"
-                                 on-item-click="mobilityorders.woTypeSelectionClickItemEvent(data)"
-                                 on-select-none="mobilityorders.woTypeSelectionSelectNoneEvent()"
-                                 on-select-all="mobilityorders.woTypeSelectionSelectAllEvent()"
-                                 on-reset="mobilityorders.woTypeSelectionResetEvent()"
-                                 max-height="350px"
-                                 >
-                            </div>
-                        </div>
-                    </div>
+                            <form>
+                                <div class="canopi-input-title">Work Order Type:</div>
+                                <div class="form-group">
+                                    <div class="dropdown">
+                                        <select 
+                                            ng-model="mobilityorders.woType" ng-options="a.name for a in ::mobilityorders.woPickList"
+                                            class="dropdown-select form-control"
+                                            title="Please select" data-live-search="true"  ng-change="mobilityorders.displayOrderDetail(mobilityorders.woType.name);">
+                                            <option value="" selected>Please select one</option>
+                                        </select>
+                                    </div>
+                                </div>
 
-                    <!-- Search/Clear Buttons -->
-                    <div class="row" style="padding-left: 15px; padding-right: 15px; padding-top: 15px;">
-                        <div class="col-md-12" style="text-align: right;">
-                            <button href='#' class='btn btn-blue btn-wide'  ng-disabled="mobilityorders.searchButtonDisabled" ng-click="mobilityorders.orderSearch()">Search</button>
-                            <button href='#' class='btn btn-gray btn-wide'  ng-disabled="mobilityorders.clearButtonDisabled" ng-click="mobilityorders.clear()">Clear</button>
+                            </form>
                         </div>
+                        
                     </div>
-
+                    
                 </accordion-group>                           
             </accordion>
         </div> <!-- Mobility Search Forms/Selections -->
-
- 
-        <!-- Mobility Search Results -->
-        <div class="row" ng-show="mobilityorders.displaySearchResultsTableFlag">
-            <accordion class="app-accordion">
-                <accordion-group is-open="mobilityorders.searchResultsOpen">
-
-                    <accordion-heading>
-                        <span class="app-accordion-header">Order Template Result</span>
-                        <i class="pull-right glyphicon app-accordion-open-icon" ng-class="{'glyphicon-chevron-up': mobilityorders.searchResultsOpen, 'glyphicon-chevron-down': !mobilityorders.searchResultsOpen}"></i>
-                    </accordion-heading>
-
-                    <!-- Container Header Underline -->
-                    <div style="border-bottom: solid; border-width: 1px; margin-bottom: 20px; color: #9C9C9C; margin-left: 15px; margin-right: 15px;"></div>
-                    <div style="margin-left: 15px; margin-right: 15px;" 
-                         cg-busy="{promise:mobilityorders.orderSearchPromiseTable, message:'Loading Your Data', templateUrl:'lib/angular-busy/custom-templates/mycustomtemplate.html'}" 
-                         ui-grid="mobilityorders.gridOptionsSearchResults" 
-                         ui-grid-selection ui-grid-resize-columns class="tasksSearchResultsUIGrid">                             
-                    </div> 
-                </accordion-group>                           
-            </accordion>
-        </div> <!-- Mobility Search Results -->
+        
 
         <div ng-show="mobilityorders.displayOrderDetailsFlag" ng-include="'app/admin-app/mobilityorders/views/mobilityOrderDetail.html'">
         </div>
     </div> <!-- col-md-12 -->
-
-</div> <!-- row -->
-
-

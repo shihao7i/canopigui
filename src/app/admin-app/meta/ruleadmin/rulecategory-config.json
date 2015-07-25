@@ -1,0 +1,70 @@
+[
+   {
+      "title":"WO Description",
+      "code":"COLM_WO_DESCRIPTION",
+      "value":"wo-description-rule-response",
+      "sortId":"ordertype",
+      "pinnedColumns": ["value", "ordertype"],
+      "autopopulatedFields":[{"attribute": "WO_DESCRIPTION"}],
+      "urlSuffix":"table/COLM_WO_DESCRIPTION",
+      "columnWidths":{"large": ["value", "ordertype"],
+                      "medium": ["carrier", "franchiseindicator"],
+                      "small": ["devicevendor", "first_cabinet", "nodeb1_on_air"]}
+   },
+   {
+      "title":"Task Name & Task Description",
+      "code":"COLM_TASK_NAME",
+      "value":"task-name-rule-response",
+      "urlSuffix":"table/COLM_TASK_NAME",
+      "columnWidths":{"large": [""], 
+                      "medium": [""],
+                      "small": [""]}
+   },
+   {
+      "title":"Task Queue",
+      "code":"AI_QUEUE_CONTROL",
+      "value":"task-queue-rule-response",
+      "autopopulatedFields":[{"attribute": "QUEUE"}],
+      "urlSuffix":"table/AI_QUEUE_CONTROL",
+      "woTypeSearchCriteria": true,
+      "urlQueryStringPrefix": "?order_type=",
+      "columnWidths":{"large": ["order_type"], 
+                      "medium": ["value", "task_code"],
+                      "small": [""]}
+   },
+   {
+      "title":"Task Duration & Task Escalation",
+      "code":"COLM_TASK_DURATION",
+      "value":"task-duration-rule-response",
+      "urlSuffix":"table/COLM_TASK_DURATION",
+      "columnWidths":{"large": [""], 
+                      "medium": [""],
+                      "small": [""]}
+   },
+   {
+      "title":"Task Delegation",
+      "code":"AI_ATTR_CONTROL",
+      "value":"task-delegation-rule-response",
+      "autopopulatedFields":[{"attribute": "delegated_application"}],
+      "rule": {   
+          "invalidCondition": { 
+            "matchColumns": ["ordertype", "siadvendor", "siadmodel", "taskcode"], 
+            "unmatchColumns": "value"
+          },
+          "errorMessage": "Task can only be delegated to one Application at a time."
+      },
+      "urlSuffix":"table/AI_ATTR_CONTROL",
+      "columnWidths":{"large": [""], 
+                      "medium": ["value"],
+                      "small": ["siadvendor", "siadmodel"]}
+   },
+   {
+      "title":"Task Visibility",
+      "code":"COLM_TASK_VISIBILITY",
+      "value":"task-visibility-rule-response",
+      "urlSuffix":"table/COLM_TASK_VISIBILITY",
+      "columnWidths":{"large": [""], 
+                      "medium": [""],
+                      "small": [""]}
+   }
+]

@@ -1,31 +1,1380 @@
-{   
-    "tableName": "Carrier Name",
-    "tableRows": 
-        {"rowMetaData":
-            { "columnList":[{"hyperlink":false,	"visible": false, "editable": false, "fieldType": "input", "fieldOptions": [], "fieldDefault": "", "id":"id", "displayName":"ID"},
-                            {"hyperlink":false,	"visible": true, "editable": true, "fieldType": "input", "fieldOptions": [], "fieldDefault": "", "id":"edpCarrierName", "displayName":"EDP Carrier Name"},
-                            {"hyperlink":false,	"visible": true, "editable": true, "fieldType": "input", "fieldOptions": [], "fieldDefault": "", "id":"canopiCarrierName", "displayName":"CANOPI Carrier Name"},
-                            {"hyperlink":false,	"visible": true, "editable": true, "fieldType": "input", "fieldOptions": [], "fieldDefault": "", "id":"graniteCarrierName", "displayName":"GRANITE Carrier Name"},
-                            {"hyperlink":false,	"visible": true, "editable": true, "fieldType": "input", "fieldOptions": [], "fieldDefault": "", "id":"vfoCarrierName", "displayName":"VFO Carrier Name"},
-                            {"hyperlink":false,	"visible": true, "editable": true, "fieldType": "dropdown", "fieldOptions": [{"value": "YES", "label": "YES"}, {"value": "NO", "label": "NO"}], "fieldDefault": "NO", "id":"archive", "displayName":"Archive"}],
-                        
-              "rowValueList":[{"cellValues":["1001", "Carrier Deferred (Late Date)", "", "", "", "NO"]},
-                              {"cellValues":["1002", "Carrier Deferred (Not Confirmed)", "", "", "", "NO"]},
-                              {"cellValues":["1003", "Centenial Ethernet", "CENTENNIAL", "CENTENNIAL", "CENTENNIAL", "NO"]},
-                              {"cellValues":["1004", "CENTRAL TEL CO FL", "No Equivalent Found", "", "", "NO"]},
-                              {"cellValues":["1005", "Central Tel Co of NC", "No Equivalent Found", "", "", "NO"]},
-                              {"cellValues":["1006", "CenturyLink", "No Equivalent Found", "CENTURYLINK", "", "NO"]},
-                              {"cellValues":["1007", "CenturyLink (Legacy Q) Ethernet", "QWEST", "QWEST", "", "NO"]},
-                              {"cellValues":["1008", "CenturyLink Meet Point", "CENTURYLINK", "CENTURYLINK", "CENTURYLINK", "NO"]},
-                              {"cellValues":["1009", "Charter Ethernet", "CHARTER COMMUNICATIONS", "CHARTER COMMUNICATIONS", "", "NO"]},
-                              {"cellValues":["1010", "Cincinnati Bell", "CHILLICOTHE TELEPHONE", "CHILLICOTHE TELEPHONE", "", "NO"]},
-                              {"cellValues":["1011", "CO/MTSO", "CINCINNATI BELL", "CINCINNATI BELL", "", "NO"]},
-                              {"cellValues":["1012", "Comcast Ethernet", "", "", "", "NO"]}
-                            ]
-            }
-        },
+{
+   "returnStatus":"SUCCESS",
+   "returnMessage":"SUCCESS",
+   "returnCode":"0",
+   "tableName":"CANOPI_CARRIER_NAME",
+   "rowMetadata":{
+      "columnList":[
+         {
+            "id":"id",
+            "hyperlink":false,
+            "visible":false,
+            "editable":false,
+            "fieldType":"input",
+            "fieldDefault":null,
+            "displayName":"id",
+            "fieldOptions":[
 
-    "returnStaus": "Success",
-    "returnMessage": "",
-    "returnCode": "0"
+            ]
+         },
+         {
+            "id":"carrier_name",
+            "hyperlink":false,
+            "visible":true,
+            "editable":true,
+            "fieldType":"input",
+            "fieldDefault":null,
+            "displayName":"CANOPI/Granite Carrier Name",
+            "fieldOptions":[
+
+            ]
+         },
+         {
+            "id":"edp_carrier",
+            "hyperlink":false,
+            "visible":true,
+            "editable":true,
+            "fieldType":"input",
+            "fieldDefault":null,
+            "displayName":"EDP Carrier Name",
+            "fieldOptions":[
+
+            ]
+         },
+         {
+            "id":"vfo_asr_carrier",
+            "hyperlink":false,
+            "visible":true,
+            "editable":true,
+            "fieldType":"input",
+            "fieldDefault":null,
+            "displayName":"VFO Carrier Name",
+            "fieldOptions":[
+
+            ]
+         }
+      ]
+   },
+   "rowValueList":[
+      {
+         "cellValues":[
+            "1",
+            "360 NETWORKS",
+            "360networks Ethernet",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "2",
+            "ACS",
+            "ACS",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "3",
+            "ATLANTIC TELEPHONE MEMBERSHIP",
+            "Atlantic Telephone Membership Corporation",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "4",
+            "ATT",
+            "AT&T",
+            "IN_FRANCHISE"
+         ]
+      },
+      {
+         "cellValues":[
+            "5",
+            "ATT",
+            "AT&T/CAOOF",
+            "IN_FRANCHISE"
+         ]
+      },
+      {
+         "cellValues":[
+            "6",
+            "ATT",
+            "AT&T/COA",
+            "IN_FRANCHISE"
+         ]
+      },
+      {
+         "cellValues":[
+            "7",
+            "SPORT (ATT)",
+            "AT&T/SPORT",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "8",
+            "ATT",
+            "ATT",
+            "IN_FRANCHISE"
+         ]
+      },
+      {
+         "cellValues":[
+            "9",
+            "ATT",
+            "ATT/CAOOF",
+            "IN_FRANCHISE"
+         ]
+      },
+      {
+         "cellValues":[
+            "10",
+            "ATT",
+            "ATT/COA",
+            "IN_FRANCHISE"
+         ]
+      },
+      {
+         "cellValues":[
+            "11",
+            "SPORT (ATT)",
+            "ATT/SPORT",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "12",
+            "BRANDENBURG TELEPHONE CO",
+            "OC3 - Brandenburg Telephone Company",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "13",
+            "CASS COUNTY TELECO",
+            "OC3 - Cass County Telephone Company",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "14",
+            "CENTENNIAL",
+            "Centenial Ethernet",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "15",
+            "CENTURYLINK",
+            "CenturyLink",
+            "CENTURY_LINK"
+         ]
+      },
+      {
+         "cellValues":[
+            "16",
+            "CENTURYLINK",
+            "CenturyLink Meet Point",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "17",
+            "CENTURYLINK",
+            "OC3 - CenturyLink",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "18",
+            "CENTURYLINK",
+            "OC3 - CenturyLink (Legacy Q)",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "19",
+            "QWEST",
+            "CenturyLink (Legacy Q) Ethernet",
+            "QWEST"
+         ]
+      },
+      {
+         "cellValues":[
+            "20",
+            "CHARTER COMMUNICATIONS",
+            "Charter Ethernet",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "21",
+            "CHILLICOTHE TELEPHONE",
+            "Chillicothe Ethernet",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "22",
+            "CINCINNATI BELL",
+            "Cincinnati Bell",
+            "CBT"
+         ]
+      },
+      {
+         "cellValues":[
+            "23",
+            "COMCAST",
+            "Comcast Ethernet",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "24",
+            "COMPORIUM TELEPHONE",
+            "Comporium/Rock Hill Telephone",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "25",
+            "COX COMMUNICATIONS",
+            "Cox Ethernet",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "26",
+            "DCN",
+            "DCN Ethernet",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "27",
+            "DOYLESTOWN TELEPHONE COMPANY",
+            "OC3 - Doylestown Telephone Co",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "28",
+            "DUKENET",
+            "Dukenet Ethernet",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "29",
+            "EATEL",
+            "East Ascension Tel",
+            "ATEL"
+         ]
+      },
+      {
+         "cellValues":[
+            "30",
+            "EATEL",
+            "East Ascension Tel Ethernet",
+            "ATEL"
+         ]
+      },
+      {
+         "cellValues":[
+            "31",
+            "EMPIRE TELEPHONE CO",
+            "OC3 - Empire Telephone Corp / North Penn",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "32",
+            "FAIRPOINT",
+            "OC3 - Fairpoint",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "33",
+            "FAIRPOINT COMMUNICATIONS",
+            "FairPoint",
+            "FAIRPOINT"
+         ]
+      },
+      {
+         "cellValues":[
+            "34",
+            "FARMERS TELEPHONE",
+            "OC3 - Farmers",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "35",
+            "FARMERS TELEPHONE",
+            "Farmers Telephone (FTC)",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "36",
+            "FORT RANDALL TELCO",
+            "OC3 - Fort Randall Telephone Company",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "37",
+            "FRONTIER",
+            "Frontier",
+            "FRONTIER"
+         ]
+      },
+      {
+         "cellValues":[
+            "38",
+            "FRONTIER",
+            "Frontier Meet Point",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "39",
+            "FRONTIER",
+            "OC3 - Frontier",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "40",
+            "FRONTIER",
+            "OC3 - Frontier South Inc - NC",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "41",
+            "GCI",
+            "GCI",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "42",
+            "GVTC",
+            "OC3 - GVTC",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "43",
+            "HANCOCK RURAL",
+            "OC3 - Hancock Rural Telephone Corporation",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "44",
+            "HARGRAY TELEPHONE",
+            "Hargray Ethernet",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "45",
+            "HARRISONVILLE TELEPHONE",
+            "OC3 - Harrisonville",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "46",
+            "HAWAIIAN TELCOM",
+            "Hawaiian Tel",
+            "HWT"
+         ]
+      },
+      {
+         "cellValues":[
+            "47",
+            "HIGHLAND TELEPHONE",
+            "OC3 - Higland Telephone",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "48",
+            "HORRY TELEPHONE",
+            "Horry Telephone (HTC)",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "49",
+            "KINGDOM TELEPHONE",
+            "OC3 - Kingdom Telephone Company",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "50",
+            "LIGHTOWER",
+            "Lightower",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "51",
+            "LIGHTSPEED",
+            "Lightspeed Ethernet",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "52",
+            "LNS",
+            "LNS",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "53",
+            "LNS",
+            "LNS - EMUX",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "54",
+            "LNS",
+            "OC3 - LNS",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "55",
+            "LOGAN TELCO COMPANY",
+            "OC3 - Logan Telephone",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "56",
+            "MCLEOD USA COMMUNICATIONS",
+            "OC3 - McLeod",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "57",
+            "MID CENTURY TELEPHONE CO",
+            "OC3 - Mid Century Telephone Cooperative",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "58",
+            "MILLINGTON TELEPHONE CO INC",
+            "OC3 - Millington Telephone Company",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "59",
+            "NEHALEM TELECOMS",
+            "OC3 - Nehalem Telephone  Telegraph Company",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "60",
+            "NEW ULM TELECOM",
+            "OC3 - New Ulm Telecom",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "61",
+            "NOANET",
+            "NoaNet Ethernet",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "62",
+            "NORTH STATE TELEPHONE",
+            "North State Communications",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "63",
+            "PALMETTONET",
+            "PalmettoNet Ethernet",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "64",
+            "PEG BANDWIDTH",
+            "Peg Bandwidth Ethernet",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "65",
+            "PIEDMONT TELEPHONE",
+            "Piedmont Ethernet",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "66",
+            "PINEVILLE TELECOM",
+            "OC3 - Pineville Telephone Company",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "67",
+            "PIONEER TELEPHONE",
+            "OC3 - Pioneer",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "68",
+            "QWEST",
+            "Qwest",
+            "QWEST"
+         ]
+      },
+      {
+         "cellValues":[
+            "69",
+            "RINGGOLD TELEPHONE CO",
+            "OC3 - Ringgold Telephone Company",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "70",
+            "SHENANDOAH",
+            "OC3 - Shenandoah Telephone Company",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "71",
+            "SMART CITY TELECOM",
+            "SMART CITY TELECOM",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "72",
+            "SUDDENLINK",
+            "Suddenlink Ethernet",
+            "SUDDEN_LINK"
+         ]
+      },
+      {
+         "cellValues":[
+            "73",
+            "SUREWEST",
+            "OC3 - Surewest",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "74",
+            "TIME WARNER COMMUNICATIONS",
+            "TW Telecom",
+            "TWT"
+         ]
+      },
+      {
+         "cellValues":[
+            "75",
+            "TRUMANSBURG TELEPHONE COMPANY",
+            "OC3 - Trumansburg Telephone Company",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "76",
+            "TTM",
+            "TTM",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "77",
+            "VERIZON",
+            "Verizon",
+            "VERIZON"
+         ]
+      },
+      {
+         "cellValues":[
+            "78",
+            "WAVE BROADBAND",
+            "Wave Broadband Ethernet",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "79",
+            "WHIDBEY",
+            "OC3 - Whidbey",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "80",
+            "WINDSTREAM",
+            "OC3 - Windstream",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "81",
+            "WINDSTREAM",
+            "OC3 - Windstream - CONCORD TELEPHONE COMPANY",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "82",
+            "WINDSTREAM",
+            "Windstream",
+            "WINDSTREAM"
+         ]
+      },
+      {
+         "cellValues":[
+            "83",
+            "ZAYO BANDWIDTH",
+            "Zayo Ethernet",
+            "ZAYO"
+         ]
+      },
+      {
+         "cellValues":[
+            "98",
+            "KANSAS FIBER NETWORK",
+            "KANSAS FIBER NETWORKS",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "99",
+            "ATT",
+            "OC3 - AT&T",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "100",
+            "B2 TELECOM",
+            "B2 TELECOM ETHERNET",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "101",
+            "COLORADO COMMUNICATIONS TRANSP",
+            "COLORADO COMMUNICATIONS TRANSPORT",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "102",
+            "CONSOLIDATED COMMUNICATIONS",
+            "OC3 - Consolidated Communications",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "103",
+            "DOBSON TECHNOLOGIES",
+            "DOBSON TECHNOLOGIES",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "104",
+            "ENVENTIS",
+            "ENVENTIS ETHERNET",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "105",
+            "ENVENTIS",
+            "ENVENTIS OC3",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "106",
+            "FINGER LAKES TECHNOLOGIES GRP",
+            "FLTG ETHERNET",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "107",
+            "GREAT LAKES COMNET",
+            "GREAT LAKES ETHERNET",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "108",
+            "HICKORY TECH",
+            "OC3 - HickoryTech",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "109",
+            "HORIZON TELECOM",
+            "HORIZON TELCOM ETHERNET",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "110",
+            "ADVANCED COMM TECH (ACT)",
+            "INDATEL - ADVANCED COMMUNICATIONS TECHNOLOGY",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "111",
+            "COLORADO COMMUNICATIONS TRANSP",
+            "INDATEL - COLORADO COMMUNICATIONS TRANSPORT",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "112",
+            "INDEPENDENTS FIBER NETWORK LLC",
+            "INDATEL - INDEPENDENTS FIBER NETWORK",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "113",
+            "INDIANA FIBER NETWORK",
+            "INDATEL - INDIANA FIBER NETWORK",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "114",
+            "KANSAS FIBER NETWORK",
+            "INDATEL - KANSAS FIBER NETWORK",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "115",
+            "WISCONSIN INDEPENDENT NETWORK",
+            "INDATEL - WISCONSIN INDEPENDENT NETWORK",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "116",
+            "INTERCARRIER NETWORKS",
+            "INTERCARRIER ETHERNET",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "117",
+            "IRIS NETWORKS",
+            "IRIS NETWORKS ETHERNET",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "118",
+            "KASSON & MANTORVILLE TEL",
+            "OC3 - Kasson & Mantorville Telephone",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "119",
+            "LICT CORP",
+            "LICT CORP ETHERNET",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "120",
+            "LONG LINES",
+            "LONG LINES ETHERNET",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "121",
+            "MEDIACOM COMMUNICATIONS",
+            "MEDIACOM ETHERNET",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "122",
+            "MIDCONTINENT BUSINESS SOLUTION",
+            "MIDCONTINENT BUSINESS SOLUTIONS",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "123",
+            "NEBRASKALINK",
+            "NEBRASKALINK ETHERNET",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "124",
+            "PAUL BUNYAN TELEPHONE",
+            "OC3 - Paul Bunyan Communications",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "125",
+            "PENINSULA FIBER NETWORK",
+            "PENINSULA FIBRE ETHERNET",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "126",
+            "RASORNET",
+            "RASORNET ETHERNET",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "127",
+            "RED RIVER CELLULAR TELEPHONE",
+            "RED RIVER CELLULAR TELEPHONE",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "128",
+            "RESERVATION TELEPHONE COOP",
+            "Reserve Telephone Company",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "129",
+            "SOMERSET TELCO INC",
+            "OC3 - Somerset Telephone Company",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "130",
+            "SOUTHERN CALIFORNIA EDISON",
+            "SOUTHERN CALIFORNIA EDISON ETHERNET",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "131",
+            "SPRINT",
+            "OC3 - Sprint/United Telephone Company of Indiana",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "132",
+            "SYRINGA",
+            "SYRINGA ETHERNET",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "133",
+            "TECHVALLEY",
+            "TECH VALLEY - SEG TEL ETHERNET",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "134",
+            "TEXAS LONE STAR",
+            "TLSN ETHERNET",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "135",
+            "TOWER CLOUD",
+            "TOWER CLOUD ETHERNET",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "136",
+            "UNITE PRIVATE NETWORKS",
+            "UNITE PRIVATE NETWORKS ETHERNET",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "137",
+            "VALLEY TEL COOP",
+            "VALLEY TELEPHONE ETHERNET",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "138",
+            "VIAM LLC",
+            "VIAM LLC ETHERNET",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "139",
+            "WESTERN FIBERNET",
+            "WESTERN FIBERNET ETHERNET",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "140",
+            "WISCONSIN INDEPENDENT NETWORK",
+            "WISCONSIN INDEPENDENT NETWORK",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "90",
+            "SHENTEL",
+            "SHENTEL ETHERNET",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "91",
+            "HARRISONVILLE TELEPHONE",
+            "HARRISONVILLE ETHERNET",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "92",
+            "BAYRING",
+            "BAYRING ETHERNET",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "93",
+            "SOUTHERN LIGHT",
+            "SOUTHERN LIGHT ETHERNET",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "97",
+            "TIME WARNER COMMUNICATIONS",
+            "TWC ETHERNET",
+            "TWT"
+         ]
+      },
+      {
+         "cellValues":[
+            "84",
+            "GVTC",
+            "Guadalupe Valley Ethernet",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "85",
+            "ION",
+            "I-O-N Ethernet",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "86",
+            "702 COMMUNICATIONS",
+            "702 COMMUNICATIONS ETHERNET",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "88",
+            "SPORT (ATT)",
+            "SPORT (ATT)",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "94",
+            "BLUEBIRD",
+            "BLUEBIRD ETHERNET",
+            "BLUEBIRD"
+         ]
+      },
+      {
+         "cellValues":[
+            "95",
+            "LUMOS",
+            "LUMOS ETHERNET",
+            "LUMOS"
+         ]
+      },
+      {
+         "cellValues":[
+            "96",
+            "SDN COMMUNICATIONS",
+            "SDN Ethernet",
+            "SDN COMMUNICATIONS"
+         ]
+      },
+      {
+         "cellValues":[
+            "141",
+            "COMLINK",
+            "COMLINK",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "142",
+            "INDEPENDENTS FIBER NETWORK LLC",
+            "INDEPENDENTS FIBER NETWORKS",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "143",
+            "IOWA NETWORK SERVICES",
+            "IOWA ETHERNET",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "144",
+            "INS ETHERNET",
+            "INS ETHERNET",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "146",
+            "CONSOLIDATED COMMUNICATIONS",
+            "CONSOLIDATED COMMUNICATIONS ETHERNET",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "147",
+            "CLEARWAVE",
+            "CLEARWAVE",
+            "CLEARWAVE"
+         ]
+      },
+      {
+         "cellValues":[
+            "148",
+            "PANHANDLE TEL COOP",
+            "PANHANDLE",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "149",
+            "VERMONTEL ETHERNET",
+            "VERMONTEL ETHERNET",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "150",
+            "TROY CABLE ETHERNET",
+            "TROY CABLE ETHERNET",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "151",
+            "ARMY",
+            "ARMY",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "152",
+            "PLATEAU ETHERNET",
+            "PLATEAU ETHERNET",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "153",
+            "PLANTERS RURAL TELEPHONE",
+            "PLANTERS RURAL TELEPHONE",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "154",
+            "WESTERN INDEPENDENT NETWORKS",
+            "WESTERN INDEPENDENT NETWORKS ETHERNET",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "155",
+            "COMMNET",
+            "COMMNET",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "156",
+            "PRT Communications LLC",
+            "PRT Communications LLC",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "159",
+            "GREAT PLAINS COMMUNICATIONS",
+            "GREAT PLAINS COMMUNICATIONS",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "160",
+            "ATT LNS (TELCO23)",
+            "LNS - ASE",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "161",
+            "SOUTH CENTRAL UTAH TEL. ASSOC.",
+            "SOUTH CENTRAL UTAH TEL. ASSOC.",
+            "SOUTH CENTRAL UTAH TEL ASSOC"
+         ]
+      },
+      {
+         "cellValues":[
+            "162",
+            "UNION TELEPHONE",
+            "UNION TELEPHONE",
+            "UNION TELEPHONE"
+         ]
+      },
+      {
+         "cellValues":[
+            "163",
+            "NETLINK INC",
+            "NETLINK INC",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "164",
+            "LNS",
+            "LNS - EPL",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "158",
+            "ASTAC",
+            "ASTAC",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "157",
+            "ALASKA WIRELESS NETWORK",
+            "ALASKA WIRELESS NETWORK",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "165",
+            "AT&T Edgeless",
+            "AT&T Edgeless",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "166",
+            "CABLEVISION",
+            "CABLEVISION ETHERNET",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "167",
+            "FIRSTLIGHT FIBER",
+            "FIRSTLIGHT FIBER",
+            null
+         ]
+      },
+      {
+         "cellValues":[
+            "168",
+            "LYNX NETWORK GROUP",
+            "LYNX NETWORK GROUP",
+            null
+         ]
+      }
+   ]
 }

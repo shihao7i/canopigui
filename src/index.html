@@ -1,15 +1,15 @@
 <!doctype html>
 <html xmlns:ng="http://angularjs.org" id="ng-app" ng-app="main.app" ng-strict-di>
-
+ 
     <head>
-        
+       
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>Mobility Admin Tool</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
         <meta name="author" content="">
-
+ 
         <!-- added  dummy link below to fix 404 favicon issue -->
         <link rel="shortcut icon" href="#" />
         <link rel="stylesheet" href="assets/styles/bootstrap.css"/>
@@ -20,50 +20,49 @@
         <link rel="stylesheet" href="assets/styles/angular-scenario.css">
         <link rel="stylesheet" href="assets/styles/angular-csp.css">
         <link rel="stylesheet" href="assets/styles/abn_tree.css">
-
+ 
         <!-- Font Awesome -->
         <link rel="stylesheet" href="assets/styles/font-awesome.css"/>
-
+ 
         <!-- DataTables -->
         <link rel="stylesheet" href="assets/styles/dataTables.colVis.css"/>
         <link rel="stylesheet" href="assets/styles/dataTables.tableTools.css"/>
         <link rel="stylesheet" href="assets/styles/dataTables.bootstrap.css"/>
-
-        <!-- NG-Grid - once the canopi app migrates to ui-grid it can be removed --> 
+ 
+        <!-- NG-Grid - once the canopi app migrates to ui-grid it can be removed -->
         <link rel="stylesheet" href="assets/styles/ng-grid.css"/>
-
+ 
         <!-- UI-Grid -->
         <link rel="stylesheet" href="assets/styles/ui-grid.css"/>
-
+ 
         <!-- Angular Busy -->
         <link rel="stylesheet" href="assets/styles/angular-busy.css"/>
-
+ 
         <!-- Angular Multiselect -->
         <link rel="stylesheet" href="assets/styles/isteven-multi-select.css"/>
-
+ 
         <!-- Maxmedia Look and Feel -->
         <link rel="stylesheet" href="assets/styles/att-gui.css"/>
-        
+       
         <!-- Canopi GUI -->
         <link rel="stylesheet" href="assets/styles/canopi.css"/>
-        
+       
         <!-- Admin GUI -->
         <link rel="stylesheet" href="assets/styles/admin.css"/>
-        
+       
         <!-- Common Styles for both Canopi and Admin GUI -->
         <link rel="stylesheet" href="assets/styles/app.css"/>
-
+ 
     </head>
-
+ 
     <body>
 
         <div ui-view></div>
-
+ 
         <!-- Vendor Libs -->
-        <script src="lib/jquery/jquery.js"></script>
+        <script src="lib/jquery/jquery-2.1.4.js"></script>
         <script src="lib/jquery-ui/jquery-ui.js"></script>
         <script src="lib/angular/angular.js"></script>
-        <script src="lib/angular-new-router/router.es5.js"></script>
         <script src="lib/angular-animate/angular-animate.js"></script>
         <script src="lib/angular-ui-router/angular-ui-router.js"></script>
         <script src="lib/angular-route/angular-route.js"></script>
@@ -74,63 +73,63 @@
         <script src="lib/angular-cookies/angular-cookies.js"></script>
         <script src="lib/angular-loader/angular-loader.js"></script>
         <script src="lib/angular-touch/angular-touch.js"></script>
+        <script src="lib/angular-storage/angular-storage.js"></script>
         <script src="lib/lodash/lodash.min.js"></script>
         <script src="lib/i18next/i18next.js"></script>
         <script src="lib/ng-i18next/ng-i18next.js"></script>
         <script src="lib/modernizr/modernizr.js"></script>
-
+    
         <script src="lib/jquery-cookie/jquery.cookie.js"></script>
         <script src="lib/jquery-validate/jquery.validate.js"></script>
         <script src="lib/spin/spin.js"></script>
         <script src="lib/angular-spinner/angular-spinner.js"></script>
-
+ 
         <script src="lib/angular-ui-utils/ui-utils.js"></script>
-
+ 
         <!-- UI Grid -->
         <script src="lib/angular-ui-grid/ui-grid.js"></script>
-
+ 
         <!-- ngGrid Libs-->
         <script src="lib/angular-ui-ng-grid/ng-grid-csv-export.js"></script>
         <script src="lib/angular-ui-ng-grid/ng-grid.js"></script>
-
+ 
         <!-- DataTables JS-->
         <script src="lib/jquery-datatables/jquery.dataTables.js"></script>
-
+ 
         <!-- Datatables Extensions -->
         <script src="lib/jquery-datatables-extensions/dataTables.colVis.js"></script>
         <script src="lib/jquery-datatables-extensions/dataTables.tableTools.js"></script>
         <script src="lib/jquery-datatables-extensions/dataTables.bootstrap.js"></script>
-
+ 
         <!-- Notifications -->
         <script src="lib/atmosphere/atmosphere.js"></script>
         <script src="lib/atmosphere/jquery-atmosphere.js"></script>
-
+ 
         <!-- Angular Busy -->
         <script src="lib/angular-busy/angular-busy.js"></script>
-
+ 
         <!-- UI Libs -->
         <script src="lib/bootstrap/bootstrap.js"></script>
         <script src="lib/angular-ui-bootstrap/ui-bootstrap-tpls-0.12.1.js"></script>
-
+ 
         <!-- MaxMedia Libs -->
-        <!--<script src="lib/maxmedia/module.js"></script>-->
-
+        <script src="lib/maxmedia/module.js"></script>
+ 
         <!-- JSPlumb lib -->
         <script src="lib/jquery-jsplumb/jquery.jsPlumb-1.4.1-all-min.js"></script>
-
+ 
         <!-- Nav Tree lib -->
         <script src="lib/abntree/abn_tree_directive.js"></script>
-        
+       
         <!-- Angular Multi-select -->
         <script src="lib/angular-multi-select/isteven-multi-select.js"></script>
-
+ 
         <!-- Main App libs -->
         <script src="app/app.js"></script>
-
+ 
         <!-- Canopi App libs -->
         <script src="app/canopi-app/constants.js"></script>
-        <script src="app/canopi-app/defaults.js"></script>
-        
+       
         <!-- Services -->
         <script src="components/services/serviceModule.js"></script>
         <script src="components/services/cacheService.js"></script>
@@ -144,8 +143,9 @@
         <script src="components/services/messagesService.js"></script>
         <script src="components/services/httpInterceptorService.js"></script>
         <script src="components/services/uiGridUtilService.js"></script>
+        <script src="components/services/uiGridCommandsService.js"></script>
         <script src="components/services/dialog/dialog.service.js"></script>
-
+ 
         <!-- Directives -->
         <script src="components/directives/directiveModule.js"></script>
         <script src="components/directives/treeView.js"></script>
@@ -170,19 +170,20 @@
         <script src="components/directives/resultsTable.js"></script>
         <script src="components/directives/simpleDataTable.js"></script>
         <script src="components/directives/uiGrid/uiGridSelectionRowHeaderButtonsCanopi.js"></script>
-
+        <script src="components/directives/uppercaseModel.js"></script>
+ 
         <!-- Filters -->
         <script src="components/filters/filterModule.js"></script>
         <script src="components/filters/partition.js"></script>
         <script src="components/filters/isObjectEmpty.js"></script>
         <script src="components/filters/debug.js"></script>
-
+ 
         <!--Templates-->
         <script src="components/templates/templateModule.js"></script>
         <script src="components/templates/ui-grid.templates.js"></script>
-
+ 
         <script src="app/canopi-app/canopiapp.js"></script>
-                
+               
         <!-- Controllers -->
         <script src="app/canopi-app/dashboard/controllers/dashboardController.js"></script>
         <script src="app/canopi-app/about/controllers/aboutController.js"></script>
@@ -218,28 +219,28 @@
         <script src="app/canopi-app/telco/orders/controllers/p2pEVCPO/disconnectP2PEVCPOController.js"></script>
         <script src="app/canopi-app/telco/orders/controllers/p2pEVCPO/changeP2PEVCPOController.js"></script>
         <script src="app/canopi-app/telco/orders/controllers/deviceSwap/newDeviceSwapController.js"></script>
-                
+               
         <!-- Admin GUI App libs -->
-        
+       
         <script src="app/admin-app/constants.js"></script>
-        
+       
         <script src="components/services/admin-app/adminServiceModule.js"></script>
         <script src="components/services/admin-app/adminJsonService.js"></script>
+        <script src="components/services/admin-app/adminTransition.js"></script>
         <script src="components/services/admin-app/modalRowEdit/modal.service.js"></script>
         <script src="components/services/admin-app/modalRowEdit/modal.controller.js"></script>
-
+ 
         <script src="app/admin-app/adminapp.js"></script>
         <script src="app/admin-app/adminmain/controllers/adminMainController.js"></script>
         <script src="app/admin-app/dashboard/controllers/adminDashboardController.js"></script>
         <script src="app/admin-app/mobilityorders/controllers/mobilityOrdersController.js"></script>
-        <script src="app/admin-app/mobilityorders/controllers/newWOTemplateController.js"></script>
+        <script src="app/admin-app/mobilityorders/controllers/addTaskModalController.js"></script>
         <script src="app/admin-app/tasks/controllers/tasksController.js"></script>
         <script src="app/admin-app/lookupadmin/controllers/lookupAdminController.js"></script>
         <script src="app/admin-app/ruleadmin/controllers/ruleAdminController.js"></script>
         <script src="app/admin-app/utility/controllers/activitySearchController.js"></script>
-
+ 
     </body>
-
+ 
 </html>
-
-
+ 

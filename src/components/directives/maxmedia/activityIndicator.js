@@ -4,41 +4,56 @@
  * isLoading is a boolean (true or false) value.   
  * 
  * set this value in the controller code before the BE call is made:
- * $scope.isLoading = true 
+ * vm.isLoading = true 
  * 
  * set this value in the controller code after the data is retrieved from the BE:
- * $scope.isLoading = false
+ * vm.isLoading = false
  *
  * 
    [Examples of the directive usage in html]:
    
-   <div activity-indicator="isLoading"></div>       <= will use default message 
+   <div activity-indicator="vm.isLoading"></div>       <= will use default message 
    
                      or
    
-   <div activity-indicator="isLoading" message="Making WebService Call...Please Wait"></div>   <= will use the message specified in the message attribute 
+   <div activity-indicator="vm.isLoading" message="Making WebService Call...Please Wait"></div>   <= will use the message specified in the message attribute 
 
  *  
  */
 
+(function() {
+    'use strict';
+    
+    angular.module('maxmedia.directive')
+           .directive('activityIndicator', activityIndicator);
 
-angular.module('maxmedia.directive').directive('activityIndicator', ['$log', function($log) {
-	'use strict';
+    activityIndicator.$inject = ['$log'];    
+
+    function activityIndicator($log) {
+        var directive = {
+            restrict: 'EA',
+            scope: {
+                activityIndicator: "=",
+                message: "@?"
+            },
+            template : '<div ng-show="vm.activityIndicator" class="activity-indicator">' +
+                       '<div class="loader"></div>' +
+                       '<span>{{vm.message}}</span>' +
+                       '</div>',
+            controller: controller,
+            controllerAs: 'vm',
+            bindToController: true
+        };
 	
-	return {
-		restrict : 'EA',
-  		scope: {
-			activityIndicator: "="
-		},
-		template : '<div ng-show="activityIndicator" class="activity-indicator">' +
-		           '<div class="loader"></div>' +
-		           '<span>{{message}}</span>' +
-		           '</div>',
-	               
-	    link: function (scope, element, attrs) {
+        return directive;
+     
+        ////
+    }
+    
+    function controller() {
+        var vm = this;
 
-	    	scope.message = (attrs.message !== undefined && attrs.message.length > 0) ? attrs.message : 'Loading...Please Wait';
-
-		}
-	};
-}]);
+        vm.message = (!!vm.message && vm.message.length > 0) ? vm.message : 'Loading...Please Wait';
+    }
+})();
+    

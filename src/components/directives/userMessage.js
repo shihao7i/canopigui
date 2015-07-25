@@ -9,31 +9,47 @@
  *  
  */
 
-angular.module('canopi.directive').directive('userMessage', ['HelperUtilService', '$log', function (HelperUtilService, $log) {
-	'use strict';
+(function() {
+    'use strict';
+  
+    angular.module('canopi.directive')
+           .directive('userMessage', userMessage);
 
-	return {
-		
-        restrict: 'EA',
 
-     	scope: {
-			message: "@",
-			type: "@"
-		},
-      
-		template: '<div ng-show="showMessage" ng-class="messageType" ng-init="showMessage=true"' +
-                  '<span><i ng-class="messageIcon"></i>&nbsp;&nbsp;</span>' +
-                  '<span>{{message}}</span>' +
-                  '<button type="button" class="close" ng-click="showMessage=false"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>' +
-                  '</div>',
-		
-		link: function ( scope, element, attrs ) {
-			
-            var messageObj = HelperUtilService.getMessageAndType(attrs.message, attrs.type);
-            
-            scope.messageIcon = messageObj.icon;
-            scope.messageType = messageObj.type;
+    function userMessage() {
+        var directive = {
+            restrict: 'EA',
+            scope: {
+                message: "@",
+                type: "@"
+            },  
+            template: '<div ng-show="vm.showMessage" ng-class="messageType" ng-init="vm.showMessage=true"' +
+              '<span><i ng-class="messageIcon"></i>&nbsp;&nbsp;</span>' +
+              '<span>{{vm.message}}</span>' +
+              '<button type="button" class="close" ng-click="vm.showMessage=false"><span aria-hidden="true"><i class="fa fa-times"></i></span><span class="sr-only">Close</span></button>' +
+              '</div>',
+            controller: controller,
+            controllerAs: 'vm',
+            bindToController: true,
+        };
+	
+        return directive;
+        
+        ////
+        
+    }
+	
+        
+    controller.$inject = ['HelperUtilService'];
+    
+    function controller(HelperUtilService) {
+        var vm = this;
 
-		}
-	};
-}]);
+        var messageObj = HelperUtilService.getMessageAndType(vm.message, vm.type);
+
+        vm.messageIcon = messageObj.icon;
+        vm.messageType = messageObj.type;  
+    }
+    
+})();
+

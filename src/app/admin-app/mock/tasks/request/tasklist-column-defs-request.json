@@ -1,0 +1,10 @@
+{
+    "attuid": "pb154j",
+    "action": "TEMPLATE",
+    "key": {"tableName": "Task List"},
+    "data":[  
+      {  
+          "woType":"ETTCSNewCabinet"
+      }
+    ] 
+}

@@ -1,0 +1,11 @@
+{
+    "tableName": "Work Order Template",
+    "rowMetadata":
+        { "columnList":[{"hyperlink":false, "visible": false, "editable": false, "fieldType": "input", "fieldOptions": null, "fieldDefault": "", "id":"id", "displayName":"ID"},
+                        {"hyperlink":false, "visible": true, "editable": true, "fieldType": "input", "fieldOptions": null, "fieldDefault": "", "id":"woType", "displayName":"WO Type"},
+                        {"hyperlink":false, "visible": true, "editable": true, "fieldType": "input", "fieldOptions": null, "fieldDefault": "", "id":"woDescription", "displayName":"WO Description"}]
+        },
+
+    "rowValueList":null
+}
+

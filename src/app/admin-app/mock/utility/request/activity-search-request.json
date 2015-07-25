@@ -1,7 +1,13 @@
 {
-    "attuid": "yw508r",
-    "activityType": "",
-    "woType": [],
-    "startDate": "",
-    "endData": ""
+    "attuid": "pb154j",
+    "action": "SEARCH",
+    "key": {"tableName": "Activity Search Result"},
+    "data":[  
+      {  
+            "activityType": "",
+            "woType": [],
+            "startDate": "",
+            "endData": ""
+      }
+    ] 
 }

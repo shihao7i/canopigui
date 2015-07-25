@@ -1,6 +1,8 @@
 {  
-   "attuid":"pb154j",
-   "data":[  
+    "attuid": "pb154j",
+    "action": "UPDATE",
+    "key": {"tableName": "WO Description"},
+    "data":[  
       {  
          "id":"1001",
          "woDescription":"ADD ETTC MTSO LGX",

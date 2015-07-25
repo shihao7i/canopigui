@@ -65,27 +65,39 @@
  *  
  */
 
-angular.module('canopi.directive').directive('groupAssignment', ['$compile', '$log', function($compile, $log) {
+(function() {
     'use strict';
+  
+    angular.module('canopi.directive')
+           .directive('groupAssignment', groupAssignment);
 
-    return {
-        restrict : 'EA',
-        scope: {
-            leftboxtitle: '@?',   // optional
-            rightboxtitle: '@?',  // optional
-            leftItems: "=",       // data objects to be filled in the left panel
-            rightItems: "=",      // data objects to be filled in the right panel
-            cols: "=",            // column definitions
-            gridCustomOptions: "=",
-            addItems: "&?",       // optional ==> callback function used to invoke restful call in the controller to add items
-            deleteItems: "&?",    // optional ==> callback function used to invoke restful call in the controller to delete items
-            // the following two scope variables are used to resolve the isolated scope issue with ng-click by passing the function reference to the directive (the explanation is in the link below)
-            // http://stackoverflow.com/questions/17567383/why-doesnt-ng-click-work-in-my-directive-and-how-do-i-add-a-toggle-class
-            moveLeft: "&",
-            moveRight: "&"
-        },
+    groupAssignment.$inject = ['$log', '$compile'];    
 
-        link: function (scope, element, attrs) {
+    function groupAssignment($log, $compile) {
+        var directive = {
+            restrict: 'EA',
+            scope: {
+                leftboxtitle: '@?',   // optional
+                rightboxtitle: '@?',  // optional
+                leftItems: "=",       // data objects to be filled in the left panel
+                rightItems: "=",      // data objects to be filled in the right panel
+                cols: "=",            // column definitions
+                gridCustomOptions: "=",
+                addItems: "&?",       // optional ==> callback function used to invoke restful call in the controller to add items
+                deleteItems: "&?",    // optional ==> callback function used to invoke restful call in the controller to delete items
+                // the following two scope variables are used to resolve the isolated scope issue with ng-click by passing the function reference to the directive (the explanation is in the link below)
+                // http://stackoverflow.com/questions/17567383/why-doesnt-ng-click-work-in-my-directive-and-how-do-i-add-a-toggle-class
+                moveLeft: "&",
+                moveRight: "&"
+            },
+            link: link
+        };
+	
+        return directive;
+        
+        ////
+        
+        function link(scope, element, attrs) {
 
             // make sure all the data are ready for ng-grid before rendering the DOM
             scope.dataReady = {
@@ -214,7 +226,7 @@ angular.module('canopi.directive').directive('groupAssignment', ['$compile', '$l
 
                         for (var j = scope.leftItems.length - 1; j >= 0; j--) {
 
-                            if (scope.leftSelectedItems[i] == scope.leftItems[j]) {
+                            if (scope.leftSelectedItems[i] === scope.leftItems[j]) {
                                 scope.rightItems.push(scope.leftItems[j]);
                                 scope.leftItems.splice(j, 1);
                             }
@@ -245,7 +257,7 @@ angular.module('canopi.directive').directive('groupAssignment', ['$compile', '$l
 
                         for (var j = scope.rightItems.length - 1; j >= 0; j--) {
 
-                            if (scope.rightSelectedItems[i] == scope.rightItems[j]) {
+                            if (scope.rightSelectedItems[i] === scope.rightItems[j]) {
                                 scope.leftItems.push(scope.rightItems[j]);
                                 scope.rightItems.splice(j, 1);
                             }
@@ -255,7 +267,8 @@ angular.module('canopi.directive').directive('groupAssignment', ['$compile', '$l
                     scope.rightSelectedItems.splice(0, scope.rightSelectedItems.length);
                 }
             };
-        }
-    };
-}]);
+        }  
+    }
+	
+})();
 

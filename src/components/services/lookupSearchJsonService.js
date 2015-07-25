@@ -1,91 +1,110 @@
-angular.module('canopi.service').service('LookupSearchJsonService', ['$q', '$http', '$log', 'Cache', 'CanopiGuiConstants', 
-                              function ($q, $http, $log, Cache, CanopiGuiConstants) {
-	           
-	'use strict';
+(function() {
+    'use strict';
+    
+    angular.module('canopi.service')
+           .factory('LookupSearchJsonService', lookupSearchJsonService);
 
-	//var controllerName = MOCk_DATA_FLAG ? 'lookupSearchmock' : 'lookupSearch';
+    lookupSearchJsonService.$inject = ['$q', '$http', '$log', 'Cache', 'CanopiGuiConstants'];    
+
+    function lookupSearchJsonService($q, $http, $log, Cache, CanopiGuiConstants) {
+        //var controllerName = MOCk_DATA_FLAG ? 'lookupSearchmock' : 'lookupSearch';
 	var controllerName = 'lookupSearch';  // call Cramer WS to get live data 
 
-    var baseUrl = '/canopigui/rest/' + controllerName;
-
-
-    // CustomerSearchContainerDTO searchCustomers(@RequestBody CustomerSearchRequestDTO customerSearchRequestDto)
+        var baseUrl = '/canopigui/rest/' + controllerName;
+        
+        var service = {
+            searchCustomers: searchCustomers,
+            searchDevices: searchDevices,
+            searchUnis: searchUnis,
+            facilityIdSearch: facilityIdSearch,
+            evcCircuitIdSearch: evcCircuitIdSearch,
+            deviceSearch: deviceSearch
+        };
+        
+        return service;
+        
+        /////////
+        
+        // CustomerSearchContainerDTO searchCustomers(@RequestBody CustomerSearchRequestDTO customerSearchRequestDto)
 	
-	this.searchCustomers = function (postObject) {
+	function searchCustomers(postObject) {
 
-		var deferred = $q.defer();
-        $http.post(baseUrl + '/searchCustomers', JSON.stringify(postObject)).success(function (response) {
-             deferred.resolve(response);
-        });
-      
-        return deferred.promise; 
+            var deferred = $q.defer();
+            $http.post(baseUrl + '/searchCustomers', JSON.stringify(postObject)).success(function (response) {
+                 deferred.resolve(response);
+            });
+
+            return deferred.promise; 
 	};
 	
 	// DeviceClliAZSearchContainerDTO searchDevices(@RequestBody SearchDevicesRequestDTO requestDto)
 	
-	this.searchDevices = function (postObject) {
+	function searchDevices(postObject) {
 
-		var deferred = $q.defer();
-        $http.post(baseUrl + '/searchDevices', JSON.stringify(postObject)).success(function (response) {
-             deferred.resolve(response);
-        });
-      
-        return deferred.promise; 
+            var deferred = $q.defer();
+            $http.post(baseUrl + '/searchDevices', JSON.stringify(postObject)).success(function (response) {
+                 deferred.resolve(response);
+            });
+
+            return deferred.promise; 
 	};
 	
 	
 	
 	// UniDataContainer searchUnis(@RequestBody UNISearchRequest uniSearchRequest)
 	
-	this.searchUnis = function (postObject) {
+	function searchUnis(postObject) {
 
-		var deferred = $q.defer();
-        $http.post(baseUrl + '/searchUnis', JSON.stringify(postObject)).success(function (response) {
-             deferred.resolve(response);
-        });
-      
-        return deferred.promise; 
+            var deferred = $q.defer();
+            $http.post(baseUrl + '/searchUnis', JSON.stringify(postObject)).success(function (response) {
+                 deferred.resolve(response);
+            });
+
+            return deferred.promise; 
 	};
 	
 	
 	
 	// FacilityIdSearchContainerDTO facilityIDSearch(@RequestBody FacilityIdSearchRequestDTO facilityIdSearchRequest)
 	
-	this.facilityIdSearch = function (postObject) {
+	function facilityIdSearch(postObject) {
 
-		var deferred = $q.defer();
-        $http.post(baseUrl + '/facilityIdSearch', JSON.stringify(postObject)).success(function (response) {
-             deferred.resolve(response);
-        });
+            var deferred = $q.defer();
+            $http.post(baseUrl + '/facilityIdSearch', JSON.stringify(postObject)).success(function (response) {
+                 deferred.resolve(response);
+            });
       
-        return deferred.promise; 
+            return deferred.promise; 
 	};
 	
 	
 	// EVCCircuitIdSearchContainerDTO evcCircuitIdSearch(@RequestBody EVCCircuitIdSearchRequestDTO evcCircuitSearchRequest)
 			
-	this.evcCircuitIdSearch = function (postObject) {
+	function evcCircuitIdSearch(postObject) {
 
-		var deferred = $q.defer();
-        $http.post(baseUrl + '/evcCircuitIdSearch', JSON.stringify(postObject)).success(function (response) {
-             deferred.resolve(response);
-        });
-      
-        return deferred.promise; 
+            var deferred = $q.defer();
+            $http.post(baseUrl + '/evcCircuitIdSearch', JSON.stringify(postObject)).success(function (response) {
+                 deferred.resolve(response);
+            });
+
+            return deferred.promise; 
 	};		
 
 	
 	// DeviceClliAZSearchContainerDTO deviceSearch(@RequestBody DeviceClliAZSearchRequestDTO deviceClliAZSearchRequest)
 	
-	this.deviceSearch = function (postObject) {
+	function deviceSearch(postObject) {
 
-		var deferred = $q.defer();
-        $http.post(baseUrl + '/deviceSearch', JSON.stringify(postObject)).success(function (response) {
-             deferred.resolve(response);
-        });
-      
-        return deferred.promise; 
+            var deferred = $q.defer();
+            $http.post(baseUrl + '/deviceSearch', JSON.stringify(postObject)).success(function (response) {
+                 deferred.resolve(response);
+            });
+
+            return deferred.promise; 
 	};		
-	
-	
-}]);
+        
+        
+    }
+    
+})();
+

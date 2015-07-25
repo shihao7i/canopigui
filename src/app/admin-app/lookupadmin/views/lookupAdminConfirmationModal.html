@@ -1,0 +1,15 @@
+<div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close modal-button-close" ng-click="$close(); lookupadmin.continueNextState =false">
+            <span class="icon-ICON_X_CLOSEWINDOW"></span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Confirmation</h4>
+    </div>
+    <div class="modal-body">
+        You have changes that are not saved. Would you like to continue?
+    </div>
+    <div class="modal-footer">
+        <button ng-click="$close(); lookupadmin.continueNextState = true" type="button" class="btn btn-black">Yes</button>
+        <button ng-click="$close(); lookupadmin.continueNextState = false" type="button" class="btn btn-orange">No</button>
+    </div>
+</div>

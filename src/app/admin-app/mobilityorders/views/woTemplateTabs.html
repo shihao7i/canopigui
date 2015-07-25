@@ -1,0 +1,30 @@
+<div class="row">
+    <div class="col-md-12">
+        
+<!--         Breadcrumb 
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <ol class="breadcrumb">
+                        <li><a ui-sref="adminmaingui.dashboard"><i class="fa fa-home fa-lg"></i>&nbsp;&nbsp;&nbsp;Home</a></li>
+                        <li class="active">Workorder Templates</li>
+                    </ol>
+                </div>
+            </div>
+        </div>-->
+ 
+        <div class="row">
+            <tabset class="admin-app-tabset">
+                <tab heading="Modify Existing Workorder Template">
+                    <div ng-include="'app/admin-app/mobilityorders/views/mobilityOrders.html'">
+                    </div>
+                </tab>
+                <tab heading="New Workorder Template">
+                    <div ng-include="'app/admin-app/mobilityorders/views/newWOTemplate.html'">
+                    </div>
+                </tab>
+            </tabset>
+        </div>
+    </div>
+    
+</div>
