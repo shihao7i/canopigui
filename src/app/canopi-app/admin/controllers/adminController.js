@@ -1,20 +1,21 @@
-angular.module('canopi.app').controller('AdminController', ['$scope', '$log', '$location', '$rootScope', '$state', 'Cache', '$filter', '$http',
-                                       function ($scope, $log, $location, $rootScope, $state, Cache, $filter, $http   ) {
+angular.module('canopi.app').controller('AdminController', [
+  '$scope',
+  '$log',
+  '$location',
+  '$rootScope',
+  '$state',
+  'Cache',
+  '$filter',
+  '$http',
+  function($scope, $log, $location, $rootScope, $state, Cache, $filter, $http) {
+    'use strict';
 
-	'use strict';
-
-	init();
-
+    init();
 
     function init() {
-
-        setupScopeValuesAndMethods();
-
+      setupScopeValuesAndMethods();
     }
-	
 
-    function setupScopeValuesAndMethods(){
-    	
-    }
-	
-}]);
+    function setupScopeValuesAndMethods() {}
+  }
+]);

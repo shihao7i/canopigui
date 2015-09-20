@@ -16,47 +16,46 @@
  *  
  */
 
-
 (function() {
-    'use strict';
-    
-    angular.module('maxmedia.directive')
-           .directive('checkboxGroup', checkboxGroup);
+  'use strict';
 
-    checkboxGroup.$inject = ['$log'];    
+  angular
+    .module('maxmedia.directive')
+    .directive('checkboxGroup', checkboxGroup);
 
-    function checkboxGroup($log) {
-         var directive = {
-            restrict: 'EA',
-            scope: {
-                checkboxes: "="
-            },
-            template :  '<div class="checkbox-group" ng-repeat="checkbox in ::vm.checkboxes track by $index">' +
-                        '  <label for="{{checkbox.id}}" class="checkbox-container" ng-class="{active: checkbox.isChecked}" >' +
-                        '    <input name="{{checkbox.id}}" type="checkbox" class="checkbox-input sr-only" value="{{checkbox.value}}" checked="{{checkbox.isChecked}}">' +
-                        '    <span class="checkbox-button" ng-click="vm.toggleMe($index)"></span>' +
-                        '    <span class="checkbox-text">{{checkbox.value}}</span>' + 
-                        '  </label>' +
-                        '</div>',
-            controller: controller,
-            controllerAs: 'vm',
-            bindToController: true
-        };
-	
-        return directive;
-        
-        ////
-    }
-    
-    function controller() {
+  checkboxGroup.$inject = ['$log'];
 
-        var vm = this;
+  function checkboxGroup($log) {
+    var directive = {
+      restrict: 'EA',
+      scope: {
+        checkboxes: '='
+      },
+      template:
+        '<div class="checkbox-group" ng-repeat="checkbox in ::vm.checkboxes track by $index">' +
+        '  <label for="{{checkbox.id}}" class="checkbox-container" ng-class="{active: checkbox.isChecked}" >' +
+        '    <input name="{{checkbox.id}}" type="checkbox" class="checkbox-input sr-only" value="{{checkbox.value}}" checked="{{checkbox.isChecked}}">' +
+        '    <span class="checkbox-button" ng-click="vm.toggleMe($index)"></span>' +
+        '    <span class="checkbox-text">{{checkbox.value}}</span>' +
+        '  </label>' +
+        '</div>',
+      controller: controller,
+      controllerAs: 'vm',
+      bindToController: true
+    };
 
-        vm.toggleMe = function (index) {
-            vm.checkboxes[index].isChecked = !vm.checkboxes[index].isChecked;  
+    return directive;
 
-            //$log.debug("[index " + index + "] isChecked => " + vm.checkboxes[index].isChecked);
-        };
-    }
-    
+    ////
+  }
+
+  function controller() {
+    var vm = this;
+
+    vm.toggleMe = function(index) {
+      vm.checkboxes[index].isChecked = !vm.checkboxes[index].isChecked;
+
+      //$log.debug("[index " + index + "] isChecked => " + vm.checkboxes[index].isChecked);
+    };
+  }
 })();

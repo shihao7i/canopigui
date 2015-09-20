@@ -1,7 +1,5 @@
 (function() {
-    'use strict';
-    
-    angular.module('admin.service',['admin.constants', 'canopi.service']);
+  'use strict';
 
+  angular.module('admin.service', ['admin.constants', 'canopi.service']);
 })();
-

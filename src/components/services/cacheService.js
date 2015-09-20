@@ -1,17 +1,13 @@
 (function() {
-    'use strict';
-    
-    angular.module('canopi.service')
-           .factory('Cache', cacheService);
+  'use strict';
 
-    cacheService.$inject = ['$cacheFactory'];    
+  angular.module('canopi.service').factory('Cache', cacheService);
 
-    function cacheService($cacheFactory) {
-        var cache = $cacheFactory('myCache');
-	
-	return cache;
-  
-    }
-    
+  cacheService.$inject = ['$cacheFactory'];
+
+  function cacheService($cacheFactory) {
+    var cache = $cacheFactory('myCache');
+
+    return cache;
+  }
 })();
-

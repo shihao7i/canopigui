@@ -1,28 +1,24 @@
-angular.module('canopi.app').controller('AboutController', ['$scope', '$log', 'CommonUtilJsonService', function ($scope, $log, CommonUtilJsonService) {
-	'use strict';
-	
+angular.module('canopi.app').controller('AboutController', [
+  '$scope',
+  '$log',
+  'CommonUtilJsonService',
+  function($scope, $log, CommonUtilJsonService) {
+    'use strict';
+
     init();
- 
-    
+
     function init() {
+      getServerInfo();
+    }
 
-       getServerInfo();
-   
-    }  
-    
     function getServerInfo() {
- 
-        var promise = CommonUtilJsonService.getServerInfo();
+      var promise = CommonUtilJsonService.getServerInfo();
 
- 	    promise.then(function(data) {
- 			
-             $scope.serverTimeStamp = data.serverTimeStamp;
-             $scope.serverVersion = data.serverVersion;
-             $scope.currentDate = data.currentDate;
-             
-       
-        });
-    };
-  
-      
-}]);
+      promise.then(function(data) {
+        $scope.serverTimeStamp = data.serverTimeStamp;
+        $scope.serverVersion = data.serverVersion;
+        $scope.currentDate = data.currentDate;
+      });
+    }
+  }
+]);

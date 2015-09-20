@@ -1,9 +1,0 @@
-<div class="modal-content">
-    <div class="modal-body">
-        {{dialog.message}}
-    </div>
-    <div class="modal-footer">
-        <button ng-click="$close()" type="button" class="btn btn-black">Yes</button>
-        <button ng-click="$dismiss()" type="button" class="btn btn-orange">No</button>
-    </div>
-</div>

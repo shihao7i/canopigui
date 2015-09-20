@@ -28,80 +28,72 @@
  *  
  */
 
-
 (function() {
-    'use strict';
-    
-    angular.module('canopi.directive')
-           .directive('alertMessages', alertMessages);
+  'use strict';
 
-    alertMessages.$inject = ['$log', '$compile'];    
+  angular.module('canopi.directive').directive('alertMessages', alertMessages);
 
-    function alertMessages($log, $compile) {
-        var directive = {
-            restrict: 'EA',
-            controller: controller,
-            controllerAs: 'vm',
-            link: link
-        };
-	
-	return directive;
-        
-        ////
-   
-        function link( scope, element, attrs, ctrl ) {
-            
-            scope.$watch(
+  alertMessages.$inject = ['$log', '$compile'];
 
-                function() {
-                    //watch the value in service changes
-                    return ctrl.hasMessage();
-                },
-                function() {
+  function alertMessages($log, $compile) {
+    var directive = {
+      restrict: 'EA',
+      controller: controller,
+      controllerAs: 'vm',
+      link: link
+    };
 
-                    var template = '<div ng-show="vm.hasMessage()" class="customAlerts" ng-class="msg.type" ng-repeat="msg in vm.getMessages()">' +
-                       '<span><i ng-class="msg.icon"></i>&nbsp;&nbsp;</span>' +
-                       '<span>{{msg.message}}</span>' +
-                       '<button type="button" class="close" ng-click="vm.checkMessgeList(); vm.removeMessage($index);"><span aria-hidden="true"><i class="fa fa-times"></i></span><span class="sr-only">Close</span></button>' +
-                       '</div>';
-        
+    return directive;
 
-                    //ctrl.messageList = ctrl.getMessages();
-                    //ctrl.hasMessage = ctrl.messageList !== undefined && ctrl.messageList !== null && ctrl.messageList.length > 0;
+    ////
 
-                    $(".alertMessagesContainer").empty();
-                    //if(ctrl.messageList) {
-                        var appendTemplate = $compile(template)(scope);
-                        element.append(appendTemplate);
+    function link(scope, element, attrs, ctrl) {
+      scope.$watch(
+        function() {
+          //watch the value in service changes
+          return ctrl.hasMessage();
+        },
+        function() {
+          var template =
+            '<div ng-show="vm.hasMessage()" class="customAlerts" ng-class="msg.type" ng-repeat="msg in vm.getMessages()">' +
+            '<span><i ng-class="msg.icon"></i>&nbsp;&nbsp;</span>' +
+            '<span>{{msg.message}}</span>' +
+            '<button type="button" class="close" ng-click="vm.checkMessgeList(); vm.removeMessage($index);"><span aria-hidden="true"><i class="fa fa-times"></i></span><span class="sr-only">Close</span></button>' +
+            '</div>';
 
-                    //}
-            
-                }
-            );
+          //ctrl.messageList = ctrl.getMessages();
+          //ctrl.hasMessage = ctrl.messageList !== undefined && ctrl.messageList !== null && ctrl.messageList.length > 0;
+
+          $('.alertMessagesContainer').empty();
+          //if(ctrl.messageList) {
+          var appendTemplate = $compile(template)(scope);
+          element.append(appendTemplate);
+
+          //}
         }
+      );
     }
-    
-    controller.$inject = ['MessagesService']     
-          
-    function controller(MessagesService) {
-        var vm = this;
+  }
 
-        vm.hasMessage = function() {
-            return (vm.getMessages().length > 0);
-        };
+  controller.$inject = ['MessagesService'];
 
-        vm.getMessages = function() {
-            return MessagesService.getMessages();
-        };
+  function controller(MessagesService) {
+    var vm = this;
 
-        vm.removeMessage = function(idx) {
-            MessagesService.removeMessage(idx);
-        };
+    vm.hasMessage = function() {
+      return vm.getMessages().length > 0;
+    };
 
-        vm.checkMessgeList = function() {
-            MessagesService.checkMessgeList();
-        };
-    }        
-    
+    vm.getMessages = function() {
+      return MessagesService.getMessages();
+    };
+
+    vm.removeMessage = function(idx) {
+      MessagesService.removeMessage(idx);
+    };
+
+    vm.checkMessgeList = function() {
+      MessagesService.checkMessgeList();
+    };
+  }
 })();
-

@@ -1,7 +1,0 @@
-<div class="container-fluid">
-<div class="row">
-  <div>
-    <p>Cannot proceed with Delete.<br/>Please remove all associated groups assigned to this user</p>
-  </div> 
-</div>
-</div>

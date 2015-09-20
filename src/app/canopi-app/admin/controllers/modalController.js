@@ -1,26 +1,19 @@
-angular.module('canopi.app').controller('ModalController', ['$scope', 'close',
-                                                     function ($scope, close) {
+angular.module('canopi.app').controller('ModalController', [
+  '$scope',
+  'close',
+  function($scope, close) {
+    'use strict';
 
-	'use strict';
+    init();
 
-	init();
+    function init() {
+      setupScopeValuesAndMethods();
+    }
 
+    function setupScopeValuesAndMethods() {}
 
-	function init() {
-
-		setupScopeValuesAndMethods();
-
-	}
-
-
-	function setupScopeValuesAndMethods(){
-
-	}
-
-	$scope.close = function() {
-		
-		close();
-	};
-
-
-}]);
+    $scope.close = function() {
+      close();
+    };
+  }
+]);

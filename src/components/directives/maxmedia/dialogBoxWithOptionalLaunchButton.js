@@ -39,66 +39,65 @@
 </button>
 **/
 
-
 (function() {
-    'use strict';
-    
-    angular.module('maxmedia.directive')
-           .directive('dialogBoxWithOptionalLaunchButton', dialogBoxWithOptionalLaunchButton);
+  'use strict';
 
-    dialogBoxWithOptionalLaunchButton.$inject = ['$log'];    
+  angular
+    .module('maxmedia.directive')
+    .directive(
+      'dialogBoxWithOptionalLaunchButton',
+      dialogBoxWithOptionalLaunchButton
+    );
 
-    function dialogBoxWithOptionalLaunchButton($log) {
-         var directive = {
-            restrict: 'EA',
-            scope : {
-                launchButtonLabel: "@?", // optional
-                dialogId: "@",
-                title: "@",
-                content:"=",
-                actionButtonLabel: "@",
-                callback: "&"
-            },
-            template :  '<div><button class="btn btn-blue" ng-show="vm.launchButtonLabel !== undefined" data-toggle="modal" data-target="#{{vm.dialogId}}">{{vm.launchButtonLabel}}</button>' +
-                        '   <div class="modal fade" id="{{vm.dialogId}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">' +
-                        '      <div class="modal-dialog dialogbox">' +
-                        '         <div class="modal-content">' +
-                        '            <div class="modal-header">' +
-                        '                <button type="button" class="close modal-button-close" data-dismiss="modal" aria-hidden="true"><span class="icon-ICON_X_CLOSEWINDOW"></span></button>' +
-                        '                <h4 class="modal-title" id="myModalLabel">{{vm.title}}</h4>' +
-                        '            </div>' +
-                        '            <div class="modal-body">' +
-                        '                <strong>{{vm.content}}</strong>' +
-                        '            </div>' +
-                                     '<div class="modal-footer">' +
-                        '                <button type="button" class="btn btn-black" data-dismiss="modal">Cancel</button>' +
-                        '                <button type="button" class="btn btn-orange" data-dismiss="modal" ng-click="vm.actionButtonClicked()">{{vm.actionButtonLabel}}</button>' +
-                        '             </div>' +
-                        '         </div>' +
-                        '       </div>' +
-                        '   </div>' +
-                        '</div>',
+  dialogBoxWithOptionalLaunchButton.$inject = ['$log'];
 
-            controller: controller,
-            controllerAs: 'vm',
-            bindToController: true
-        };
-	
-        return directive;
-        
-        ////
-    }
-    
-    
-    function controller() {
+  function dialogBoxWithOptionalLaunchButton($log) {
+    var directive = {
+      restrict: 'EA',
+      scope: {
+        launchButtonLabel: '@?', // optional
+        dialogId: '@',
+        title: '@',
+        content: '=',
+        actionButtonLabel: '@',
+        callback: '&'
+      },
+      template:
+        '<div><button class="btn btn-blue" ng-show="vm.launchButtonLabel !== undefined" data-toggle="modal" data-target="#{{vm.dialogId}}">{{vm.launchButtonLabel}}</button>' +
+        '   <div class="modal fade" id="{{vm.dialogId}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">' +
+        '      <div class="modal-dialog dialogbox">' +
+        '         <div class="modal-content">' +
+        '            <div class="modal-header">' +
+        '                <button type="button" class="close modal-button-close" data-dismiss="modal" aria-hidden="true"><span class="icon-ICON_X_CLOSEWINDOW"></span></button>' +
+        '                <h4 class="modal-title" id="myModalLabel">{{vm.title}}</h4>' +
+        '            </div>' +
+        '            <div class="modal-body">' +
+        '                <strong>{{vm.content}}</strong>' +
+        '            </div>' +
+        '<div class="modal-footer">' +
+        '                <button type="button" class="btn btn-black" data-dismiss="modal">Cancel</button>' +
+        '                <button type="button" class="btn btn-orange" data-dismiss="modal" ng-click="vm.actionButtonClicked()">{{vm.actionButtonLabel}}</button>' +
+        '             </div>' +
+        '         </div>' +
+        '       </div>' +
+        '   </div>' +
+        '</div>',
 
-        var vm = this;
+      controller: controller,
+      controllerAs: 'vm',
+      bindToController: true
+    };
 
-        vm.actionButtonClicked = function() {
+    return directive;
 
-            vm.callback();
+    ////
+  }
 
-        };
-    }
-    
+  function controller() {
+    var vm = this;
+
+    vm.actionButtonClicked = function() {
+      vm.callback();
+    };
+  }
 })();

@@ -15,46 +15,43 @@
  */
 
 (function() {
-    'use strict';
+  'use strict';
 
-    angular.module('maxmedia.directive')
-           .directive('checkbox', checkbox);
+  angular.module('maxmedia.directive').directive('checkbox', checkbox);
 
-    checkbox.$inject = ['$log'];    
+  checkbox.$inject = ['$log'];
 
-    function checkbox($log) {
-         var directive = {
-            restrict: 'EA',
-            scope: {
-                id: '@',
-                value: '@',
-                isChecked: "=state"
-            },
-            template :  '<div class="checkbox-group">' +
-                        '  <label for="{{vm.id}}" class="checkbox-container" ng-class="{active: vm.isChecked}" >' +
-                        '    <input name="{{vm.id}}" type="checkbox" class="checkbox-input sr-only" value="{{vm.value}}">' +
-                        '    <span class="checkbox-button" ng-click="vm.toggleMe()"></span>' +
-                        '    <span class="checkbox-text">{{vm.value}}</span>' + 
-                        '  </label>' +
-                        '</div',
-            controller: controller,
-            controllerAs: 'vm',
-            bindToController: true
-        };
-	
-        return directive;
-        
-        ////
-    }
-    
-            
-    function controller() {
+  function checkbox($log) {
+    var directive = {
+      restrict: 'EA',
+      scope: {
+        id: '@',
+        value: '@',
+        isChecked: '=state'
+      },
+      template:
+        '<div class="checkbox-group">' +
+        '  <label for="{{vm.id}}" class="checkbox-container" ng-class="{active: vm.isChecked}" >' +
+        '    <input name="{{vm.id}}" type="checkbox" class="checkbox-input sr-only" value="{{vm.value}}">' +
+        '    <span class="checkbox-button" ng-click="vm.toggleMe()"></span>' +
+        '    <span class="checkbox-text">{{vm.value}}</span>' +
+        '  </label>' +
+        '</div',
+      controller: controller,
+      controllerAs: 'vm',
+      bindToController: true
+    };
 
-        var vm = this;
+    return directive;
 
-        vm.toggleMe = function () {
-            vm.isChecked = !vm.isChecked;  
-        };
-    }
-    
+    ////
+  }
+
+  function controller() {
+    var vm = this;
+
+    vm.toggleMe = function() {
+      vm.isChecked = !vm.isChecked;
+    };
+  }
 })();

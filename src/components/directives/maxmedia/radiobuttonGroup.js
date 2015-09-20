@@ -18,53 +18,49 @@
  */
 
 (function() {
-    'use strict';
-    
-    angular.module('maxmedia.directive')
-           .directive('radiobuttonGroup', radiobuttonGroup);
+  'use strict';
 
-    radiobuttonGroup.$inject = ['$log'];    
+  angular
+    .module('maxmedia.directive')
+    .directive('radiobuttonGroup', radiobuttonGroup);
 
-    function radiobuttonGroup($log) {
-         var directive = {
-            restrict: 'EA',
-            scope: {
-                radiolist: "="
-            },
-            template :  '<div class="radio-group" ng-repeat="radio in ::vm.radiolist track by $index">' +
-                        '  <label for="{{radio.id}}" class="radio-container"  ng-class="{active: radio.isSelected}">' +
-                        '    <input name="{{radio.id}}" type="radio" class="radio-input sr-only" value="{{radio.value}}" checked="{{radio.isSelected}}">' +
-                        '    <span class="radio-button" ng-click="vm.toggleMe($index)"></span>' +
-                        '    <span class="radio-text">{{radio.value}}</span>' + 
-                        '  </label>' +
-                        '</div>',
-            controller: controller,
-            controllerAs: 'vm',
-            bindToController: true
-        };
-	
-        return directive;
-        
-        ////
-  
-    }
-    
-    function controller() {
-        var vm = this;
+  radiobuttonGroup.$inject = ['$log'];
 
-        vm.toggleMe = function (index) {
-
-            //Deselect all radio buttons selections
-            for (var i = 0; i < vm.radiolist.length; i++) {
-                vm.radiolist[i].isSelected = false;  
-            }        
-
-            //Select the radio button selected
-            vm.radiolist[index].isSelected = !vm.radiolist[index].isSelected;  
-        };
+  function radiobuttonGroup($log) {
+    var directive = {
+      restrict: 'EA',
+      scope: {
+        radiolist: '='
+      },
+      template:
+        '<div class="radio-group" ng-repeat="radio in ::vm.radiolist track by $index">' +
+        '  <label for="{{radio.id}}" class="radio-container"  ng-class="{active: radio.isSelected}">' +
+        '    <input name="{{radio.id}}" type="radio" class="radio-input sr-only" value="{{radio.value}}" checked="{{radio.isSelected}}">' +
+        '    <span class="radio-button" ng-click="vm.toggleMe($index)"></span>' +
+        '    <span class="radio-text">{{radio.value}}</span>' +
+        '  </label>' +
+        '</div>',
+      controller: controller,
+      controllerAs: 'vm',
+      bindToController: true
     };
 
+    return directive;
+
+    ////
+  }
+
+  function controller() {
+    var vm = this;
+
+    vm.toggleMe = function(index) {
+      //Deselect all radio buttons selections
+      for (var i = 0; i < vm.radiolist.length; i++) {
+        vm.radiolist[i].isSelected = false;
+      }
+
+      //Select the radio button selected
+      vm.radiolist[index].isSelected = !vm.radiolist[index].isSelected;
+    };
+  }
 })();
-
-
-

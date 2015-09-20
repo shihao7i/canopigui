@@ -46,98 +46,112 @@
  */
 
 (function() {
-    'use strict';
-    
-    angular.module('maxmedia.directive')
-           .directive('treeTable', treeTable);
+  'use strict';
 
-    treeTable.$inject = ['$log'];    
+  angular.module('maxmedia.directive').directive('treeTable', treeTable);
 
-    function treeTable($log) {
-         var directive = {
-            restrict: 'EA',
-            scope: {
-                columnDefinition: "="
-            },
-            template:   '<div class="table-responsive" id="treeTable">' +
-        	        '   <table class="table tree-table">' +
-                        '       <thead class="table-head-gray">' +
-                        '          <tr>' +
-                        '              <th class="tree-table-nav-reset" ng-click="vm.treeTableNavResetClicked($event)">' +
-                        '                   <span class="icon-ICON_EXPAND_ALL_wht"></span>' +
-                        '              </th>' +
-                        '              <th ng-repeat="column in ::vm.columnDefinition.rowMetadata.columnList">{{column.displayName}}</th>' +
-                        '          </tr>' +
-                        '      </thead>' +
-                        '      <tbody ng-repeat="row in ::vm.columnDefinition.rowValueList track by row.id">' +
-                        '          <tr>' +
-                        '              <td id="tree-table-content-{{row.id}}" class="tree-table-nav" ng-click="vm.treeTableNavClicked($event)">' +
-                        '                   <span class="icon-ICON_ARROW_NODE_RIGHT"></span>' +
-                        '                   <span class="icon-ICON_ARROW_NODE_DOWN"></span>' +
-                        '              </td>' +
-                        '              <td ng-repeat="cell in row.cellValues">{{cell}}</td>' +
-                        '          </tr>' +
-                        '          <tr ng-repeat="childNode in row.children" class="tree-table-content tree-table-content-{{row.id}}" >' +
-                        '              <td class="tree-table-nav-accent"><span></span></td>' +
-                        '              <td ng-repeat="childCell in ::childNode.cellValues track by $index">{{childCell}}</td>' +
-                        '          </tr>' +
-                        '     </tbody>' +
-                        '  </table>' +
-                        '</div>',
-     
-            controller: controller,
-            controllerAs: 'vm',
-            bindToController: true
-        };
-	
-        return directive;
-        
-        ////
-    }   
-    
-    controller.$inject = ['$log', '$attrs'];  
-    
-    function controller($log, $attrs) {
-        
-        var vm = this;
-        
-        vm.treeTableNavClicked = function(e) {
+  treeTable.$inject = ['$log'];
 
-            var elem = angular.element(e.currentTarget);
+  function treeTable($log) {
+    var directive = {
+      restrict: 'EA',
+      scope: {
+        columnDefinition: '='
+      },
+      template:
+        '<div class="table-responsive" id="treeTable">' +
+        '   <table class="table tree-table">' +
+        '       <thead class="table-head-gray">' +
+        '          <tr>' +
+        '              <th class="tree-table-nav-reset" ng-click="vm.treeTableNavResetClicked($event)">' +
+        '                   <span class="icon-ICON_EXPAND_ALL_wht"></span>' +
+        '              </th>' +
+        '              <th ng-repeat="column in ::vm.columnDefinition.rowMetadata.columnList">{{column.displayName}}</th>' +
+        '          </tr>' +
+        '      </thead>' +
+        '      <tbody ng-repeat="row in ::vm.columnDefinition.rowValueList track by row.id">' +
+        '          <tr>' +
+        '              <td id="tree-table-content-{{row.id}}" class="tree-table-nav" ng-click="vm.treeTableNavClicked($event)">' +
+        '                   <span class="icon-ICON_ARROW_NODE_RIGHT"></span>' +
+        '                   <span class="icon-ICON_ARROW_NODE_DOWN"></span>' +
+        '              </td>' +
+        '              <td ng-repeat="cell in row.cellValues">{{cell}}</td>' +
+        '          </tr>' +
+        '          <tr ng-repeat="childNode in row.children" class="tree-table-content tree-table-content-{{row.id}}" >' +
+        '              <td class="tree-table-nav-accent"><span></span></td>' +
+        '              <td ng-repeat="childCell in ::childNode.cellValues track by $index">{{childCell}}</td>' +
+        '          </tr>' +
+        '     </tbody>' +
+        '  </table>' +
+        '</div>',
 
-            var id = elem.attr('id');
+      controller: controller,
+      controllerAs: 'vm',
+      bindToController: true
+    };
 
-            if(elem.hasClass('active')){
-                    angular.element("."+id).removeClass('active').fadeOut(300, function(){
-                    elem.removeClass('active');
-                });
-            } else {
-                elem.addClass('active');
-                angular.element("."+id).addClass('active').fadeIn(300);
-                angular.element(".tree-table-nav-reset").removeClass('active');
-            }
+    return directive;
 
-        };
+    ////
+  }
 
+  controller.$inject = ['$log', '$attrs'];
 
-        vm.treeTableNavResetClicked = function(e) {
+  function controller($log, $attrs) {
+    var vm = this;
 
-            var elem = angular.element(e.currentTarget);
+    vm.treeTableNavClicked = function(e) {
+      var elem = angular.element(e.currentTarget);
 
-            var ourTableId = '#' + elem.parent().parent().parent().parent().attr('id');
+      var id = elem.attr('id');
 
-            if(elem.hasClass('active')){
-                angular.element(ourTableId +' .tree-table-content').removeClass('active').fadeOut(300, function(){
-                angular.element(ourTableId +' .tree-table-nav').removeClass('active');
-            });
-               elem.removeClass('active');
-            } else {
-                angular.element(ourTableId +' .tree-table-content').addClass('active').fadeIn(300);
-                angular.element(ourTableId +' .tree-table-nav').addClass('active');
-                elem.addClass('active');
-            }
-        };	
-    }
-   
+      if (elem.hasClass('active')) {
+        angular
+          .element('.' + id)
+          .removeClass('active')
+          .fadeOut(300, function() {
+            elem.removeClass('active');
+          });
+      } else {
+        elem.addClass('active');
+        angular
+          .element('.' + id)
+          .addClass('active')
+          .fadeIn(300);
+        angular.element('.tree-table-nav-reset').removeClass('active');
+      }
+    };
+
+    vm.treeTableNavResetClicked = function(e) {
+      var elem = angular.element(e.currentTarget);
+
+      var ourTableId =
+        '#' +
+        elem
+          .parent()
+          .parent()
+          .parent()
+          .parent()
+          .attr('id');
+
+      if (elem.hasClass('active')) {
+        angular
+          .element(ourTableId + ' .tree-table-content')
+          .removeClass('active')
+          .fadeOut(300, function() {
+            angular
+              .element(ourTableId + ' .tree-table-nav')
+              .removeClass('active');
+          });
+        elem.removeClass('active');
+      } else {
+        angular
+          .element(ourTableId + ' .tree-table-content')
+          .addClass('active')
+          .fadeIn(300);
+        angular.element(ourTableId + ' .tree-table-nav').addClass('active');
+        elem.addClass('active');
+      }
+    };
+  }
 })();
-

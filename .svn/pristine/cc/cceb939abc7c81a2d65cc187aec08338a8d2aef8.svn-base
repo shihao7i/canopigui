@@ -1,5 +1,0 @@
-HELLO
-
-<div id="topologyContainer" ng-click="myData.doClick($event)">
-	<div>Click In this box to add item...</div>
-</div>

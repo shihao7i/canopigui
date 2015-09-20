@@ -23,67 +23,66 @@
  */
 
 (function() {
-    'use strict';
-         
-    angular.module('maxmedia.directive')
-           .directive('notificationPopover', notificationPopover);
+  'use strict';
 
-    notificationPopover.$inject = ['$log'];    
+  angular
+    .module('maxmedia.directive')
+    .directive('notificationPopover', notificationPopover);
 
-    function notificationPopover($log) {
-         var directive = {
-            restrict: 'EA',
-            scope : {
-                ngModel: "=?",  // optional
-                notificationText: "@",
-                title: "@",
-                placement: "@",  // top, bottom, left, right
-                messageList: "="
-            },
-            template :  '<p>{{vm.notificationText}}' +
-                        '   <span class="global-popover-{{vm.placement}}" data-container="body" ' +
-                        '         data-toggle="popover" data-placement="{{vm.placement}}"' +
-                        '         data-original-title="{{vm.title}}" ' +
-                        '         data-content="{{vm.content}}">' +
-                        '      <span class="icon-ICON_USER" ng-click="vm.popover()"></span>' +
-                        '   </span>' +
-                        '</p>',
-            controller: controller,
-            controllerAs: 'vm',
-            bindToController: true
-        };
-	
-        return directive;
-  
-        ////
-    }  
-    
-    function controller() {
-        var vm = this;
-        var content = "",
-            index = 0,
-            length = vm.messageList.length;
-        
-        angular.forEach(vm.messageList, function(message) {
-            if (index !== 0 && index !== length) {
-                content += "<hr>";
-            }
+  notificationPopover.$inject = ['$log'];
 
-            content += ("<p>" + message + "</p>");
-            ++index;
-        });
-        
-        vm.content = content;
-        
-        vm.popover = function() {
-            angular.element(".global-popover-" + vm.placement).popover({
-                 html: true
-            });
-        };
-        
-    }
-    
+  function notificationPopover($log) {
+    var directive = {
+      restrict: 'EA',
+      scope: {
+        ngModel: '=?', // optional
+        notificationText: '@',
+        title: '@',
+        placement: '@', // top, bottom, left, right
+        messageList: '='
+      },
+      template:
+        '<p>{{vm.notificationText}}' +
+        '   <span class="global-popover-{{vm.placement}}" data-container="body" ' +
+        '         data-toggle="popover" data-placement="{{vm.placement}}"' +
+        '         data-original-title="{{vm.title}}" ' +
+        '         data-content="{{vm.content}}">' +
+        '      <span class="icon-ICON_USER" ng-click="vm.popover()"></span>' +
+        '   </span>' +
+        '</p>',
+      controller: controller,
+      controllerAs: 'vm',
+      bindToController: true
+    };
+
+    return directive;
+
+    ////
+  }
+
+  function controller() {
+    var vm = this;
+    var content = '',
+      index = 0,
+      length = vm.messageList.length;
+
+    angular.forEach(vm.messageList, function(message) {
+      if (index !== 0 && index !== length) {
+        content += '<hr>';
+      }
+
+      content += '<p>' + message + '</p>';
+      ++index;
+    });
+
+    vm.content = content;
+
+    vm.popover = function() {
+      angular.element('.global-popover-' + vm.placement).popover({
+        html: true
+      });
+    };
+  }
 })();
-
 
 /////////////////////////////

@@ -22,38 +22,42 @@
  */
 
 (function() {
-    'use strict';
-    
-    angular.module('maxmedia.directive')
-           .directive('activityIndicator', activityIndicator);
+  'use strict';
 
-    activityIndicator.$inject = ['$log'];    
+  angular
+    .module('maxmedia.directive')
+    .directive('activityIndicator', activityIndicator);
 
-    function activityIndicator($log) {
-        var directive = {
-            restrict: 'EA',
-            scope: {
-                activityIndicator: "=",
-                message: "@?"
-            },
-            template : '<div ng-show="vm.activityIndicator" class="activity-indicator">' +
-                       '<div class="loader"></div>' +
-                       '<span>{{vm.message}}</span>' +
-                       '</div>',
-            controller: controller,
-            controllerAs: 'vm',
-            bindToController: true
-        };
-	
-        return directive;
-     
-        ////
-    }
-    
-    function controller() {
-        var vm = this;
+  activityIndicator.$inject = ['$log'];
 
-        vm.message = (!!vm.message && vm.message.length > 0) ? vm.message : 'Loading...Please Wait';
-    }
+  function activityIndicator($log) {
+    var directive = {
+      restrict: 'EA',
+      scope: {
+        activityIndicator: '=',
+        message: '@?'
+      },
+      template:
+        '<div ng-show="vm.activityIndicator" class="activity-indicator">' +
+        '<div class="loader"></div>' +
+        '<span>{{vm.message}}</span>' +
+        '</div>',
+      controller: controller,
+      controllerAs: 'vm',
+      bindToController: true
+    };
+
+    return directive;
+
+    ////
+  }
+
+  function controller() {
+    var vm = this;
+
+    vm.message =
+      !!vm.message && vm.message.length > 0
+        ? vm.message
+        : 'Loading...Please Wait';
+  }
 })();
-    

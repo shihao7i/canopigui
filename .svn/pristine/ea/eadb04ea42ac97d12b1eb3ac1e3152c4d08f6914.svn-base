@@ -1,4 +1,0 @@
-angular.module('admin.app').controller('MobilityOrderSearchController', [function ($scope) {
-	'use strict';
-
-}]);

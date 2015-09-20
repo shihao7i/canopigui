@@ -1,7 +1,0 @@
-<div class="container-fluid">
-<div class="row">
-  <!-- NG-GRID -->
-  <div cg-busy="{promise:allWorkGroupspromise, message:'Loading Your Data', templateUrl:'lib/angular-busy/custom-templates/mycustomtemplate2.html'}" class="gridStyle-userMgmt-group" ng-grid="groupGridOptions"></div>
-  <!-- NG: Grid Call.. -->
-</div>
-</div>

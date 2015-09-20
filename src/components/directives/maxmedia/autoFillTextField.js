@@ -50,68 +50,66 @@ $scope.$watch(function()
  */
 
 (function() {
-    'use strict';
-    
-    angular.module('maxmedia.directive')
-           .directive('autoFillTextField', autoFillTextField);
+  'use strict';
 
-    autoFillTextField.$inject = ['$log'];    
+  angular
+    .module('maxmedia.directive')
+    .directive('autoFillTextField', autoFillTextField);
 
-    function autoFillTextField($log) {
-         var directive = {
-            restrict: 'EA',
-          //  require: 'ngModel',
-            scope : {
-                ngModel: "=",
-		name: "@",
-                label: "@",
-                source: "=?"   // optional
-            },
-            template :  '<div class="form-group">' +
-                        '   <label for="{{vm.name}}">{{vm.label}}:</label>' +
-                        '   <input class="form-control" name="{{vm.name}}">' +
-                        '</div>',
-            controller: controller,
-            controllerAs: 'vm',
-            bindToController: true
-        };
-	
-        return directive;
-        
-        ////
-    }
-    
-    controller.$inject = ['$log', '$scope', '$element'];  
-    
-    function controller($log, $scope, $element) {
-   
-        var vm = this;
-        
-        var inputField = $element.find('input');
-        inputField.autocomplete({
-            source: vm.source,
-            focus:function (event, ui) {
-                inputField.val(ui.item.label);
-                //$log.debug("focus => ui.item.label = " + ui.item.label);
-                return false;
-            },
-            select:function (event, ui) {
+  autoFillTextField.$inject = ['$log'];
 
-                //$log.debug("select => ui.item.value = " + ui.item.value);
-                vm.ngModel = ui.item.value;
-                $scope.$apply();
+  function autoFillTextField($log) {
+    var directive = {
+      restrict: 'EA',
+      //  require: 'ngModel',
+      scope: {
+        ngModel: '=',
+        name: '@',
+        label: '@',
+        source: '=?' // optional
+      },
+      template:
+        '<div class="form-group">' +
+        '   <label for="{{vm.name}}">{{vm.label}}:</label>' +
+        '   <input class="form-control" name="{{vm.name}}">' +
+        '</div>',
+      controller: controller,
+      controllerAs: 'vm',
+      bindToController: true
+    };
 
-                return false;
-            },
-            change:function (event, ui) {
-                if (ui.item === null || ui.item === undefined) {
-                    //$log.debug("change => ui.item.value = " + ui.item.value);
-                    vm.ngModel = null;
-                    $scope.$apply();
-                }
-            }
-        });
-    }
-        
+    return directive;
+
+    ////
+  }
+
+  controller.$inject = ['$log', '$scope', '$element'];
+
+  function controller($log, $scope, $element) {
+    var vm = this;
+
+    var inputField = $element.find('input');
+    inputField.autocomplete({
+      source: vm.source,
+      focus: function(event, ui) {
+        inputField.val(ui.item.label);
+        //$log.debug("focus => ui.item.label = " + ui.item.label);
+        return false;
+      },
+      select: function(event, ui) {
+        //$log.debug("select => ui.item.value = " + ui.item.value);
+        vm.ngModel = ui.item.value;
+        $scope.$apply();
+
+        return false;
+      },
+      change: function(event, ui) {
+        if (ui.item === null || ui.item === undefined) {
+          //$log.debug("change => ui.item.value = " + ui.item.value);
+          vm.ngModel = null;
+          $scope.$apply();
+        }
+      }
+    });
+  }
 })();
-

@@ -1,69 +1,85 @@
-angular.module('canopi.app').controller('DisconnectP2PEVCPOController', ['$scope', '$log', '$location', '$rootScope', '$state', 'CommonUtilJsonService', 'OrderSearchJsonService', 'Cache', '$filter',
-                                       function ($scope, $log, $location, $rootScope, $state, CommonUtilJsonService, OrderSearchJsonService, Cache, $filter) {
-	'use strict';
-	
+angular.module('canopi.app').controller('DisconnectP2PEVCPOController', [
+  '$scope',
+  '$log',
+  '$location',
+  '$rootScope',
+  '$state',
+  'CommonUtilJsonService',
+  'OrderSearchJsonService',
+  'Cache',
+  '$filter',
+  function(
+    $scope,
+    $log,
+    $location,
+    $rootScope,
+    $state,
+    CommonUtilJsonService,
+    OrderSearchJsonService,
+    Cache,
+    $filter
+  ) {
+    'use strict';
+
     init();
- 
-    
+
     function init() {
+      initializeScopeVariables();
 
-    	initializeScopeVariables();
-    
-	    setupScopeMethods();
+      setupScopeMethods();
 
-		//populatePicklistValues();
-       
+      //populatePicklistValues();
     }
-    
-	function initializeScopeVariables() {
-	    	
-	        $scope.name = "DisconnectP2PEVCPO";
-	        //$scope.isChecked = false;
-	        
-	    	//$scope.isLoading = false;  // set activity indicator to false
-	    	
-	    	//$scope.picklistNotReady = true;   // picklist values not loaded yet
-	    	
-	      //Angular UI Datepicker setup
-	        $scope.datepickers = {
-	        	desiredDatepicker:false,
-	            committedDatepicker: false
-	        };
 
-	        $scope.dateOptions = {
-	            formatYear: 'yy',
-	            startingDay: 1
-	        };
+    function initializeScopeVariables() {
+      $scope.name = 'DisconnectP2PEVCPO';
+      //$scope.isChecked = false;
 
-	        $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-	        $scope.format = $scope.formats[3];
-	        
-	        clearDisconnectP2PEVCPOScopeVariables();   	
-	  
-	    }
-    
-    function setupScopeMethods(){
-		
-    	$scope.disconnectP2PEVC.desiredDueDate = new Date();
-    	$scope.disconnectP2PEVC.committedDueDate = new Date();
+      //$scope.isLoading = false;  // set activity indicator to false
 
-        $scope.open = function($event, selectedDatepicker) {
+      //$scope.picklistNotReady = true;   // picklist values not loaded yet
 
-            $event.preventDefault();
-            $event.stopPropagation();
+      //Angular UI Datepicker setup
+      $scope.datepickers = {
+        desiredDatepicker: false,
+        committedDatepicker: false
+      };
 
-            $scope.datepickers[selectedDatepicker] = true;
-        };
-    	
-    	$scope.clear = function() {		        	
-			clearDisconnectP2PEVCPOScopeVariables();
-        	
-        };
+      $scope.dateOptions = {
+        formatYear: 'yy',
+        startingDay: 1
+      };
+
+      $scope.formats = [
+        'dd-MMMM-yyyy',
+        'yyyy/MM/dd',
+        'dd.MM.yyyy',
+        'shortDate'
+      ];
+      $scope.format = $scope.formats[3];
+
+      clearDisconnectP2PEVCPOScopeVariables();
     }
-    
-    function clearDisconnectP2PEVCPOScopeVariables(){
-    	$scope.disconnectP2PEVC= {
-    		/*marketIndicator:{},
+
+    function setupScopeMethods() {
+      $scope.disconnectP2PEVC.desiredDueDate = new Date();
+      $scope.disconnectP2PEVC.committedDueDate = new Date();
+
+      $scope.open = function($event, selectedDatepicker) {
+        $event.preventDefault();
+        $event.stopPropagation();
+
+        $scope.datepickers[selectedDatepicker] = true;
+      };
+
+      $scope.clear = function() {
+        clearDisconnectP2PEVCPOScopeVariables();
+      };
+    }
+
+    function clearDisconnectP2PEVCPOScopeVariables() {
+      $scope.disconnectP2PEVC = {
+        /*marketIndicator:{},
     		productType:{},
     		evcFrame:{},
     		scp:{},
@@ -93,10 +109,9 @@ angular.module('canopi.app').controller('DisconnectP2PEVCPOController', ['$scope
     		asrType:'',
     		asrPon:'',
     		asrActivity:''*/
-    		desiredDueDate:'',
-    		committedDueDate:''
-    			
-    	}
+        desiredDueDate: '',
+        committedDueDate: ''
+      };
     }
-    
-}]);
+  }
+]);

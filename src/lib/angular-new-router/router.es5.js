@@ -3,7 +3,8 @@
 /*
  * A module for adding new a routing system Angular 1.
  */
-angular.module('ngNewRouter', [])
+angular
+  .module('ngNewRouter', [])
   .factory('$router', routerFactory)
   .value('$routeParams', {})
   .factory('$componentMapper', $componentMapperFactory)
@@ -18,24 +19,27 @@ angular.module('ngNewRouter', [])
   .directive('ngOutlet', ngOutletDirective)
   .directive('ngOutlet', ngOutletFillContentDirective)
   .directive('ngLink', ngLinkDirective)
-  .directive('a', anchorLinkDirective)
+  .directive('a', anchorLinkDirective);
 
-
-var NOOP_CONTROLLER = function(){};
+var NOOP_CONTROLLER = function() {};
 
 /*
  * A module for inspecting controller constructors
  */
-angular.module('ng')
+angular
+  .module('ng')
   .provider('$controllerIntrospector', $controllerIntrospectorProvider)
   .config(controllerProviderDecorator);
 
 /*
  * decorates with routing info
  */
-function controllerProviderDecorator($controllerProvider, $controllerIntrospectorProvider) {
+function controllerProviderDecorator(
+  $controllerProvider,
+  $controllerIntrospectorProvider
+) {
   var register = $controllerProvider.register;
-  $controllerProvider.register = function (name, ctrl) {
+  $controllerProvider.register = function(name, ctrl) {
     $controllerIntrospectorProvider.register(name, ctrl);
     return register.apply(this, arguments);
   };
@@ -50,62 +54,75 @@ function $controllerIntrospectorProvider() {
   var onControllerRegistered = null;
 
   function getController(constructor) {
-    return angular.isArray(constructor) ? constructor[constructor.length - 1] : constructor;
+    return angular.isArray(constructor)
+      ? constructor[constructor.length - 1]
+      : constructor;
   }
 
   return {
-    register: function (name, constructor) {
+    register: function(name, constructor) {
       var controller = getController(constructor);
       constructorsByName[name] = constructor;
       if (controller.$routeConfig) {
         if (onControllerRegistered) {
           onControllerRegistered(name, controller.$routeConfig);
         } else {
-          controllers.push({name: name, config: controller.$routeConfig});
+          controllers.push({ name: name, config: controller.$routeConfig });
         }
       }
     },
-    $get: ['$componentMapper', function ($componentMapper) {
-      var fn = function (newOnControllerRegistered) {
-        onControllerRegistered = function (name, constructor) {
-          name = $componentMapper.component(name);
-          return newOnControllerRegistered(name, constructor);
+    $get: [
+      '$componentMapper',
+      function($componentMapper) {
+        var fn = function(newOnControllerRegistered) {
+          onControllerRegistered = function(name, constructor) {
+            name = $componentMapper.component(name);
+            return newOnControllerRegistered(name, constructor);
+          };
+          while (controllers.length > 0) {
+            var rule = controllers.pop();
+            onControllerRegistered(rule.name, rule.config);
+          }
         };
-        while(controllers.length > 0) {
-          var rule = controllers.pop();
-          onControllerRegistered(rule.name, rule.config);
-        }
-      };
 
-      fn.getTypeByName = function (name) {
-        return constructorsByName[name];
-      };
+        fn.getTypeByName = function(name) {
+          return constructorsByName[name];
+        };
 
-      return fn;
-    }]
-  }
+        return fn;
+      }
+    ]
+  };
 }
 
-function routerFactory($$rootRouter, $rootScope, $location, $$grammar, $controllerIntrospector) {
-
-  $controllerIntrospector(function (name, config) {
+function routerFactory(
+  $$rootRouter,
+  $rootScope,
+  $location,
+  $$grammar,
+  $controllerIntrospector
+) {
+  $controllerIntrospector(function(name, config) {
     $$grammar.config(name, config);
   });
 
-  $rootScope.$watch(function () {
-    return $location.path();
-  }, function (newUrl) {
-    $$rootRouter.navigate(newUrl);
-  });
+  $rootScope.$watch(
+    function() {
+      return $location.path();
+    },
+    function(newUrl) {
+      $$rootRouter.navigate(newUrl);
+    }
+  );
 
   var nav = $$rootRouter.navigate;
-  $$rootRouter.navigate = function (url) {
-    return nav.call(this, url).then(function (newUrl) {
+  $$rootRouter.navigate = function(url) {
+    return nav.call(this, url).then(function(newUrl) {
       if (newUrl) {
         $location.path(newUrl);
       }
     });
-  }
+  };
 
   return $$rootRouter;
 }
@@ -124,7 +141,14 @@ function routerFactory($$rootRouter, $rootScope, $location, $$grammar, $controll
  *
  * The value for the `ngOutlet` attribute is optional.
  */
-function ngOutletDirective($animate, $injector, $q, $router, $componentMapper, $controller) {
+function ngOutletDirective(
+  $animate,
+  $injector,
+  $q,
+  $router,
+  $componentMapper,
+  $controller
+) {
   var rootRouter = $router;
 
   return {
@@ -144,16 +168,16 @@ function ngOutletDirective($animate, $injector, $q, $router, $componentMapper, $
 
   function outletLink(scope, $element, attrs, ctrls, $transclude) {
     var outletName = attrs.ngOutlet || 'default',
-        parentCtrl = ctrls[0],
-        myCtrl = ctrls[1],
-        router = (parentCtrl && parentCtrl.$$router) || rootRouter;
+      parentCtrl = ctrls[0],
+      myCtrl = ctrls[1],
+      router = (parentCtrl && parentCtrl.$$router) || rootRouter;
 
     var currentScope,
-        newScope,
-        currentController,
-        currentElement,
-        previousLeaveAnimation,
-        previousInstruction;
+      newScope,
+      currentController,
+      currentElement,
+      previousLeaveAnimation,
+      previousInstruction;
 
     function cleanupLastView() {
       if (previousLeaveAnimation) {
@@ -174,68 +198,89 @@ function ngOutletDirective($animate, $injector, $q, $router, $componentMapper, $
       }
     }
 
-    router.registerOutlet({
-      canDeactivate: function(instruction) {
-        if (currentController && currentController.canDeactivate) {
-          return invoke(currentController.canDeactivate, currentController, instruction);
-        }
-        return true;
-      },
-      activate: function(instruction) {
-        var nextInstruction = serializeInstruction(instruction);
-        if (nextInstruction === previousInstruction) {
-          return;
-        }
-
-        var controllerConstructor = instruction.controllerConstructor;
-
-        if (!instruction.locals.$scope) {
-          instruction.locals.$scope = scope.$new();
-        }
-        newScope = instruction.locals.$scope;
-
-        if (controllerConstructor === NOOP_CONTROLLER) {
-          console.warn && console.warn('Could not find controller for', $componentMapper.controllerName(instruction.component));
-        }
-        var ctrl = $controller(controllerConstructor, instruction.locals);
-        instruction.controllerAs = $componentMapper.controllerAs(instruction.component);
-        instruction.controller = ctrl;
-
-        myCtrl.$$router = instruction.router;
-        myCtrl.$$template = instruction.template;
-        var controllerAs = instruction.controllerAs || instruction.component;
-        var clone = $transclude(newScope, function(clone) {
-          $animate.enter(clone, null, currentElement || $element);
-          cleanupLastView();
-        });
-
-        var newController = instruction.controller;
-        newScope[controllerAs] = newController;
-
-        var result;
-        if (currentController && currentController.deactivate) {
-          result = $q.when(invoke(currentController.deactivate, currentController, instruction));
-        }
-
-        currentController = newController;
-
-        currentElement = clone;
-        currentScope = newScope;
-
-        previousInstruction = nextInstruction;
-
-        // finally, run the hook
-        if (newController.activate) {
-          var activationResult = $q.when(invoke(newController.activate, newController, instruction));
-          if (result) {
-            return result.then(activationResult);
-          } else {
-            return activationResult;
+    router.registerOutlet(
+      {
+        canDeactivate: function(instruction) {
+          if (currentController && currentController.canDeactivate) {
+            return invoke(
+              currentController.canDeactivate,
+              currentController,
+              instruction
+            );
           }
+          return true;
+        },
+        activate: function(instruction) {
+          var nextInstruction = serializeInstruction(instruction);
+          if (nextInstruction === previousInstruction) {
+            return;
+          }
+
+          var controllerConstructor = instruction.controllerConstructor;
+
+          if (!instruction.locals.$scope) {
+            instruction.locals.$scope = scope.$new();
+          }
+          newScope = instruction.locals.$scope;
+
+          if (controllerConstructor === NOOP_CONTROLLER) {
+            console.warn &&
+              console.warn(
+                'Could not find controller for',
+                $componentMapper.controllerName(instruction.component)
+              );
+          }
+          var ctrl = $controller(controllerConstructor, instruction.locals);
+          instruction.controllerAs = $componentMapper.controllerAs(
+            instruction.component
+          );
+          instruction.controller = ctrl;
+
+          myCtrl.$$router = instruction.router;
+          myCtrl.$$template = instruction.template;
+          var controllerAs = instruction.controllerAs || instruction.component;
+          var clone = $transclude(newScope, function(clone) {
+            $animate.enter(clone, null, currentElement || $element);
+            cleanupLastView();
+          });
+
+          var newController = instruction.controller;
+          newScope[controllerAs] = newController;
+
+          var result;
+          if (currentController && currentController.deactivate) {
+            result = $q.when(
+              invoke(
+                currentController.deactivate,
+                currentController,
+                instruction
+              )
+            );
+          }
+
+          currentController = newController;
+
+          currentElement = clone;
+          currentScope = newScope;
+
+          previousInstruction = nextInstruction;
+
+          // finally, run the hook
+          if (newController.activate) {
+            var activationResult = $q.when(
+              invoke(newController.activate, newController, instruction)
+            );
+            if (result) {
+              return result.then(activationResult);
+            } else {
+              return activationResult;
+            }
+          }
+          return result;
         }
-        return result;
-      }
-    }, outletName);
+      },
+      outletName
+    );
   }
 
   // TODO: how best to serialize?
@@ -243,8 +288,10 @@ function ngOutletDirective($animate, $injector, $q, $router, $componentMapper, $
     return JSON.stringify({
       path: instruction.path,
       component: instruction.component,
-      params: Object.keys(instruction.params).reduce(function (acc, key) {
-        return (key !== 'childRoute' && (acc[key] = instruction.params[key])), acc;
+      params: Object.keys(instruction.params).reduce(function(acc, key) {
+        return (
+          key !== 'childRoute' && (acc[key] = instruction.params[key]), acc
+        );
       }, {})
     });
   }
@@ -266,11 +313,12 @@ function ngOutletFillContentDirective($compile) {
 
 function makeComponentString(name) {
   return [
-    '<router-component component-name="', name, '">',
+    '<router-component component-name="',
+    name,
+    '">',
     '</router-component>'
   ].join('');
 }
-
 
 var LINK_MICROSYNTAX_RE = /^(.+?)(?:\((.*)\))?$/;
 /**
@@ -326,12 +374,16 @@ function ngLinkDirective($router, $location, $parse) {
         url = '.' + router.generate(routeName, params);
         elt.attr('href', url);
       } else {
-        scope.$watch(function() {
-          return routeParamsGetter(scope);
-        }, function(params) {
-          url = '.' + router.generate(routeName, params);
-          elt.attr('href', url);
-        }, true);
+        scope.$watch(
+          function() {
+            return routeParamsGetter(scope);
+          },
+          function(params) {
+            url = '.' + router.generate(routeName, params);
+            elt.attr('href', url);
+          },
+          true
+        );
       }
     } else {
       url = '.' + router.generate(routeName);
@@ -339,7 +391,6 @@ function ngLinkDirective($router, $location, $parse) {
     }
   }
 }
-
 
 function anchorLinkDirective($router) {
   return {
@@ -349,12 +400,14 @@ function anchorLinkDirective($router) {
       if (element[0].nodeName.toLowerCase() !== 'a') return;
 
       // SVGAElement does not use the href attribute, but rather the 'xlinkHref' attribute.
-      var hrefAttrName = Object.prototype.toString.call(element.prop('href')) === '[object SVGAnimatedString]' ?
-                     'xlink:href' : 'href';
+      var hrefAttrName =
+        Object.prototype.toString.call(element.prop('href')) ===
+        '[object SVGAnimatedString]'
+          ? 'xlink:href'
+          : 'href';
 
       element.on('click', function(event) {
-        if (event.which !== 1)
-          return;
+        if (event.which !== 1) return;
 
         var href = element.attr(hrefAttrName);
         if (!href) {
@@ -366,13 +419,13 @@ function anchorLinkDirective($router) {
         }
       });
     }
-  }
+  };
 }
 
 function setupRoutersStepFactory() {
-  return function (instruction) {
+  return function(instruction) {
     return instruction.router.makeDescendantRouters(instruction);
-  }
+  };
 }
 
 //TODO: rename to "normalize" step
@@ -381,25 +434,30 @@ function setupRoutersStepFactory() {
  */
 function initLocalsStepFactory($componentMapper, $controllerIntrospector) {
   return function initLocals(instruction) {
-    return instruction.router.traverseInstruction(instruction, function(instruction) {
+    return instruction.router.traverseInstruction(instruction, function(
+      instruction
+    ) {
       if (typeof instruction.component === 'function') {
         instruction.controllerConstructor = instruction.component;
       } else {
-        var controllerName = $componentMapper.controllerName(instruction.component);
+        var controllerName = $componentMapper.controllerName(
+          instruction.component
+        );
         if (typeof controllerName === 'function') {
           instruction.controllerConstructor = controllerName;
         } else {
-          instruction.controllerConstructor = $controllerIntrospector.getTypeByName(controllerName) || NOOP_CONTROLLER;
+          instruction.controllerConstructor =
+            $controllerIntrospector.getTypeByName(controllerName) ||
+            NOOP_CONTROLLER;
         }
       }
-      return instruction.locals = {
+      return (instruction.locals = {
         $router: instruction.router,
-        $routeParams: (instruction.params || {})
-      };
+        $routeParams: instruction.params || {}
+      });
     });
-  }
+  };
 }
-
 
 function runCanDeactivateHookStepFactory() {
   return function runCanDeactivateHook(instruction) {
@@ -408,7 +466,6 @@ function runCanDeactivateHookStepFactory() {
 }
 
 function runCanActivateHookStepFactory($injector) {
-
   function invoke(method, context, instruction) {
     return $injector.invoke(method, context, {
       $routeParams: instruction.params
@@ -416,29 +473,38 @@ function runCanActivateHookStepFactory($injector) {
   }
 
   return function runCanActivateHook(instruction) {
-    return instruction.router.traverseInstruction(instruction, function(instruction) {
+    return instruction.router.traverseInstruction(instruction, function(
+      instruction
+    ) {
       var controllerConstructor = instruction.controllerConstructor;
-      return !controllerConstructor.canActivate || invoke(controllerConstructor.canActivate, null, instruction);
+      return (
+        !controllerConstructor.canActivate ||
+        invoke(controllerConstructor.canActivate, null, instruction)
+      );
     });
-  }
+  };
 }
 
 function loadTemplatesStepFactory($componentMapper, $templateRequest) {
   return function loadTemplates(instruction) {
-    return instruction.router.traverseInstruction(instruction, function(instruction) {
-      var componentTemplateUrl = $componentMapper.template(instruction.component);
-      return $templateRequest(componentTemplateUrl).then(function (templateHtml) {
-        return instruction.template = templateHtml;
+    return instruction.router.traverseInstruction(instruction, function(
+      instruction
+    ) {
+      var componentTemplateUrl = $componentMapper.template(
+        instruction.component
+      );
+      return $templateRequest(componentTemplateUrl).then(function(
+        templateHtml
+      ) {
+        return (instruction.template = templateHtml);
       });
     });
   };
 }
 
-
 function activateStepValue(instruction) {
   return instruction.router.activateOutlets(instruction);
 }
-
 
 function pipelineProvider() {
   var stepConfiguration;
@@ -454,11 +520,11 @@ function pipelineProvider() {
 
   return {
     steps: protoStepConfiguration.slice(0),
-    config: function (newConfig) {
+    config: function(newConfig) {
       protoStepConfiguration = newConfig;
     },
-    $get: function ($injector, $q) {
-      stepConfiguration = protoStepConfiguration.map(function (step) {
+    $get: function($injector, $q) {
+      stepConfiguration = protoStepConfiguration.map(function(step) {
         return $injector.get(step);
       });
       return {
@@ -476,11 +542,10 @@ function pipelineProvider() {
 
           return processOne();
         }
-      }
+      };
     }
   };
 }
-
 
 /**
  * @name $componentMapper
@@ -499,7 +564,6 @@ function pipelineProvider() {
  * This service makes it easy to group all of them into a single concept.
  */
 function $componentMapperFactory() {
-
   var DEFAULT_SUFFIX = 'Controller';
 
   var componentToCtrl = function componentToCtrlDefault(name) {
@@ -512,7 +576,10 @@ function $componentMapperFactory() {
   };
 
   var ctrlToComponent = function ctrlToComponentDefault(name) {
-    return name[0].toLowerCase() + name.substr(1, name.length - DEFAULT_SUFFIX.length - 1);
+    return (
+      name[0].toLowerCase() +
+      name.substr(1, name.length - DEFAULT_SUFFIX.length - 1)
+    );
   };
 
   var componentToControllerAs = function componentToControllerAsDefault(name) {
@@ -520,19 +587,19 @@ function $componentMapperFactory() {
   };
 
   return {
-    controllerName: function (name) {
+    controllerName: function(name) {
       return componentToCtrl(name);
     },
 
-    controllerAs: function (name) {
+    controllerAs: function(name) {
       return componentToControllerAs(name);
     },
 
-    template: function (name) {
+    template: function(name) {
       return componentToTemplate(name);
     },
 
-    component: function (name) {
+    component: function(name) {
       return ctrlToComponent(name);
     },
 
@@ -558,7 +625,7 @@ function $componentMapperFactory() {
      * @name $componentMapper#setComponentFromCtrlMapping
      * @description takes a function for mapping component controller names to component names
      */
-    setComponentFromCtrlMapping: function (newFn) {
+    setComponentFromCtrlMapping: function(newFn) {
       ctrlToComponent = newFn;
       return this;
     },
@@ -579,9 +646,8 @@ function privatePipelineFactory($pipeline) {
   return $pipeline;
 }
 
-
 function dashCase(str) {
-  return str.replace(/([A-Z])/g, function ($1) {
+  return str.replace(/([A-Z])/g, function($1) {
     return '-' + $1.toLowerCase();
   });
 }

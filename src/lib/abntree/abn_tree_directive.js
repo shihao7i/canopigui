@@ -4,10 +4,12 @@
   module = angular.module('angularBootstrapNavTree', []);
 
   module.directive('abnTree', [
-    '$timeout', function($timeout) {
+    '$timeout',
+    function($timeout) {
       return {
         restrict: 'E',
-        template: "<ul class=\"nav nav-list nav-pills nav-stacked abn-tree\">\n  <li ng-repeat=\"row in tree_rows | filter:{visible:true} track by row.branch.uid\" ng-animate=\"'abn-tree-animate'\" ng-class=\"'level-' + {{ row.level }} + (row.branch.selected ? ' active':'')\" class=\"abn-tree-row\">\n    <a ng-click=\"user_clicks_branch(row.branch)\">\n      <i ng-class=\"row.tree_icon\" ng-click=\"row.branch.expanded = !row.branch.expanded\" class=\"indented tree-icon\"> </i>\n      <span class=\"indented tree-label\">{{ row.label }} </span>\n    </a>\n  </li>\n</ul>",
+        template:
+          '<ul class="nav nav-list nav-pills nav-stacked abn-tree">\n  <li ng-repeat="row in tree_rows | filter:{visible:true} track by row.branch.uid" ng-animate="\'abn-tree-animate\'" ng-class="\'level-\' + {{ row.level }} + (row.branch.selected ? \' active\':\'\')" class="abn-tree-row">\n    <a ng-click="user_clicks_branch(row.branch)">\n      <i ng-class="row.tree_icon" ng-click="row.branch.expanded = !row.branch.expanded" class="indented tree-icon"> </i>\n      <span class="indented tree-label">{{ row.label }} </span>\n    </a>\n  </li>\n</ul>',
         replace: true,
         scope: {
           treeData: '=',
@@ -16,17 +18,29 @@
           treeControl: '='
         },
         link: function(scope, element, attrs) {
-          var error, expand_all_parents, expand_level, for_all_ancestors, for_each_branch, get_parent, n, on_treeData_change, select_branch, selected_branch, tree;
+          var error,
+            expand_all_parents,
+            expand_level,
+            for_all_ancestors,
+            for_each_branch,
+            get_parent,
+            n,
+            on_treeData_change,
+            select_branch,
+            selected_branch,
+            tree;
           error = function(s) {
             console.log('ERROR:' + s);
             debugger;
             return void 0;
           };
           if (attrs.iconExpand == null) {
-            attrs.iconExpand = 'icon-plus  glyphicon glyphicon-plus  fa fa-plus';
+            attrs.iconExpand =
+              'icon-plus  glyphicon glyphicon-plus  fa fa-plus';
           }
           if (attrs.iconCollapse == null) {
-            attrs.iconCollapse = 'icon-minus glyphicon glyphicon-minus fa fa-minus';
+            attrs.iconCollapse =
+              'icon-minus glyphicon glyphicon-minus fa fa-minus';
           }
           if (attrs.iconLeaf == null) {
             attrs.iconLeaf = 'icon-file  glyphicon glyphicon-file  fa fa-file';
@@ -112,7 +126,7 @@
             if (child.parent_uid) {
               for_each_branch(function(b) {
                 if (b.uid === child.parent_uid) {
-                  return parent = b;
+                  return (parent = b);
                 }
               });
             }
@@ -128,7 +142,7 @@
           };
           expand_all_parents = function(child) {
             return for_all_ancestors(child, function(b) {
-              return b.expanded = true;
+              return (b.expanded = true);
             });
           };
           scope.tree_rows = [];
@@ -136,7 +150,7 @@
             var add_branch_to_list, root_branch, _i, _len, _ref, _results;
             for_each_branch(function(b, level) {
               if (!b.uid) {
-                return b.uid = "" + Math.random();
+                return (b.uid = '' + Math.random());
               }
             });
             console.log('UIDs are set.');
@@ -147,7 +161,7 @@
                 _results = [];
                 for (_i = 0, _len = _ref.length; _i < _len; _i++) {
                   child = _ref[_i];
-                  _results.push(child.parent_uid = b.uid);
+                  _results.push((child.parent_uid = b.uid));
                 }
                 return _results;
               }
@@ -167,7 +181,7 @@
                       return e;
                     }
                   };
-                  return branch.children = (function() {
+                  return (branch.children = (function() {
                     var _i, _len, _ref, _results;
                     _ref = branch.children;
                     _results = [];
@@ -176,10 +190,10 @@
                       _results.push(f(child));
                     }
                     return _results;
-                  })();
+                  })());
                 }
               } else {
-                return branch.children = [];
+                return (branch.children = []);
               }
             });
             add_branch_to_list = function(level, branch, visible) {
@@ -209,7 +223,9 @@
                 for (_i = 0, _len = _ref.length; _i < _len; _i++) {
                   child = _ref[_i];
                   child_visible = visible && branch.expanded;
-                  _results.push(add_branch_to_list(level + 1, child, child_visible));
+                  _results.push(
+                    add_branch_to_list(level + 1, child, child_visible)
+                  );
                 }
                 return _results;
               }
@@ -236,19 +252,19 @@
           console.log('num root branches = ' + n);
           for_each_branch(function(b, level) {
             b.level = level;
-            return b.expanded = b.level < expand_level;
+            return (b.expanded = b.level < expand_level);
           });
           if (scope.treeControl != null) {
             if (angular.isObject(scope.treeControl)) {
               tree = scope.treeControl;
               tree.expand_all = function() {
                 return for_each_branch(function(b, level) {
-                  return b.expanded = true;
+                  return (b.expanded = true);
                 });
               };
               tree.collapse_all = function() {
                 return for_each_branch(function(b, level) {
-                  return b.expanded = false;
+                  return (b.expanded = false);
                 });
               };
               tree.get_first_branch = function() {
@@ -390,7 +406,9 @@
                   b = selected_branch;
                 }
                 if (b != null) {
-                  if (((_ref = b.children) != null ? _ref.length : void 0) > 0) {
+                  if (
+                    ((_ref = b.children) != null ? _ref.length : void 0) > 0
+                  ) {
                     return b.children[0];
                   }
                 }
@@ -461,7 +479,7 @@
                   }
                 }
               };
-              return tree.select_prev_branch = function(b) {
+              return (tree.select_prev_branch = function(b) {
                 var prev;
                 if (b == null) {
                   b = selected_branch;
@@ -473,12 +491,11 @@
                     return prev;
                   }
                 }
-              };
+              });
             }
           }
         }
       };
     }
   ]);
-
-}).call(this);
+}.call(this));

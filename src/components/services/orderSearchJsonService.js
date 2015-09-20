@@ -1,96 +1,99 @@
 (function() {
-    'use strict';
-    
-    angular.module('canopi.service')
-           .factory('OrderSearchJsonService', orderSearchJsonService);
+  'use strict';
 
-    orderSearchJsonService.$inject = ['$q', '$http', '$log', 'Cache', 'CanopiGuiConstants'];    
+  angular
+    .module('canopi.service')
+    .factory('OrderSearchJsonService', orderSearchJsonService);
 
-    function orderSearchJsonService($q, $http, $log, Cache, CanopiGuiConstants) {
-	//var controllerName = MOCK_DATA_FLAG ? 'orderSearchmock' : 'orderSearch';
-	var controllerName = 'orderSearch';  // call DCOMP WS to get live data  
+  orderSearchJsonService.$inject = [
+    '$q',
+    '$http',
+    '$log',
+    'Cache',
+    'CanopiGuiConstants'
+  ];
 
-        var baseUrl = '/canopigui/rest/' + controllerName;
+  function orderSearchJsonService($q, $http, $log, Cache, CanopiGuiConstants) {
+    //var controllerName = MOCK_DATA_FLAG ? 'orderSearchmock' : 'orderSearch';
+    var controllerName = 'orderSearch'; // call DCOMP WS to get live data
 
-        
-        var service = {
-            getProjectOrderSummary: getProjectOrderSummary,
-            getTechnicalOrderSummary: getTechnicalOrderSummary,
-            getRelatedProjectOrders: getRelatedProjectOrders,
-            getRelatedTechnicalOrders: getRelatedTechnicalOrders,
-            searchRelatedOrdersByDeviceClli: searchRelatedOrdersByDeviceClli
-        };
-        
-        return service;
-        
-        /////////
-        
-        // ServiceOrderContainerDTO getProjectOrderSummary(@RequestBody ProjectOrderSearchDTO posDto)
-	
-	function getProjectOrderSummary(postObject) {
+    var baseUrl = '/canopigui/rest/' + controllerName;
 
-            var deferred = $q.defer();
-            $http.post(baseUrl + '/poSearch', JSON.stringify(postObject)).success(function (response) {
-                 deferred.resolve(response);
-            });
+    var service = {
+      getProjectOrderSummary: getProjectOrderSummary,
+      getTechnicalOrderSummary: getTechnicalOrderSummary,
+      getRelatedProjectOrders: getRelatedProjectOrders,
+      getRelatedTechnicalOrders: getRelatedTechnicalOrders,
+      searchRelatedOrdersByDeviceClli: searchRelatedOrdersByDeviceClli
+    };
 
-            return deferred.promise; 
-	};
-	
+    return service;
 
-	// ServiceOrderContainerDTO getTechnicalOrderSummary(@RequestBody TechnicalOrderSearchDTO tosDto)
-	
-	function getTechnicalOrderSummary(postObject) {
+    /////////
 
-            var deferred = $q.defer();
-            $http.post(baseUrl + '/toSearch', JSON.stringify(postObject)).success(function (response) {
-                 deferred.resolve(response);
-            });
+    // ServiceOrderContainerDTO getProjectOrderSummary(@RequestBody ProjectOrderSearchDTO posDto)
 
-            return deferred.promise; 
-	};
-	
+    function getProjectOrderSummary(postObject) {
+      var deferred = $q.defer();
+      $http
+        .post(baseUrl + '/poSearch', JSON.stringify(postObject))
+        .success(function(response) {
+          deferred.resolve(response);
+        });
 
-        // ServiceOrderContainerDTO getRelatedProjectOrders(@RequestBody ProjectOrderSearchRequestDTO poSearchRequestDTO)
-		
-	function getRelatedProjectOrders(postObject) {
-
-            var deferred = $q.defer();
-            $http.post(baseUrl + '/relatedPoSearch', JSON.stringify(postObject)).success(function (response) {
-                 deferred.resolve(response);
-            });
-
-            return deferred.promise; 
-	};
-		
-	
-        // ServiceOrderContainerDTO getRelatedTechnicalOrders(TechnicalOrderSearchRequestDTO toSearchRequestDTO)
-	
-	function getRelatedTechnicalOrders(postObject) {
-
-            var deferred = $q.defer();
-            $http.post(baseUrl + '/relatedToSearch', JSON.stringify(postObject)).success(function (response) {
-                 deferred.resolve(response);
-            });
-
-            return deferred.promise; 
-	};
-	
-	
-	
-	// ServiceOrderContainerDTO searchRelatedOrdersByDeviceClli(DeviceClliRelatedOrdersSearchRequestDTO deviceClliRoSearchRequestDTO)
-	
-	function searchRelatedOrdersByDeviceClli(postObject) {
-
-            var deferred = $q.defer();
-            $http.post(baseUrl + '/searchROByDeviceClli', JSON.stringify(postObject)).success(function (response) {
-                 deferred.resolve(response);
-            });
-
-            return deferred.promise; 
-	};
-        
+      return deferred.promise;
     }
 
-})();
+    // ServiceOrderContainerDTO getTechnicalOrderSummary(@RequestBody TechnicalOrderSearchDTO tosDto)
 
+    function getTechnicalOrderSummary(postObject) {
+      var deferred = $q.defer();
+      $http
+        .post(baseUrl + '/toSearch', JSON.stringify(postObject))
+        .success(function(response) {
+          deferred.resolve(response);
+        });
+
+      return deferred.promise;
+    }
+
+    // ServiceOrderContainerDTO getRelatedProjectOrders(@RequestBody ProjectOrderSearchRequestDTO poSearchRequestDTO)
+
+    function getRelatedProjectOrders(postObject) {
+      var deferred = $q.defer();
+      $http
+        .post(baseUrl + '/relatedPoSearch', JSON.stringify(postObject))
+        .success(function(response) {
+          deferred.resolve(response);
+        });
+
+      return deferred.promise;
+    }
+
+    // ServiceOrderContainerDTO getRelatedTechnicalOrders(TechnicalOrderSearchRequestDTO toSearchRequestDTO)
+
+    function getRelatedTechnicalOrders(postObject) {
+      var deferred = $q.defer();
+      $http
+        .post(baseUrl + '/relatedToSearch', JSON.stringify(postObject))
+        .success(function(response) {
+          deferred.resolve(response);
+        });
+
+      return deferred.promise;
+    }
+
+    // ServiceOrderContainerDTO searchRelatedOrdersByDeviceClli(DeviceClliRelatedOrdersSearchRequestDTO deviceClliRoSearchRequestDTO)
+
+    function searchRelatedOrdersByDeviceClli(postObject) {
+      var deferred = $q.defer();
+      $http
+        .post(baseUrl + '/searchROByDeviceClli', JSON.stringify(postObject))
+        .success(function(response) {
+          deferred.resolve(response);
+        });
+
+      return deferred.promise;
+    }
+  }
+})();

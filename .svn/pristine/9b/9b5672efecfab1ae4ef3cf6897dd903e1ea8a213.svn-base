@@ -1,6 +1,0 @@
- [
-    {"name": "Workorder", "value": "workorder"},
-    {"name": "Task", "value": "task"},
-    {"name": "Table", "value": "table"},
-    {"name": "Rule", "value": "rule"}
-]
